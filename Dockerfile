@@ -4,5 +4,5 @@ RUN npm install -g http-server
 WORKDIR /site
 COPY ./dist ./
 
-EXPOSE 8080
-CMD http-server /site --proxy "http://localhost:8080?" -c-1
+EXPOSE 8081
+CMD http-server /site --proxy "http://localhost:8081?" -c-1 -p 8081
