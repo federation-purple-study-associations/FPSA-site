@@ -1,12 +1,10 @@
 {
     "nl": {
         "home": "Home",
-        "agenda": "Agenda",
-        "news": "Nieuws"
+        "agenda": "Agenda"
     },
     "en": {
         "home": "Home",
-        "agenda": "Agenda",
-        "news": "News"
+        "agenda": "Agenda"
     }
 }

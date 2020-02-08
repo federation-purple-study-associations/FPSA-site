@@ -1,5 +1,5 @@
 /* eslint-disable */
-import VueI18n, { LocaleMessages } from "vue-i18n";
+import VueI18n from "vue-i18n";
 import Vue from "vue";
 
 const storageConst = "language";
@@ -8,7 +8,7 @@ export const supportedLanguages = ["nl", "en"];
 
 Vue.use(VueI18n);
 export const i18n = new VueI18n({
-  locale: localStorage.getItem(storageConst) || "en",
+  locale: localStorage.getItem(storageConst) || "nl",
   fallbackLocale: "en"
 });
 
@@ -16,6 +16,11 @@ export default {
   namespaced: false,
   state: {
     language: localStorage.getItem(storageConst)
+  },
+  getters: {
+    currentLanguage: (state: {language: string | null}) => {
+      return state.language;
+    }
   },
   mutations: {
     SET_LANGUAGE(state: any, lang: string) {

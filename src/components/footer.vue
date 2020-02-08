@@ -3,15 +3,15 @@
     <div class="footer__copyright">
         {{$t('information.copyright')}}
     </div>
-    <div class="footer__information">
-        <div>
-            <span>Rachelsmolen 1</span>
-            <span><a href="mailto:info@fpsa.nl">info@fpsa.nl</a></span>
-        </div>
-        <div>
-            <span>5612 MA Eindhoven</span>
-            <span>Kvk: ???</span>
-        </div>
+    <div>
+        <span>Rachelsmolen 1</span>
+        <br>
+        <span>5612 MA Eindhoven</span>
+    </div>
+    <div>
+        <span><a href="mailto:info@fpsa.nl">info@fpsa.nl</a></span>
+        <br>
+        <span>Kvk: ???</span>
     </div>
   </el-footer>
 </template>
@@ -30,18 +30,18 @@ export default class Footer extends Vue {}
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 30px;
+    text-align: center;
 
-    &__information {
-        width: 300px;
+    a {
+        color: white;
+    }
+}
 
-        div {
-            display: flex;
-            justify-content: space-between;
-
-            a {
-                color: white;
-            }
-        }
+@media only screen and (max-width: 768px) {
+    .footer {
+        height: 120px !important;
+        display: block;
     }
 }
 </style>

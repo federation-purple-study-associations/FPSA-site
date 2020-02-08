@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "element-ui": "^2.13.0",
+    "moment": "^2.24.0",
     "reflect-metadata": "^0.1.13",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.2",
@@ -56,7 +57,13 @@
       "ecmaVersion": 2020
     },
     "rules": {
-      "quotes": [2, "single", { "avoidEscape": true }]
+      "quotes": [
+        2,
+        "single",
+        {
+          "avoidEscape": true
+        }
+      ]
     }
   },
   "browserslist": [

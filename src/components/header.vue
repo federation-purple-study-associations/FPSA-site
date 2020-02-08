@@ -8,8 +8,7 @@
     <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>
       <el-menu-item index="/">{{$t('home')}}</el-menu-item>
       <el-menu-item index="/agenda">{{$t('agenda')}}</el-menu-item>
-      <el-menu-item index="/news">{{$t('news')}}</el-menu-item>
-      <el-submenu index="4">
+      <el-submenu index="">
         <template slot="title"><i class="el-icon-chat-dot-round"></i></template>
         <el-menu-item index="" v-on:click="switchLanguage('nl')">Nederlands</el-menu-item>
         <el-menu-item index="" v-on:click="switchLanguage('en')">English</el-menu-item>

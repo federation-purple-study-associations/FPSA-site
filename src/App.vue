@@ -25,11 +25,10 @@ export default class App extends Vue {}
   font-family: "Helvetica Neue";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
 }
 
 .content {
   margin-top: 60px;
-  min-height: calc(100vh - 60px - 60px);
+  min-height: calc(100vh - 60px - 90px);
 }
 </style>
