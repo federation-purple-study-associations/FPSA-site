@@ -1,0 +1,12 @@
+{
+    "nl": {
+        "welcome": {
+            "umbrella_association": "Koepelvereniging"
+        }
+    },
+    "en": {
+        "welcome": {
+            "umbrella_association": "Umbrella association"
+        }
+    }
+}
