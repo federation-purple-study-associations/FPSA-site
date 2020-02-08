@@ -53,7 +53,7 @@ export default class Home extends Vue {
   }[] = [
     {
       title: 'Informatieavond FPSA (Tilburg)',
-      imgUrl: '/img/stock-presentation.fe729c53.jpg',
+      imgUrl: '/stock-presentation.fe729c53.jpg',
       location: 'Tilburg',
       dateTime: new Date(2020, 3, 4, 19, 0, 0),
       contentNL: 'Afgelopen december hebben jullie bericht gehad over het oprichten van een koepel, die als overkoepelende vereniging namens studieverenigingen optreedt tegen Fontys en derden. Wij willen jullie mededelen dat de koepel genaamd ‘FPSA’ per 1 september 2020 actief zal zijn. Om jullie tijdig te informeren wat FPSA voor jullie vereniging gaat betekenen, willen wij jullie uitnodigen voor een informatiebijeenkomst. Na afloop van de bijeenkomst vindt er een borrel plaats.',
@@ -61,7 +61,7 @@ export default class Home extends Vue {
     },
     {
       title: 'Informatieavond FPSA (Eindhoven)',
-      imgUrl: '/img/stock-presentation.fe729c53.jpg',
+      imgUrl: '/stock-presentation.fe729c53.jpg',
       location: 'Rachelsmolen 1, Eindhoven',
       dateTime: new Date(2020, 3, 5, 18, 0, 0),
       contentNL: 'Afgelopen december hebben jullie bericht gehad over het oprichten van een koepel, die als overkoepelende vereniging namens studieverenigingen optreedt tegen Fontys en derden. Wij willen jullie mededelen dat de koepel genaamd ‘FPSA’ per 1 september 2020 actief zal zijn. Om jullie tijdig te informeren wat FPSA voor jullie vereniging gaat betekenen, willen wij jullie uitnodigen voor een informatiebijeenkomst. Na afloop van de bijeenkomst vindt er een borrel plaats.',
