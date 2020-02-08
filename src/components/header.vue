@@ -5,20 +5,14 @@
         <img src="@/assets/logo.svg" />
       </router-link>
     </div>
-    <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname">
-      <el-menu-item index="/">
-        <router-link to="/">{{$t('home')}}</router-link>
-      </el-menu-item>
-      <el-menu-item index="/agenda">
-        <router-link to="/agenda">{{$t('agenda')}}</router-link>
-      </el-menu-item>
-      <el-menu-item index="/news">
-        <router-link to="/news">{{$t('news')}}</router-link>
-      </el-menu-item>
+    <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>
+      <el-menu-item index="/">{{$t('home')}}</el-menu-item>
+      <el-menu-item index="/agenda">{{$t('agenda')}}</el-menu-item>
+      <el-menu-item index="/news">{{$t('news')}}</el-menu-item>
       <el-submenu index="4">
         <template slot="title"><i class="el-icon-chat-dot-round"></i></template>
-        <el-menu-item index="4-1" v-on:click="switchLanguage('nl')">Nederlands</el-menu-item>
-        <el-menu-item index="4-2" v-on:click="switchLanguage('en')">English</el-menu-item>
+        <el-menu-item index="" v-on:click="switchLanguage('nl')">Nederlands</el-menu-item>
+        <el-menu-item index="" v-on:click="switchLanguage('en')">English</el-menu-item>
       </el-submenu>
     </el-menu>
   </el-header>
