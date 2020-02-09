@@ -21,7 +21,7 @@
         <el-carousel-item v-for="item in agendaItems" :key="item.title">
           <el-card class="box-card">
             <div slot="header" class="clearfix">
-              <span>{{item.title}}</span>
+              <span>{{$store.getters.currentLanguage === 'nl' ? item.titleNL : item.titleEN}}</span>
             </div>
             <div><b>{{$t('agenda.location')}}</b> {{item.location}}</div>
             <div><b>{{$t('agenda.date')}}</b> {{moment(item.dateTime).format('DD-MM-YYYY hh:mm')}}</div>
@@ -44,7 +44,8 @@ export default class Home extends Vue {
   private moment = moment;
 
   private agendaItems: {
-    title: string,
+    titleNL: string,
+    titleEN: string,
     imgUrl: string,
     location: string,
     dateTime: Date,
@@ -52,7 +53,8 @@ export default class Home extends Vue {
     contentEN: string
   }[] = [
     {
-      title: 'Informatieavond FPSA (Tilburg)',
+      titleNL: 'Informatieavond FPSA (Tilburg)',
+      titleEN: 'information evening FPSA (Tilburg)',
       imgUrl: '/stock-presentation.jpg',
       location: 'Tilburg',
       dateTime: new Date(2020, 3, 4, 19, 0, 0),
@@ -60,7 +62,8 @@ export default class Home extends Vue {
       contentEN: 'Last December you were informed about the establishment of an umbrella organization, which acts as an umbrella association on behalf of study associations against Fontys and third parties. We want to inform you that the umbrella called "FPSA" will be active from 1 September 2020. To inform you in time what FPSA will mean for your association, we would like to invite you for an information meeting. After the meeting a drink will take place.'
     },
     {
-      title: 'Informatieavond FPSA (Eindhoven)',
+      titleNL: 'Informatieavond FPSA (Eindhoven)',
+      titleEN: 'information evening FPSA (Eindhoven)',
       imgUrl: '/stock-presentation.jpg',
       location: 'Rachelsmolen 1, Eindhoven',
       dateTime: new Date(2020, 3, 5, 18, 0, 0),
