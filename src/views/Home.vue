@@ -21,13 +21,13 @@
         <el-carousel-item v-for="item in agendaItems" :key="item.title">
           <el-card class="box-card">
             <div slot="header" class="clearfix">
-              <span>{{$store.getters.currentLanguage === 'nl' ? item.titleNL : item.titleEN}}</span>
+              <span>{{item.title}}</span>
             </div>
             <div><b>{{$t('agenda.location')}}</b> {{item.location}}</div>
-            <div><b>{{$t('agenda.date')}}</b> {{moment(item.dateTime).format('DD-MM-YYYY hh:mm')}}</div>
+            <div><b>{{$t('agenda.date')}}</b> {{moment(item.date).format('DD-MM-YYYY HH:mm')}}</div>
             <br>
-            <div>{{$store.getters.currentLanguage === 'nl' ? item.contentNL : item.contentEN}}</div>
-            <img class="image-container" :src="item.imgUrl"/>
+            <div>{{item.summary}}</div>
+            <img class="image-container" :src="url+ '/agenda/photo?id=' + item.id"/>
           </el-card>
         </el-carousel-item>
       </el-carousel>
@@ -37,40 +37,24 @@
 
 <script lang="ts" scoped>
 import { Component, Vue } from 'vue-property-decorator';
+import { AgendaSummaryDTO } from '@/openapi/model/agendaSummaryDTO';
+import { AgendaService } from '@/openapi/api/agenda.service';
+import openApiContainer from '@/openapi.container';
 import moment from 'moment';
+import HttpResponse from '../openapi/HttpResponse';
 
 @Component({})
 export default class Home extends Vue {
   private moment = moment;
+  private agendaItems: AgendaSummaryDTO[] = [];
+  private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
-  private agendaItems: {
-    titleNL: string,
-    titleEN: string,
-    imgUrl: string,
-    location: string,
-    dateTime: Date,
-    contentNL: string,
-    contentEN: string
-  }[] = [
-    {
-      titleNL: 'Informatieavond FPSA (Tilburg)',
-      titleEN: 'information evening FPSA (Tilburg)',
-      imgUrl: '/stock-presentation.jpg',
-      location: 'Tilburg',
-      dateTime: new Date(2020, 3, 4, 19, 0, 0),
-      contentNL: 'Afgelopen december hebben jullie bericht gehad over het oprichten van een koepel, die als overkoepelende vereniging namens studieverenigingen optreedt tegen Fontys en derden. Wij willen jullie mededelen dat de koepel genaamd ‘FPSA’ per 1 september 2020 actief zal zijn. Om jullie tijdig te informeren wat FPSA voor jullie vereniging gaat betekenen, willen wij jullie uitnodigen voor een informatiebijeenkomst. Na afloop van de bijeenkomst vindt er een borrel plaats.',
-      contentEN: 'Last December you were informed about the establishment of an umbrella organization, which acts as an umbrella association on behalf of study associations against Fontys and third parties. We want to inform you that the umbrella called "FPSA" will be active from 1 September 2020. To inform you in time what FPSA will mean for your association, we would like to invite you for an information meeting. After the meeting a drink will take place.'
-    },
-    {
-      titleNL: 'Informatieavond FPSA (Eindhoven)',
-      titleEN: 'information evening FPSA (Eindhoven)',
-      imgUrl: '/stock-presentation.jpg',
-      location: 'Rachelsmolen 1, Eindhoven',
-      dateTime: new Date(2020, 3, 5, 18, 0, 0),
-      contentNL: 'Afgelopen december hebben jullie bericht gehad over het oprichten van een koepel, die als overkoepelende vereniging namens studieverenigingen optreedt tegen Fontys en derden. Wij willen jullie mededelen dat de koepel genaamd ‘FPSA’ per 1 september 2020 actief zal zijn. Om jullie tijdig te informeren wat FPSA voor jullie vereniging gaat betekenen, willen wij jullie uitnodigen voor een informatiebijeenkomst. Na afloop van de bijeenkomst vindt er een borrel plaats.',
-      contentEN: 'Last December you were informed about the establishment of an umbrella organization, which acts as an umbrella association on behalf of study associations against Fontys and third parties. We want to inform you that the umbrella called "FPSA" will be active from 1 September 2020. To inform you in time what FPSA will mean for your association, we would like to invite you for an information meeting. After the meeting a drink will take place.'
-    }
-  ];
+  mounted() {
+    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(this.$store.getters.currentLanguage, 'response')
+    .subscribe((res: HttpResponse<AgendaSummaryDTO[]>) => {
+      this.agendaItems = res.response;
+    })
+  }
 }
 </script>
 

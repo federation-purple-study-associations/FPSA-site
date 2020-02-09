@@ -18,3 +18,5 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+src/openapi/.openapi-generator/VERSION
+src/openapi/.openapi-generator-ignore

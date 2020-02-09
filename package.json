@@ -9,7 +9,9 @@
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/lang/**/*.json'"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "element-ui": "^2.13.0",
+    "inversify": "^5.0.1",
     "moment": "^2.24.0",
     "reflect-metadata": "^0.1.13",
     "vue": "^2.6.11",
