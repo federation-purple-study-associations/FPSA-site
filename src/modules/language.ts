@@ -6,6 +6,10 @@ const storageConst = "language";
 
 export const supportedLanguages = ["nl", "en"];
 
+if (!localStorage.getItem(storageConst)) {
+  localStorage.setItem(storageConst, "nl");
+}
+
 Vue.use(VueI18n);
 export const i18n = new VueI18n({
   locale: localStorage.getItem(storageConst) || "nl",
