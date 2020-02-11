@@ -1,6 +1,10 @@
 {
     "nl": {
+        "location": "Locatie:",
+        "date": "Datum:"
     },
     "en": {
+        "location": "Location:",
+        "date": "Date:"
     }
 }

@@ -21,7 +21,7 @@ export default class App extends Vue {}
 </script>
 
 <style lang="scss">
-#app {
+body {
   font-family: "Helvetica Neue";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

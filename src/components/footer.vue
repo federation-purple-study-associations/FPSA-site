@@ -43,6 +43,10 @@ export default class Footer extends Vue {}
         height: 120px !important;
         display: block;
     }
+
+    #app .content {
+        min-height: calc(100vh - 60px - 150px);
+    }
 }
 </style>
 

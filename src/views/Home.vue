@@ -50,10 +50,10 @@ export default class Home extends Vue {
   private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
   mounted() {
-    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(this.$store.getters.currentLanguage, 'response')
+    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(this.$store.getters.currentLanguage, 0, 10, 'response')
     .subscribe((res: HttpResponse<AgendaSummaryDTO[]>) => {
       this.agendaItems = res.response;
-    })
+    });
   }
 }
 </script>

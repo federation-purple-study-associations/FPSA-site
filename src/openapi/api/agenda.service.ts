@@ -68,18 +68,34 @@ export class AgendaService {
      * getAll
      * This call can be used to get the complete agenda of FPSA
      * @param lang 
+     * @param skip 
+     * @param size 
      
      */
-    public agendaGetAll(lang: string, observe?: 'body', headers?: Headers): Observable<Array<AgendaSummaryDTO>>;
-    public agendaGetAll(lang: string, observe?: 'response', headers?: Headers): Observable<HttpResponse<Array<AgendaSummaryDTO>>>;
-    public agendaGetAll(lang: string, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public agendaGetAll(lang: string, skip: number, size: number, observe?: 'body', headers?: Headers): Observable<Array<AgendaSummaryDTO>>;
+    public agendaGetAll(lang: string, skip: number, size: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<Array<AgendaSummaryDTO>>>;
+    public agendaGetAll(lang: string, skip: number, size: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (lang === null || lang === undefined){
             throw new Error('Required parameter lang was null or undefined when calling agendaGetAll.');
+        }
+
+        if (skip === null || skip === undefined){
+            throw new Error('Required parameter skip was null or undefined when calling agendaGetAll.');
+        }
+
+        if (size === null || size === undefined){
+            throw new Error('Required parameter size was null or undefined when calling agendaGetAll.');
         }
 
         let queryParameters: string[] = [];
         if (lang !== undefined) {
             queryParameters.push("lang="+encodeURIComponent(String(lang)));
+        }
+        if (skip !== undefined) {
+            queryParameters.push("skip="+encodeURIComponent(String(skip)));
+        }
+        if (size !== undefined) {
+            queryParameters.push("size="+encodeURIComponent(String(size)));
         }
 
         headers['Accept'] = 'application/json';
