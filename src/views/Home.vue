@@ -49,8 +49,22 @@ export default class Home extends Vue {
   private agendaItems: AgendaSummaryDTO[] = [];
   private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
+  constructor() {
+    super();
+
+    this.$store.subscribe((res: {type: string, payload: string}) => {
+      if (res.type === 'SET_LANGUAGE') {
+        this.getAgendaItems(res.payload);
+      }
+    });
+  }
+
   mounted() {
-    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(this.$store.getters.currentLanguage, 0, 10, 'response')
+    this.getAgendaItems(this.$store.getters.currentLanguage);
+  }
+
+  private getAgendaItems(language: string) {
+    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, 0, 10, 'response')
     .subscribe((res: HttpResponse<AgendaSummaryDTO[]>) => {
       this.agendaItems = res.response;
     });

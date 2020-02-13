@@ -35,8 +35,22 @@ export default class Agenda extends Vue {
   private skip = 0;
   private pageSize = 25;
 
+  constructor() {
+    super();
+
+    this.$store.subscribe((res: {type: string, payload: string}) => {
+      if (res.type === 'SET_LANGUAGE') {
+        this.getAgendaItems(res.payload);
+      }
+    });
+  }
+
   mounted() {
-    this.agendaService.agendaGetAll(this.$store.getters.currentLanguage, this.skip, this.pageSize, 'response')
+    this.getAgendaItems(this.$store.getters.currentLanguage);
+  }
+
+  private getAgendaItems(language: string) {
+    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, 0, 10, 'response')
     .subscribe((res: HttpResponse<AgendaSummaryDTO[]>) => {
       this.agendaItems = res.response;
     });
@@ -45,7 +59,8 @@ export default class Agenda extends Vue {
   private openDialog(id: number) {
     this.agendaService.agendaGetOne(id, this.$store.getters.currentLanguage, 'response')
     .subscribe((res: HttpResponse<AgendaDetailsDTO>) => {
-      const text = '<b>' + this.$t('location').toString() + '</b> ' + res.response.location + '<br>' +
+      const text =  '<img class="image-popup" src="' + this.url + '/agenda/photo?id=' + res.response.id + '"/>' +
+                    '<b>' + this.$t('location').toString() + '</b> ' + res.response.location + '<br>' +
                     '<b>' + this.$t('date').toString() + '</b> ' + moment(res.response.date).format('DD-MM-YYYY HH:mm') + '<br><br>' +
                     res.response.description;
 
