@@ -112,7 +112,7 @@ export default class Home extends Vue {
     & .box-card {
       height: 95%;
       margin: 0px 60px;
-      overflow-y: scroll;
+      overflow-y: hidden;
 
       & div {
         width: 75%;

@@ -83,6 +83,7 @@ export default class Agenda extends Vue {
       margin: 20px 60px;
       position: relative;
       transition: transform .5s;
+      overflow-y: hidden;
       cursor: pointer;
 
       &:hover {
