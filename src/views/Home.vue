@@ -4,7 +4,7 @@
       <div class="home__welcome__info">
         <h2>{{ $t("welcome.umbrella_association") }}</h2>
         <h1>FPSA</h1>
-        <h3>Federation for Purple Study Associations</h3>
+        <h3>Federation of Purple Study Associations</h3>
       </div>
     </div>
 
