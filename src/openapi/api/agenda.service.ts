@@ -65,6 +65,31 @@ export class AgendaService {
 
 
     /**
+     * delete
+     * This call can be used to delete one agenda item of FPSA
+     * @param id 
+     
+     */
+    public agendaDelete(id: number, observe?: 'body', headers?: Headers): Observable<any>;
+    public agendaDelete(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public agendaDelete(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling agendaDelete.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.delete(`${this.basePath}/agenda/${encodeURIComponent(String(id))}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
      * getAll
      * This call can be used to get the complete agenda of FPSA
      * @param lang 
@@ -166,6 +191,31 @@ export class AgendaService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/agenda/photo?${queryParameters.join('&')}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * update
+     * This call can be used to update one agenda item of FPSA
+     * @param id 
+     
+     */
+    public agendaUpdate(id: number, observe?: 'body', headers?: Headers): Observable<any>;
+    public agendaUpdate(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public agendaUpdate(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling agendaUpdate.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/agenda/${encodeURIComponent(String(id))}`, headers);
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))

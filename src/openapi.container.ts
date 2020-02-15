@@ -1,7 +1,6 @@
 import { Container, injectable } from 'inversify';
 import { ApiServiceBinder } from './openapi/ApiServiceBinder';
 import IHttpClient from './openapi/IHttpClient';
-import { Headers } from './openapi/Headers';
 import { IAPIConfiguration } from './openapi/IAPIConfiguration';
 import { Observable, from } from 'rxjs';
 import HttpResponse from './openapi/HttpResponse';
@@ -20,7 +19,7 @@ class APIConfiguration implements IAPIConfiguration {
 // tslint:disable-next-line: max-classes-per-file
 @injectable()
 class HttpClient implements IHttpClient {
-    public get(url: string, headers?: Headers): Observable<HttpResponse> {
+    public get(url: string): Observable<HttpResponse> {
         const promise = axios.get(url, {withCredentials: true})
             .then((response: AxiosResponse) => this.processResponse(response))
             .catch((err) => this.processResponse(err.response));
@@ -28,7 +27,7 @@ class HttpClient implements IHttpClient {
         return from(promise);
     }
 
-    public post(url: string, body?: {} | FormData, headers?: Headers): Observable<HttpResponse> {
+    public post(url: string, body?: {} | FormData): Observable<HttpResponse> {
         const promise = axios.post(url, body, {withCredentials: true})
             .then((response: AxiosResponse) => this.processResponse(response))
             .catch((err) => this.processResponse(err.response));
@@ -36,7 +35,7 @@ class HttpClient implements IHttpClient {
         return from(promise);
     }
 
-    public put(url: string, body?: {}, headers?: Headers): Observable<HttpResponse> {
+    public put(url: string, body?: {}): Observable<HttpResponse> {
         const promise = axios.put(url, body, {withCredentials: true})
             .then((response: AxiosResponse) => this.processResponse(response))
             .catch((err) => this.processResponse(err.response));
@@ -44,7 +43,7 @@ class HttpClient implements IHttpClient {
         return from(promise);
     }
 
-    public patch(url: string, body?: {}, headers?: Headers): Observable<HttpResponse> {
+    public patch(url: string, body?: {}): Observable<HttpResponse> {
         const promise = axios.patch(url, body, {withCredentials: true})
             .then((response: AxiosResponse) => this.processResponse(response))
             .catch((err) => this.processResponse(err.response));
@@ -52,7 +51,7 @@ class HttpClient implements IHttpClient {
         return from(promise);
     }
 
-    public delete(url: string, headers?: Headers): Observable<HttpResponse> {
+    public delete(url: string): Observable<HttpResponse> {
         const promise = axios.delete(url, {withCredentials: true})
             .then((response: AxiosResponse) => this.processResponse(response))
             .catch((err) => this.processResponse(err.response));
@@ -60,13 +59,10 @@ class HttpClient implements IHttpClient {
         return from(promise);
     }
 
-    private processResponse(response: any) {
+    private processResponse(response: AxiosResponse) {
         const httpResponse = new HttpResponse(response.data, response.status, response.headers);
-
-        const locationArray = window.location.href.split('?')[0].split('/');
-        const location = locationArray[3] + '/' + locationArray[4];
-        if (httpResponse.status === 401 && location !== 'home/login') {
-            window.location.href = '/home/login?redirect=' + window.location.href;
+        if (httpResponse.status === 401) {
+            window.location.href = '/'
 
         } else if (httpResponse.status === 403) {
             window.location.href = '/error/403';

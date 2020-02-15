@@ -104,6 +104,22 @@ export default class Agenda extends Vue {
       }
     }
 }
+
+@media only screen and (max-width: 768px) {
+  .agenda {
+    & .box-card {
+      margin: 20px 0px;
+
+      & div {
+        width: 100%;
+      }
+
+      & .image-container {
+        display: none;
+      }
+    }
+  }
+}
 </style>
 
 <i18n src="@/lang/views/agenda.json"></i18n>
