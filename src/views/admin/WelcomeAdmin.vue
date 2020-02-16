@@ -4,10 +4,12 @@
     <div class="welcome-admin">
       <div class="welcome-admin__message">
         <h2 class="fpsa-header">{{$t('message.welcome').toString() + me.fullName}}</h2>
-        <div>{{$t('message.last_login')}}
+        <div>
+          {{$t('message.last_login')}}
           {{
           me.lastLogin ? moment(me.lastLogin).format($t('message.last_login_format').toString()) : $t('message.last_login_never')
-          }}</div>
+          }}
+        </div>
       </div>
       <apexchart class="welcome-admin__page-views-chart" width="100%" type="line" :options="chartOptions" :series="series"></apexchart>
     </div>
