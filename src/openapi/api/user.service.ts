@@ -21,6 +21,7 @@ import { Headers } from "../Headers";
 import HttpResponse from "../HttpResponse";
 
 import { LoginDTO } from "../model/loginDTO";
+import { User } from "../model/user";
 
 import { COLLECTION_FORMATS }  from "../variables";
 
@@ -56,6 +57,26 @@ export class UserService {
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * getMe
+     * This call can be used to get yourself
+     
+     */
+    public me(observe?: 'body', headers?: Headers): Observable<User>;
+    public me(observe?: 'response', headers?: Headers): Observable<HttpResponse<User>>;
+    public me(observe: any = 'body', headers: Headers = {}): Observable<any> {
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<User>> = this.httpClient.get(`${this.basePath}/user/me`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <User>(httpResponse.response))
                );
         }
         return response;

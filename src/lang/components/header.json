@@ -2,6 +2,7 @@
     "nl": {
         "home": "Home",
         "agenda": "Agenda",
+        "start": "Start",
         "login": "Login",
         "error": {
             "unknown": "Een onbekende error is opgetreden...",
@@ -11,6 +12,7 @@
     "en": {
         "home": "Home",
         "agenda": "Agenda",
+        "start": "Start",
         "login": "Login",
         "error": {
             "unknown": "An unknown error has occured...",

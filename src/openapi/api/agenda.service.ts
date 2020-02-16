@@ -39,7 +39,7 @@ export class AgendaService {
     }
 
     /**
-     * getOne
+     * create
      * This call can be used to get the one agenda item of FPSA
      * @param newAgendaDTO 
      

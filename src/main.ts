@@ -6,11 +6,16 @@ import store from './store';
 import Element from 'element-ui';
 import { i18n } from './modules/language';
 import Vuex from 'vuex';
+import VueApexCharts from 'vue-apexcharts'
 
 import './assets/fpsa-theme.scss';
 
 Vue.use(Element);
 Vue.use(Vuex);
+Vue.use(VueApexCharts);
+
+
+Vue.component('apexchart', VueApexCharts);
 
 Vue.config.productionTip = false;
 

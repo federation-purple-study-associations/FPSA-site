@@ -6,38 +6,37 @@
       </router-link>
     </div>
     <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>
-      <el-menu-item index="/">{{$t('home')}}</el-menu-item>
-      <el-menu-item index="/agenda">{{$t('agenda')}}</el-menu-item>
-      <el-submenu index="/">
+      <el-menu-item index="/admin">{{$t('start')}}</el-menu-item>
+      <el-menu-item index="/admin/agenda">{{$t('agenda')}}</el-menu-item>
+      <el-submenu index="">
         <template slot="title"><i class="el-icon-chat-dot-round"></i></template>
         <el-menu-item index="" v-on:click="switchLanguage('nl')">Nederlands</el-menu-item>
         <el-menu-item index="" v-on:click="switchLanguage('en')">English</el-menu-item>
       </el-submenu>
-      <el-popover placement="bottom" width="160" trigger="hover" class="login-menu">
-        <el-input placeholder="Email" v-model="loginForm.email" autocomplete="email"></el-input>
-        <el-input placeholder="Wachtwoord" class="login-menu__password" v-model="loginForm.password" show-password autocomplete="current-password"></el-input>
-        <el-button type="primary" class="login-menu__submit" :loading="isLoading" @click="submitLogin">{{$t('login')}}</el-button>
-        <el-button slot="reference" type="text" class="login-menu__icon" icon="el-icon-user"></el-button>
-    </el-popover>
     </el-menu>
   </el-header>
 </template>
 
 <script lang="ts" scoped>
 import { Component, Vue } from 'vue-property-decorator';
-import { LoginDTO } from '../openapi/model/loginDTO';
-import openApiContainer from '../openapi.container';
-import { UserService } from '../openapi/api/user.service';
-import HttpResponse from '../openapi/HttpResponse';
+import { LoginDTO } from '../../openapi/model/loginDTO';
+import openApiContainer from '../../openapi.container';
+import { UserService } from '../../openapi/api/user.service';
+import HttpResponse from '../../openapi/HttpResponse';
 
 @Component({})
-export default class Header extends Vue {
+export default class AdminHeader extends Vue {
   private window = window;
   private isLoading = false;
   private loginForm: LoginDTO = {
     email: '',
     password: ''
   };
+  private isLoggedIn = false;
+
+  async mounted() {
+    this.isLoggedIn = await this.$store.dispatch('isLoggedIn');
+  }
 
   private switchLanguage(lang: string): void {
     this.$store.dispatch('setLanguage', lang);

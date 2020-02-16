@@ -42,6 +42,7 @@ import { AgendaService } from '@/openapi/api/agenda.service';
 import openApiContainer from '@/openapi.container';
 import moment from 'moment';
 import HttpResponse from '../openapi/HttpResponse';
+import { StatisticService } from '../openapi/api/statistic.service';
 
 @Component({})
 export default class Home extends Vue {
@@ -57,6 +58,8 @@ export default class Home extends Vue {
         this.getAgendaItems(res.payload);
       }
     });
+
+    openApiContainer.get<StatisticService>('StatisticService').pageViewNew('response').subscribe();
   }
 
   mounted() {

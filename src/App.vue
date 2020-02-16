@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <Header />
+    <HomeHeader v-if="window.location.pathname.split('/')[1] !== 'admin'"/>
+    <AdminHeader v-if="window.location.pathname.split('/')[1] === 'admin'"/>
     <router-view class="content"/>
     <Footer />
   </div>
@@ -8,16 +9,20 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Header from '@/components/header.vue';
+import HomeHeader from '@/components/header/home.header.vue';
+import AdminHeader from '@/components/header/admin.header.vue';
 import Footer from '@/components/footer.vue';
 
 @Component({
   components: {
-    Header,
+    HomeHeader,
+    AdminHeader,
     Footer
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  private window = window;
+}
 </script>
 
 <style lang="scss">

@@ -1,11 +1,18 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
+import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '../views/Home.vue';
 import Agenda from '../views/Agenda.vue';
+import WelcomeAdmin from '../views/admin/WelcomeAdmin.vue';
 
 Vue.use(VueRouter);
+const withPrefix = (prefix: string, routes: RouteConfig[]) =>
+  routes.map((route: RouteConfig) => {
+    route.path = prefix + route.path;
+    route.name = prefix + route.path;
+    return route;
+  });
 
-const routes = [
+const routes: RouteConfig[] = [
   {
     path: '/',
     component: Home
@@ -14,6 +21,12 @@ const routes = [
     path: '/agenda',
     component: Agenda
   },
+  ...withPrefix('/admin', [
+    {
+      path: '/',
+      component: WelcomeAdmin,
+    }
+  ]),
 ];
 
 const router = new VueRouter({
