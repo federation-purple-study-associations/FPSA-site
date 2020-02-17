@@ -23,8 +23,6 @@ import HttpResponse from "../HttpResponse";
 import { AgendaAllDTO } from "../model/agendaAllDTO";
 import { AgendaDetailsDTO } from "../model/agendaDetailsDTO";
 import { AgendaItem } from "../model/agendaItem";
-import { NewAgendaDTO } from "../model/newAgendaDTO";
-import { UpdateAgendaDTO } from "../model/updateAgendaDTO";
 
 import { COLLECTION_FORMATS }  from "../variables";
 
@@ -43,20 +41,89 @@ export class AgendaService {
     /**
      * create
      * This call can be used to get the one agenda item of FPSA
-     * @param newAgendaDTO 
+     * @param location 
+     * @param date 
+     * @param titleNL 
+     * @param titleEN 
+     * @param summaryNL 
+     * @param summaryEN 
+     * @param descriptionNL 
+     * @param descriptionEN 
+     * @param image 
      
      */
-    public agendaCreateNew(newAgendaDTO: NewAgendaDTO, observe?: 'body', headers?: Headers): Observable<any>;
-    public agendaCreateNew(newAgendaDTO: NewAgendaDTO, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public agendaCreateNew(newAgendaDTO: NewAgendaDTO, observe: any = 'body', headers: Headers = {}): Observable<any> {
-        if (newAgendaDTO === null || newAgendaDTO === undefined){
-            throw new Error('Required parameter newAgendaDTO was null or undefined when calling agendaCreateNew.');
+    public agendaCreateNew(location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, image: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public agendaCreateNew(location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, image: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public agendaCreateNew(location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, image: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (location === null || location === undefined){
+            throw new Error('Required parameter location was null or undefined when calling agendaCreateNew.');
+        }
+
+        if (date === null || date === undefined){
+            throw new Error('Required parameter date was null or undefined when calling agendaCreateNew.');
+        }
+
+        if (titleNL === null || titleNL === undefined){
+            throw new Error('Required parameter titleNL was null or undefined when calling agendaCreateNew.');
+        }
+
+        if (titleEN === null || titleEN === undefined){
+            throw new Error('Required parameter titleEN was null or undefined when calling agendaCreateNew.');
+        }
+
+        if (summaryNL === null || summaryNL === undefined){
+            throw new Error('Required parameter summaryNL was null or undefined when calling agendaCreateNew.');
+        }
+
+        if (summaryEN === null || summaryEN === undefined){
+            throw new Error('Required parameter summaryEN was null or undefined when calling agendaCreateNew.');
+        }
+
+        if (descriptionNL === null || descriptionNL === undefined){
+            throw new Error('Required parameter descriptionNL was null or undefined when calling agendaCreateNew.');
+        }
+
+        if (descriptionEN === null || descriptionEN === undefined){
+            throw new Error('Required parameter descriptionEN was null or undefined when calling agendaCreateNew.');
+        }
+
+        if (image === null || image === undefined){
+            throw new Error('Required parameter image was null or undefined when calling agendaCreateNew.');
         }
 
         headers['Accept'] = 'application/json';
-        headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/agenda`, newAgendaDTO , headers);
+        let formData: FormData = new FormData();
+        headers['Content-Type'] = 'multipart/form-data';
+        if (location !== undefined) {
+            formData.append('location', <any>location);
+        }
+        if (date !== undefined) {
+            formData.append('date', <any>date);
+        }
+        if (titleNL !== undefined) {
+            formData.append('titleNL', <any>titleNL);
+        }
+        if (titleEN !== undefined) {
+            formData.append('titleEN', <any>titleEN);
+        }
+        if (summaryNL !== undefined) {
+            formData.append('summaryNL', <any>summaryNL);
+        }
+        if (summaryEN !== undefined) {
+            formData.append('summaryEN', <any>summaryEN);
+        }
+        if (descriptionNL !== undefined) {
+            formData.append('descriptionNL', <any>descriptionNL);
+        }
+        if (descriptionEN !== undefined) {
+            formData.append('descriptionEN', <any>descriptionEN);
+        }
+        if (image !== undefined) {
+            formData.append('image', <any>image);
+        }
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/agenda`, formData, headers);
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))
@@ -231,24 +298,93 @@ export class AgendaService {
      * update
      * This call can be used to update one agenda item of FPSA
      * @param id 
-     * @param updateAgendaDTO 
+     * @param location 
+     * @param date 
+     * @param titleNL 
+     * @param titleEN 
+     * @param summaryNL 
+     * @param summaryEN 
+     * @param descriptionNL 
+     * @param descriptionEN 
+     * @param image 
      
      */
-    public agendaUpdate(id: number, updateAgendaDTO: UpdateAgendaDTO, observe?: 'body', headers?: Headers): Observable<any>;
-    public agendaUpdate(id: number, updateAgendaDTO: UpdateAgendaDTO, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public agendaUpdate(id: number, updateAgendaDTO: UpdateAgendaDTO, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public agendaUpdate(id: number, location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, image: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public agendaUpdate(id: number, location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, image: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public agendaUpdate(id: number, location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, image: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (id === null || id === undefined){
             throw new Error('Required parameter id was null or undefined when calling agendaUpdate.');
         }
 
-        if (updateAgendaDTO === null || updateAgendaDTO === undefined){
-            throw new Error('Required parameter updateAgendaDTO was null or undefined when calling agendaUpdate.');
+        if (location === null || location === undefined){
+            throw new Error('Required parameter location was null or undefined when calling agendaUpdate.');
+        }
+
+        if (date === null || date === undefined){
+            throw new Error('Required parameter date was null or undefined when calling agendaUpdate.');
+        }
+
+        if (titleNL === null || titleNL === undefined){
+            throw new Error('Required parameter titleNL was null or undefined when calling agendaUpdate.');
+        }
+
+        if (titleEN === null || titleEN === undefined){
+            throw new Error('Required parameter titleEN was null or undefined when calling agendaUpdate.');
+        }
+
+        if (summaryNL === null || summaryNL === undefined){
+            throw new Error('Required parameter summaryNL was null or undefined when calling agendaUpdate.');
+        }
+
+        if (summaryEN === null || summaryEN === undefined){
+            throw new Error('Required parameter summaryEN was null or undefined when calling agendaUpdate.');
+        }
+
+        if (descriptionNL === null || descriptionNL === undefined){
+            throw new Error('Required parameter descriptionNL was null or undefined when calling agendaUpdate.');
+        }
+
+        if (descriptionEN === null || descriptionEN === undefined){
+            throw new Error('Required parameter descriptionEN was null or undefined when calling agendaUpdate.');
+        }
+
+        if (image === null || image === undefined){
+            throw new Error('Required parameter image was null or undefined when calling agendaUpdate.');
         }
 
         headers['Accept'] = 'application/json';
-        headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/agenda/${encodeURIComponent(String(id))}`, updateAgendaDTO , headers);
+        let formData: FormData = new FormData();
+        headers['Content-Type'] = 'multipart/form-data';
+        if (location !== undefined) {
+            formData.append('location', <any>location);
+        }
+        if (date !== undefined) {
+            formData.append('date', <any>date);
+        }
+        if (titleNL !== undefined) {
+            formData.append('titleNL', <any>titleNL);
+        }
+        if (titleEN !== undefined) {
+            formData.append('titleEN', <any>titleEN);
+        }
+        if (summaryNL !== undefined) {
+            formData.append('summaryNL', <any>summaryNL);
+        }
+        if (summaryEN !== undefined) {
+            formData.append('summaryEN', <any>summaryEN);
+        }
+        if (descriptionNL !== undefined) {
+            formData.append('descriptionNL', <any>descriptionNL);
+        }
+        if (descriptionEN !== undefined) {
+            formData.append('descriptionEN', <any>descriptionEN);
+        }
+        if (image !== undefined) {
+            formData.append('image', <any>image);
+        }
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/agenda/${encodeURIComponent(String(id))}`, formData, headers);
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))

@@ -42,10 +42,11 @@
           <el-input :placeholder="$t('dialog.english')" v-model="agendaItemForDialog.descriptionEN" type="textarea"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-upload action="#" list-type="picture-card" :auto-upload="false" :show-file-list="false" :on-change="handleAvatarSuccess">
+          <input type="file" ref="file" v-on:change="handleFileUpload()"/>
+          <!-- <el-upload action="#" list-type="picture-card" :auto-upload="false" :show-file-list="false" :on-change="handleAvatarSuccess">
             <img v-if="imageUrl" :src="imageUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
+          </el-upload> -->
         </el-form-item>
       </el-form>
       <el-button-group slot="footer" class="dialog-footer">
@@ -64,7 +65,6 @@ import openApiContainer from '@/openapi.container';
 import moment from 'moment';
 import HttpResponse from '../../openapi/HttpResponse';
 import { AgendaAllDTO } from '../../openapi/model/agendaAllDTO';
-import { UpdateAgendaDTO } from '../../openapi/model/updateAgendaDTO';
 import { AgendaItem } from '../../openapi/model/agendaItem';
 
 @Component({})
@@ -131,32 +131,28 @@ export default class AgendaAdmin extends Vue {
       this.agendaItemForDialog = res.response;
       this.dialogVisible = true;
       this.edit = true;
-      this.images = [
-        {name: 'picture.jpg', url: this.url + 'agenda/photo?' + res.response.id}
-      ]
     });
   }
 
-  private handleAvatarSuccess(file: File) {
-    this.image = file;
+  private handleFileUpload() {
+    this.image = (this.$refs.file as any).files[0];
   }
 
   private submitDialog() {
     if (this.edit) {
-      const model: UpdateAgendaDTO = {
-        location: this.agendaItemForDialog.location,
-        date: this.agendaItemForDialog.date,
-        titleNL: this.agendaItemForDialog.titleNL,
-        titleEN: this.agendaItemForDialog.titleEN,
-        summaryNL: this.agendaItemForDialog.summaryNL,
-        summaryEN: this.agendaItemForDialog.summaryEN,
-        descriptionNL: this.agendaItemForDialog.descriptionNL,
-        descriptionEN: this.agendaItemForDialog.descriptionEN,
-        image: this.image
-      };
-      console.log(model);
-      this.agendaService.agendaUpdate(this.agendaItemForDialog.id, model, 'response').subscribe(() => {
-        this.dialogVisible = false;
+      this.agendaService.agendaUpdate(
+        this.agendaItemForDialog.id,
+        this.agendaItemForDialog.location,
+        this.agendaItemForDialog.date,
+        this.agendaItemForDialog.titleNL,
+        this.agendaItemForDialog.titleEN,
+        this.agendaItemForDialog.summaryNL,
+        this.agendaItemForDialog.summaryEN,
+        this.agendaItemForDialog.descriptionNL,
+        this.agendaItemForDialog.descriptionEN,
+        this.image,
+        'response').subscribe(() => {
+          this.dialogVisible = false;
       });
     }
   }
