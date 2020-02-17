@@ -1,0 +1,36 @@
+{
+    "nl": {
+        "location": "Locatie:",
+        "date": "Datum:",
+        "dialog": {
+            "title_edit": "Agenda item bewerken",
+            "title_add": "Agenda item toevoegen",
+            "location": "Locatie",
+            "date": "Datum",
+            "title": "Titel",
+            "summary": "Samenvatting",
+            "description": "Omschrijving",
+            "dutch": "Nederlands",
+            "english": "Engels",
+            "confirm": "Bevestigen",
+            "cancel": "Annuleren"
+        }
+    },
+    "en": {
+        "location": "Location:",
+        "date": "Date:",
+        "dialog": {
+            "title_edit": "Edit agenda item",
+            "title_add": "Add agenda item",
+            "location": "Location",
+            "date": "Date",
+            "title": "Title",
+            "summary": "Summary",
+            "description": "Description",
+            "dutch": "Dutch",
+            "english": "English",
+            "confirm": "Confirm",
+            "cancel": "Cancel"
+        }
+    }
+}

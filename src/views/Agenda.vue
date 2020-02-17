@@ -12,12 +12,15 @@
       <div>{{item.summary}}</div>
       <img class="image-container" :src="url+ '/agenda/photo?id=' + item.id"/>
     </el-card>
+
+    <el-pagination class="agenda__pagination" background layout="prev, pager, next" :total="count" :page-size="pageSize" @current-change="changePage"></el-pagination>
   </div>
 </template>
 
 <script lang="ts" scoped>
 import { Component, Vue } from 'vue-property-decorator';
 import { AgendaSummaryDTO } from '@/openapi/model/agendaSummaryDTO';
+import { AgendaAllDTO } from '@/openapi/model/agendaAllDTO';
 import { AgendaService } from '@/openapi/api/agenda.service';
 import openApiContainer from '@/openapi.container';
 import moment from 'moment';
@@ -33,7 +36,8 @@ export default class Agenda extends Vue {
   private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
   private skip = 0;
-  private pageSize = 25;
+  private readonly pageSize = 25;
+  private count = 0;
 
   constructor() {
     super();
@@ -50,10 +54,16 @@ export default class Agenda extends Vue {
   }
 
   private getAgendaItems(language: string) {
-    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, 0, 10, 'response')
-    .subscribe((res: HttpResponse<AgendaSummaryDTO[]>) => {
-      this.agendaItems = res.response;
+    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, this.skip, this.pageSize, 'response')
+    .subscribe((res: HttpResponse<AgendaAllDTO>) => {
+      this.agendaItems = res.response.items;
+      this.count = res.response.count;
     });
+  }
+
+  private changePage(page: number) {
+    this.skip = (page - 1) * this.pageSize;
+    this.getAgendaItems(this.$store.getters.currentLanguage);
   }
 
   private openDialog(id: number) {
@@ -77,6 +87,10 @@ export default class Agenda extends Vue {
 .agenda {
   & .spaceing {
     height: 20px;
+  }
+
+  &__pagination {
+    text-align: center
   }
 
   & .box-card {

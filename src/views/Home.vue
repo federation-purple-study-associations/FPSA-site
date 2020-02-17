@@ -43,6 +43,7 @@ import openApiContainer from '@/openapi.container';
 import moment from 'moment';
 import HttpResponse from '../openapi/HttpResponse';
 import { StatisticService } from '../openapi/api/statistic.service';
+import { AgendaAllDTO } from '../openapi/model/agendaAllDTO';
 
 @Component({})
 export default class Home extends Vue {
@@ -68,8 +69,8 @@ export default class Home extends Vue {
 
   private getAgendaItems(language: string) {
     openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, 0, 10, 'response')
-    .subscribe((res: HttpResponse<AgendaSummaryDTO[]>) => {
-      this.agendaItems = res.response;
+    .subscribe((res: HttpResponse<AgendaAllDTO>) => {
+      this.agendaItems = res.response.items;
     });
   }
 }

@@ -20,9 +20,11 @@ import { IAPIConfiguration } from "../IAPIConfiguration";
 import { Headers } from "../Headers";
 import HttpResponse from "../HttpResponse";
 
+import { AgendaAllDTO } from "../model/agendaAllDTO";
 import { AgendaDetailsDTO } from "../model/agendaDetailsDTO";
-import { AgendaSummaryDTO } from "../model/agendaSummaryDTO";
+import { AgendaItem } from "../model/agendaItem";
 import { NewAgendaDTO } from "../model/newAgendaDTO";
+import { UpdateAgendaDTO } from "../model/updateAgendaDTO";
 
 import { COLLECTION_FORMATS }  from "../variables";
 
@@ -97,8 +99,8 @@ export class AgendaService {
      * @param size 
      
      */
-    public agendaGetAll(lang: string, skip: number, size: number, observe?: 'body', headers?: Headers): Observable<Array<AgendaSummaryDTO>>;
-    public agendaGetAll(lang: string, skip: number, size: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<Array<AgendaSummaryDTO>>>;
+    public agendaGetAll(lang: string, skip: number, size: number, observe?: 'body', headers?: Headers): Observable<AgendaAllDTO>;
+    public agendaGetAll(lang: string, skip: number, size: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<AgendaAllDTO>>;
     public agendaGetAll(lang: string, skip: number, size: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (lang === null || lang === undefined){
             throw new Error('Required parameter lang was null or undefined when calling agendaGetAll.');
@@ -125,10 +127,10 @@ export class AgendaService {
 
         headers['Accept'] = 'application/json';
 
-        const response: Observable<HttpResponse<Array<AgendaSummaryDTO>>> = this.httpClient.get(`${this.basePath}/agenda?${queryParameters.join('&')}`, headers);
+        const response: Observable<HttpResponse<AgendaAllDTO>> = this.httpClient.get(`${this.basePath}/agenda?${queryParameters.join('&')}`, headers);
         if (observe == 'body') {
                return response.pipe(
-                   map(httpResponse => <Array<AgendaSummaryDTO>>(httpResponse.response))
+                   map(httpResponse => <AgendaAllDTO>(httpResponse.response))
                );
         }
         return response;
@@ -171,6 +173,31 @@ export class AgendaService {
 
 
     /**
+     * getOriginalOne
+     * This call can be used to get the one agenda item of FPSA
+     * @param id 
+     
+     */
+    public agendaGetOriginalOne(id: number, observe?: 'body', headers?: Headers): Observable<AgendaItem>;
+    public agendaGetOriginalOne(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<AgendaItem>>;
+    public agendaGetOriginalOne(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling agendaGetOriginalOne.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<AgendaItem>> = this.httpClient.get(`${this.basePath}/agenda/original/${encodeURIComponent(String(id))}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <AgendaItem>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
      * getPicture
      * This call can be used to get the image of an agenda item
      * @param id 
@@ -204,18 +231,24 @@ export class AgendaService {
      * update
      * This call can be used to update one agenda item of FPSA
      * @param id 
+     * @param updateAgendaDTO 
      
      */
-    public agendaUpdate(id: number, observe?: 'body', headers?: Headers): Observable<any>;
-    public agendaUpdate(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public agendaUpdate(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public agendaUpdate(id: number, updateAgendaDTO: UpdateAgendaDTO, observe?: 'body', headers?: Headers): Observable<any>;
+    public agendaUpdate(id: number, updateAgendaDTO: UpdateAgendaDTO, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public agendaUpdate(id: number, updateAgendaDTO: UpdateAgendaDTO, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (id === null || id === undefined){
             throw new Error('Required parameter id was null or undefined when calling agendaUpdate.');
         }
 
-        headers['Accept'] = 'application/json';
+        if (updateAgendaDTO === null || updateAgendaDTO === undefined){
+            throw new Error('Required parameter updateAgendaDTO was null or undefined when calling agendaUpdate.');
+        }
 
-        const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/agenda/${encodeURIComponent(String(id))}`, headers);
+        headers['Accept'] = 'application/json';
+        headers['Content-Type'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/agenda/${encodeURIComponent(String(id))}`, updateAgendaDTO , headers);
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))
