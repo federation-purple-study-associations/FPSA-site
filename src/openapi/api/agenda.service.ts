@@ -309,9 +309,9 @@ export class AgendaService {
      * @param image 
      
      */
-    public agendaUpdate(id: number, location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, image: Blob, observe?: 'body', headers?: Headers): Observable<any>;
-    public agendaUpdate(id: number, location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, image: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public agendaUpdate(id: number, location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, image: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public agendaUpdate(id: number, location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, image?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public agendaUpdate(id: number, location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, image?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public agendaUpdate(id: number, location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, image?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (id === null || id === undefined){
             throw new Error('Required parameter id was null or undefined when calling agendaUpdate.');
         }
@@ -346,10 +346,6 @@ export class AgendaService {
 
         if (descriptionEN === null || descriptionEN === undefined){
             throw new Error('Required parameter descriptionEN was null or undefined when calling agendaUpdate.');
-        }
-
-        if (image === null || image === undefined){
-            throw new Error('Required parameter image was null or undefined when calling agendaUpdate.');
         }
 
         headers['Accept'] = 'application/json';

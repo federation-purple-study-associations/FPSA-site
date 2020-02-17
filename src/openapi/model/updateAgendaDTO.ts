@@ -20,5 +20,5 @@ export interface UpdateAgendaDTO {
     summaryEN: string;
     descriptionNL: string;
     descriptionEN: string;
-    image: Blob;
+    image?: Blob;
 }

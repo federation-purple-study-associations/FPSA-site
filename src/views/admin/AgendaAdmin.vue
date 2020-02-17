@@ -1,6 +1,6 @@
 <template scoped>
   <div class="agenda-admin">
-    <div class="spaceing"></div>
+    <div class="agenda-admin__spaceing"></div>
 
     <el-card class="box-card" v-for="item in agendaItems" :key="item.title" @click.native="openEditDialog(item.id)">
       <div slot="header" class="clearfix">
@@ -10,11 +10,15 @@
       <div><b>{{$t('date')}}</b> {{moment(item.date).format('DD-MM-YYYY HH:mm')}}</div>
       <br>
       <div>{{item.summary}}</div>
-      <img class="image-container" :src="url+ '/agenda/photo?id=' + item.id"/>
+      <img class="image-container" :src="url+ '/agenda/photo?id=' + item.id + 't=' + imageTime"/>
     </el-card>
 
     <el-pagination class="agenda-admin__pagination" background layout="prev, pager, next" :total="count" :page-size="pageSize" @current-change="changePage"></el-pagination>
-  
+    
+    <div class="agenda-admin__new-agenda-item">
+      <el-button type="primary" @click="openAddDialog">{{$t('new_item')}}</el-button>
+    </div>
+
     <el-dialog :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')" :visible.sync="dialogVisible">
       <el-form ref="form" :model="agendaItemForDialog" label-width="120px">
         <el-form-item :label="$t('dialog.location')">
@@ -41,12 +45,9 @@
         <el-form-item>
           <el-input :placeholder="$t('dialog.english')" v-model="agendaItemForDialog.descriptionEN" type="textarea"></el-input>
         </el-form-item>
-        <el-form-item>
-          <input type="file" ref="file" v-on:change="handleFileUpload()"/>
-          <!-- <el-upload action="#" list-type="picture-card" :auto-upload="false" :show-file-list="false" :on-change="handleAvatarSuccess">
-            <img v-if="imageUrl" :src="imageUrl" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload> -->
+        <el-form-item :label="$t('dialog.image')">
+          <input type="file" ref="file" v-on:change="handleFileUpload()"/><br>
+          {{edit ? $t('dialog.image_note') : ''}}
         </el-form-item>
       </el-form>
       <el-button-group slot="footer" class="dialog-footer">
@@ -73,6 +74,7 @@ export default class AgendaAdmin extends Vue {
   private agendaService = openApiContainer.get<AgendaService>('AgendaService');
 
   // Util
+  private imageTime = new Date().getTime();
   private moment = moment;
   private agendaItems: AgendaSummaryDTO[] = [];
   private readonly url: string | undefined = process.env.VUE_APP_API_URL;
@@ -86,7 +88,7 @@ export default class AgendaAdmin extends Vue {
   private dialogVisible = false;
   private edit = false;
   private images: Array<{name: string, url: string}> = []
-  private image: Blob = new Blob();
+  private image?: Blob = undefined;
   private agendaItemForDialog: AgendaItem = {
     id: 0,
     location: '',
@@ -97,7 +99,7 @@ export default class AgendaAdmin extends Vue {
     summaryEN: '',
     descriptionNL: '',
     descriptionEN: ''
-  }
+  };
 
   constructor() {
     super();
@@ -119,19 +121,38 @@ export default class AgendaAdmin extends Vue {
   }
 
   private getAgendaItems(language: string) {
-    this.agendaService.agendaGetAll(language, 0, 10, 'response')
+    this.agendaService.agendaGetAll(language, this.skip, this.pageSize, 'response')
     .subscribe((res: HttpResponse<AgendaAllDTO>) => {
       this.agendaItems = res.response.items;
       this.count = res.response.count;
+      this.imageTime = new Date().getTime();
     });
   }
 
   private openEditDialog(id: number) {
     this.agendaService.agendaGetOriginalOne(id, 'response').subscribe((res: HttpResponse<AgendaItem>) => {
       this.agendaItemForDialog = res.response;
+      this.image = undefined;
       this.dialogVisible = true;
       this.edit = true;
     });
+  }
+
+  private openAddDialog() {
+    this.agendaItemForDialog = {
+      id: 0,
+      location: '',
+      date: '',
+      titleNL: '',
+      titleEN: '',
+      summaryNL: '',
+      summaryEN: '',
+      descriptionNL: '',
+      descriptionEN: ''
+    };
+
+    this.edit = false;
+    this.dialogVisible = true;
   }
 
   private handleFileUpload() {
@@ -140,6 +161,7 @@ export default class AgendaAdmin extends Vue {
 
   private submitDialog() {
     if (this.edit) {
+      console.log(this.image)
       this.agendaService.agendaUpdate(
         this.agendaItemForDialog.id,
         this.agendaItemForDialog.location,
@@ -151,9 +173,38 @@ export default class AgendaAdmin extends Vue {
         this.agendaItemForDialog.descriptionNL,
         this.agendaItemForDialog.descriptionEN,
         this.image,
-        'response').subscribe(() => {
+        'response')
+      .subscribe(() => {
+          this.getAgendaItems(this.$store.getters.currentLanguage);
           this.dialogVisible = false;
-      });
+
+      }, this.handleError);
+
+    } else {
+      this.agendaService.agendaCreateNew(
+        this.agendaItemForDialog.location,
+        this.agendaItemForDialog.date,
+        this.agendaItemForDialog.titleNL,
+        this.agendaItemForDialog.titleEN,
+        this.agendaItemForDialog.summaryNL,
+        this.agendaItemForDialog.summaryEN,
+        this.agendaItemForDialog.descriptionNL,
+        this.agendaItemForDialog.descriptionEN,
+        this.image!,
+        'response').subscribe(() => {
+          this.getAgendaItems(this.$store.getters.currentLanguage);
+          this.dialogVisible = false;
+
+      }, this.handleError);
+    }
+  }
+
+  private handleError(err: HttpResponse) {
+    if (err.status === 400) {
+      this.$message.error(this.$t('error.form_not_filled_in_correctly').toString());
+
+    } else {
+      this.$message.error(this.$t('error.unknown').toString());
     }
   }
 }
@@ -161,12 +212,18 @@ export default class AgendaAdmin extends Vue {
 
 <style lang="scss" scoped>
 .agenda-admin {
-  & .spaceing {
+  &__spaceing {
     height: 20px;
   }
 
   &__pagination {
     text-align: center
+  }
+
+  &__new-agenda-item {
+    text-align: right;
+    margin-top: 10px;
+    padding-right: 30px;
   }
 
   & .box-card {
