@@ -13,6 +13,12 @@
       <span>{{$t('about_us.content_intro')}}</span>
       <br><br>
       <span>{{$t('about_us.content_workshops')}}</span>
+      <br><br>
+      <span>{{$t('about_us.content_partner')}}</span>
+      <br><br>
+      <span>{{$t('about_us.content_role')}}</span>
+      <br><br>
+      <span>{{$t('about_us.content_more_info')}}</span> <a href="mailto:info@fpsa.nl">info@fpsa.nl</a>
     </el-main>
 
     <el-main class="home__agenda">
