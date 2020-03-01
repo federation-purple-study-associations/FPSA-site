@@ -47,6 +47,10 @@ h2.fpsa-header {
       width: 75%;
     }
 
+    &__text {
+        white-space: pre;
+    }
+
     & .image-container {
       position: absolute;
       right: 10px;
