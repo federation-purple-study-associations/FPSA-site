@@ -8,7 +8,8 @@
             "last_login": "Uw laatste login was op: ",
             "last_login_format": "DD-MM-YYYY [om] HH:mm:ss",
             "last_login_never": "nooit..."
-        }
+        },
+        "logout": "Log uit"
     },
     "en": {
         "page_views": {
@@ -19,6 +20,7 @@
             "last_login": "Your last login was on: ",
             "last_login_format": "MM-DD-YYYY [at] HH:mm:ss",
             "last_login_never": "never..."
-        }
+        },
+        "logout": "Logout"
     }
 }

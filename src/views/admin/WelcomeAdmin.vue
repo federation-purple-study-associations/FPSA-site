@@ -10,6 +10,7 @@
           me.lastLogin ? moment(me.lastLogin).format($t('message.last_login_format').toString()) : $t('message.last_login_never')
           }}
         </div>
+        <el-button class="welcome-admin__logout" type="primary" @click="logout">{{$t('logout')}}</el-button>
       </div>
       <apexchart class="welcome-admin__page-views-chart" width="100%" type="line" :options="chartOptions" :series="series"></apexchart>
     </div>
@@ -70,6 +71,11 @@ export default class WelcomeAdmin extends Vue {
       }
     }
   }
+
+  private async logout() {
+    await this.$store.dispatch('logout');
+    window.location.href = '/';
+  }
 }
 </script>
 
@@ -91,6 +97,10 @@ export default class WelcomeAdmin extends Vue {
     &__page-views-chart {
       width: 50%;
       height: 50%;
+    }
+
+    &__logout {
+      margin-top: 10px;
     }
   }
 }
