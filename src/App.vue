@@ -36,4 +36,10 @@ body {
   margin-top: 60px;
   min-height: calc(100vh - 60px - 90px);
 }
+
+@media only screen and (max-width: 768px) {
+  .content {
+    min-height: calc(100vh - 120px - 90px);
+  }
+}
 </style>

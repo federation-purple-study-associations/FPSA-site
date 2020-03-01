@@ -4,6 +4,7 @@
         "agenda": "Agenda",
         "start": "Start",
         "login": "Login",
+        "board": "Besturen",
         "error": {
             "unknown": "Een onbekende error is opgetreden...",
             "wrong_credentials": "De gebruikersnaam of het wachtwoord is incorrect..."
@@ -14,6 +15,7 @@
         "agenda": "Agenda",
         "start": "Start",
         "login": "Login",
+        "board": "Boards",
         "error": {
             "unknown": "An unknown error has occured...",
             "wrong_credentials": "Username or password is incorrect..."

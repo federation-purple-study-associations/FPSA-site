@@ -4,6 +4,7 @@ import Home from '../views/Home.vue';
 import Agenda from '../views/Agenda.vue';
 import WelcomeAdmin from '../views/admin/WelcomeAdmin.vue';
 import AgendaAdmin from '../views/admin/AgendaAdmin.vue';
+import Board from '../views/Board.vue';
 
 Vue.use(VueRouter);
 const withPrefix = (prefix: string, routes: RouteConfig[]) =>
@@ -21,6 +22,10 @@ const routes: RouteConfig[] = [
   {
     path: '/agenda',
     component: Agenda
+  },
+  {
+    path: '/board',
+    component: Board
   },
   ...withPrefix('/admin', [
     {

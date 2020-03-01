@@ -6,13 +6,15 @@
       </router-link>
     </div>
     <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>
-      <el-menu-item index="/admin">{{$t('start')}}</el-menu-item>
-      <el-menu-item index="/admin/agenda">{{$t('agenda')}}</el-menu-item>
-      <el-submenu index="">
+      <el-menu-item index="" class="header-navigation__responsive" @click="toggleMenu"><i class="el-icon-more-outline"></i></el-menu-item>
+      <el-menu-item index="/admin" :class="menu ? 'responsive' : ''">{{$t('start')}}</el-menu-item>
+      <el-menu-item index="/admin/agenda" :class="menu ? 'responsive' : ''">{{$t('agenda')}}</el-menu-item>
+      <el-submenu index="" :class="menu ? 'responsive' : ''">
         <template slot="title"><i class="el-icon-chat-dot-round"></i></template>
         <el-menu-item index="" v-on:click="switchLanguage('nl')">Nederlands</el-menu-item>
         <el-menu-item index="" v-on:click="switchLanguage('en')">English</el-menu-item>
       </el-submenu>
+      <div :class="(menu ? 'responsive' : '') + ' header-navigation__background'"></div>
     </el-menu>
   </el-header>
 </template>
@@ -28,6 +30,7 @@ import HttpResponse from '../../openapi/HttpResponse';
 export default class AdminHeader extends Vue {
   private window = window;
   private isLoading = false;
+  private menu = false;
   private loginForm: LoginDTO = {
     email: '',
     password: ''
@@ -40,6 +43,10 @@ export default class AdminHeader extends Vue {
 
   private switchLanguage(lang: string): void {
     this.$store.dispatch('setLanguage', lang);
+  }
+
+  private toggleMenu() {
+    this.menu = !this.menu;
   }
 
   private submitLogin() {
@@ -93,6 +100,10 @@ export default class AdminHeader extends Vue {
   & &-navigation {
     border-bottom: none;
 
+    &__responsive {
+      display: none;
+    }
+
     & a {
       text-decoration: none;
     }
@@ -100,22 +111,62 @@ export default class AdminHeader extends Vue {
 }
 
 .login-menu {
-    &__icon {
-      width: 60px;
-      height: 60px;
-      font-size: 18px;
-      color: #909399;
+  &__icon {
+    width: 60px;
+    height: 60px;
+    font-size: 18px;
+    color: #909399;
+  }
+
+  &__password {
+    margin-top: 5px;
+  }
+
+  &__submit {
+    margin-top: 10px;
+    float: right;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .header {
+    & ul > li, & ul > span {
+      width: 100% !important;
+      display: none;
+      background: white;
     }
 
-    &__password {
-      margin-top: 5px;
+    & ul > li:first-child {
+      box-shadow: none;
     }
 
-    &__submit {
-      margin-top: 10px;
-      float: right;
+    & ul > li.responsive, & ul > span.responsive {
+      display: block;
+    }
+
+    & &-navigation {
+
+        &__responsive {
+          display: block;
+          text-align: right;
+        }
+
+        &__background {
+          z-index: -1;
+          position: absolute;
+          top: 0px;
+          display: none;
+          width: 100%;
+          height: 240px;
+          box-shadow: 0px 0px 10px 10px rgba(144,147,153,0.25);
+        }
+
+        &__background.responsive {
+          display: block;
+        }
     }
   }
+}
 </style>
 
 <i18n src="@/lang/components/header.json"></i18n>
