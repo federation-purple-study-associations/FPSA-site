@@ -38,6 +38,39 @@ h2.fpsa-header {
     }
 }
 
+.box-card {
+    margin: 20px 60px;
+    position: relative;
+    overflow-y: hidden;
+
+    & div {
+      width: 75%;
+    }
+
+    & .image-container {
+      position: absolute;
+      right: 10px;
+      top: 60px;
+      width: 20%;
+      height: 65%;
+      object-fit: cover;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .box-card {
+        margin: 20px 0px !important;
+
+        & div {
+            width: 100%;
+        }
+
+        & .image-container {
+            display: none;
+        }
+    }
+}
+
 /* icon font path, required */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 

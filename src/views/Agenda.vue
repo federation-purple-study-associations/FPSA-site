@@ -94,43 +94,11 @@ export default class Agenda extends Vue {
   }
 
   & .box-card {
-      margin: 20px 60px;
-      position: relative;
-      transition: transform .5s;
-      overflow-y: hidden;
-      cursor: pointer;
+    transition: transform .5s;
+    cursor: pointer;
 
-      &:hover {
-        transform: scale(1.1);
-      }
-
-      & div {
-        width: 75%;
-      }
-
-      & .image-container {
-        position: absolute;
-        right: 10px;
-        top: 60px;
-        width: 20%;
-        height: 65%;
-        object-fit: cover;
-      }
-    }
-}
-
-@media only screen and (max-width: 768px) {
-  .agenda {
-    & .box-card {
-      margin: 20px 0px;
-
-      & div {
-        width: 100%;
-      }
-
-      & .image-container {
-        display: none;
-      }
+    &:hover {
+      transform: scale(1.1);
     }
   }
 }

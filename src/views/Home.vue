@@ -120,40 +120,7 @@ export default class Home extends Vue {
 
   &__agenda {
     & .box-card {
-      height: 95%;
-      margin: 0px 60px;
-      overflow-y: hidden;
-
-      & div {
-        width: 75%;
-      }
-
-      & .image-container {
-        position: absolute;
-        right: 75px;
-        top: 60px;
-        width: 20%;
-        height: 70%;
-        object-fit: cover;
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .home {
-    &__agenda {
-      & .box-card {
-        margin: 0px;
-
-        & div {
-          width: 100%;
-        }
-
-        & .image-container {
-          display: none;
-        }
-      }
+      height: 90%;
     }
   }
 }
