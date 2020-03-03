@@ -241,7 +241,7 @@ export class AgendaService {
 
     /**
      * getOriginalOne
-     * This call can be used to get the one agenda item of FPSA
+     * This call can be used to get one agenda item of FPSA
      * @param id 
      
      */

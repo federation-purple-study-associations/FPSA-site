@@ -2,7 +2,7 @@
   <div class="board">
     <div class="board__spaceing"></div>
 
-    <el-card class="box-card" v-for="item in boardItems" :key="item.title" @click.native="openDialog(item.id)">
+    <el-card class="box-card" v-for="item in boardItems" :key="item.title">
       <div slot="header" class="clearfix">
         <span>{{item.title}}</span>
       </div>

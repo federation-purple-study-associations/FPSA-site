@@ -7,8 +7,9 @@
     </div>
     <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>
       <el-menu-item index="" class="header-navigation__responsive" @click="toggleMenu"><i class="el-icon-more-outline"></i></el-menu-item>
-      <el-menu-item index="/admin" :class="menu ? 'responsive' : ''">{{$t('start')}}</el-menu-item>
-      <el-menu-item index="/admin/agenda" :class="menu ? 'responsive' : ''">{{$t('agenda')}}</el-menu-item>
+      <el-menu-item index="/admin" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('start')}}</el-menu-item>
+      <el-menu-item index="/admin/agenda" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('agenda')}}</el-menu-item>
+      <el-menu-item index="/admin/board" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('board')}}</el-menu-item>
       <el-submenu index="" :class="menu ? 'responsive' : ''">
         <template slot="title"><i class="el-icon-chat-dot-round"></i></template>
         <el-menu-item index="" v-on:click="switchLanguage('nl')">Nederlands</el-menu-item>
@@ -157,7 +158,7 @@ export default class AdminHeader extends Vue {
           top: 0px;
           display: none;
           width: 100%;
-          height: 240px;
+          height: 300px;
           box-shadow: 0px 0px 10px 10px rgba(144,147,153,0.25);
         }
 

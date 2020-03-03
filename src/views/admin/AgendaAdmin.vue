@@ -51,6 +51,7 @@
         </el-form-item>
       </el-form>
       <el-button-group slot="footer" class="dialog-footer">
+        <el-button type="danger" @click="deleteItem">{{$t('dialog.delete')}}</el-button>
         <el-button @click="dialogVisible = false">{{$t('dialog.cancel')}}</el-button>
         <el-button type="primary" @click="submitDialog()">{{$t('dialog.confirm')}}</el-button>
       </el-button-group>
@@ -87,7 +88,6 @@ export default class AgendaAdmin extends Vue {
   // Dialog
   private dialogVisible = false;
   private edit = false;
-  private images: Array<{name: string, url: string}> = []
   private image?: Blob = undefined;
   private agendaItemForDialog: AgendaItem = {
     id: 0,
@@ -161,7 +161,6 @@ export default class AgendaAdmin extends Vue {
 
   private submitDialog() {
     if (this.edit) {
-      console.log(this.image)
       this.agendaService.agendaUpdate(
         this.agendaItemForDialog.id,
         this.agendaItemForDialog.location,
@@ -174,11 +173,7 @@ export default class AgendaAdmin extends Vue {
         this.agendaItemForDialog.descriptionEN,
         this.image,
         'response')
-      .subscribe(() => {
-          this.getAgendaItems(this.$store.getters.currentLanguage);
-          this.dialogVisible = false;
-
-      }, this.handleError);
+      .subscribe(this.handleSucces, this.handleError);
 
     } else {
       this.agendaService.agendaCreateNew(
@@ -191,11 +186,8 @@ export default class AgendaAdmin extends Vue {
         this.agendaItemForDialog.descriptionNL,
         this.agendaItemForDialog.descriptionEN,
         this.image!,
-        'response').subscribe(() => {
-          this.getAgendaItems(this.$store.getters.currentLanguage);
-          this.dialogVisible = false;
-
-      }, this.handleError);
+        'response')
+      .subscribe(this.handleSucces, this.handleError);
     }
   }
 
@@ -206,6 +198,15 @@ export default class AgendaAdmin extends Vue {
     } else {
       this.$message.error(this.$t('error.unknown').toString());
     }
+  }
+
+  private handleSucces() {
+    this.getAgendaItems(this.$store.getters.currentLanguage);
+    this.dialogVisible = false;
+  }
+
+  private deleteItem() {
+      this.agendaService.agendaDelete(this.agendaItemForDialog.id, 'response').subscribe(this.handleSucces);
   }
 }
 </script>
@@ -227,10 +228,7 @@ export default class AgendaAdmin extends Vue {
   }
 
   & .box-card {
-      margin: 20px 60px;
-      position: relative;
       transition: transform .5s;
-      overflow-y: hidden;
       cursor: pointer;
 
       &:hover {
@@ -257,22 +255,6 @@ export default class AgendaAdmin extends Vue {
   height: 178px;
   display: block;
   object-fit: cover;
-}
-
-@media only screen and (max-width: 768px) {
-  .agenda-admin {
-    & .box-card {
-      margin: 20px 0px;
-
-      & div {
-        width: 100%;
-      }
-
-      & .image-container {
-        display: none;
-      }
-    }
-  }
 }
 </style>
 

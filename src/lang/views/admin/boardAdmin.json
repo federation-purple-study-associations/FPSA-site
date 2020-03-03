@@ -1,16 +1,11 @@
 {
     "nl": {
-        "location": "Locatie:",
-        "date": "Datum:",
-        "new_item": "Nieuw agenda item",
+        "new_board": "Nieuw bestuur",
         "dialog": {
-            "title_edit": "Agenda item bewerken",
-            "title_add": "Agenda item toevoegen",
-            "location": "Locatie",
-            "date": "Datum",
+            "title_edit": "Bestuur bewerken",
+            "title_add": "Bestuur toevoegen",
             "title": "Titel",
-            "summary": "Samenvatting",
-            "description": "Omschrijving",
+            "text": "Tekst",
             "image": "Afbeelding",
             "image_note": "Laat leeg als je geen nieuwe foto wilt uploaden",
             "dutch": "Nederlands",
@@ -25,17 +20,12 @@
         }
     },
     "en": {
-        "location": "Location:",
-        "date": "Date:",
-        "new_item": "New agenda item",
+        "new_board": "New board",
         "dialog": {
-            "title_edit": "Edit agenda item",
-            "title_add": "Add agenda item",
-            "location": "Location",
-            "date": "Date",
+            "title_edit": "Edit board",
+            "title_add": "Add board",
             "title": "Title",
-            "summary": "Summary",
-            "description": "Description",
+            "text": "Text",
             "image": "Image",
             "image_note": "Leave blank if you do not want to upload a new photo",
             "dutch": "Dutch",
