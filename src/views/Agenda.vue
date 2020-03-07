@@ -49,7 +49,7 @@ export default class Agenda extends Vue {
     });
   }
 
-  mounted() {
+  public mounted() {
     this.getAgendaItems(this.$store.getters.currentLanguage);
   }
 

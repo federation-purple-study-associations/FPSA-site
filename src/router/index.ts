@@ -6,10 +6,11 @@ import WelcomeAdmin from '../views/admin/WelcomeAdmin.vue';
 import AgendaAdmin from '../views/admin/AgendaAdmin.vue';
 import Board from '../views/Board.vue';
 import BoardAdmin from '../views/admin/BoardAdmin.vue';
+import UserAdmin from '../views/admin/user.admin.vue';
 
 Vue.use(VueRouter);
-const withPrefix = (prefix: string, routes: RouteConfig[]) =>
-  routes.map((route: RouteConfig) => {
+const withPrefix = (prefix: string, routesConfig: RouteConfig[]) =>
+  routesConfig.map((route: RouteConfig) => {
     route.path = prefix + route.path;
     route.name = prefix + route.path;
     return route;
@@ -18,15 +19,15 @@ const withPrefix = (prefix: string, routes: RouteConfig[]) =>
 const routes: RouteConfig[] = [
   {
     path: '/',
-    component: Home
+    component: Home,
   },
   {
     path: '/agenda',
-    component: Agenda
+    component: Agenda,
   },
   {
     path: '/board',
-    component: Board
+    component: Board,
   },
   ...withPrefix('/admin', [
     {
@@ -40,14 +41,18 @@ const routes: RouteConfig[] = [
     {
       path: '/board',
       component: BoardAdmin,
-    }
+    },
+    {
+      path: '/user',
+      component: UserAdmin,
+    },
   ]),
 ];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;

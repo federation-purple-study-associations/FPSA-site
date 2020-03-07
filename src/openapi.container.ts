@@ -62,7 +62,7 @@ class HttpClient implements IHttpClient {
     private processResponse(response: AxiosResponse) {
         const httpResponse = new HttpResponse(response.data, response.status, response.headers);
         if (httpResponse.status === 401) {
-            window.location.href = '/'
+            window.location.href = '/';
 
         } else if (httpResponse.status >= 400) {
             throw httpResponse;

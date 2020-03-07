@@ -98,7 +98,7 @@ export default class AgendaAdmin extends Vue {
     summaryNL: '',
     summaryEN: '',
     descriptionNL: '',
-    descriptionEN: ''
+    descriptionEN: '',
   };
 
   constructor() {
@@ -111,7 +111,7 @@ export default class AgendaAdmin extends Vue {
     });
   }
 
-  mounted() {
+  public mounted() {
     this.getAgendaItems(this.$store.getters.currentLanguage);
   }
 
@@ -148,7 +148,7 @@ export default class AgendaAdmin extends Vue {
       summaryNL: '',
       summaryEN: '',
       descriptionNL: '',
-      descriptionEN: ''
+      descriptionEN: '',
     };
 
     this.edit = false;

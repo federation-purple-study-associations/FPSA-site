@@ -41,7 +41,7 @@ export default class Board extends Vue {
     });
   }
 
-  mounted() {
+  public mounted() {
     this.getBoards(this.$store.getters.currentLanguage);
   }
 

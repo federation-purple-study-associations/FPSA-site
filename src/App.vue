@@ -17,8 +17,8 @@ import Footer from '@/components/footer.vue';
   components: {
     HomeHeader,
     AdminHeader,
-    Footer
-  }
+    Footer,
+  },
 })
 export default class App extends Vue {
   private window = window;

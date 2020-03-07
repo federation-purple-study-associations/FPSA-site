@@ -41,11 +41,11 @@ export default class HomeHeader extends Vue {
   private menu = false;
   private loginForm: LoginDTO = {
     email: '',
-    password: ''
+    password: '',
   };
   private isLoggedIn = false;
 
-  async mounted() {
+  public async mounted() {
     this.isLoggedIn = await this.$store.dispatch('isLoggedIn');
   }
 
@@ -68,12 +68,12 @@ export default class HomeHeader extends Vue {
 
         if (err.status === 400) {
           this.$message.error(this.$t('error.wrong_credentials').toString());
-        
+
         } else {
           this.$message.error(this.$t('error.unknown').toString());
         }
-      }
-    )
+      },
+    );
   }
 }
 </script>

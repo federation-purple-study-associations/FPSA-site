@@ -69,7 +69,7 @@ export default class Home extends Vue {
     openApiContainer.get<StatisticService>('StatisticService').pageViewNew('response').subscribe();
   }
 
-  mounted() {
+  public mounted() {
     this.getAgendaItems(this.$store.getters.currentLanguage);
   }
 

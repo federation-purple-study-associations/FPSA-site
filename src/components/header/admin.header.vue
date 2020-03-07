@@ -8,6 +8,7 @@
     <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>
       <el-menu-item index="" class="header-navigation__responsive" @click="toggleMenu"><i class="el-icon-more-outline"></i></el-menu-item>
       <el-menu-item index="/admin" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('start')}}</el-menu-item>
+      <el-menu-item index="/admin/user" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('user')}}</el-menu-item>
       <el-menu-item index="/admin/agenda" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('agenda')}}</el-menu-item>
       <el-menu-item index="/admin/board" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('board')}}</el-menu-item>
       <el-submenu index="" :class="menu ? 'responsive' : ''">
@@ -34,11 +35,11 @@ export default class AdminHeader extends Vue {
   private menu = false;
   private loginForm: LoginDTO = {
     email: '',
-    password: ''
+    password: '',
   };
   private isLoggedIn = false;
 
-  async mounted() {
+  public async mounted() {
     this.isLoggedIn = await this.$store.dispatch('isLoggedIn');
   }
 
@@ -61,12 +62,12 @@ export default class AdminHeader extends Vue {
 
         if (err.status === 400) {
           this.$message.error(this.$t('error.wrong_credentials').toString());
-        
+
         } else {
           this.$message.error(this.$t('error.unknown').toString());
         }
-      }
-    )
+      },
+    );
   }
 }
 </script>

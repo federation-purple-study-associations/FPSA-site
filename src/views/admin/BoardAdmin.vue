@@ -75,7 +75,7 @@ export default class BoardAdmin extends Vue {
     textNL: '',
     textEN: '',
     id: 0,
-  }
+  };
 
   constructor() {
     super();
@@ -87,7 +87,7 @@ export default class BoardAdmin extends Vue {
     });
   }
 
-  mounted() {
+  public mounted() {
     this.getBoards(this.$store.getters.currentLanguage);
   }
 
@@ -137,7 +137,7 @@ export default class BoardAdmin extends Vue {
             this.boardForDialog.textNL,
             this.boardForDialog.textEN,
             this.image,
-            'response'
+            'response',
         ).subscribe(this.handleSucces, this.handleError);
 
     } else {
@@ -147,7 +147,7 @@ export default class BoardAdmin extends Vue {
             this.boardForDialog.textNL,
             this.boardForDialog.textEN,
             this.image!,
-            'response'
+            'response',
         ).subscribe(this.handleSucces, this.handleError);
     }
   }

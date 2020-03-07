@@ -42,8 +42,8 @@ export default class WelcomeAdmin extends Vue {
       type: 'line',
     },
     stroke: {
+      curve: 'smooth',
       width: 3,
-      curve: 'smooth'
     },
     xaxis: {
       type: 'datetime',
@@ -51,25 +51,25 @@ export default class WelcomeAdmin extends Vue {
   };
   private series: Array<{name: string, data: Array<{x: number, y: number}> }> = [];
 
-  mounted() {
+  public mounted() {
     openApiContainer.get<StatisticService>('StatisticService').pageViewGetAll('response').subscribe((res: HttpResponse<PageView[]>) => {
-      const data = res.response.map((view) => { return {y: view.count, x: new Date(view.date).getTime() }; });
+      const data = res.response.map((view) => ({y: view.count, x: new Date(view.date).getTime() }));
       this.series = [ { name: this.$t('page_views.title').toString(), data } ];
     });
 
     openApiContainer.get<UserService>('UserService').me('response').subscribe((res: HttpResponse<User>) => {
       this.me = res.response;
     });
-    
+
     this.chartOptions = {
       ...this.chartOptions,
       ...{
         title: {
-          text: this.$t('page_views.title').toString(),
           align: 'left',
+          text: this.$t('page_views.title').toString(),
         },
-      }
-    }
+      },
+    };
   }
 
   private async logout() {

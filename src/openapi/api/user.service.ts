@@ -22,6 +22,9 @@ import HttpResponse from "../HttpResponse";
 
 import { LoginDTO } from "../model/loginDTO";
 import { User } from "../model/user";
+import { UserNewDTO } from "../model/userNewDTO";
+import { UserSummaryDTO } from "../model/userSummaryDTO";
+import { UserUpdateDTO } from "../model/userUpdateDTO";
 
 import { COLLECTION_FORMATS }  from "../variables";
 
@@ -77,6 +80,133 @@ export class UserService {
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <User>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * create
+     * This call can be used to create a new user
+     * @param userNewDTO 
+     
+     */
+    public userCreate(userNewDTO: UserNewDTO, observe?: 'body', headers?: Headers): Observable<any>;
+    public userCreate(userNewDTO: UserNewDTO, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public userCreate(userNewDTO: UserNewDTO, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (userNewDTO === null || userNewDTO === undefined){
+            throw new Error('Required parameter userNewDTO was null or undefined when calling userCreate.');
+        }
+
+        headers['Accept'] = 'application/json';
+        headers['Content-Type'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user`, userNewDTO , headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * delete
+     * This call can be used to delete a user
+     * @param id 
+     
+     */
+    public userDelete(id: number, observe?: 'body', headers?: Headers): Observable<any>;
+    public userDelete(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public userDelete(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling userDelete.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.delete(`${this.basePath}/user/${encodeURIComponent(String(id))}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * getAll
+     * This call can be used to get all of the users in the FPSA database
+     
+     */
+    public userGetAll(observe?: 'body', headers?: Headers): Observable<Array<UserSummaryDTO>>;
+    public userGetAll(observe?: 'response', headers?: Headers): Observable<HttpResponse<Array<UserSummaryDTO>>>;
+    public userGetAll(observe: any = 'body', headers: Headers = {}): Observable<any> {
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<Array<UserSummaryDTO>>> = this.httpClient.get(`${this.basePath}/user`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <Array<UserSummaryDTO>>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * getOne
+     * This call can be used to get one of the users in the FPSA database
+     * @param id 
+     
+     */
+    public userGetOne(id: number, observe?: 'body', headers?: Headers): Observable<User>;
+    public userGetOne(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<User>>;
+    public userGetOne(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling userGetOne.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<User>> = this.httpClient.get(`${this.basePath}/user/${encodeURIComponent(String(id))}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <User>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * update
+     * This call can be used to update a user
+     * @param id 
+     * @param userUpdateDTO 
+     
+     */
+    public userUpdate(id: number, userUpdateDTO: UserUpdateDTO, observe?: 'body', headers?: Headers): Observable<any>;
+    public userUpdate(id: number, userUpdateDTO: UserUpdateDTO, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public userUpdate(id: number, userUpdateDTO: UserUpdateDTO, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling userUpdate.');
+        }
+
+        if (userUpdateDTO === null || userUpdateDTO === undefined){
+            throw new Error('Required parameter userUpdateDTO was null or undefined when calling userUpdate.');
+        }
+
+        headers['Accept'] = 'application/json';
+        headers['Content-Type'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/user/${encodeURIComponent(String(id))}`, userUpdateDTO , headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
                );
         }
         return response;
