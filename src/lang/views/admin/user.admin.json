@@ -15,6 +15,10 @@
             "confirm": "Bevestigen",
             "delete": "Verwijderen",
             "cancel": "Annuleren"
+        },
+        "error": {
+            "form_not_filled_in_correctly": "Niet alles is correct ingevuld...",
+            "unknown": "Een onbekende error is opgetreden..."
         }
     },
     "en": {
@@ -33,6 +37,10 @@
             "confirm": "Confirm",
             "delete": "Delete",
             "cancel": "Cancel"
+        },
+        "error": {
+            "form_not_filled_in_correctly": "Form is not filled in correctly...",
+            "unknown": "An unknown error has occured..."
         }
     }
 }

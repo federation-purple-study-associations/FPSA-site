@@ -2,7 +2,7 @@
   <el-header class="header">
     <div>
       <router-link to="/">
-        <img src="/logo.png" />
+        <img src="/logo.svg" />
       </router-link>
     </div>
     <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>

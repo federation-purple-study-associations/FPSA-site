@@ -1,0 +1,36 @@
+<svg width="5025.0659" height="5025.8018" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <metadata id="metadata4524">image/svg+xml</metadata>
+ <defs>
+  <linearGradient id="linearGradient4634">
+   <stop stop-color="#7c4dd8" id="stop4630" offset="0"/>
+   <stop stop-color="#7c4dd8" stop-opacity="0" id="stop4632" offset="1"/>
+  </linearGradient>
+  <linearGradient y2="0.20023" x2="2.627576" y1="0.573326" x1="0.028661" id="linearGradient4636" xlink:href="#linearGradient4634"/>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g display="inline" id="layer2">
+   <ellipse fill="url(#linearGradient4636)" stroke-width="175.847122" stroke-miterlimit="4" transform="matrix(0.98749478,0.1576517,-0.15756224,0.98750906,0,0) " ry="2150.4075" rx="2153.6311" cy="2084.120641" cx="2883.948009" id="path4544"/>
+  </g>
+  <g stroke="null" display="inline" id="layer4">
+   <text font-style="normal" font-weight="normal" font-size="40px" font-family="sans-serif" fill="#ffffff" id="text5756" y="2900.969127" x="659.352802" xml:space="preserve">
+    <tspan stroke="null" font-style="normal" font-weight="bold" font-size="1333.333374px" font-family="sans-serif" fill="#ffffff" y="2900.969127" x="751.018299" id="tspan5754">FPSA</tspan>
+   </text>
+  </g>
+  <g display="inline" id="layer5">
+   <text font-style="normal" font-weight="normal" font-size="395.979218px" font-family="sans-serif" text-anchor="middle" fill="#000000" stroke-width="0.989948" transform="translate(-17.297225952148438,-9.996200561523438) scale(0.989948034286499,1.0101540088653564) " id="text5789" y="3176.2776" x="2574.2124" xml:space="preserve">
+    <tspan font-weight="bold" font-size="213.333328px" text-anchor="middle" fill="#ffffff" stroke-width="0.989948" y="3176.2776" x="2610.6709" id="tspan5787">FEDERATION PURPLE STUDY</tspan>
+    <tspan font-weight="bold" font-size="213.333328px" text-anchor="middle" fill="#ffffff" stroke-width="0.989948" id="tspan5793" y="3451.0723" x="2574.2124">ASSOCIATIONS</tspan>
+   </text>
+  </g>
+  <g display="inline" id="layer6">
+   <g id="g5834">
+    <ellipse fill="none" stroke="#7c4dd8" stroke-width="191.592072" stroke-miterlimit="4" id="path4948" cx="2537.532386" cy="2512.900799" rx="2416.7368" ry="2417.1047"/>
+   </g>
+  </g>
+ </g>
+</svg>
