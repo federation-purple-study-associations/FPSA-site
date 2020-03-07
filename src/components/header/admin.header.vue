@@ -2,7 +2,7 @@
   <el-header class="header">
     <div>
       <router-link to="/">
-        <img src="@/assets/logo.svg" />
+        <img src="/logo.png" />
       </router-link>
     </div>
     <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>
@@ -159,7 +159,7 @@ export default class AdminHeader extends Vue {
           top: 0px;
           display: none;
           width: 100%;
-          height: 300px;
+          height: 360px;
           box-shadow: 0px 0px 10px 10px rgba(144,147,153,0.25);
         }
 

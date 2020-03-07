@@ -16,4 +16,5 @@ export interface User {
     email: string;
     fullName: string;
     lastLogin?: string;
+    roleId: number;
 }

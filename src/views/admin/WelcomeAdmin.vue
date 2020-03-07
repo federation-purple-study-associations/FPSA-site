@@ -35,6 +35,7 @@ export default class WelcomeAdmin extends Vue {
     fullName: '',
     email: '',
     lastLogin: '',
+    roleId: 0,
   };
   private chartOptions = {
     chart: {

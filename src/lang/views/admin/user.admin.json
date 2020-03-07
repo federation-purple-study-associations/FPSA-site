@@ -1,6 +1,38 @@
 {
     "nl": {
+        "edit": "Bewerken",
+        "add": "Toevoegen",
+        "fullName": "Volledige naam",
+        "email": "Email",
+        "role": "Rol",
+        "roles": {
+            "fpsa": "Fpsa",
+            "association": "Vereniging"
+        },
+        "dialog": {
+            "title_edit": "Gebruiker bewerken",
+            "title_add": "Gebruiker toevoegen",
+            "confirm": "Bevestigen",
+            "delete": "Verwijderen",
+            "cancel": "Annuleren"
+        }
     },
     "en": {
+        "edit": "Edit",
+        "add": "Add",
+        "fullName": "Fullname",
+        "email": "Email",
+        "role": "Role",
+        "roles": {
+            "fpsa": "Fpsa",
+            "association": "Association"
+        },
+        "dialog": {
+            "title_edit": "Edit user",
+            "title_add": "Add user",
+            "confirm": "Confirm",
+            "delete": "Delete",
+            "cancel": "Cancel"
+        }
     }
 }

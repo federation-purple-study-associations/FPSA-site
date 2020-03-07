@@ -1,5 +1,40 @@
 <template scoped>
   <div class="user-admin">
+    <div class="user-admin__actions">
+      <el-button type="primary" class="user-admin__add" @click="openAddDialog">{{$t('add')}}</el-button>
+    </div>
+    <el-table :data="users" :stripe="true">
+      <el-table-column prop="fullName" :label="$t('fullName')" sortable></el-table-column>
+      <el-table-column prop="email" :label="$t('email')" sortable></el-table-column>
+      <el-table-column prop="role" :label="$t('role')" sortable></el-table-column>
+      <el-table-column fixed="right" label="" width="50">
+        <template slot-scope="scope">
+          <el-button @click="openEditDialog(scope.row.id)" type="text" size="small">Edit</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <el-dialog :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')" :visible.sync="dialogVisible">
+      <el-form ref="form" :model="userForDialog" label-width="120px">
+        <el-form-item :label="$t('fullName')">
+          <el-input v-model="userForDialog.fullName"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('email')">
+          <el-input v-model="userForDialog.email"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('role')">
+          <el-select v-model="userForDialog.roleId">
+            <el-option :value="1" :label="$t('roles.fpsa')">{{$t('roles.fpsa')}}</el-option>
+            <el-option :value="2" :label="$t('roles.association')">{{$t('roles.association')}}</el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <el-button-group slot="footer" class="dialog-footer">
+        <el-button type="danger" v-if="edit" @click="deleteItem">{{$t('dialog.delete')}}</el-button>
+        <el-button @click="dialogVisible = false">{{$t('dialog.cancel')}}</el-button>
+        <el-button type="primary" @click="submitDialog">{{$t('dialog.confirm')}}</el-button>
+      </el-button-group>
+    </el-dialog>
   </div>
 </template>
 
@@ -8,22 +43,101 @@ import { Component, Vue } from 'vue-property-decorator';
 import openApiContainer from '../../openapi.container';
 import HttpResponse from '../../openapi/HttpResponse';
 import { UserService } from '../../openapi/api/user.service';
+import { UserSummaryDTO } from '../../openapi/model/userSummaryDTO';
+import { User } from '../../openapi/model/user';
+import { UserUpdateDTO } from '../../openapi/model/userUpdateDTO';
+import { UserNewDTO } from '../../openapi/model/userNewDTO';
 
 @Component({})
 export default class BoardAdmin extends Vue {
   // Util
   private userService: UserService = openApiContainer.get<UserService>('UserService');
+  private users: UserSummaryDTO[] = [];
+
+  // Dialog
+  private dialogVisible = false;
+  private edit = false;
+  private userForDialog: User = {
+    id: 0,
+    fullName: '',
+    email: '',
+    roleId: 2,
+  };
+
+  public mounted() {
+    this.getUsers();
+  }
+
+  private getUsers() {
+    this.userService.userGetAll('response').subscribe((res: HttpResponse<UserSummaryDTO[]>) => {
+      this.users = res.response;
+    });
+  }
+
+  private openAddDialog() {
+    this.userForDialog = {
+      id: 0,
+      fullName: '',
+      email: '',
+      roleId: 2,
+    };
+
+    this.edit = false;
+    this.dialogVisible = true;
+  }
+
+  private openEditDialog(id: number) {
+    this.userService.userGetOne(id, 'response').subscribe((res: HttpResponse<User>) => {
+      this.userForDialog = res.response;
+      this.edit = true;
+      this.dialogVisible = true;
+    });
+  }
+
+  private submitDialog() {
+    if (this.edit) {
+      this.userService.userUpdate(
+        this.userForDialog.id,
+        this.userForDialog as UserUpdateDTO,
+      ).subscribe(this.handleSucces, this.handleError);
+
+    } else {
+      this.userService.userCreate(
+        this.userForDialog as UserNewDTO,
+      ).subscribe(this.handleSucces, this.handleError);
+    }
+  }
+
+  private deleteItem() {
+    this.userService.userDelete(this.userForDialog.id, 'response').subscribe(this.handleSucces, this.handleError);
+  }
+
+  private handleError(err: HttpResponse) {
+    if (err.status === 400) {
+      this.$message.error(this.$t('error.form_not_filled_in_correctly').toString());
+
+    } else {
+      this.$message.error(this.$t('error.unknown').toString());
+    }
+  }
+
+  private handleSucces() {
+    this.getUsers();
+    this.dialogVisible = false;
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .user-admin {
-  
-}
+  &__actions {
+    width: 100%;
+    text-align: right;
+  }
 
-@media only screen and (max-width: 768px) {
-  .user-admin {
-
+  &__add{
+    margin-right: 10px;
+    margin-top: 10px;
   }
 }
 </style>

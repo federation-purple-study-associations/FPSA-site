@@ -51,7 +51,7 @@
         </el-form-item>
       </el-form>
       <el-button-group slot="footer" class="dialog-footer">
-        <el-button type="danger" @click="deleteItem">{{$t('dialog.delete')}}</el-button>
+        <el-button type="danger" v-if="edit" @click="deleteItem">{{$t('dialog.delete')}}</el-button>
         <el-button @click="dialogVisible = false">{{$t('dialog.cancel')}}</el-button>
         <el-button type="primary" @click="submitDialog()">{{$t('dialog.confirm')}}</el-button>
       </el-button-group>
