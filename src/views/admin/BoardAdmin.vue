@@ -1,6 +1,8 @@
 <template scoped>
   <div class="board-admin">
-    <div class="board-admin__spaceing"></div>
+    <div class="board-admin__new-board">
+      <el-button type="primary" class="board-admin__add" @click="openAddDialog">{{$t('new_board')}}</el-button>
+    </div>
 
     <el-card class="box-card" v-for="item in boardItems" :key="item.title" @click.native="openDialog(item.id)">
       <div slot="header" class="clearfix">
@@ -12,10 +14,6 @@
     </el-card>
 
     <el-pagination class="board-admin__pagination" background layout="prev, pager, next" :total="count" :page-size="pageSize" @current-change="changePage"></el-pagination>
-
-    <div class="board-admin__new-board">
-      <el-button type="primary" @click="openAddDialog">{{$t('new_board')}}</el-button>
-    </div>
 
     <el-dialog :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')" :visible.sync="dialogVisible">
       <el-form ref="form" :model="boardForDialog" label-width="120px">
@@ -174,12 +172,12 @@ export default class BoardAdmin extends Vue {
 
 <style lang="scss" scoped>
 .board-admin {
-  &__spaceing {
-    height: 20px;
-  }
-
   &__pagination {
     text-align: center
+  }
+
+  &__add{
+    margin-top: 10px;
   }
 
   & .box-card {
@@ -195,12 +193,6 @@ export default class BoardAdmin extends Vue {
     text-align: right;
     margin-top: 10px;
     padding-right: 30px;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .board-admin {
-
   }
 }
 </style>

@@ -1,6 +1,8 @@
 <template scoped>
   <div class="agenda-admin">
-    <div class="agenda-admin__spaceing"></div>
+    <div class="agenda-admin__new-agenda-item">
+      <el-button type="primary" class="agenda-admin__add" @click="openAddDialog">{{$t('new_item')}}</el-button>
+    </div>
 
     <el-card class="box-card" v-for="item in agendaItems" :key="item.title" @click.native="openEditDialog(item.id)">
       <div slot="header" class="clearfix">
@@ -14,10 +16,6 @@
     </el-card>
 
     <el-pagination class="agenda-admin__pagination" background layout="prev, pager, next" :total="count" :page-size="pageSize" @current-change="changePage"></el-pagination>
-    
-    <div class="agenda-admin__new-agenda-item">
-      <el-button type="primary" @click="openAddDialog">{{$t('new_item')}}</el-button>
-    </div>
 
     <el-dialog :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')" :visible.sync="dialogVisible">
       <el-form ref="form" :model="agendaItemForDialog" label-width="120px">
@@ -213,12 +211,12 @@ export default class AgendaAdmin extends Vue {
 
 <style lang="scss" scoped>
 .agenda-admin {
-  &__spaceing {
-    height: 20px;
-  }
-
   &__pagination {
     text-align: center
+  }
+
+  &__add{
+    margin-top: 10px;
   }
 
   &__new-agenda-item {
