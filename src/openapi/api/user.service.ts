@@ -22,6 +22,7 @@ import HttpResponse from "../HttpResponse";
 
 import { LoginDTO } from "../model/loginDTO";
 import { User } from "../model/user";
+import { UserActivateDTO } from "../model/userActivateDTO";
 import { UserNewDTO } from "../model/userNewDTO";
 import { UserSummaryDTO } from "../model/userSummaryDTO";
 import { UserUpdateDTO } from "../model/userUpdateDTO";
@@ -39,6 +40,32 @@ export class UserService {
         if(this.APIConfiguration.basePath)
             this.basePath = this.APIConfiguration.basePath;
     }
+
+    /**
+     * activate
+     * This call can be used to activate an account using a confirmation token
+     * @param userActivateDTO 
+     
+     */
+    public activate(userActivateDTO: UserActivateDTO, observe?: 'body', headers?: Headers): Observable<any>;
+    public activate(userActivateDTO: UserActivateDTO, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public activate(userActivateDTO: UserActivateDTO, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (userActivateDTO === null || userActivateDTO === undefined){
+            throw new Error('Required parameter userActivateDTO was null or undefined when calling activate.');
+        }
+
+        headers['Accept'] = 'application/json';
+        headers['Content-Type'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/activate`, userActivateDTO , headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
 
     /**
      * login

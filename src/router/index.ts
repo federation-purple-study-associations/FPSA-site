@@ -7,6 +7,7 @@ import AgendaAdmin from '../views/admin/AgendaAdmin.vue';
 import Board from '../views/Board.vue';
 import BoardAdmin from '../views/admin/BoardAdmin.vue';
 import UserAdmin from '../views/admin/user.admin.vue';
+import Confirmation from '../views/confirmation.vue';
 
 Vue.use(VueRouter);
 const withPrefix = (prefix: string, routesConfig: RouteConfig[]) =>
@@ -28,6 +29,10 @@ const routes: RouteConfig[] = [
   {
     path: '/board',
     component: Board,
+  },
+  {
+    path: '/confirmation',
+    component: Confirmation,
   },
   ...withPrefix('/admin', [
     {

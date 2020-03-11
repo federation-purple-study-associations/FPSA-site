@@ -1,0 +1,26 @@
+{
+    "nl": {
+        "title": "Wachtwoord opvoeren",
+        "password": "Wachtwoord",
+        "password_repeat": "Herhaal wachtwoord",
+        "confirm": "Bevestigen",
+        "error": {
+            "form_not_filled_in_correctly": "Uw wachtwoord dient minimaal 8 tekens lang te zijn, 1 hoofdletter, 1 kleine letter en een getal te bevatten...",
+            "password_not_match": "Wachtwoorden komen niet overeen...",
+            "invalid_token": "Incorrecte token in gebruik...",
+            "unknown": "Een onbekende error is opgetreden..."
+        }
+    },
+    "en": {
+        "title": "Set password",
+        "password": "Password",
+        "password_repeat": "Repeat password",
+        "confirm": "Confirm",
+        "error": {
+            "form_not_filled_in_correctly": "Your password must be at least 8 characters long, contain 1 uppercase letter, 1 lowercase letter and a number...",
+            "password_not_match": "Passwords do not match...",
+            "invalid_token": "Invalid token is used...",
+            "unknown": "An unknown error has occured..."
+        }
+    }
+}
