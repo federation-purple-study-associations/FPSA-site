@@ -6,7 +6,7 @@
         "email": "Email",
         "role": "Rol",
         "roles": {
-            "fpsa": "Fpsa",
+            "fpsa": "FPSA",
             "association": "Vereniging"
         },
         "dialog": {
@@ -28,7 +28,7 @@
         "email": "Email",
         "role": "Role",
         "roles": {
-            "fpsa": "Fpsa",
+            "fpsa": "FPSA",
             "association": "Association"
         },
         "dialog": {
