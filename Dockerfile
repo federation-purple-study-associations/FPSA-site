@@ -5,4 +5,4 @@ WORKDIR /site
 COPY ./dist ./
 
 EXPOSE 8081
-CMD http-server /site --proxy "http://localhost:8081?" -c-1 -p 8081
+CMD http-server /site --proxy "http://localhost:8080?" -c-1 -p 8080
