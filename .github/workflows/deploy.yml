@@ -42,9 +42,15 @@ jobs:
       run: docker push svfpsa/site:${{ steps.package-version.outputs.version }}
 
 # Deploy container
+    - name: templater make runnable
+      run: chmod +x .github/workflows/templater.sh
+    
+    - name: Build template
+      run: site_version=${{steps.package-version.outputs.version}} .github/workflows/templater.sh template.yaml > filledin.yaml
+
     - name: deploy to cluster
       uses: steebchen/kubectl@master
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       with:
-        args: apply -f template.yaml
+        args: apply -f filledin.yaml
