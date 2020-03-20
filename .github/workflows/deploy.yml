@@ -1,0 +1,50 @@
+name: Deployment
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+# Build and test project
+    - run: npm run build
+    - run: npm test --if-present
+    
+    - name: Read package.json
+      uses: tyankatsu0105/read-package-version-actions@v1
+      id: package-version
+
+# Dockerize project
+    - name: Docker login
+      env:
+        Username: ${{secrets.DOCKER_USERNAME}}
+        Password: ${{secrets.DOCKER_PASSWORD}}
+      run: docker login -u $Username -p $Password
+    
+    - name: Docker build
+      run: docker build -t svfpsa/site:${{ steps.package-version.outputs.version }} --pull -f Dockerfile .;
+    
+    - name: Docker publish
+      run: docker push svfpsa/site:${{ steps.package-version.outputs.version }}
+
+# Deploy container
+    - name: deploy to cluster
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      with:
+        args: apply -f template.yaml
