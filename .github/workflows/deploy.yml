@@ -19,6 +19,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - run: cat VUE_APP_API_URL=https://api.fpsa.nl > .env
     - run: npm i
 
 # Build and test project
