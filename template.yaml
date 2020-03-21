@@ -23,6 +23,8 @@ spec:
         env:
         - name: GET_HOSTS_FROM
           value: dns
+        - name: VUE_APP_API_URL
+          value: https://api.fpsa.nl
         ports:
         - containerPort: 8080
 
