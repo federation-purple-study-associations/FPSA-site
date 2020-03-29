@@ -46,12 +46,9 @@ export default class AdminHeader extends Vue {
 
   public async mounted() {
     this.isLoggedIn = await this.$store.dispatch('isLoggedIn');
-    console.log(this.$store.getters)
     this.hasPermissionForUser = this.$store.getters.hasPermission('User:Read');
     this.hasPermissionForAgenda = this.$store.getters.hasPermission('Agenda:Write');
     this.hasPermissionForBoard = this.$store.getters.hasPermission('Board:Write');
-
-    console.log(this.hasPermissionForAgenda)
   }
 
   private switchLanguage(lang: string): void {
