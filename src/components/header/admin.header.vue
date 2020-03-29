@@ -8,9 +8,9 @@
     <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>
       <el-menu-item index="" class="header-navigation__responsive" @click="toggleMenu"><i class="el-icon-more-outline"></i></el-menu-item>
       <el-menu-item index="/admin" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('start')}}</el-menu-item>
-      <el-menu-item index="/admin/user" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('user')}}</el-menu-item>
-      <el-menu-item index="/admin/agenda" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('agenda')}}</el-menu-item>
-      <el-menu-item index="/admin/board" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('board')}}</el-menu-item>
+      <el-menu-item index="/admin/user" :class="menu ? 'responsive' : ''" @click="toggleMenu" v-if="hasPermissionForUser">{{$t('user')}}</el-menu-item>
+      <el-menu-item index="/admin/agenda" :class="menu ? 'responsive' : ''" @click="toggleMenu" v-if="hasPermissionForAgenda">{{$t('agenda')}}</el-menu-item>
+      <el-menu-item index="/admin/board" :class="menu ? 'responsive' : ''" @click="toggleMenu" v-if="hasPermissionForBoard">{{$t('board')}}</el-menu-item>
       <el-submenu index="" :class="menu ? 'responsive' : ''">
         <template slot="title"><i class="el-icon-chat-dot-round"></i></template>
         <el-menu-item index="" v-on:click="switchLanguage('nl')">Nederlands</el-menu-item>
@@ -37,10 +37,21 @@ export default class AdminHeader extends Vue {
     email: '',
     password: '',
   };
+
+  // Authentication
   private isLoggedIn = false;
+  private hasPermissionForUser = false;
+  private hasPermissionForAgenda = false;
+  private hasPermissionForBoard = false;
 
   public async mounted() {
     this.isLoggedIn = await this.$store.dispatch('isLoggedIn');
+    console.log(this.$store.getters)
+    this.hasPermissionForUser = this.$store.getters.hasPermission('User:Read');
+    this.hasPermissionForAgenda = this.$store.getters.hasPermission('Agenda:Write');
+    this.hasPermissionForBoard = this.$store.getters.hasPermission('Board:Write');
+
+    console.log(this.hasPermissionForAgenda)
   }
 
   private switchLanguage(lang: string): void {

@@ -1,17 +1,11 @@
 export default {
     namespace: false,
+    getters: {
+        hasPermission: (state: any) => (scope: string) => parseJWT().scopes.includes(scope),
+    },
     actions: {
         isLoggedIn(): boolean {
-            const list: any = {};
-            document.cookie.split(';').forEach((cookie) => {
-                const parts = cookie.split('=');
-                const key = parts.shift();
-                if (key !== undefined) {
-                    list[key.trim()] = decodeURI(parts.join('='));
-                }
-            });
-
-            return !!list.auth;
+            return !!getAuthCookie();
         },
 
         logout(): void {
@@ -19,3 +13,20 @@ export default {
         },
     },
 };
+
+function parseJWT() {
+    return JSON.parse(atob(getAuthCookie().split('.')[1]));
+}
+
+function getAuthCookie() {
+    const list: any = {};
+    document.cookie.split(';').forEach((cookie) => {
+        const parts = cookie.split('=');
+        const key = parts.shift();
+        if (key !== undefined) {
+            list[key.trim()] = decodeURI(parts.join('='));
+        }
+    });
+
+    return list.auth;
+}
