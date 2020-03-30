@@ -43,6 +43,9 @@
         <el-form-item>
           <el-input :placeholder="$t('dialog.english')" v-model="agendaItemForDialog.descriptionEN" type="textarea"></el-input>
         </el-form-item>
+        <el-form-item :label="$t('dialog.draft')">
+          <el-checkbox v-model="agendaItemForDialog.isDraft"></el-checkbox>
+        </el-form-item>
         <el-form-item :label="$t('dialog.image')">
           <input type="file" ref="file" v-on:change="handleFileUpload()"/><br>
           {{edit ? $t('dialog.image_note') : ''}}
@@ -97,6 +100,7 @@ export default class AgendaAdmin extends Vue {
     summaryEN: '',
     descriptionNL: '',
     descriptionEN: '',
+    isDraft: true,
   };
 
   constructor() {
@@ -147,6 +151,7 @@ export default class AgendaAdmin extends Vue {
       summaryEN: '',
       descriptionNL: '',
       descriptionEN: '',
+      isDraft: true,
     };
 
     this.edit = false;
@@ -169,6 +174,7 @@ export default class AgendaAdmin extends Vue {
         this.agendaItemForDialog.summaryEN,
         this.agendaItemForDialog.descriptionNL,
         this.agendaItemForDialog.descriptionEN,
+        this.agendaItemForDialog.isDraft,
         this.image,
         'response')
       .subscribe(this.handleSucces, this.handleError);
@@ -183,6 +189,7 @@ export default class AgendaAdmin extends Vue {
         this.agendaItemForDialog.summaryEN,
         this.agendaItemForDialog.descriptionNL,
         this.agendaItemForDialog.descriptionEN,
+        this.agendaItemForDialog.isDraft,
         this.image!,
         'response')
       .subscribe(this.handleSucces, this.handleError);

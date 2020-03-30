@@ -7,9 +7,9 @@
       <el-table-column prop="fullName" :label="$t('fullName')" sortable></el-table-column>
       <el-table-column prop="email" :label="$t('email')" sortable></el-table-column>
       <el-table-column prop="role" :label="$t('role')" sortable></el-table-column>
-      <el-table-column fixed="right" label="" width="50">
+      <el-table-column fixed="right" label="" width="80">
         <template slot-scope="scope">
-          <el-button @click="openEditDialog(scope.row.id)" type="text" size="small">Edit</el-button>
+          <el-button @click="openEditDialog(scope.row.id)" type="text" size="small" style="float: right">{{$t('edit')}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -62,6 +62,7 @@ export default class BoardAdmin extends Vue {
     fullName: '',
     email: '',
     roleId: 2,
+    recieveEmailUpdatesEvents: true,
   };
 
   public mounted() {
@@ -80,6 +81,7 @@ export default class BoardAdmin extends Vue {
       fullName: '',
       email: '',
       roleId: 2,
+      recieveEmailUpdatesEvents: false,
     };
 
     this.edit = false;

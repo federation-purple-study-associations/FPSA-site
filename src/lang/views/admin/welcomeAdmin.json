@@ -9,6 +9,13 @@
             "last_login_format": "DD-MM-YYYY [om] HH:mm:ss",
             "last_login_never": "nooit..."
         },
+        "email": {
+            "title": "Email instellingen",
+            "email": "Email adres",
+            "events": "Ik wil een email ontvangen wanneer er een nieuw evenement is van FPSA!",
+            "succesfull": "Bewerking was succesvol!",
+            "failed": "Bewerking is gefaald, controleer alle velden en probeer het opnieuw..."
+        },
         "logout": "Log uit"
     },
     "en": {
@@ -20,6 +27,13 @@
             "last_login": "Your last login was on: ",
             "last_login_format": "MM-DD-YYYY [at] HH:mm:ss",
             "last_login_never": "never..."
+        },
+        "email": {
+            "title": "Email settings",
+            "email": "Email address",
+            "events": "I want to receive an email when there is a new event of FPSA!",
+            "succesfull": "Editing was successful!",
+            "failed": "Operation failed, check all fields and try again..."
         },
         "logout": "Logout"
     }

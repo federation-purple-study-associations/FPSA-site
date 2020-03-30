@@ -10,9 +10,21 @@
           me.lastLogin ? moment(me.lastLogin).format($t('message.last_login_format').toString()) : $t('message.last_login_never')
           }}
         </div>
+
         <el-button class="welcome-admin__logout" type="primary" @click="logout">{{$t('logout')}}</el-button>
+
+        <div class="welcome-admin__settings">
+          <h2 class="fpsa-header">{{$t('email.title')}}</h2>
+          <el-form label-position="left" label-width="100px" onsubmit="event.preventDefault()">
+            <el-form-item :label="$t('email.email')">
+              <el-input v-model="me.email" @change="updateMe"></el-input>
+            </el-form-item>
+            <el-checkbox v-model="me.recieveEmailUpdatesEvents" @change="updateMe">{{$t('email.events')}}</el-checkbox>
+          </el-form>
+        </div>
       </div>
-      <apexchart class="welcome-admin__page-views-chart" width="100%" type="line" :options="chartOptions" :series="series"></apexchart>
+
+      <apexchart class="welcome-admin__page-views-chart" v-if="hasPermissionForStatistics" width="100%" type="line" :options="chartOptions" :series="series"></apexchart>
     </div>
   </div>
 </template>
@@ -36,6 +48,7 @@ export default class WelcomeAdmin extends Vue {
     email: '',
     lastLogin: '',
     roleId: 0,
+    recieveEmailUpdatesEvents: false,
   };
   private chartOptions = {
     chart: {
@@ -52,13 +65,17 @@ export default class WelcomeAdmin extends Vue {
   };
   private series: Array<{name: string, data: Array<{x: number, y: number}> }> = [];
 
+  private hasPermissionForStatistics = false;
+
   public mounted() {
+    this.hasPermissionForStatistics = this.$store.getters.hasPermission('Statistics:Read');
+
     openApiContainer.get<StatisticService>('StatisticService').pageViewGetAll('response').subscribe((res: HttpResponse<PageView[]>) => {
       const data = res.response.map((view) => ({y: view.count, x: new Date(view.date).getTime() }));
       this.series = [ { name: this.$t('page_views.title').toString(), data } ];
     });
 
-    openApiContainer.get<UserService>('UserService').me('response').subscribe((res: HttpResponse<User>) => {
+    openApiContainer.get<UserService>('UserService').getMe('response').subscribe((res: HttpResponse<User>) => {
       this.me = res.response;
     });
 
@@ -71,6 +88,14 @@ export default class WelcomeAdmin extends Vue {
         },
       },
     };
+  }
+
+  private updateMe() {
+    openApiContainer.get<UserService>('UserService').updateMe(this.me, 'response').subscribe(() => {
+      this.$message.success(this.$t('email.succesfull').toString());
+    }, () => {
+      this.$message.error(this.$t('email.failed').toString());
+    });
   }
 
   private async logout() {
@@ -98,6 +123,14 @@ export default class WelcomeAdmin extends Vue {
     &__page-views-chart {
       width: 50%;
       height: 50%;
+    }
+
+    &__settings {
+      margin-top: 30px;
+
+      h2 {
+        font-size: 15px;
+      }
     }
 
     &__logout {
