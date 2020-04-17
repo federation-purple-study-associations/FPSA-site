@@ -11,7 +11,7 @@
     <div>
         <span><a href="mailto:info@fpsa.nl">info@fpsa.nl</a></span>
         <br>
-        <span>Kvk: ???</span>
+        <span>kvk:</span>
     </div>
   </el-footer>
 </template>
