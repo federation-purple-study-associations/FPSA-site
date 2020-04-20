@@ -8,7 +8,7 @@
         },
         "application": {
             "title": "Aanmelden bij FPSA",
-            "name": "Naam",
+            "name": "Naam studievereniging",
             "email": "Email",
             "confirm": "Bevestigen",
             "successful": "Aanmelding is succesvol aangekomen!"
@@ -27,7 +27,7 @@
         },
         "application": {
             "title": "Register to FPSA",
-            "name": "Name",
+            "name": "Name study association",
             "email": "Email",
             "confirm": "Confirm",
             "successful": "Application has arrived successfully!"
