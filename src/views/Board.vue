@@ -1,10 +1,10 @@
 <template scoped>
   <div class="board">
-    <div class="board__spaceing"></div>
+    <div class="spaceing"></div>
 
     <el-card class="box-card" v-for="item in boardItems" :key="item.title">
-      <div slot="header" class="clearfix">
-        <span>{{item.title}}</span>
+      <div slot="header">
+        <h2 class="fpsa-header">{{item.title}}</h2>
       </div>
       
       <div class="box-card__text">{{item.text}}</div>
@@ -60,18 +60,8 @@ export default class Board extends Vue {
 
 <style lang="scss" scoped>
 .board {
-  &__spaceing {
-    height: 20px;
-  }
-
   &__pagination {
     text-align: center
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .board {
-
   }
 }
 </style>

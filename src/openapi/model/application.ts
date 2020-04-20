@@ -11,8 +11,8 @@
  */
 
 
-export interface BoardInfoDTO { 
+export interface Application { 
     id: number;
-    title: string;
-    text: string;
+    name: string;
+    email: string;
 }

@@ -3,8 +3,8 @@
     <div class="spaceing"></div>
 
     <el-card class="box-card" v-for="item in agendaItems" :key="item.title" @click.native="openDialog(item.id)">
-      <div slot="header" class="clearfix">
-        <span>{{item.title}}</span>
+      <div slot="header">
+        <h2 class="fpsa-header">{{item.title}}</h2>
       </div>
       <div><b>{{$t('location')}}</b> {{item.location}}</div>
       <div><b>{{$t('date')}}</b> {{moment(item.date).format('DD-MM-YYYY HH:mm')}}</div>
@@ -85,10 +85,6 @@ export default class Agenda extends Vue {
 
 <style lang="scss" scoped>
 .agenda {
-  & .spaceing {
-    height: 20px;
-  }
-
   &__pagination {
     text-align: center
   }

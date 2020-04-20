@@ -10,6 +10,9 @@ $--color-primary: #7D52C9;
         width: 100%;
     }
 }
+div.spaceing {
+    height: 20px;
+}
 
 h2.fpsa-header {
     color: $--color-primary;
@@ -18,6 +21,16 @@ h2.fpsa-header {
 .content .el-table .cell {
     word-break: break-word !important;
 }
+
+.el-submenu__title i, .el-menu-item i {
+    color: white !important;
+}
+
+.el-menu-item:hover, .el-submenu__title:hover,
+.el-menu-item:focus, .el-submenu__title:focus {
+    background: #7539ed !important;
+    color: white !important;
+  }
 
 .el-dialog__wrapper .el-dialog {
     margin-top: 0px !important;
@@ -47,7 +60,7 @@ h2.fpsa-header {
     position: relative;
     overflow-y: hidden;
 
-    & div {
+    &:not(&--full-width) div {
       width: 75%;
     }
 

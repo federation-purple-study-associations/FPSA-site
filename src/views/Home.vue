@@ -1,11 +1,12 @@
 <template scoped>
   <div class="home">
     <div class="home__welcome">
-      <div class="home__welcome__info">
-        <h2>{{ $t("welcome.umbrella_association") }}</h2>
-        <h1>FPSA</h1>
-        <h3>Federation of Purple Study Associations</h3>
+      <div class="home__welcome--column">
+        <h2 class="fpsa-header home__welcome--header">{{$t('welcome.umbrella_association')}} FPSA</h2>
+        <h3 class="home__welcome--text">Meld je nu aan!</h3>
+        <el-button type="primary" round><router-link to="/contact#application">Klik hier</router-link></el-button>
       </div>
+      <img src="/logo.png" class="home__welcome--column"/>
     </div>
 
     <el-main class="home__about-us">
@@ -86,35 +87,27 @@ export default class Home extends Vue {
 .home {
   &__welcome {
     height: calc(100vh - 60px);
-    background: linear-gradient(
-        rgba(125, 82, 201, 0.6),
-        rgba(125, 82, 201, 0.6)
-      ),
-      url("../assets/welcome.jpg");
-    background-size: cover;
-    background-position-x: center;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: white;
 
-    &__info {
-      text-align: center;
+    &--header {
+      font-size: 40px;
+    }
+
+    &--text {
+      color: rgb(80, 80, 80);
+    }
+
+    &--column {
+      width: 40%;
+      animation: fadein 3s;
+    }
+
+    & a {
+      text-decoration: none;
       color: white;
-
-      & h1 {
-        font-size: 66px;
-        line-height: 77px;
-        margin-top: 40px;
-        margin-bottom: 10px;
-      }
-
-      & h2 {
-        font-weight: 600;
-      }
-
-      & h3 {
-        font-weight: 400;
-      }
     }
   }
 
@@ -122,6 +115,11 @@ export default class Home extends Vue {
     & .box-card {
       height: 90%;
     }
+  }
+
+  @keyframes fadein {
+    0% { opacity: 0; }
+    100%   { opacity: 1; }
   }
 }
 </style>

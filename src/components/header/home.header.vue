@@ -1,15 +1,13 @@
 <template scoped>
   <el-header class="header">
-    <div>
-      <router-link to="/">
-        <img src="/logo.svg" />
-      </router-link>
-    </div>
+    <div></div>
+
     <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>
       <el-menu-item index="" class="header-navigation__responsive" @click="toggleMenu"><i class="el-icon-more-outline"></i></el-menu-item>
       <el-menu-item index="/" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('home')}}</el-menu-item>
       <el-menu-item index="/agenda" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('agenda')}}</el-menu-item>
       <el-menu-item index="/board" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('board')}}</el-menu-item>
+      <el-menu-item index="/contact" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('contact')}}</el-menu-item>
       <el-submenu index="" :class="menu ? 'responsive' : ''">
         <template slot="title"><i class="el-icon-chat-dot-round"></i></template>
         <el-menu-item index="" v-on:click="switchLanguage('nl')">Nederlands</el-menu-item>
@@ -85,11 +83,15 @@ export default class HomeHeader extends Vue {
   height: 60px;
   top: 0;
   left: 0;
-  background: white;
+  background: #7C4DD8;
   display: flex;
   justify-content: space-between;
   border-bottom: solid 1px #e6e6e6;
   z-index: 999;
+
+  &-icon {
+    font-size: 25px;
+  }
 
   & .el-submenu {
     width: 60px;
@@ -106,15 +108,21 @@ export default class HomeHeader extends Vue {
   }
 
   & &-navigation {
+    background: #7C4DD8;
     border-bottom: none;
 
     &__responsive {
       display: none;
     }
 
-    & a {
-      text-decoration: none;
+    & li {
+      color: white !important;
     }
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
   }
 }
 

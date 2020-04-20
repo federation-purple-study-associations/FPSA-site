@@ -6,6 +6,7 @@
         "login": "Login",
         "board": "Besturen",
         "user": "Gebruikers",
+        "contact": "Contact",
         "error": {
             "unknown": "Een onbekende error is opgetreden...",
             "wrong_credentials": "De gebruikersnaam of het wachtwoord is incorrect..."
@@ -18,6 +19,7 @@
         "login": "Login",
         "board": "Boards",
         "user": "Users",
+        "contact": "Contact",
         "error": {
             "unknown": "An unknown error has occured...",
             "wrong_credentials": "Username or password is incorrect..."

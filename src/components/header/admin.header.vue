@@ -1,10 +1,11 @@
 <template scoped>
   <el-header class="header">
-    <div>
+    <div class="header__left">
       <router-link to="/">
-        <img src="/logo.svg" />
+        <i class="el-icon-s-home header__icon"></i>
       </router-link>
     </div>
+
     <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>
       <el-menu-item index="" class="header-navigation__responsive" @click="toggleMenu"><i class="el-icon-more-outline"></i></el-menu-item>
       <el-menu-item index="/admin" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('start')}}</el-menu-item>
@@ -87,11 +88,21 @@ export default class AdminHeader extends Vue {
   height: 60px;
   top: 0;
   left: 0;
-  background: white;
+  background: #7C4DD8;
   display: flex;
   justify-content: space-between;
   border-bottom: solid 1px #e6e6e6;
   z-index: 999;
+
+  &__left {
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    color: white;
+    font-size: 35px;
+  }
 
   & .el-submenu {
     width: 60px;
@@ -108,6 +119,7 @@ export default class AdminHeader extends Vue {
   }
 
   & &-navigation {
+    background: #7C4DD8;
     border-bottom: none;
 
     &__responsive {
@@ -116,6 +128,10 @@ export default class AdminHeader extends Vue {
 
     & a {
       text-decoration: none;
+    }
+
+    & li {
+      color: white;
     }
   }
 }

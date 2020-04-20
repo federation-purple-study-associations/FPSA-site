@@ -1,7 +1,8 @@
 <template scoped>
   <div class="user-admin">
     <div class="user-admin__actions">
-      <el-button type="primary" class="user-admin__add" @click="openAddDialog">{{$t('add')}}</el-button>
+      <el-button class="user-admin__application" @click="openApplicationDialog">{{$t('applications.title')}}</el-button>
+      <el-button class="user-admin__add" @click="openAddDialog">{{$t('add')}}</el-button>
     </div>
     <el-table :data="users" :stripe="true">
       <el-table-column prop="fullName" :label="$t('fullName')" sortable></el-table-column>
@@ -14,7 +15,7 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')" :visible.sync="dialogVisible">
+    <el-dialog :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')" :visible.sync="dialogUserVisible">
       <el-form ref="form" :model="userForDialog" label-width="120px">
         <el-form-item :label="$t('fullName')">
           <el-input v-model="userForDialog.fullName"></el-input>
@@ -35,6 +36,19 @@
         <el-button type="primary" @click="submitDialog">{{$t('dialog.confirm')}}</el-button>
       </el-button-group>
     </el-dialog>
+
+    <el-dialog :title="$t('applications.title')" :visible.sync="dialogApplicationsVisible">
+      <el-table :data="applications" :stripe="true">
+        <el-table-column prop="name" :label="$t('fullName')" sortable></el-table-column>
+        <el-table-column prop="email" :label="$t('email')" sortable></el-table-column>
+        <el-table-column fixed="right" label="" width="100">
+          <template slot-scope="scope">
+            <el-button type="danger" @click="declineApplication(scope.row.id)" size="small" style="float: right; width: 90px">{{$t('applications.decline')}}</el-button>
+            <el-button type="success" @click="acceptApplication(scope.row.id)" size="small" style="float: right; width: 90px">{{$t('applications.accept')}}</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -47,6 +61,7 @@ import { UserSummaryDTO } from '../../openapi/model/userSummaryDTO';
 import { User } from '../../openapi/model/user';
 import { UserUpdateDTO } from '../../openapi/model/userUpdateDTO';
 import { UserNewDTO } from '../../openapi/model/userNewDTO';
+import { Application } from '../../openapi/model/application';
 
 @Component({})
 export default class BoardAdmin extends Vue {
@@ -55,7 +70,7 @@ export default class BoardAdmin extends Vue {
   private users: UserSummaryDTO[] = [];
 
   // Dialog
-  private dialogVisible = false;
+  private dialogUserVisible = false;
   private edit = false;
   private userForDialog: User = {
     id: 0,
@@ -64,6 +79,10 @@ export default class BoardAdmin extends Vue {
     roleId: 2,
     recieveEmailUpdatesEvents: true,
   };
+
+  // Applications
+  private dialogApplicationsVisible = false;
+  private applications: Application[] = [];
 
   public mounted() {
     this.getUsers();
@@ -85,14 +104,14 @@ export default class BoardAdmin extends Vue {
     };
 
     this.edit = false;
-    this.dialogVisible = true;
+    this.dialogUserVisible = true;
   }
 
   private openEditDialog(id: number) {
     this.userService.userGetOne(id, 'response').subscribe((res: HttpResponse<User>) => {
       this.userForDialog = res.response;
       this.edit = true;
-      this.dialogVisible = true;
+      this.dialogUserVisible = true;
     });
   }
 
@@ -125,7 +144,27 @@ export default class BoardAdmin extends Vue {
 
   private handleSucces() {
     this.getUsers();
-    this.dialogVisible = false;
+    this.dialogUserVisible = false;
+  }
+
+  private openApplicationDialog() {
+    this.userService.applicationGetAll('response').subscribe((res: HttpResponse<Application[]>) => {
+      this.applications = res.response;
+      this.dialogApplicationsVisible = true;
+    });
+  }
+
+  private declineApplication(id: number) {
+    this.userService.applicationDecline(id, 'response').subscribe(this.handleApplicationSuccess, this.handleError);
+  }
+
+  private acceptApplication(id: number) {
+    this.userService.applicationAccept(id, 'response').subscribe(this.handleApplicationSuccess, this.handleError);
+  }
+
+  private handleApplicationSuccess() {
+    this.openApplicationDialog();
+    this.$message.success(this.$t('applications.successful').toString());
   }
 }
 </script>
@@ -135,6 +174,7 @@ export default class BoardAdmin extends Vue {
   &__actions {
     width: 100%;
     text-align: right;
+    margin-bottom: 10px;
   }
 
   &__add{

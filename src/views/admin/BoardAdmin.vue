@@ -5,8 +5,8 @@
     </div>
 
     <el-card class="box-card" v-for="item in boardItems" :key="item.title" @click.native="openDialog(item.id)">
-      <div slot="header" class="clearfix">
-        <span>{{item.title}}</span>
+      <div slot="header">
+        <h2 class="fpsa-header">{{item.title}}</h2>
       </div>
       
       <div class="box-card__text">{{item.text}}</div>

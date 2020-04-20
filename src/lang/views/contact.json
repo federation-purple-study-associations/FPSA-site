@@ -1,0 +1,40 @@
+{
+    "nl": {
+        "contact": {
+            "title": "Contact gegevens",
+            "email": "Email:",
+            "kvk": "KvK:",
+            "visit_address": "Bezoek adres:"
+        },
+        "application": {
+            "title": "Aanmelden bij FPSA",
+            "name": "Naam",
+            "email": "Email",
+            "confirm": "Bevestigen",
+            "successful": "Aanmelding is succesvol aangekomen!"
+        },
+        "error": {
+            "form_not_filled_in_correctly": "Niet alles is correct ingevuld...",
+            "unknown": "Een onbekende error is opgetreden..."
+        }
+    },
+    "en": {
+        "contact": {
+            "title": "Contact information",
+            "email": "Email:",
+            "kvk": "KvK:",
+            "visit_address": "Visit address:"
+        },
+        "application": {
+            "title": "Register to FPSA",
+            "name": "Name",
+            "email": "Email",
+            "confirm": "Confirm",
+            "successful": "Application has arrived successfully!"
+        },
+        "error": {
+            "form_not_filled_in_correctly": "Form is not filled in correctly...",
+            "unknown": "An unknown error has occured..."
+        }
+    }
+}

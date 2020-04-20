@@ -1,6 +1,6 @@
 <template scoped>
   <div class="admin">
-    <div class="admin__spaceing"></div>
+    <div class="spaceing"></div>
     <div class="welcome-admin">
       <div class="welcome-admin__message">
         <h2 class="fpsa-header">{{$t('message.welcome').toString() + me.fullName}}</h2>
@@ -107,10 +107,6 @@ export default class WelcomeAdmin extends Vue {
 
 <style lang="scss" scoped>
 .admin {
-  &__spaceing {
-    height: 20px;
-  }
-
   & .welcome-admin {
     display: flex;
     justify-content: space-between;

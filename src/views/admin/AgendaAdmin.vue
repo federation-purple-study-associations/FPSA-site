@@ -5,9 +5,10 @@
     </div>
 
     <el-card class="box-card" v-for="item in agendaItems" :key="item.title" @click.native="openEditDialog(item.id)">
-      <div slot="header" class="clearfix">
-        <span>{{item.title}}</span>
+      <div slot="header">
+        <h2 class="fpsa-header">{{item.title}}</h2>
       </div>
+
       <div><b>{{$t('location')}}</b> {{item.location}}</div>
       <div><b>{{$t('date')}}</b> {{moment(item.date).format('DD-MM-YYYY HH:mm')}}</div>
       <br>
@@ -174,7 +175,7 @@ export default class AgendaAdmin extends Vue {
         this.agendaItemForDialog.summaryEN,
         this.agendaItemForDialog.descriptionNL,
         this.agendaItemForDialog.descriptionEN,
-        this.agendaItemForDialog.isDraft,
+        this.agendaItemForDialog.isDraft ? 'true' : 'false',
         this.image,
         'response')
       .subscribe(this.handleSucces, this.handleError);
@@ -189,7 +190,7 @@ export default class AgendaAdmin extends Vue {
         this.agendaItemForDialog.summaryEN,
         this.agendaItemForDialog.descriptionNL,
         this.agendaItemForDialog.descriptionEN,
-        this.agendaItemForDialog.isDraft,
+        this.agendaItemForDialog.isDraft ? 'true' : 'false',
         this.image!,
         'response')
       .subscribe(this.handleSucces, this.handleError);
