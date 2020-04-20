@@ -185,7 +185,7 @@ export default class BoardAdmin extends Vue {
     cursor: pointer;
 
     &:hover {
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
   }
 
