@@ -27,6 +27,9 @@
         <el-form-item :label="$t('application.email')">
           <el-input v-model="application.email"></el-input>
         </el-form-item>
+         <el-form-item :label="$t('application.academy')">
+          <el-input v-model="application.academy"></el-input>
+        </el-form-item>
         <el-button type="primary" @click="submitForm()">{{$t('application.confirm')}}</el-button>
       </el-form>
     </el-card>
@@ -45,12 +48,13 @@ export default class Contact extends Vue {
   private application: NewApplication = {
     name: '',
     email: '',
+    academy: '',
   };
 
   private submitForm() {
     openApiContainer.get<UserService>('UserService').applicationCreate(this.application, 'response').subscribe(() => {
       this.$message.success(this.$t('application.successful').toString());
-      this.application = {name: '', email: ''};
+      this.application = {name: '', email: '', academy: ''};
 
     }, (err) => {
       if (err.status === 400) {

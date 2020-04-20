@@ -10,6 +10,7 @@
             "title": "Aanmelden bij FPSA",
             "name": "Naam studievereniging",
             "email": "Email",
+            "academy": "Institu(u)t(en)",
             "confirm": "Bevestigen",
             "successful": "Aanmelding is succesvol aangekomen!"
         },
@@ -29,6 +30,7 @@
             "title": "Register to FPSA",
             "name": "Name study association",
             "email": "Email",
+            "academy": "Academy(s)",
             "confirm": "Confirm",
             "successful": "Application has arrived successfully!"
         },

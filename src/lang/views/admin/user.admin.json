@@ -4,6 +4,7 @@
         "add": "Toevoegen",
         "fullName": "Volledige naam",
         "email": "Email",
+        "academy": "Institu(u)t(en)",
         "role": "Rol",
         "roles": {
             "fpsa": "FPSA",
@@ -32,6 +33,7 @@
         "add": "Add",
         "fullName": "Fullname",
         "email": "Email",
+        "academy": "Academy(s)",
         "role": "Role",
         "roles": {
             "fpsa": "FPSA",
