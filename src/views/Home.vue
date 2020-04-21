@@ -3,8 +3,8 @@
     <div class="home__welcome">
       <div class="home__welcome--column">
         <h2 class="fpsa-header home__welcome--header">{{$t('welcome.umbrella_association')}} FPSA</h2>
-        <h3 class="home__welcome--text">Meld je nu aan!</h3>
-        <el-button type="primary" round><router-link to="/contact#application">Klik hier</router-link></el-button>
+        <!--<h3 class="home__welcome--text">Meld je nu aan!</h3>
+        <el-button type="primary" round><router-link to="/contact#application">Klik hier</router-link></el-button>-->
       </div>
       <img src="/logo.png" class="home__welcome--column"/>
     </div>
