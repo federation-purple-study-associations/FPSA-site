@@ -16,5 +16,7 @@ export interface Application {
     name: string;
     email: string;
     academy: string;
+    establishment: string;
+    kvk: number;
     handedIn?: string;
 }

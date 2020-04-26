@@ -16,6 +16,8 @@ export interface User {
     email: string;
     fullName: string;
     academy: string;
+    establishment: string;
+    kvk: number;
     lastLogin?: string;
     recieveEmailUpdatesEvents: boolean;
     roleId: number;

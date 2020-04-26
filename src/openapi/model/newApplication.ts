@@ -15,4 +15,6 @@ export interface NewApplication {
     name: string;
     email: string;
     academy: string;
+    establishment: string;
+    kvk: number;
 }

@@ -5,6 +5,8 @@
         "fullName": "Volledige naam",
         "email": "Email",
         "academy": "Institu(u)t(en)",
+        "kvk": "KvK",
+        "establishment": "Vestiging",
         "role": "Rol",
         "roles": {
             "fpsa": "FPSA",
@@ -34,6 +36,8 @@
         "fullName": "Fullname",
         "email": "Email",
         "academy": "Academy(s)",
+        "kvk": "KvK",
+        "establishment": "Establishment",
         "role": "Role",
         "roles": {
             "fpsa": "FPSA",

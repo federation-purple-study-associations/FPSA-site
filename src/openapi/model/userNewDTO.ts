@@ -15,5 +15,7 @@ export interface UserNewDTO {
     fullName: string;
     email: string;
     academy: string;
+    establishment: string;
+    kvk: number;
     roleId: number;
 }

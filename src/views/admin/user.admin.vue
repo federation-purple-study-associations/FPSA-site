@@ -26,6 +26,12 @@
         <el-form-item :label="$t('academy')">
           <el-input v-model="userForDialog.academy"></el-input>
         </el-form-item>
+        <el-form-item :label="$t('establishment')">
+          <el-input v-model="userForDialog.establishment"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('kvk')">
+          <el-input v-model="userForDialog.kvk"></el-input>
+        </el-form-item>
         <el-form-item :label="$t('role')">
           <el-select v-model="userForDialog.roleId">
             <el-option :value="1" :label="$t('roles.fpsa')">{{$t('roles.fpsa')}}</el-option>
@@ -80,6 +86,8 @@ export default class BoardAdmin extends Vue {
     fullName: '',
     email: '',
     academy: '',
+    establishment: '',
+    kvk: 0,
     roleId: 2,
     recieveEmailUpdatesEvents: true,
   };
@@ -104,6 +112,8 @@ export default class BoardAdmin extends Vue {
       fullName: '',
       email: '',
       academy: '',
+      establishment: '',
+      kvk: 0,
       roleId: 2,
       recieveEmailUpdatesEvents: false,
     };

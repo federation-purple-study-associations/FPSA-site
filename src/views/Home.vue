@@ -3,8 +3,8 @@
     <div class="home__welcome">
       <div class="home__welcome--column">
         <h2 class="fpsa-header home__welcome--header">{{$t('welcome.umbrella_association')}} FPSA</h2>
-        <!--<h3 class="home__welcome--text">Meld je nu aan!</h3>
-        <el-button type="primary" round><router-link to="/contact#application">Klik hier</router-link></el-button>-->
+        <!-- <h3 class="home__welcome--text">Meld je nu aan!</h3>
+        <el-button type="primary" round><router-link to="/contact#application">Klik hier</router-link></el-button> -->
       </div>
       <img src="/logo.png" class="home__welcome--column"/>
     </div>
@@ -120,6 +120,17 @@ export default class Home extends Vue {
   @keyframes fadein {
     0% { opacity: 0; }
     100%   { opacity: 1; }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .home__welcome {
+      flex-direction: column;
+
+      &--column {
+        width: 95%;
+        margin-bottom: 20px;
+      }
+    }
   }
 }
 </style>

@@ -131,7 +131,11 @@ export default class HomeHeader extends Vue {
     width: 60px;
     height: 60px;
     font-size: 18px;
-    color: #909399;
+    color: white;
+
+    &:active, &:focus {
+      color: white;
+    }
   }
 
   &__password {
@@ -149,7 +153,7 @@ export default class HomeHeader extends Vue {
     & ul > li, & ul > span {
       width: 100% !important;
       display: none;
-      background: white;
+      background: #7C4DD8;
     }
 
     & ul > li:first-child {
@@ -181,6 +185,12 @@ export default class HomeHeader extends Vue {
           display: block;
         }
     }
+  }
+
+  .login-menu__icon {
+    width: 100%;
+    text-align: left;
+    padding-left: 20px;
   }
 }
 </style>

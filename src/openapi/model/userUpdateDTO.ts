@@ -14,5 +14,8 @@
 export interface UserUpdateDTO { 
     fullName: string;
     email: string;
+    academy: string;
+    establishment: string;
+    kvk: number;
     roleId: number;
 }

@@ -47,6 +47,8 @@ export default class WelcomeAdmin extends Vue {
     fullName: '',
     email: '',
     academy: '',
+    establishment: '',
+    kvk: 0,
     lastLogin: '',
     roleId: 0,
     recieveEmailUpdatesEvents: false,
