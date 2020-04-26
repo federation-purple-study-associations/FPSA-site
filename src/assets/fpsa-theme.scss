@@ -1,6 +1,10 @@
 /* theme color */
 $--color-primary: #7D52C9;
 
+a {
+    color: $--color-primary;
+}
+
 @media only screen and (max-width: 768px) {
     .el-header.header, .el-footer.footer {
         padding: 0px;
@@ -19,7 +23,7 @@ div.spaceing {
     height: 20px;
 }
 
-h2.fpsa-header {
+.fpsa-header {
     color: $--color-primary;
 }
 

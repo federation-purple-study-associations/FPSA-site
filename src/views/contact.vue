@@ -36,6 +36,9 @@
         <el-form-item :label="$t('application.kvk')">
           <el-input type="number" v-model="application.kvk" v-on:input="checkLegal"></el-input>
         </el-form-item>
+        <el-form-item>
+          <el-checkbox v-model="privacy">{{$t('application.privacy')}}<a href="privacy" target="_blank">Link</a></el-checkbox>
+        </el-form-item>
         <el-button type="primary" :disabled= "isIllegal" @click="submitForm()">{{$t('application.confirm')}}</el-button>
       </el-form>
     </el-card>
@@ -60,6 +63,7 @@ export default class Contact extends Vue {
   };
 
   private isIllegal = true;
+  private privacy = false;
 
   private submitForm() {
     openApiContainer.get<UserService>('UserService').applicationCreate(this.application, 'response').subscribe(() => {
@@ -81,7 +85,8 @@ export default class Contact extends Vue {
                       this.application.email === '' ||
                       this.application.academy === '' ||
                       this.application.establishment === '' ||
-                      this.application.kvk === 0;
+                      this.application.kvk === 0 ||
+                      !this.privacy;
   }
 }
 </script>

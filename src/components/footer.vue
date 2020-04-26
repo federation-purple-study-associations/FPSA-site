@@ -1,7 +1,8 @@
 <template scoped>
   <el-footer class="footer">
     <div class="footer__copyright">
-        {{$t('information.copyright')}}
+        {{$t('information.copyright')}}<br>
+        <a href="privacy">Privacy</a>
     </div>
     <div>
         <span>Rachelsmolen 1</span>
