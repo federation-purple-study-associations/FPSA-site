@@ -1,7 +1,7 @@
 <template scoped>
   <div class="agenda-admin">
     <div class="agenda-admin__new-agenda-item">
-      <el-button type="primary" class="agenda-admin__add" @click="openAddDialog">{{$t('new_item')}}</el-button>
+      <el-button class="agenda-admin__add" @click="openAddDialog">{{$t('new_item')}}</el-button>
     </div>
 
     <el-card class="box-card" v-for="item in agendaItems" :key="item.title" @click.native="openEditDialog(item.id)">

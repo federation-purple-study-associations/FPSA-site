@@ -1,7 +1,7 @@
 <template scoped>
   <div class="board-admin">
     <div class="board-admin__new-board">
-      <el-button type="primary" class="board-admin__add" @click="openAddDialog">{{$t('new_board')}}</el-button>
+      <el-button class="board-admin__add" @click="openAddDialog">{{$t('new_board')}}</el-button>
     </div>
 
     <el-card class="box-card" v-for="item in boardItems" :key="item.title" @click.native="openDialog(item.id)">
