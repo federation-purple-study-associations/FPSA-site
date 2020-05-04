@@ -34,7 +34,7 @@
           <el-input v-model="application.establishment"  v-on:input="checkLegal"></el-input>
         </el-form-item>
         <el-form-item :label="$t('application.kvk')">
-          <el-input type="number" v-model.number="application.kvk" v-on:input="checkLegal"></el-input>
+          <el-input type="number" v-model.number="application.kvk" v-on:input="checkLegal" min="0"></el-input>
         </el-form-item>
         <el-form-item>
           <el-checkbox v-model="privacy">{{$t('application.privacy')}}<a href="privacy" target="_blank">Link</a></el-checkbox>
