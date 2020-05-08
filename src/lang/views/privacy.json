@@ -22,7 +22,9 @@
             "title": "Met welk doel en op basis van welke grondslag wij gegevens verwerken",
             "text": "FPSA verwerkt de gegevens voor de volgende doelen:",
             "newsletter": "Verzenden nieuwsbrieven",
-            "board_grant": "Aanvraag bestuursbeurs"
+            "board_grant": "Aanvraag bestuursbeurs",
+            "contact": "Eenvoudig contact op te kunnen nemen, informatie verschaffen en voor eventuele noodgevallen",
+            "coorparation": "Samenwerking te stimuleren tussen studieverenigingen verenigingen"
         },
         "keep_data": {
             "title": "Hoe lang we gegevens bewaren",
@@ -78,7 +80,9 @@
             "title": "For what purpose and on what basis we process data",
             "text": "FPSA processes the data for the following purposes:",
             "newsletter": "Send newsletters",
-            "board_grant": "Application for board grant"
+            "board_grant": "Application for board grant",
+            "contact": "Easy to contact, provide information and for any emergencies",
+            "coorparation": "Stimulate cooperation between study associations"
         },
         "keep_data": {
             "title": "How long we keep data",

@@ -27,6 +27,8 @@
         <ul>
             <li>{{$t('goal_information_collection.newsletter')}}</li>
             <li>{{$t('goal_information_collection.board_grant')}}</li>
+            <li>{{$t('goal_information_collection.contact')}}</li>
+            <li>{{$t('goal_information_collection.coorparation')}}</li>
         </ul>
 
         <div class="spaceing"></div>
