@@ -49,6 +49,10 @@
             "title": "Beeldmateriaal",
             "part1": "Er kan tijdens evenementen van FPSA beeldmateriaal gegenereerd worden en verspreid worden op sociale media / website / of andere bronnen. Mocht je met de plaatsen van beeldmateriaal niet eens zijn, stuur een mail naar ",
             "part2": " en wij zullen binnen redelijke termijnen het beeldmateriaal verwijderen."
+        },
+        "modification": {
+            "title": "Wijzigingen",
+            "text": "Het kan voorkomen dat deze privacyverklaring in de toekomst wordt gewijzigd. Bij wijziging van onze privacy verklaring zal deze via de mail naar alle leden verstuurd worden."
         }
     },
     "en": {
@@ -101,6 +105,10 @@
             "title": "Imagery",
             "part1": "Images can be generated during FPSA events and distributed on social media / website / or other sources. If you do not agree with the placement of images, send an email to ",
             "part2": " and we will remove the images within reasonable time."
+        },
+        "modification": {
+            "title": "Modifications",
+            "text": "It is possible that this privacy statement will be changed in the future. When changing from our privacy statement will be sent to all members by email."
         }
     }
 }

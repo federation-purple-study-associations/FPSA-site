@@ -52,6 +52,11 @@
         <div class="spaceing"></div>
         <h3 class="fpsa-header">{{$t('imagery.title')}}</h3>
         <div>{{$t('imagery.part1')}}<a href="mailto:info@fpsa.nl">info@fpsa.nl</a>{{$t('imagery.part2')}}</div>
+
+
+        <div class="spaceing"></div>
+        <h3 class="fpsa-header">{{$t('modification.title')}}</h3>
+        <div>{{$t('modification.text')}}</div>
   </div>
 </template>
 
