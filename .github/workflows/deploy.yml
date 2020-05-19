@@ -45,7 +45,7 @@ jobs:
     - name: Deploy
       uses: 'deliverybot/helm@master'
       with:
-        release: 'fpsa-api'
+        release: 'fpsa-site'
         namespace: 'fpsa'
         chart: 'k8b'
         helm: 'helm3'
