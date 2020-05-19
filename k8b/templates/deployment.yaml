@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
       - name: {{ .Chart.Name }}
-        image: svfpsa/site:{{site_version}}
+        image: svfpsa/site:{{.Values.tag}}
         ports:
         - containerPort: 8080

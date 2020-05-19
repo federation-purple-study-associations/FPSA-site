@@ -19,11 +19,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: echo "VUE_APP_API_URL=https://api.fpsa.nl" > .env
+    - name: Build env file
+      run: echo "VUE_APP_API_URL=https://api.fpsa.nl" > .env
 
 # Build and test project
-    - run: npm i
-    - run: npm run build
+    - name: Install packages
+      run: npm i
+    - name: build project
+      run: npm run build
 
 # Dockerize project
     - name: Docker login
