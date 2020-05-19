@@ -20,15 +20,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: echo "VUE_APP_API_URL=https://api.fpsa.nl" > .env
-    - run: npm i
 
 # Build and test project
+    - run: npm i
     - run: npm run build
-    - run: npm test --if-present
-    
-    - name: Read package.json
-      uses: tyankatsu0105/read-package-version-actions@v1
-      id: package-version
 
 # Dockerize project
     - name: Docker login
@@ -38,21 +33,21 @@ jobs:
       run: docker login -u $Username -p $Password
     
     - name: Docker build
-      run: docker build -t svfpsa/site:${{ steps.package-version.outputs.version }} --pull -f Dockerfile .;
+      run: docker build -t svfpsa/site:$GITHUB_SHA -f Dockerfile .;
     
     - name: Docker publish
-      run: docker push svfpsa/site:${{ steps.package-version.outputs.version }}
+      run: docker push svfpsa/site:$GITHUB_SHA
 
 # Deploy container
-    - name: templater make runnable
-      run: chmod +x .github/workflows/templater.sh
-    
-    - name: Build template
-      run: site_version=${{steps.package-version.outputs.version}} .github/workflows/templater.sh template.yaml > filledin.yaml
-
-    - name: deploy to cluster
-      uses: steebchen/kubectl@master
-      env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+    - name: Deploy
+      uses: 'deliverybot/helm@master'
       with:
-        args: apply -f filledin.yaml
+        release: 'fpsa-api'
+        namespace: 'fpsa'
+        chart: 'k8b'
+        helm: 'helm3'
+        token: '${{ github.token }}'
+        values: |
+          tag: '${{ github.sha }}'
+      env:
+        KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG_DATA }}'
