@@ -1,10 +1,9 @@
 <template scoped>
   <el-header class="header">
-    <div></div>
+    <router-link to="/" style="color: white; line-height: 60px; font-size: 18px; margin-left: 40px; cursor: pointer;"><b>Federation of Purple Study Associations</b></router-link>
 
     <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>
       <el-menu-item index="" class="header-navigation__responsive" @click="toggleMenu"><i class="el-icon-more-outline"></i></el-menu-item>
-      <el-menu-item index="/" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('home')}}</el-menu-item>
       <el-menu-item index="/agenda" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('agenda')}}</el-menu-item>
       <el-menu-item index="/board" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('board')}}</el-menu-item>
       <el-menu-item index="/contact" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('contact')}}</el-menu-item>
