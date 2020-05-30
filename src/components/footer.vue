@@ -2,7 +2,7 @@
   <el-footer class="footer">
     <div class="footer__copyright">
         {{$t('information.copyright')}}<br>
-        <a href="privacy">Privacy</a>
+        <a href="privacy.pdf" target="_blank">Privacy</a>
     </div>
     <div>
         <span>Rachelsmolen 1</span>

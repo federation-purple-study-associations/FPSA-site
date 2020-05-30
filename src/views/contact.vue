@@ -40,7 +40,7 @@
           <el-input type="number" v-model="application.kvk" v-on:input="checkLegal" min="0"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-checkbox v-model="privacy" v-on:input="checkLegal">{{$t('application.privacy')}}<a href="privacy" target="_blank">Link</a></el-checkbox>
+          <el-checkbox v-model="privacy" v-on:input="checkLegal">{{$t('application.privacy')}}<a href="privacy.pdf" target="_blank">Link</a></el-checkbox>
         </el-form-item>
         <el-button type="primary" :disabled= "isIllegal" @click="submitForm()">{{$t('application.confirm')}}</el-button>
       </el-form>

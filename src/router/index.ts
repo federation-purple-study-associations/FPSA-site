@@ -9,7 +9,6 @@ import BoardAdmin from '../views/admin/BoardAdmin.vue';
 import UserAdmin from '../views/admin/user.admin.vue';
 import Confirmation from '../views/confirmation.vue';
 import Contact from '../views/contact.vue';
-import Privacy from '../views/privacy.vue';
 
 Vue.use(VueRouter);
 const withPrefix = (prefix: string, routesConfig: RouteConfig[]) =>
@@ -39,10 +38,6 @@ const routes: RouteConfig[] = [
   {
     path: '/contact',
     component: Contact,
-  },
-  {
-    path: '/privacy',
-    component: Privacy,
   },
   ...withPrefix('/admin', [
     {
