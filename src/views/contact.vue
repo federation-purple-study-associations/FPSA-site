@@ -27,6 +27,9 @@
         <el-form-item :label="$t('application.email')">
           <el-input v-model="application.email"  v-on:input="checkLegal"></el-input>
         </el-form-item>
+        <el-form-item :label="$t('application.email_confirmation')">
+          <el-input v-model="repeatEmail"  v-on:input="checkLegal"></el-input>
+        </el-form-item>
         <el-form-item :label="$t('application.academy')">
           <el-input v-model="application.academy"  v-on:input="checkLegal"></el-input>
         </el-form-item>
@@ -34,10 +37,10 @@
           <el-input v-model="application.establishment"  v-on:input="checkLegal"></el-input>
         </el-form-item>
         <el-form-item :label="$t('application.kvk')">
-          <el-input type="number" v-model.number="application.kvk" v-on:input="checkLegal" min="0"></el-input>
+          <el-input type="number" v-model="application.kvk" v-on:input="checkLegal" min="0"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-checkbox v-model="privacy">{{$t('application.privacy')}}<a href="privacy" target="_blank">Link</a></el-checkbox>
+          <el-checkbox v-model="privacy" v-on:input="checkLegal">{{$t('application.privacy')}}<a href="privacy" target="_blank">Link</a></el-checkbox>
         </el-form-item>
         <el-button type="primary" :disabled= "isIllegal" @click="submitForm()">{{$t('application.confirm')}}</el-button>
       </el-form>
@@ -61,14 +64,19 @@ export default class Contact extends Vue {
     establishment: '',
     kvk: 0,
   };
+  private repeatEmail = '';
 
   private isIllegal = true;
   private privacy = false;
 
   private submitForm() {
+    this.application.kvk = +this.application.kvk;
+
     openApiContainer.get<UserService>('UserService').applicationCreate(this.application, 'response').subscribe(() => {
       this.$message.success(this.$t('application.successful').toString());
       this.application = {name: '', email: '', academy: '', establishment: '', kvk: 0};
+      this.repeatEmail = '';
+      this.privacy = false;
 
     }, (err) => {
       if (err.status === 400) {
@@ -83,6 +91,7 @@ export default class Contact extends Vue {
   private checkLegal() {
     this.isIllegal =  this.application.name === '' ||
                       this.application.email === '' ||
+                      this.application.email !== this.repeatEmail ||
                       this.application.academy === '' ||
                       this.application.establishment === '' ||
                       this.application.kvk === 0 ||
