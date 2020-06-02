@@ -1,7 +1,9 @@
 {
     "nl": {
         "welcome": {
-            "umbrella_association": "Koepelvereniging"
+            "umbrella_association": "Koepelvereniging",
+            "registration": "Meld je nu aan!",
+            "click_here": "Klik hier"
         },
         "about_us": {
             "title": "Over ons",
@@ -19,7 +21,9 @@
     },
     "en": {
         "welcome": {
-            "umbrella_association": "Umbrella association"
+            "umbrella_association": "Umbrella association",
+            "registration": "Register now!",
+            "click_here": "Click here"
         },
         "about_us": {
             "title": "About us",
