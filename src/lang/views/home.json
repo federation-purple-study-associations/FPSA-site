@@ -2,7 +2,7 @@
     "nl": {
         "welcome": {
             "umbrella_association": "Koepelvereniging",
-            "registration": "Meld je nu aan!",
+            "register": "Meld je nu aan!",
             "click_here": "Klik hier"
         },
         "about_us": {
@@ -22,7 +22,7 @@
     "en": {
         "welcome": {
             "umbrella_association": "Umbrella association",
-            "registration": "Register now!",
+            "register": "Register now!",
             "click_here": "Click here"
         },
         "about_us": {
