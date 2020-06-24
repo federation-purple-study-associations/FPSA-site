@@ -12,7 +12,7 @@
         5612MA, Eindhoven<br>
         <br>
         <b>{{$t('contact.email')}}</b> <a href="mailto:info@fpsa.nl">info@fpsa.nl</a><br>
-        <b>{{$t('contact.kvk')}}</b> 
+        <b>{{$t('contact.kvk')}}</b> 78356830
       </p>
     </el-card>
 
