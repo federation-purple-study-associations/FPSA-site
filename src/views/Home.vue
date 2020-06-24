@@ -4,7 +4,7 @@
       <div class="home__welcome--column">
         <h2 class="fpsa-header home__welcome--header">{{$t('welcome.umbrella_association')}} FPSA</h2>
         <h3 class="home__welcome--text">{{$t('welcome.register')}}</h3>
-        <el-button type="primary" round><router-link to="/contact#application">{{$t('welcome.click_here')}}</router-link></el-button>
+        <router-link to="/contact#application"><el-button type="primary" round>{{$t('welcome.click_here')}}</el-button></router-link>
       </div>
       <img src="/logo.png" class="home__welcome--column"/>
     </div>
