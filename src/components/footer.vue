@@ -12,7 +12,7 @@
     <div>
         <span><a href="mailto:info@fpsa.nl">info@fpsa.nl</a></span>
         <br>
-        <span>kvk:</span>
+        <span>kvk: 78356830</span>
     </div>
   </el-footer>
 </template>
