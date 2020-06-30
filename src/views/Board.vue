@@ -9,6 +9,10 @@
       
       <div class="box-card__text">{{item.text}}</div>
       <img class="image-container" :src="url+ '/board/photo?id=' + item.id"/>
+
+      <div slot="footer" class="dialog-footer">
+        <b-icon-paperclip></b-icon-paperclip>
+      </div>
     </el-card>
 
     <el-pagination class="board__pagination" background layout="prev, pager, next" :total="count" :page-size="pageSize" @current-change="changePage"></el-pagination>

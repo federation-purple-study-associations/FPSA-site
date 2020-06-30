@@ -1,15 +1,24 @@
 <template scoped>
-  <div class="home">
-    <div class="home__welcome">
-      <div class="home__welcome--column">
-        <h2 class="fpsa-header home__welcome--header">{{$t('welcome.umbrella_association')}} FPSA</h2>
-        <h3 class="home__welcome--text">{{$t('welcome.register')}}</h3>
-        <router-link to="/contact#application"><el-button type="primary" round>{{$t('welcome.click_here')}}</el-button></router-link>
-      </div>
-      <img src="/logo.png" class="home__welcome--column"/>
-    </div>
+  <b-container class="home">
+    <b-row class="home__splash" align-v="center" align-h="center">
+      <b-col lg="5" class="home__splash--column mb-5">
+        <h2>{{$t('splash.umbrella_association')}} FPSA</h2>
+        <h3>{{$t('splash.register')}}</h3>
+        <router-link to="/contact#application"><b-button variant="primary" pill>{{$t('splash.click_here')}}</b-button></router-link>
+      </b-col>
+      <b-col lg="7" class="home__splash--column">
+        <img src="/logo.png"/>
+      </b-col>
+    </b-row>
 
-    <el-main class="home__about-us">
+    <b-row class="home__welcome mb-5">
+      <b-col>
+        <h2>{{$t('welcome.title')}}</h2>
+        <span>{{$t('welcome.text')}}</span><router-link to="/about-us">{{$t('welcome.click_here')}}</router-link>
+      </b-col>
+    </b-row>
+
+    <!-- <el-main class="home__about-us">
       <h2 class="fpsa-header">{{$t('about_us.title')}}</h2>
       <span>{{$t('about_us.content_intro')}}</span>
       <br><br>
@@ -20,26 +29,22 @@
       <span>{{$t('about_us.content_role')}}</span>
       <br><br>
       <span>{{$t('about_us.content_more_info')}}</span> <a href="mailto:info@fpsa.nl">info@fpsa.nl</a>
-    </el-main>
+    </el-main> -->
 
-    <el-main class="home__agenda">
-      <h2 class="fpsa-header">{{$t('agenda.title')}}</h2>
-      <el-carousel indicator-position="outside">
-        <el-carousel-item v-for="item in agendaItems" :key="item.title">
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>{{item.title}}</span>
-            </div>
-            <div><b>{{$t('agenda.location')}}</b> {{item.location}}</div>
-            <div><b>{{$t('agenda.date')}}</b> {{moment(item.date).format('DD-MM-YYYY HH:mm')}}</div>
-            <br>
-            <div>{{item.summary}}</div>
-            <img class="image-container" :src="url+ '/agenda/photo?id=' + item.id"/>
-          </el-card>
-        </el-carousel-item>
-      </el-carousel>
-    </el-main>
-  </div>
+    <b-row class="home__agenda">
+      <b-col><router-link to="/agenda">
+        <h2>{{$t('agenda.title')}}</h2>
+        <b-carousel control indictators>
+          <b-carousel-slide
+            v-for="item in agendaItems" :key="item.id"
+            :caption="item.title"
+            :img-src="url+ '/agenda/photo?id=' + item.id"
+            :text="item.summary">
+          </b-carousel-slide>
+        </b-carousel>
+      </router-link></b-col>
+    </b-row> 
+  </b-container>
 </template>
 
 <script lang="ts" scoped>
@@ -85,29 +90,17 @@ export default class Home extends Vue {
 
 <style lang="scss" scoped>
 .home {
-  &__welcome {
-    height: calc(100vh - 60px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  &__splash {
     background: white;
-
-    &--header {
-      font-size: 40px;
-    }
-
-    &--text {
-      color: rgb(80, 80, 80);
-    }
+    height: calc(100vh - 60px);
 
     &--column {
-      width: 40%;
       animation: fadein 3s;
+      text-align: center;
     }
 
-    & a {
-      text-decoration: none;
-      color: white;
+    img {
+      width: 75%;
     }
   }
 
