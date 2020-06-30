@@ -15,6 +15,12 @@ h2 {
     color: $--color-primary;
 }
 
+@media only screen and (max-width: 768px) {
+    img.card-img-right {
+        display: none;
+    }
+}
+
 /* custom carousel shit to place the caption below the image*/
 div.carousel-caption {
     bottom: -100px;

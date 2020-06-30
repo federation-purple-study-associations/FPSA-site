@@ -104,26 +104,9 @@ export default class Home extends Vue {
     }
   }
 
-  &__agenda {
-    & .box-card {
-      height: 90%;
-    }
-  }
-
   @keyframes fadein {
     0% { opacity: 0; }
     100%   { opacity: 1; }
-  }
-
-  @media only screen and (max-width: 768px) {
-    .home__welcome {
-      flex-direction: column;
-
-      &--column {
-        width: 95%;
-        margin-bottom: 20px;
-      }
-    }
   }
 }
 </style>
