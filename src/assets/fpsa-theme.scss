@@ -15,6 +15,14 @@ $--color-active: #431f82;
     }
 }
 
+.header .nav-item a.nav-link {
+    color: white;
+
+    &:hover:not(.dropdown-toggle), &:active:not(.dropdown-toggle) {
+        color: $--color-active;
+    }
+}
+
 h2 {
     color: $--color-primary;
 }

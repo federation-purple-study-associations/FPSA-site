@@ -1,7 +1,7 @@
 <template scoped>
   <footer class="footer">
     <div class="footer__copyright">
-        {{$t('information.copyright')}}<br>
+        Copyright {{new Date().getFullYear()}} {{$t('information.copyright')}}<br>
         <a href="privacy.pdf" target="_blank">Privacy</a>
     </div>
     <div>
@@ -22,7 +22,6 @@ export default class Footer extends Vue {}
 <style lang="scss" scoped>
 .footer {
     position: absolute;
-    bottom: 0px;
     left: 0px;
     right: 0px;
     padding: 0 20px;

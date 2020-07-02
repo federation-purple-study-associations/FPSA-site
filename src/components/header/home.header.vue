@@ -1,8 +1,29 @@
 <template scoped>
-  <el-header class="header">
-    <router-link to="/" style="color: white; line-height: 60px; font-size: 18px; margin-left: 40px; cursor: pointer;"><b>Federation of Purple Study Associations</b></router-link>
+  <b-navbar toggleable="lg" class="header">
+    <b-navbar-brand to="/">
+      <b>Federation of Purple Study Associations</b>
+    </b-navbar-brand>
 
-    <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item to="/agenda">{{$t('agenda')}}</b-nav-item>
+        <b-nav-item to="/board">{{$t('board')}}</b-nav-item>
+        <b-nav-item to="/contact">{{$t('contact')}}</b-nav-item>
+
+        <b-nav-item-dropdown right>
+          <template v-slot:button-content>
+            <b-icon-chat-square-dots></b-icon-chat-square-dots>
+          </template>
+
+          <b-dropdown-item v-on:click="switchLanguage('nl')">Nederlands</b-dropdown-item>
+          <b-dropdown-item v-on:click="switchLanguage('en')">English</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
+    </b-collapse>
+
+    <!-- <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>
       <el-menu-item index="" class="header-navigation__responsive" @click="toggleMenu"><i class="el-icon-more-outline"></i></el-menu-item>
       <el-menu-item index="/agenda" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('agenda')}}</el-menu-item>
       <el-menu-item index="/board" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('board')}}</el-menu-item>
@@ -20,8 +41,8 @@
       </el-popover>
       <el-menu-item index="/admin" v-if="isLoggedIn" :class="menu ? 'responsive' : ''" @click="toggleMenu"><i class="el-icon-user"></i></el-menu-item>
       <div :class="(menu ? 'responsive' : '') + ' header-navigation__background'"></div>
-    </el-menu>
-  </el-header>
+    </el-menu> -->
+  </b-navbar>
 </template>
 
 <script lang="ts" scoped>
@@ -77,119 +98,11 @@ export default class HomeHeader extends Vue {
 
 <style lang="scss" scoped>
 .header {
-  position: fixed;
-  width: 100%;
-  height: 60px;
-  top: 0;
-  left: 0;
   background: #7C4DD8;
-  display: flex;
-  justify-content: space-between;
   border-bottom: solid 1px #e6e6e6;
-  z-index: 999;
-
-  &-icon {
-    font-size: 25px;
-  }
-
-  & .el-submenu {
-    width: 60px;
-
-    & .el-icon-chat-dot-round {
-      margin-right: 0px;
-    }
-  }
-
-  & img {
-    margin-left: 10px;
-    margin-top: 5px;
-    height: 50px;
-  }
-
-  & &-navigation {
-    background: #7C4DD8;
-    border-bottom: none;
-
-    &__responsive {
-      display: none;
-    }
-
-    & li {
-      color: white !important;
-    }
-  }
-
-  a {
+  
+  & a.navbar-brand {
     color: white;
-    text-decoration: none;
-  }
-}
-
-.login-menu {
-  &__icon {
-    width: 60px;
-    height: 60px;
-    font-size: 18px;
-    color: white;
-
-    &:active, &:focus {
-      color: white;
-    }
-  }
-
-  &__password {
-    margin-top: 5px;
-  }
-
-  &__submit {
-    margin-top: 10px;
-    float: right;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .header {
-    & ul > li, & ul > span {
-      width: 100% !important;
-      display: none;
-      background: #7C4DD8;
-    }
-
-    & ul > li:first-child {
-      box-shadow: none;
-    }
-
-    & ul > li.responsive, & ul > span.responsive {
-      display: block;
-    }
-
-    & &-navigation {
-
-        &__responsive {
-          display: block;
-          text-align: right;
-        }
-
-        &__background {
-          z-index: -1;
-          position: absolute;
-          top: 0px;
-          display: none;
-          width: 100%;
-          height: 360px;
-          box-shadow: 0px 0px 10px 10px rgba(144,147,153,0.25);
-        }
-
-        &__background.responsive {
-          display: block;
-        }
-    }
-  }
-
-  .login-menu__icon {
-    width: 100%;
-    text-align: left;
-    padding-left: 20px;
   }
 }
 </style>

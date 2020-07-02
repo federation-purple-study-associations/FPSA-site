@@ -30,8 +30,6 @@ body {
   font-family: "Helvetica Neue";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  background: #f9f9f9;
 }
 
 .content {
