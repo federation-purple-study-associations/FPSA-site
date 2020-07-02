@@ -38,7 +38,7 @@ body {
 
 @media only screen and (max-width: 768px) {
   .content {
-    min-height: calc(100vh - 120px - 56px);
+    min-height: calc(100vh - 150px - 56px);
   }
 }
 </style>

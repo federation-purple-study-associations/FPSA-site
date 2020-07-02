@@ -1,9 +1,8 @@
 <template scoped>
-  <div class="admin">
-    <div class="spaceing"></div>
-    <div class="welcome-admin">
-      <div class="welcome-admin__message">
-        <h2 class="fpsa-header">{{$t('message.welcome').toString() + me.fullName}}</h2>
+  <b-container class="admin">
+    <b-row class="welcome-admin">
+      <b-col md class="welcome-admin__message mb-3 mt-3">
+        <h2>{{$t('message.welcome').toString() + me.fullName}}</h2>
         <div>
           {{$t('message.last_login')}}
           {{
@@ -14,19 +13,21 @@
         <b-button class="welcome-admin__logout" variant="primary" @click="logout">{{$t('logout')}}</b-button>
 
         <div class="welcome-admin__settings">
-          <h2 class="fpsa-header">{{$t('email.title')}}</h2>
-          <el-form label-position="left" label-width="100px" onsubmit="event.preventDefault()">
-            <el-form-item :label="$t('email.email')">
-              <el-input v-model="me.email" @change="updateMe"></el-input>
-            </el-form-item>
-            <el-checkbox v-model="me.recieveEmailUpdatesEvents" @change="updateMe">{{$t('email.events')}}</el-checkbox>
-          </el-form>
+          <h2>{{$t('email.title')}}</h2>
+          <b-form label-position="left" label-width="100px" onsubmit="event.preventDefault()">
+            <b-form-group :label="$t('email.email')">
+              <b-form-input v-model="me.email" @change="updateMe"></b-form-input>
+            </b-form-group>
+            <b-form-checkbox v-model="me.recieveEmailUpdatesEvents" @change="updateMe">{{$t('email.events')}}</b-form-checkbox>
+          </b-form>
         </div>
-      </div>
+      </b-col>
 
-      <apexchart class="welcome-admin__page-views-chart" v-if="hasPermissionForStatistics" width="100%" type="line" :options="chartOptions" :series="series"></apexchart>
-    </div>
-  </div>
+      <b-col md class="mb-3 mt-3">
+        <apexchart class="welcome-admin__page-views-chart" v-if="hasPermissionForStatistics" width="100%" type="line" :options="chartOptions" :series="series"></apexchart>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script lang="ts" scoped>
@@ -111,18 +112,7 @@ export default class WelcomeAdmin extends Vue {
 <style lang="scss" scoped>
 .admin {
   & .welcome-admin {
-    display: flex;
-    justify-content: space-between;
     padding: 0px 10px;
-
-    &__message {
-      margin-bottom: 30px;
-    }
-
-    &__page-views-chart {
-      width: 50%;
-      height: 50%;
-    }
 
     &__settings {
       margin-top: 30px;
@@ -134,18 +124,6 @@ export default class WelcomeAdmin extends Vue {
 
     &__logout {
       margin-top: 10px;
-    }
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .admin {
-    & .welcome-admin {
-      flex-direction: column;
-
-      &__page-views-chart {
-        width: 100%;
-      }
     }
   }
 }
