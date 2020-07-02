@@ -36,6 +36,7 @@ import HttpResponse from '../../openapi/HttpResponse';
 
 @Component({})
 export default class AdminHeader extends Vue {
+  private document = document;
 
   // Authentication
   private isLoggedIn = false;
