@@ -1,7 +1,8 @@
 <template scoped>
   <b-navbar toggleable="lg" class="header">
     <b-navbar-brand to="/">
-      <b>Federation of Purple Study Associations</b>
+      <b v-if="document.getElementsByTagName('body')[0].clientWidth > 900">Federation of Purple Study Associations</b>
+      <b v-else>FPSA</b>
     </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -10,6 +11,7 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/agenda">{{$t('agenda')}}</b-nav-item>
         <b-nav-item to="/board">{{$t('board')}}</b-nav-item>
+        <b-nav-item to="/aboutus">{{$t('about_us')}}</b-nav-item>
         <b-nav-item to="/contact">{{$t('contact')}}</b-nav-item>
 
         <b-nav-item-dropdown right class="header__language">
@@ -37,7 +39,7 @@
           </b-dropdown-form>
         </b-nav-item-dropdown>
 
-        <b-nav-item to="/admin" v-if="isLoggedIn"><b-overlay :show="isLoading" rounded="sm"><b-icon-people></b-icon-people></b-overlay></b-nav-item>
+        <b-nav-item to="/admin" v-else><b-overlay :show="isLoading" rounded="sm"><b-icon-people></b-icon-people></b-overlay></b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -52,6 +54,7 @@ import HttpResponse from '../../openapi/HttpResponse';
 
 @Component({})
 export default class HomeHeader extends Vue {
+  private document = document;
   private isLoading = false;
   private loginForm: LoginDTO = {
     email: '',

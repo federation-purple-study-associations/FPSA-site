@@ -6,6 +6,7 @@
         "board": "Besturen",
         "user": "Gebruikers",
         "contact": "Contact",
+        "about_us": "Over ons",
         "login": {
             "email": "Email",
             "password": "Wachtwoord",
@@ -23,6 +24,7 @@
         "board": "Boards",
         "user": "Users",
         "contact": "Contact",
+        "about_us": "About us",
         "login": {
             "email": "Email",
             "password": "Password",

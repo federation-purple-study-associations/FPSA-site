@@ -1,7 +1,8 @@
 <template scoped>
   <b-navbar toggleable="lg" class="header">
     <b-navbar-brand to="/">
-      <b>Federation of Purple Study Associations</b>
+      <b v-if="document.getElementsByTagName('body')[0].clientWidth > 900">Federation of Purple Study Associations</b>
+      <b v-else>FPSA</b>
     </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
