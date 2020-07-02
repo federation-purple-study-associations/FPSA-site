@@ -2,15 +2,15 @@
   <div class="confirmation">
       <div class="confirmation__center">
           <h2 class="fpsa-header">{{$t('title')}}</h2>
-          <el-form>
-            <el-form-item :label="$t('password')">
-                <el-input type="password" autocomplete="new-password" v-model="form.password"></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('password_repeat')">
-                <el-input type="password" autocomplete="new-password" v-model="repeatPassword"></el-input>
-            </el-form-item>
-            <el-button class="confirmation__submit" type="primary" @click="sumbit">{{$t('confirm')}}</el-button>
-          </el-form>
+          <b-form>
+            <b-form-group :label="$t('password')">
+                <b-form-input type="password" autocomplete="new-password" required v-model="form.password"></b-form-input>
+            </b-form-group>
+            <b-form-group :label="$t('password_repeat')">
+                <b-form-input type="password" autocomplete="new-password" v-model="repeatPassword"></b-form-input>
+            </b-form-group>
+            <b-button class="confirmation__submit" variant="primary" @click="submit">{{$t('confirm')}}</b-button>
+          </b-form>
       </div>
   </div>
 </template>
@@ -35,7 +35,7 @@ export default class Confirmation extends Vue {
         token: new URLSearchParams(window.location.search.substring(1)).get('token') || '',
     };
 
-    private sumbit() {
+    private submit() {
         if (this.repeatPassword !== this.form.password || this.form.password === '') {
             this.$message.error(this.$t('error.password_not_match').toString());
 

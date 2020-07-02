@@ -135,6 +135,7 @@ export default class BoardAdmin extends Vue {
             this.boardForDialog.textNL,
             this.boardForDialog.textEN,
             this.image,
+            this.image,
             'response',
         ).subscribe(this.handleSucces, this.handleError);
 
@@ -144,6 +145,7 @@ export default class BoardAdmin extends Vue {
             this.boardForDialog.titleEN,
             this.boardForDialog.textNL,
             this.boardForDialog.textEN,
+            this.image!,
             this.image!,
             'response',
         ).subscribe(this.handleSucces, this.handleError);

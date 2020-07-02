@@ -1,20 +1,15 @@
 <template scoped>
-  <el-footer class="footer">
+  <footer class="footer">
     <div class="footer__copyright">
         {{$t('information.copyright')}}<br>
         <a href="privacy.pdf" target="_blank">Privacy</a>
-    </div>
-    <div>
-        <span>Rachelsmolen 1</span>
-        <br>
-        <span>5612 MA Eindhoven</span>
     </div>
     <div>
         <span><a href="mailto:info@fpsa.nl">info@fpsa.nl</a></span>
         <br>
         <span>kvk: 78356830</span>
     </div>
-  </el-footer>
+  </footer>
 </template>
 
 <script lang="ts" scoped>
@@ -26,6 +21,11 @@ export default class Footer extends Vue {}
 
 <style lang="scss" scoped>
 .footer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    padding: 0 20px;
     background: #7D52C9;
     color: white;
     display: flex;
@@ -36,11 +36,12 @@ export default class Footer extends Vue {}
 
     a {
         color: white;
+        text-decoration: underline;
     }
 }
 
 @media only screen and (max-width: 768px) {
-    .footer {
+    footer {
         height: 120px !important;
         display: block;
     }

@@ -1,6 +1,6 @@
 {
     "nl": {
-        "title": "Wachtwoord opvoeren",
+        "title": "Account bevestigen",
         "password": "Wachtwoord",
         "password_repeat": "Herhaal wachtwoord",
         "confirm": "Bevestigen",
@@ -12,7 +12,7 @@
         }
     },
     "en": {
-        "title": "Set password",
+        "title": "Confirm account",
         "password": "Password",
         "password_repeat": "Repeat password",
         "confirm": "Confirm",

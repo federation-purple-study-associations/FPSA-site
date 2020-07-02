@@ -1,6 +1,47 @@
 /* theme color */
 $--color-primary: #7D52C9;
+$--color-active: #431f82;
 
+.btn-primary {
+    background: $--color-primary;
+    color: white;
+
+    &:hover {
+        background: $--color-active;
+    }
+
+    &:disabled {
+        background: $--color-primary;
+    }
+}
+
+h2 {
+    color: $--color-primary;
+}
+
+@media only screen and (max-width: 768px) {
+    img.card-img-right {
+        display: none;
+    }
+}
+
+/* custom carousel shit to place the caption below the image*/
+div.carousel-caption {
+    bottom: -100px;
+    color: black;
+}
+
+div.carousel-item {
+    cursor: pointer;
+}
+
+div.carousel-inner {
+    width: 100%;
+    padding-bottom: 75px;
+}
+
+
+/* ELEMENT UI STYLING */
 a {
     color: $--color-primary;
 }

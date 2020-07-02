@@ -1,18 +1,29 @@
 <template scoped>
-  <div class="board">
-    <div class="spaceing"></div>
+  <b-container class="board">
+    <b-row>
+      <b-col>
+        <b-card
+          v-for="item in boardItems" :key="item.id"
+          :title="item.title"
+          :img-src="url+ '/board/photo?id=' + item.id"
+          img-right
+          img-width="300px"
+          class="mb-3 mt-3">
 
-    <el-card class="box-card" v-for="item in boardItems" :key="item.title">
-      <div slot="header">
-        <h2 class="fpsa-header">{{item.title}}</h2>
-      </div>
-      
-      <div class="box-card__text">{{item.text}}</div>
-      <img class="image-container" :src="url+ '/board/photo?id=' + item.id"/>
-    </el-card>
+            <b-card-text>{{item.text}}</b-card-text>
 
-    <el-pagination class="board__pagination" background layout="prev, pager, next" :total="count" :page-size="pageSize" @current-change="changePage"></el-pagination>
-  </div>
+            <template v-slot:footer v-if="item.hasPolicyPlan">
+              <a style="cursor: pointer; height: 100%" target="_blank" :href="url+ '/board/policy?id=' + item.id">
+                <b-icon-paperclip></b-icon-paperclip><br>
+                {{$t('policy_plan')}}
+              </a>
+            </template>
+        </b-card>
+
+        <b-pagination align="center" :total-rows="count" :per-page="pageSize" @input="changePage"></b-pagination>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script lang="ts" scoped>
@@ -27,7 +38,7 @@ export default class Board extends Vue {
   private boardItems: BoardInfoDTO[] = [];
   private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
-  private skip = 0;
+  private skip = -25;
   private readonly pageSize = 25;
   private count = 0;
 
@@ -41,12 +52,8 @@ export default class Board extends Vue {
     });
   }
 
-  public mounted() {
-    this.getBoards(this.$store.getters.currentLanguage);
-  }
-
-  private changePage(page: number) {
-    this.skip = (page - 1) * this.pageSize;
+  private changePage() {
+    this.skip = ((this.skip / this.pageSize) + 1) * this.pageSize;
     this.getBoards(this.$store.getters.currentLanguage);
   }
 
@@ -57,13 +64,5 @@ export default class Board extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.board {
-  &__pagination {
-    text-align: center
-  }
-}
-</style>
 
 <i18n src="@/lang/views/board.json"></i18n>
