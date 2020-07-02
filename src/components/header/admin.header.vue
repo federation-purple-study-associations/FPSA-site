@@ -1,25 +1,30 @@
 <template scoped>
-  <el-header class="header">
-    <div class="header__left">
-      <router-link to="/">
-        <i class="el-icon-s-home header__icon"></i>
-      </router-link>
-    </div>
+  <b-navbar toggleable="lg" class="header">
+    <b-navbar-brand to="/">
+      <b v-if="document.getElementsByTagName('body')[0].clientWidth > 900">Federation of Purple Study Associations</b>
+      <b v-else>FPSA</b>
+    </b-navbar-brand>
 
-    <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>
-      <el-menu-item index="" class="header-navigation__responsive" @click="toggleMenu"><i class="el-icon-more-outline"></i></el-menu-item>
-      <el-menu-item index="/admin" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('start')}}</el-menu-item>
-      <el-menu-item index="/admin/user" :class="menu ? 'responsive' : ''" @click="toggleMenu" v-if="hasPermissionForUser">{{$t('user')}}</el-menu-item>
-      <el-menu-item index="/admin/agenda" :class="menu ? 'responsive' : ''" @click="toggleMenu" v-if="hasPermissionForAgenda">{{$t('agenda')}}</el-menu-item>
-      <el-menu-item index="/admin/board" :class="menu ? 'responsive' : ''" @click="toggleMenu" v-if="hasPermissionForBoard">{{$t('board')}}</el-menu-item>
-      <el-submenu index="" :class="menu ? 'responsive' : ''">
-        <template slot="title"><i class="el-icon-chat-dot-round"></i></template>
-        <el-menu-item index="" v-on:click="switchLanguage('nl')">Nederlands</el-menu-item>
-        <el-menu-item index="" v-on:click="switchLanguage('en')">English</el-menu-item>
-      </el-submenu>
-      <div :class="(menu ? 'responsive' : '') + ' header-navigation__background'"></div>
-    </el-menu>
-  </el-header>
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item to="/admin">{{$t('start')}}</b-nav-item>
+        <b-nav-item to="/admin/user">{{$t('user')}}</b-nav-item>
+        <b-nav-item to="/admin/agenda">{{$t('agenda')}}</b-nav-item>
+        <b-nav-item to="/admin/board">{{$t('board')}}</b-nav-item>
+
+        <b-nav-item-dropdown right class="header__language">
+          <template v-slot:button-content>
+            <b-icon-chat-square-dots></b-icon-chat-square-dots>
+          </template>
+
+          <b-dropdown-item v-on:click="switchLanguage('nl')">Nederlands</b-dropdown-item>
+          <b-dropdown-item v-on:click="switchLanguage('en')">English</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
 </template>
 
 <script lang="ts" scoped>
@@ -31,13 +36,6 @@ import HttpResponse from '../../openapi/HttpResponse';
 
 @Component({})
 export default class AdminHeader extends Vue {
-  private window = window;
-  private isLoading = false;
-  private menu = false;
-  private loginForm: LoginDTO = {
-    email: '',
-    password: '',
-  };
 
   // Authentication
   private isLoggedIn = false;
@@ -55,152 +53,26 @@ export default class AdminHeader extends Vue {
   private switchLanguage(lang: string): void {
     this.$store.dispatch('setLanguage', lang);
   }
-
-  private toggleMenu() {
-    this.menu = !this.menu;
-  }
-
-  private submitLogin() {
-    this.isLoading = true;
-    openApiContainer.get<UserService>('UserService').login(this.loginForm, 'response').subscribe(
-      () => {
-        window.location.href = '/admin';
-      },
-      (err: HttpResponse) => {
-        this.isLoading = false;
-
-        if (err.status === 400) {
-          this.$message.error(this.$t('error.wrong_credentials').toString());
-
-        } else {
-          this.$message.error(this.$t('error.unknown').toString());
-        }
-      },
-    );
-  }
 }
 </script>
 
 <style lang="scss" scoped>
 .header {
-  position: fixed;
-  width: 100%;
-  height: 60px;
-  top: 0;
-  left: 0;
   background: #7C4DD8;
-  display: flex;
-  justify-content: space-between;
   border-bottom: solid 1px #e6e6e6;
-  z-index: 999;
-
-  &__left {
-    display: flex;
-    align-items: center;
-  }
-
-  &__icon {
+  
+  & a.navbar-brand {
     color: white;
-    font-size: 35px;
   }
 
-  & .el-submenu {
-    width: 60px;
-
-    & .el-icon-chat-dot-round {
-      margin-right: 0px;
-    }
-  }
-
-  & img {
-    margin-left: 10px;
-    margin-top: 5px;
-    height: 50px;
-  }
-
-  & &-navigation {
-    background: #7C4DD8;
-    border-bottom: none;
-
-    &__responsive {
-      display: none;
-    }
-
-    & a {
-      text-decoration: none;
-    }
-
-    & li {
-      color: white;
-    }
+  &__language {
+    margin-left: 20px;
   }
 }
 
-.login-menu {
-  &__icon {
-    width: 60px;
-    height: 60px;
-    font-size: 18px;
-    color: white;
-
-    &:active, &:focus {
-      color: white;
-    }
-  }
-
-  &__password {
-    margin-top: 5px;
-  }
-
-  &__submit {
-    margin-top: 10px;
-    float: right;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .header {
-    & ul > li, & ul > span {
-      width: 100% !important;
-      display: none;
-      background: #7C4DD8;
-    }
-
-    & ul > li:first-child {
-      box-shadow: none;
-    }
-
-    & ul > li.responsive, & ul > span.responsive {
-      display: block;
-    }
-
-    & &-navigation {
-
-        &__responsive {
-          display: block;
-          text-align: right;
-        }
-
-        &__background {
-          z-index: -1;
-          position: absolute;
-          top: 0px;
-          display: none;
-          width: 100%;
-          height: 360px;
-          box-shadow: 0px 0px 10px 10px rgba(144,147,153,0.25);
-        }
-
-        &__background.responsive {
-          display: block;
-        }
-    }
-  }
-
-  .login-menu__icon {
-    width: 100%;
-    text-align: left;
-    padding-left: 20px;
+@media (max-width: 992px) {
+  .header__language {
+    margin-left: 0px;
   }
 }
 </style>

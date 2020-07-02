@@ -3,10 +3,15 @@
         "home": "Home",
         "agenda": "Agenda",
         "start": "Start",
-        "login": "Login",
         "board": "Besturen",
         "user": "Gebruikers",
         "contact": "Contact",
+        "about_us": "Over ons",
+        "login": {
+            "email": "Email",
+            "password": "Wachtwoord",
+            "action": "Login"
+        },
         "error": {
             "unknown": "Een onbekende error is opgetreden...",
             "wrong_credentials": "De gebruikersnaam of het wachtwoord is incorrect..."
@@ -16,10 +21,15 @@
         "home": "Home",
         "agenda": "Agenda",
         "start": "Start",
-        "login": "Login",
         "board": "Boards",
         "user": "Users",
         "contact": "Contact",
+        "about_us": "About us",
+        "login": {
+            "email": "Email",
+            "password": "Password",
+            "action": "Login"
+        },
         "error": {
             "unknown": "An unknown error has occured...",
             "wrong_credentials": "Username or password is incorrect..."

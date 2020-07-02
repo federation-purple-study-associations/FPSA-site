@@ -11,7 +11,7 @@
           }}
         </div>
 
-        <el-button class="welcome-admin__logout" type="primary" @click="logout">{{$t('logout')}}</el-button>
+        <b-button class="welcome-admin__logout" variant="primary" @click="logout">{{$t('logout')}}</b-button>
 
         <div class="welcome-admin__settings">
           <h2 class="fpsa-header">{{$t('email.title')}}</h2>
