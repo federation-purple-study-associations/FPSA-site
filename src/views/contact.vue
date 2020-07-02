@@ -40,7 +40,7 @@
             <b-form-group>
               <b-form-checkbox v-model="privacy" v-on:input="checkLegal">{{$t('application.privacy')}}<a href="privacy.pdf" target="_blank">Link</a></b-form-checkbox>
             </b-form-group>
-            <b-button variant="primary" :disabled= "isIllegal" @click="submitForm()">{{$t('application.confirm')}}</b-button>
+            <b-button variant="primary" :disabled="isIllegal" @click="submitForm()"><b-overlay :show="loading" rounded="sm">{{$t('application.confirm')}}</b-overlay></b-button>
           </b-form>
         </b-card>
       </b-col>
@@ -68,10 +68,12 @@ export default class Contact extends Vue {
 
   private isIllegal = true;
   private privacy = false;
+  private loading = false;
 
   private readonly emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   private submitForm() {
+    this.loading = true;
     this.application.kvk = +this.application.kvk;
 
     openApiContainer.get<UserService>('UserService').applicationCreate(this.application, 'response').subscribe(() => {
@@ -79,8 +81,10 @@ export default class Contact extends Vue {
       this.application = {name: '', email: '', academy: '', establishment: '', kvk: 0};
       this.repeatEmail = '';
       this.privacy = false;
+      this.loading = false;
 
     }, (err) => {
+      this.loading = false;
       if (err.status === 400) {
         this.$message.error(this.$t('error.form_not_filled_in_correctly').toString());
 
