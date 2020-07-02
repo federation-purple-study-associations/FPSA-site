@@ -12,7 +12,7 @@
         <b-nav-item to="/board">{{$t('board')}}</b-nav-item>
         <b-nav-item to="/contact">{{$t('contact')}}</b-nav-item>
 
-        <b-nav-item-dropdown right>
+        <b-nav-item-dropdown right class="header__language">
           <template v-slot:button-content>
             <b-icon-chat-square-dots></b-icon-chat-square-dots>
           </template>
@@ -20,28 +20,26 @@
           <b-dropdown-item v-on:click="switchLanguage('nl')">Nederlands</b-dropdown-item>
           <b-dropdown-item v-on:click="switchLanguage('en')">English</b-dropdown-item>
         </b-nav-item-dropdown>
+
+        <b-nav-item-dropdown right v-if="!isLoggedIn">
+          <template v-slot:button-content>
+            <b-icon-people></b-icon-people>
+          </template>
+
+          <b-dropdown-form>
+            <b-form-group >
+              <b-form-input :placeholder="$t('login.email')" v-model="loginForm.email" autocomplete="email"></b-form-input>
+            </b-form-group>
+            <b-form-group>
+              <b-form-input type="password" :placeholder="$t('login.password')" v-model="loginForm.password" autocomplete="current-password"></b-form-input>
+            </b-form-group>
+            <b-button variant="primary" @click="submitLogin">{{$t('login.action')}}</b-button>
+          </b-dropdown-form>
+        </b-nav-item-dropdown>
+
+        <b-nav-item to="/admin" v-if="isLoggedIn"><b-overlay :show="isLoading" rounded="sm"><b-icon-people></b-icon-people></b-overlay></b-nav-item>
       </b-navbar-nav>
     </b-collapse>
-
-    <!-- <el-menu mode="horizontal" class="header-navigation" :default-active="window.location.pathname" router>
-      <el-menu-item index="" class="header-navigation__responsive" @click="toggleMenu"><i class="el-icon-more-outline"></i></el-menu-item>
-      <el-menu-item index="/agenda" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('agenda')}}</el-menu-item>
-      <el-menu-item index="/board" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('board')}}</el-menu-item>
-      <el-menu-item index="/contact" :class="menu ? 'responsive' : ''" @click="toggleMenu">{{$t('contact')}}</el-menu-item>
-      <el-submenu index="" :class="menu ? 'responsive' : ''">
-        <template slot="title"><i class="el-icon-chat-dot-round"></i></template>
-        <el-menu-item index="" v-on:click="switchLanguage('nl')">Nederlands</el-menu-item>
-        <el-menu-item index="" v-on:click="switchLanguage('en')">English</el-menu-item>
-      </el-submenu>
-      <el-popover placement="bottom" width="160" trigger="hover" :class="(menu ? 'responsive' : '') + ' login-menu'" v-if="!isLoggedIn">
-        <el-input placeholder="Email" v-model="loginForm.email" autocomplete="email"></el-input>
-        <el-input placeholder="Wachtwoord" class="login-menu__password" v-model="loginForm.password" show-password autocomplete="current-password"></el-input>
-        <el-button type="primary" class="login-menu__submit" :loading="isLoading" @click="submitLogin">{{$t('login')}}</el-button>
-        <el-button slot="reference" type="text" class="login-menu__icon" icon="el-icon-user"></el-button>
-      </el-popover>
-      <el-menu-item index="/admin" v-if="isLoggedIn" :class="menu ? 'responsive' : ''" @click="toggleMenu"><i class="el-icon-user"></i></el-menu-item>
-      <div :class="(menu ? 'responsive' : '') + ' header-navigation__background'"></div>
-    </el-menu> -->
   </b-navbar>
 </template>
 
@@ -54,9 +52,7 @@ import HttpResponse from '../../openapi/HttpResponse';
 
 @Component({})
 export default class HomeHeader extends Vue {
-  private window = window;
   private isLoading = false;
-  private menu = false;
   private loginForm: LoginDTO = {
     email: '',
     password: '',
@@ -69,10 +65,6 @@ export default class HomeHeader extends Vue {
 
   private switchLanguage(lang: string): void {
     this.$store.dispatch('setLanguage', lang);
-  }
-
-  private toggleMenu() {
-    this.menu = !this.menu;
   }
 
   private submitLogin() {
@@ -103,6 +95,16 @@ export default class HomeHeader extends Vue {
   
   & a.navbar-brand {
     color: white;
+  }
+
+  &__language {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 992px) {
+  .header__language {
+    margin-left: 0px;
   }
 }
 </style>
