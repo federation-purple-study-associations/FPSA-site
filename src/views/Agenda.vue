@@ -1,20 +1,30 @@
 <template scoped>
-  <div class="agenda">
-    <div class="spaceing"></div>
+  <b-container class="agenda">
+    <b-row>
+      <b-col>
+        <b-card
+          v-for="item in agendaItems" :key="item.id"
+          :title="item.title"
+          :img-src="url+ '/agenda/photo?id=' + item.id"
+          img-right
+          img-width="300px"
+          @click="openDialog(item.id)"
+          class="mb-3 mt-3 clickable">
 
-    <el-card class="box-card" v-for="item in agendaItems" :key="item.title" @click.native="openDialog(item.id)">
-      <div slot="header">
-        <h2 class="fpsa-header">{{item.title}}</h2>
-      </div>
-      <div><b>{{$t('location')}}</b> {{item.location}}</div>
-      <div><b>{{$t('date')}}</b> {{moment(item.date).format('DD-MM-YYYY HH:mm')}}</div>
-      <br>
-      <div>{{item.summary}}</div>
-      <img class="image-container" :src="url+ '/agenda/photo?id=' + item.id"/>
-    </el-card>
+            <b-card-text>{{item.summary}}</b-card-text>
+        </b-card>
 
-    <el-pagination class="agenda__pagination" background layout="prev, pager, next" :total="count" :page-size="pageSize" @current-change="changePage"></el-pagination>
-  </div>
+        <b-pagination align="center" :total-rows="count" :per-page="pageSize" @input="changePage"></b-pagination>
+
+        <b-modal id="agenda__modal" :title="agendaItem.title" hide-footer>
+          <img :src="this.url + '/agenda/photo?id=' + agendaItem.id" style="width: 100%"/><br><br>
+          <b>{{$t('location')}}</b> {{agendaItem.location}}<br>
+          <b>{{$t('date')}}</b> {{moment(agendaItem.date).format('DD-MM-YYYY HH:mm')}}<br><br>
+          {{agendaItem.description}}
+        </b-modal>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script lang="ts" scoped>
@@ -35,9 +45,17 @@ export default class Agenda extends Vue {
   private agendaItems: AgendaSummaryDTO[] = [];
   private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
-  private skip = 0;
+  private skip = -25;
   private readonly pageSize = 25;
   private count = 0;
+
+  private agendaItem: AgendaDetailsDTO = {
+    id: 0,
+    location: '',
+    date: '',
+    title: '',
+    description: '',
+  };
 
   constructor() {
     super();
@@ -49,10 +67,6 @@ export default class Agenda extends Vue {
     });
   }
 
-  public mounted() {
-    this.getAgendaItems(this.$store.getters.currentLanguage);
-  }
-
   private getAgendaItems(language: string) {
     openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, this.skip, this.pageSize, 'response')
     .subscribe((res: HttpResponse<AgendaAllDTO>) => {
@@ -62,22 +76,15 @@ export default class Agenda extends Vue {
   }
 
   private changePage(page: number) {
-    this.skip = (page - 1) * this.pageSize;
+    this.skip = ((this.skip / this.pageSize) + 1) * this.pageSize;
     this.getAgendaItems(this.$store.getters.currentLanguage);
   }
 
   private openDialog(id: number) {
     this.agendaService.agendaGetOne(id, this.$store.getters.currentLanguage, 'response')
     .subscribe((res: HttpResponse<AgendaDetailsDTO>) => {
-      const text =  '<img class="image-popup" src="' + this.url + '/agenda/photo?id=' + res.response.id + '"/>' +
-                    '<b>' + this.$t('location').toString() + '</b> ' + res.response.location + '<br>' +
-                    '<b>' + this.$t('date').toString() + '</b> ' + moment(res.response.date).format('DD-MM-YYYY HH:mm') + '<br><br>' +
-                    res.response.description;
-
-      this.$alert(text, res.response.title, {
-        confirmButtonText: 'OK',
-        dangerouslyUseHTMLString: true,
-      });
+      this.agendaItem = res.response;
+      this.$bvModal.show('agenda__modal');
     });
   }
 }
@@ -89,13 +96,8 @@ export default class Agenda extends Vue {
     text-align: center
   }
 
-  & .box-card {
-    transition: transform .5s;
+  .clickable {
     cursor: pointer;
-
-    &:hover {
-      transform: scale(1.1);
-    }
   }
 }
 </style>

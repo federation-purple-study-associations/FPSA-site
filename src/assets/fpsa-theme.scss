@@ -9,6 +9,10 @@ $--color-active: #431f82;
     &:hover {
         background: $--color-active;
     }
+
+    &:disabled {
+        background: $--color-primary;
+    }
 }
 
 h2 {
