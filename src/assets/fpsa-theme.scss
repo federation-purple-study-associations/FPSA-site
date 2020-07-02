@@ -27,10 +27,8 @@ $--color-active: #431f82;
     }
 }
 
-.card {
-    &-text {
-        white-space: pre-line;
-    }
+.card-text, .modal-body {
+    white-space: pre-line;
 }
 
 h2 {
