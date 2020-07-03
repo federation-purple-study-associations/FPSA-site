@@ -7,7 +7,6 @@
           :title="item.title"
           :img-src="url+ '/board/photo?id=' + item.id"
           img-right
-          img-width="300px"
           class="mb-3 mt-3">
 
             <b-card-text>{{item.text}}</b-card-text>

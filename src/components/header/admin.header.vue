@@ -10,9 +10,9 @@
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/admin">{{$t('start')}}</b-nav-item>
-        <b-nav-item to="/admin/user">{{$t('user')}}</b-nav-item>
-        <b-nav-item to="/admin/agenda">{{$t('agenda')}}</b-nav-item>
-        <b-nav-item to="/admin/board">{{$t('board')}}</b-nav-item>
+        <b-nav-item to="/admin/user" v-if="hasPermissionForUser">{{$t('user')}}</b-nav-item>
+        <b-nav-item to="/admin/agenda" v-if="hasPermissionForAgenda">{{$t('agenda')}}</b-nav-item>
+        <b-nav-item to="/admin/board" v-if="hasPermissionForBoard">{{$t('board')}}</b-nav-item>
 
         <b-nav-item-dropdown right class="header__language">
           <template v-slot:button-content>
