@@ -1,46 +1,70 @@
 <template scoped>
-  <div class="board-admin">
-    <div class="board-admin__new-board">
-      <el-button class="board-admin__add" @click="openAddDialog">{{$t('new_board')}}</el-button>
-    </div>
+  <b-container class="board-admin">
+    <b-row>
+      <b-col class="mb-3 mt-3 w-100 text-right">
+        <b-button @click="openAddDialog" variant="outline-primary">{{$t('new_board')}}</b-button>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <b-card
+          v-for="item in boardItems" :key="item.id"
+          :title="item.title"
+          :img-src="url+ '/board/photo?id=' + item.id + '&time=' + new Date().getTime()"
+          img-right
+          class="mb-3 mt-3"
+          style="cursor: pointer;"
+          @click="openDialog(item.id)">
 
-    <el-card class="box-card" v-for="item in boardItems" :key="item.title" @click.native="openDialog(item.id)">
-      <div slot="header">
-        <h2 class="fpsa-header">{{item.title}}</h2>
-      </div>
-      
-      <div class="box-card__text">{{item.text}}</div>
-      <img class="image-container" :src="url+ '/board/photo?id=' + item.id"/>
-    </el-card>
+            <b-card-text>{{item.text}}</b-card-text>
 
-    <el-pagination class="board-admin__pagination" background layout="prev, pager, next" :total="count" :page-size="pageSize" @current-change="changePage"></el-pagination>
+            <template v-slot:footer v-if="item.hasPolicyPlan">
+              <a style="cursor: pointer; height: 100%" target="_blank" :href="url+ '/board/policy?id=' + item.id">
+                <b-icon-paperclip></b-icon-paperclip><br>
+                {{$t('policy_plan')}}
+              </a>
+            </template>
+        </b-card>
 
-    <el-dialog :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')" :visible.sync="dialogVisible">
-      <el-form ref="form" :model="boardForDialog" label-width="120px">
-        <el-form-item :label="$t('dialog.title')">
-          <el-input :placeholder="$t('dialog.dutch')" v-model="boardForDialog.titleNL"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input :placeholder="$t('dialog.english')" v-model="boardForDialog.titleEN"></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('dialog.text')">
-          <el-input :placeholder="$t('dialog.dutch')" v-model="boardForDialog.textNL" type="textarea"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input :placeholder="$t('dialog.english')" v-model="boardForDialog.textEN" type="textarea"></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('dialog.image')">
-          <input type="file" ref="file" v-on:change="handleFileUpload()"/><br>
-          {{edit ? $t('dialog.image_note') : ''}}
-        </el-form-item>
-      </el-form>
-      <el-button-group slot="footer" class="dialog-footer">
-        <el-button type="danger" v-if="edit" @click="deleteItem">{{$t('dialog.delete')}}</el-button>
-        <el-button @click="dialogVisible = false">{{$t('dialog.cancel')}}</el-button>
-        <el-button type="primary" @click="submitDialog">{{$t('dialog.confirm')}}</el-button>
-      </el-button-group>
-    </el-dialog>
-  </div>
+        <b-pagination align="center" :total-rows="count" :per-page="pageSize" @input="changePage"></b-pagination>
+      </b-col>
+    </b-row>
+
+    <b-modal
+      :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')"
+      :visible.sync="dialogVisible"
+      no-close-on-backdrop
+      scrollable
+      hide-header-close>
+        <b-form>
+          <b-form-group :label="$t('dialog.title')">
+            <b-form-input :placeholder="$t('dialog.dutch')" v-model="boardForDialog.titleNL"></b-form-input>
+          </b-form-group>
+          <b-form-group>
+            <b-form-input :placeholder="$t('dialog.english')" v-model="boardForDialog.titleEN"></b-form-input>
+          </b-form-group>
+          <b-form-group :label="$t('dialog.text')">
+            <b-form-textarea :placeholder="$t('dialog.dutch')" v-model="boardForDialog.textNL"></b-form-textarea>
+          </b-form-group>
+          <b-form-group>
+            <b-form-textarea :placeholder="$t('dialog.english')" v-model="boardForDialog.textEN"></b-form-textarea>
+          </b-form-group>
+          <b-form-group :label="$t('dialog.image')">
+            <b-form-file :placeholder="edit ? $t('dialog.image_note') : ''" accept="image/*" v-model="boardImage"></b-form-file>
+          </b-form-group>
+          <b-form-group :label="$t('policy_plan')">
+            <b-form-file :placeholder="$t('dialog.policy_plan_note')" v-model="policyPlan"></b-form-file>
+          </b-form-group>
+        </b-form>
+        <template v-slot:modal-footer>
+          <div class="w-100">
+            <b-button variant="danger" v-if="edit" @click="deleteItem">{{$t('dialog.delete')}}</b-button>
+            <b-button @click="dialogVisible = false">{{$t('dialog.cancel')}}</b-button>
+            <b-button variant="primary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
+          </div>
+        </template>
+    </b-modal>
+  </b-container>
 </template>
 
 <script lang="ts" scoped>
@@ -59,14 +83,13 @@ export default class BoardAdmin extends Vue {
   private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
   // Pagination
-  private skip = 0;
+  private skip = -25;
   private readonly pageSize = 25;
   private count = 0;
 
   // Dialog
   private dialogVisible = false;
   private edit = false;
-  private image?: Blob = undefined;
   private boardForDialog: Board = {
     titleNL: '',
     titleEN: '',
@@ -74,6 +97,8 @@ export default class BoardAdmin extends Vue {
     textEN: '',
     id: 0,
   };
+  private boardImage?: Blob = new Blob();
+  private policyPlan?: Blob = new Blob();
 
   constructor() {
     super();
@@ -85,12 +110,8 @@ export default class BoardAdmin extends Vue {
     });
   }
 
-  public mounted() {
-    this.getBoards(this.$store.getters.currentLanguage);
-  }
-
   private changePage(page: number) {
-    this.skip = (page - 1) * this.pageSize;
+    this.skip = ((this.skip / this.pageSize) + 1) * this.pageSize;
     this.getBoards(this.$store.getters.currentLanguage);
   }
 
@@ -98,10 +119,6 @@ export default class BoardAdmin extends Vue {
     this.boardService.boardGetAll(lang, this.skip, this.pageSize, 'response').subscribe((res: HttpResponse<BoardInfoDTO[]>) => {
       this.boardItems = res.response;
     });
-  }
-
-  private handleFileUpload() {
-    this.image = (this.$refs.file as any).files[0];
   }
 
   private openAddDialog() {
@@ -120,7 +137,8 @@ export default class BoardAdmin extends Vue {
   private openDialog(id: number) {
     this.boardService.boardGetOriginalOne(id, 'response').subscribe((res: HttpResponse<Board>) => {
         this.boardForDialog = res.response;
-        this.image = undefined;
+        this.boardImage = undefined;
+        this.policyPlan = undefined;
         this.dialogVisible = true;
         this.edit = true;
     });
@@ -134,8 +152,8 @@ export default class BoardAdmin extends Vue {
             this.boardForDialog.titleEN,
             this.boardForDialog.textNL,
             this.boardForDialog.textEN,
-            this.image,
-            this.image,
+            this.boardImage,
+            this.policyPlan,
             'response',
         ).subscribe(this.handleSucces, this.handleError);
 
@@ -145,8 +163,8 @@ export default class BoardAdmin extends Vue {
             this.boardForDialog.titleEN,
             this.boardForDialog.textNL,
             this.boardForDialog.textEN,
-            this.image!,
-            this.image!,
+            this.boardImage!,
+            this.policyPlan,
             'response',
         ).subscribe(this.handleSucces, this.handleError);
     }

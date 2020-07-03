@@ -1,5 +1,6 @@
 {
     "nl": {
+        "policy_plan": "Beleidsplan",
         "new_board": "Nieuw bestuur",
         "dialog": {
             "title_edit": "Bestuur bewerken",
@@ -8,6 +9,7 @@
             "text": "Tekst",
             "image": "Afbeelding",
             "image_note": "Laat leeg als je geen nieuwe foto wilt uploaden",
+            "policy_plan_note": "Laat leeg als je geen nieuw beleidsplan wilt uploaden",
             "dutch": "Nederlands",
             "english": "Engels",
             "confirm": "Bevestigen",
@@ -20,6 +22,7 @@
         }
     },
     "en": {
+        "policy_plan": "Policy plan",
         "new_board": "New board",
         "dialog": {
             "title_edit": "Edit board",
@@ -28,6 +31,7 @@
             "text": "Text",
             "image": "Image",
             "image_note": "Leave blank if you do not want to upload a new photo",
+            "policy_plan_note": "Leave blank if you do not want to upload a new policy plan",
             "dutch": "Dutch",
             "english": "English",
             "confirm": "Confirm",

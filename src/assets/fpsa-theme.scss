@@ -15,6 +15,17 @@ $--color-active: #431f82;
     }
 }
 
+.btn-outline-primary {
+    color: $--color-primary;
+    border-color: $--color-primary;
+
+    &:hover, &:active, &:focus {
+        color: white;
+        border-color: $--color-primary !important;
+        background-color: $--color-primary !important;
+    }
+}
+
 .header .nav-item a.nav-link {
     color: white;
 

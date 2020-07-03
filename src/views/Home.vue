@@ -14,7 +14,7 @@
     <b-row class="home__welcome mb-5">
       <b-col>
         <h2>{{$t('welcome.title')}}</h2>
-        <span>{{$t('welcome.text')}}</span><router-link to="/about-us">{{$t('welcome.click_here')}}</router-link>
+        <span>{{$t('welcome.text')}}</span><router-link to="/aboutus">{{$t('welcome.click_here')}}</router-link>
       </b-col>
     </b-row>
 
