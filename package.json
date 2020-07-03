@@ -17,6 +17,7 @@
     "rxjs": "^6.5.4",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.5.2",
+    "vue-bootstrap-datetimepicker": "^5.0.1",
     "vue-class-component": "^7.2.2",
     "vue-i18n": "^8.15.3",
     "vue-property-decorator": "^8.3.0",

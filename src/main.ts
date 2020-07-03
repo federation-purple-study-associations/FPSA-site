@@ -12,6 +12,7 @@ import VueApexCharts from 'vue-apexcharts';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 import './assets/fpsa-theme.scss';
 
 Vue.use(Element, { locale });

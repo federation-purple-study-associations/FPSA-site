@@ -57,9 +57,9 @@
           </b-form-group>
         </b-form>
         <template v-slot:modal-footer>
-          <div class="w-100">
-            <b-button variant="danger" v-if="edit" @click="deleteItem">{{$t('dialog.delete')}}</b-button>
-            <b-button @click="dialogVisible = false">{{$t('dialog.cancel')}}</b-button>
+          <div class="w-100 text-right">
+            <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
+            <b-button variant="outline-primary" @click="dialogVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
             <b-button variant="primary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
           </div>
         </template>

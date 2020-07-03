@@ -1,64 +1,76 @@
 <template scoped>
-  <div class="agenda-admin">
-    <div class="agenda-admin__new-agenda-item">
-      <el-button class="agenda-admin__add" @click="openAddDialog">{{$t('new_item')}}</el-button>
-    </div>
+  <b-container class="agenda-admin">
+    <b-row>
+      <b-col class="mb-3 mt-3 w-100 text-right">
+        <b-button @click="openAddDialog" variant="outline-primary">{{$t('new_item')}}</b-button>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <b-card
+          v-for="item in agendaItems" :key="item.id"
+          :title="item.title"
+          :img-src="url+ '/agenda/photo?id=' + item.id"
+          img-right
+          img-width="300px"
+          @click="openEditDialog(item.id)"
+          class="mb-3 mt-3 clickable">
 
-    <el-card class="box-card" v-for="item in agendaItems" :key="item.title" @click.native="openEditDialog(item.id)">
-      <div slot="header">
-        <h2 class="fpsa-header">{{item.title}}</h2>
-      </div>
+            <b-card-text>{{item.summary}}</b-card-text>
+        </b-card>
 
-      <div><b>{{$t('location')}}</b> {{item.location}}</div>
-      <div><b>{{$t('date')}}</b> {{moment(item.date).format('DD-MM-YYYY HH:mm')}}</div>
-      <br>
-      <div>{{item.summary}}</div>
-      <img class="image-container" :src="url+ '/agenda/photo?id=' + item.id + 't=' + imageTime"/>
-    </el-card>
+        <b-pagination align="center" :total-rows="count" :per-page="pageSize" @input="changePage"></b-pagination>
+      </b-col>
+    </b-row>
 
-    <el-pagination class="agenda-admin__pagination" background layout="prev, pager, next" :total="count" :page-size="pageSize" @current-change="changePage"></el-pagination>
-
-    <el-dialog :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')" :visible.sync="dialogVisible">
-      <el-form ref="form" :model="agendaItemForDialog" label-width="120px">
-        <el-form-item :label="$t('dialog.location')">
-          <el-input v-model="agendaItemForDialog.location"></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('dialog.date')">
-          <el-date-picker v-model="agendaItemForDialog.date" type="datetime" style="width: 100%"></el-date-picker>
-        </el-form-item>
-        <el-form-item :label="$t('dialog.title')">
-          <el-input :placeholder="$t('dialog.dutch')" v-model="agendaItemForDialog.titleNL"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input :placeholder="$t('dialog.english')" v-model="agendaItemForDialog.titleEN"></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('dialog.summary')">
-          <el-input :placeholder="$t('dialog.dutch')" v-model="agendaItemForDialog.summaryNL" type="textarea"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input :placeholder="$t('dialog.english')" v-model="agendaItemForDialog.summaryEN" type="textarea"></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('dialog.description')">
-          <el-input :placeholder="$t('dialog.dutch')" v-model="agendaItemForDialog.descriptionNL" type="textarea"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input :placeholder="$t('dialog.english')" v-model="agendaItemForDialog.descriptionEN" type="textarea"></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('dialog.draft')">
-          <el-checkbox v-model="agendaItemForDialog.isDraft"></el-checkbox>
-        </el-form-item>
-        <el-form-item :label="$t('dialog.image')">
-          <input type="file" ref="file" v-on:change="handleFileUpload()"/><br>
-          {{edit ? $t('dialog.image_note') : ''}}
-        </el-form-item>
-      </el-form>
-      <el-button-group slot="footer" class="dialog-footer">
-        <el-button type="danger" v-if="edit" @click="deleteItem">{{$t('dialog.delete')}}</el-button>
-        <el-button @click="dialogVisible = false">{{$t('dialog.cancel')}}</el-button>
-        <el-button type="primary" @click="submitDialog()">{{$t('dialog.confirm')}}</el-button>
-      </el-button-group>
-    </el-dialog>
-  </div>
+    <b-modal
+      :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')"
+      :visible.sync="dialogVisible"
+      no-close-on-backdrop
+      scrollable
+      hide-header-close>
+        <b-form>
+          <b-form-group :label="$t('dialog.location')">
+            <b-form-input v-model="agendaItemForDialog.location"></b-form-input>
+          </b-form-group>
+          <b-form-group :label="$t('dialog.date')">
+            <b-form-datepicker v-model="agendaItemForDialog.date"></b-form-datepicker>
+            <b-form-timepicker v-model="time"></b-form-timepicker>
+          </b-form-group>
+          <b-form-group :label="$t('dialog.title')">
+            <b-form-input :placeholder="$t('dialog.dutch')" v-model="agendaItemForDialog.titleNL"></b-form-input>
+          </b-form-group>
+          <b-form-group>
+            <b-form-input :placeholder="$t('dialog.english')" v-model="agendaItemForDialog.titleEN"></b-form-input>
+          </b-form-group>
+          <b-form-group :label="$t('dialog.summary')">
+            <b-form-textarea :placeholder="$t('dialog.dutch')" v-model="agendaItemForDialog.summaryNL"></b-form-textarea>
+          </b-form-group>
+          <b-form-group>
+            <b-form-textarea :placeholder="$t('dialog.english')" v-model="agendaItemForDialog.summaryEN"></b-form-textarea>
+          </b-form-group>
+          <b-form-group :label="$t('dialog.description')">
+            <b-form-textarea :placeholder="$t('dialog.dutch')" v-model="agendaItemForDialog.descriptionNL"></b-form-textarea>
+          </b-form-group>
+          <b-form-group>
+            <b-form-textarea :placeholder="$t('dialog.english')" v-model="agendaItemForDialog.descriptionEN"></b-form-textarea>
+          </b-form-group>
+          <b-form-group :label="$t('dialog.draft')">
+            <b-form-checkbox v-model="agendaItemForDialog.isDraft"></b-form-checkbox>
+          </b-form-group>
+          <b-form-group :label="$t('dialog.image')">
+            <b-form-file :placeholder="edit ? $t('dialog.image_note') : ''" v-model="image"></b-form-file>
+          </b-form-group>
+        </b-form>
+        <template v-slot:modal-footer>
+          <div class="w-100 text-right">
+            <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
+            <b-button variant="outline-primary" @click="dialogVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
+            <b-button variant="primary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
+          </div>
+        </template>
+    </b-modal>
+  </b-container>
 </template>
 
 <script lang="ts" scoped>
@@ -70,8 +82,13 @@ import moment from 'moment';
 import HttpResponse from '../../openapi/HttpResponse';
 import { AgendaAllDTO } from '../../openapi/model/agendaAllDTO';
 import { AgendaItem } from '../../openapi/model/agendaItem';
+import datePicker from 'vue-bootstrap-datetimepicker';
 
-@Component({})
+@Component({
+  components: {
+      datePicker,
+    },
+})
 export default class AgendaAdmin extends Vue {
   // Services
   private agendaService = openApiContainer.get<AgendaService>('AgendaService');
@@ -83,14 +100,15 @@ export default class AgendaAdmin extends Vue {
   private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
   // Pagination
-  private skip = 0;
+  private skip = -25;
   private readonly pageSize = 25;
   private count = 0;
 
   // Dialog
   private dialogVisible = false;
   private edit = false;
-  private image?: Blob = undefined;
+  private image: File[] = [];
+  private time: string = '';
   private agendaItemForDialog: AgendaItem = {
     id: 0,
     location: '',
@@ -114,12 +132,8 @@ export default class AgendaAdmin extends Vue {
     });
   }
 
-  public mounted() {
-    this.getAgendaItems(this.$store.getters.currentLanguage);
-  }
-
   private changePage(page: number) {
-    this.skip = (page - 1) * this.pageSize;
+    this.skip = ((this.skip / this.pageSize) + 1) * this.pageSize;
     this.getAgendaItems(this.$store.getters.currentLanguage);
   }
 
@@ -135,7 +149,8 @@ export default class AgendaAdmin extends Vue {
   private openEditDialog(id: number) {
     this.agendaService.agendaGetOriginalOne(id, 'response').subscribe((res: HttpResponse<AgendaItem>) => {
       this.agendaItemForDialog = res.response;
-      this.image = undefined;
+      this.time = moment(res.response.date).format('HH:mm:ss');
+      this.image = [];
       this.dialogVisible = true;
       this.edit = true;
     });
@@ -168,7 +183,7 @@ export default class AgendaAdmin extends Vue {
       this.agendaService.agendaUpdate(
         this.agendaItemForDialog.id,
         this.agendaItemForDialog.location,
-        this.agendaItemForDialog.date,
+        moment(this.agendaItemForDialog.date).format('YYYY-MM-DD') + 'T' + this.time,
         this.agendaItemForDialog.titleNL,
         this.agendaItemForDialog.titleEN,
         this.agendaItemForDialog.summaryNL,
@@ -176,14 +191,14 @@ export default class AgendaAdmin extends Vue {
         this.agendaItemForDialog.descriptionNL,
         this.agendaItemForDialog.descriptionEN,
         this.agendaItemForDialog.isDraft ? 'true' : 'false',
-        this.image,
+        (typeof this.image[0] ? this.image[0] : undefined),
         'response')
       .subscribe(this.handleSucces, this.handleError);
 
     } else {
       this.agendaService.agendaCreateNew(
         this.agendaItemForDialog.location,
-        this.agendaItemForDialog.date,
+        moment(this.agendaItemForDialog.date).format('YYYY-MM-DD') + 'T' + this.time,
         this.agendaItemForDialog.titleNL,
         this.agendaItemForDialog.titleEN,
         this.agendaItemForDialog.summaryNL,
@@ -191,7 +206,7 @@ export default class AgendaAdmin extends Vue {
         this.agendaItemForDialog.descriptionNL,
         this.agendaItemForDialog.descriptionEN,
         this.agendaItemForDialog.isDraft ? 'true' : 'false',
-        this.image!,
+        this.image[0]!,
         'response')
       .subscribe(this.handleSucces, this.handleError);
     }

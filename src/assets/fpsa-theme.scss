@@ -21,9 +21,14 @@ $--color-active: #431f82;
 
     &:hover, &:active, &:focus {
         color: white;
-        border-color: $--color-primary !important;
-        background-color: $--color-primary !important;
+        border-color: $--color-active !important;
+        background-color: $--color-active !important;
     }
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    border-color: $--color-primary !important;
+    background-color: $--color-primary !important;
 }
 
 .header .nav-item a.nav-link {
