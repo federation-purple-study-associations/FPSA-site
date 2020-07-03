@@ -40,7 +40,7 @@
             <b-form-group>
               <b-form-checkbox v-model="privacy" v-on:input="checkLegal">{{$t('application.privacy')}}<a href="privacy.pdf" target="_blank">Link</a></b-form-checkbox>
             </b-form-group>
-            <b-button variant="primary" :disabled="isIllegal" @click="submitForm()"><b-overlay :show="loading" rounded="sm">{{$t('application.confirm')}}</b-overlay></b-button>
+            <b-button variant="primary" :disabled="isIllegal || loading" @click="submitForm()"><b-overlay :show="loading" rounded="sm">{{$t('application.confirm')}}</b-overlay></b-button>
           </b-form>
         </b-card>
       </b-col>
