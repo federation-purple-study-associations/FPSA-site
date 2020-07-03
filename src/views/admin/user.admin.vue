@@ -1,63 +1,73 @@
 <template scoped>
-  <div class="user-admin">
-    <div class="user-admin__actions">
-      <el-button class="user-admin__application" @click="openApplicationDialog">{{$t('applications.title')}}</el-button>
-      <el-button class="user-admin__add" @click="openAddDialog">{{$t('add')}}</el-button>
-    </div>
-    <el-table :data="users" :stripe="true">
-      <el-table-column prop="fullName" :label="$t('fullName')" sortable></el-table-column>
-      <el-table-column prop="email" :label="$t('email')" sortable></el-table-column>
-      <el-table-column prop="role" :label="$t('role')" sortable></el-table-column>
-      <el-table-column fixed="right" label="" width="80">
-        <template slot-scope="scope">
-          <el-button @click="openEditDialog(scope.row.id)" type="text" size="small" style="float: right">{{$t('edit')}}</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-
-    <el-dialog :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')" :visible.sync="dialogUserVisible">
-      <el-form ref="form" :model="userForDialog" label-width="120px">
-        <el-form-item :label="$t('fullName')">
-          <el-input v-model="userForDialog.fullName"></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('email')">
-          <el-input v-model="userForDialog.email"></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('academy')">
-          <el-input v-model="userForDialog.academy"></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('establishment')">
-          <el-input v-model="userForDialog.establishment"></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('kvk')">
-          <el-input v-model="userForDialog.kvk"></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('role')">
-          <el-select v-model="userForDialog.roleId">
-            <el-option :value="1" :label="$t('roles.fpsa')">{{$t('roles.fpsa')}}</el-option>
-            <el-option :value="2" :label="$t('roles.association')">{{$t('roles.association')}}</el-option>
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <el-button-group slot="footer" class="dialog-footer">
-        <el-button type="danger" v-if="edit" @click="deleteItem">{{$t('dialog.delete')}}</el-button>
-        <el-button type="primary" @click="submitDialog">{{$t('dialog.confirm')}}</el-button>
-      </el-button-group>
-    </el-dialog>
-
-    <el-dialog :title="$t('applications.title')" :visible.sync="dialogApplicationsVisible">
-      <el-table :data="applications" :stripe="true">
-        <el-table-column prop="name" :label="$t('fullName')" sortable></el-table-column>
-        <el-table-column prop="email" :label="$t('email')" sortable></el-table-column>
-        <el-table-column fixed="right" label="" width="100">
-          <template slot-scope="scope">
-            <el-button type="danger" @click="declineApplication(scope.row.id)" size="small" style="float: right; width: 90px">{{$t('applications.decline')}}</el-button>
-            <el-button type="success" @click="acceptApplication(scope.row.id)" size="small" style="float: right; width: 90px">{{$t('applications.accept')}}</el-button>
+  <b-container class="user-admin">
+    <b-row>
+      <b-col class="mb-3 mt-3 w-100 text-right">
+        <b-button @click="openApplicationDialog" variant="outline-primary" class="mr-2">{{$t('applications.title')}}</b-button>
+        <b-button @click="openAddDialog" variant="outline-primary">{{$t('add')}}</b-button>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <b-table striped hover sticky-header ref="tableUsers" :items="getUsers" :fields="fieldsUsers">
+          <template v-slot:cell(details)="row">
+            <b-button @click="openEditDialog(row.item.id)" variant="link" style="float: right">{{$t('edit')}}</b-button>
           </template>
-        </el-table-column>
-      </el-table>
-    </el-dialog>
-  </div>
+        </b-table>
+      </b-col>
+    </b-row>
+
+    <b-modal
+      :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')"
+      :visible.sync="dialogUserVisible"
+      no-close-on-backdrop
+      scrollable
+      hide-header-close>
+        <b-form>
+          <b-form-group :label="$t('fullName')">
+            <b-form-input v-model="userForDialog.fullName"></b-form-input>
+          </b-form-group>
+          <b-form-group :label="$t('email')">
+            <b-form-input v-model="userForDialog.email"></b-form-input>
+          </b-form-group>
+          <b-form-group :label="$t('academy')">
+            <b-form-input v-model="userForDialog.academy"></b-form-input>
+          </b-form-group>
+          <b-form-group :label="$t('establishment')">
+            <b-form-input v-model="userForDialog.establishment"></b-form-input>
+          </b-form-group>
+          <b-form-group :label="$t('kvk')">
+            <b-form-input type="number" v-model.number="userForDialog.kvk"></b-form-input>
+          </b-form-group>
+          <b-form-group :label="$t('role')">
+            <b-form-select v-model="userForDialog.roleId" :options="selectOptions"></b-form-select>
+          </b-form-group>
+        </b-form>
+        <template v-slot:modal-footer>
+          <div class="w-100 text-right">
+            <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
+            <b-button variant="outline-primary" @click="dialogUserVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
+            <b-button variant="primary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
+          </div>
+        </template>
+    </b-modal>
+
+    <b-modal
+      :title="$t('applications.title')"
+      :visible.sync="dialogApplicationsVisible"
+      scrollable
+      size="xl"
+      hide-footer
+      @hidden="dialogApplicationsVisible = false">
+        <b-table :items="getApplications" ref="tableApplication" :fields="fieldsApplications" striped sticky-header>
+          <template v-slot:cell(details)="row">
+            <div class="text-right">
+              <b-button variant="success" @click="acceptApplication(row.item.id)" size="small">{{$t('applications.accept')}}</b-button>
+              <b-button variant="danger" @click="declineApplication(row.item.id)" size="small" class="ml-2">{{$t('applications.decline')}}</b-button>
+            </div>
+          </template>
+        </b-table>
+    </b-modal>
+  </b-container>
 </template>
 
 <script lang="ts" scoped>
@@ -75,10 +85,12 @@ import { Application } from '../../openapi/model/application';
 export default class BoardAdmin extends Vue {
   // Util
   private userService: UserService = openApiContainer.get<UserService>('UserService');
-  private users: UserSummaryDTO[] = [];
+  private fieldsUsers: any[] = [];
+  private fieldsApplications: any[] = [];
 
   // Dialog
   private dialogUserVisible = false;
+  private selectOptions: any[] = [];
   private edit = false;
   private userForDialog: User = {
     id: 0,
@@ -96,12 +108,67 @@ export default class BoardAdmin extends Vue {
   private applications: Application[] = [];
 
   public mounted() {
-    this.getUsers();
+    this.fieldsUsers = [
+      {
+        key: 'fullName',
+        label: this.$t('fullName').toString(),
+        sortable: true,
+      },
+      {
+        key: 'email',
+        label: this.$t('email').toString(),
+        sortable: true,
+      },
+      {
+        key: 'role',
+        label: this.$t('role').toString(),
+        sortable: true,
+      },
+      {
+        key: 'details',
+        label: '',
+        sortable: false,
+      },
+    ];
+
+    this.fieldsApplications = [
+      {
+        key: 'name',
+        label: this.$t('fullName').toString(),
+      },
+      {
+        key: 'email',
+        label: this.$t('email').toString(),
+      },
+      {
+        key: 'academy',
+        label: this.$t('academy').toString(),
+      },
+      {
+        key: 'establishment',
+        label: this.$t('establishment').toString(),
+      },
+      {
+        key: 'kvk',
+        label: this.$t('kvk').toString(),
+      },
+      {
+        key: 'details',
+        label: '',
+      },
+    ];
+
+    this.selectOptions = [
+      { value: 1, text: this.$t('roles.fpsa').toString() },
+      { value: 2, text: this.$t('roles.association').toString() },
+    ];
   }
 
   private getUsers() {
-    this.userService.userGetAll('response').subscribe((res: HttpResponse<UserSummaryDTO[]>) => {
-      this.users = res.response;
+    return new Promise((resolve) => {
+      this.userService.userGetAll('response').subscribe((res: HttpResponse<UserSummaryDTO[]>) => {
+        resolve(res.response);
+      });
     });
   }
 
@@ -121,8 +188,8 @@ export default class BoardAdmin extends Vue {
     this.dialogUserVisible = true;
   }
 
-  private openEditDialog(id: number) {
-    this.userService.userGetOne(id, 'response').subscribe((res: HttpResponse<User>) => {
+  private async openEditDialog(id: number) {
+    this.userService.userGetOne((await id), 'response').subscribe((res: HttpResponse<User>) => {
       this.userForDialog = res.response;
       this.edit = true;
       this.dialogUserVisible = true;
@@ -157,27 +224,32 @@ export default class BoardAdmin extends Vue {
   }
 
   private handleSucces() {
-    this.getUsers();
+    (this.$refs.tableUsers as any).refresh();
     this.dialogUserVisible = false;
   }
 
   private openApplicationDialog() {
-    this.userService.applicationGetAll('response').subscribe((res: HttpResponse<Application[]>) => {
-      this.applications = res.response;
-      this.dialogApplicationsVisible = true;
+    this.dialogApplicationsVisible = true;
+  }
+
+  private getApplications() {
+    return new Promise((resolve) => {
+      this.userService.applicationGetAll('response').subscribe((res: HttpResponse<Application[]>) => {
+        resolve(res.response);
+      });
     });
   }
 
-  private declineApplication(id: number) {
-    this.userService.applicationDecline(id, 'response').subscribe(this.handleApplicationSuccess, this.handleError);
+  private async declineApplication(id: number) {
+    this.userService.applicationDecline((await id), 'response').subscribe(this.handleApplicationSuccess, this.handleError);
   }
 
-  private acceptApplication(id: number) {
-    this.userService.applicationAccept(id, 'response').subscribe(this.handleApplicationSuccess, this.handleError);
+  private async acceptApplication(id: number) {
+    this.userService.applicationAccept((await id), 'response').subscribe(this.handleApplicationSuccess, this.handleError);
   }
 
   private handleApplicationSuccess() {
-    this.openApplicationDialog();
+    (this.$refs.tableApplication as any).refresh();
     this.$message.success(this.$t('applications.successful').toString());
   }
 }
