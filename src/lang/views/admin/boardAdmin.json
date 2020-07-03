@@ -2,6 +2,7 @@
     "nl": {
         "policy_plan": "Beleidsplan",
         "new_board": "Nieuw bestuur",
+        "action_success": "Actie was succesvol!",
         "dialog": {
             "title_edit": "Bestuur bewerken",
             "title_add": "Bestuur toevoegen",
@@ -24,6 +25,7 @@
     "en": {
         "policy_plan": "Policy plan",
         "new_board": "New board",
+        "action_success": "Action was successful!",
         "dialog": {
             "title_edit": "Edit board",
             "title_add": "Add board",

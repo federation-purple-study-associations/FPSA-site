@@ -37,20 +37,20 @@ export default class Confirmation extends Vue {
 
     private submit() {
         if (this.repeatPassword !== this.form.password || this.form.password === '') {
-            this.$message.error(this.$t('error.password_not_match').toString());
+            this.$notify({group: 'foo', text: this.$t('error.password_not_match').toString(), type: 'error'});
 
         } else {
             openApiContainer.get<UserService>('UserService').activate(this.form, 'response').subscribe(() => {
                 window.location.href = '/';
             }, (res: HttpResponse) => {
                 if (res.status === 400) {
-                    this.$message.error(this.$t('error.form_not_filled_in_correctly').toString());
+                    this.$notify({group: 'foo', text: this.$t('error.form_not_filled_in_correctly').toString(), type: 'error'});
 
                 } else if (res.status === 404) {
-                    this.$message.error(this.$t('error.invalid_token').toString());
+                    this.$notify({group: 'foo', text: this.$t('error.invalid_token').toString(), type: 'error'});
 
                 } else {
-                    this.$message.error(this.$t('error.unknown').toString());
+                    this.$notify({group: 'foo', text: this.$t('error.unknown').toString(), type: 'error'});
                 }
             });
         }

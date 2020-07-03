@@ -8,6 +8,7 @@
         "kvk": "KvK",
         "establishment": "Vestiging",
         "role": "Rol",
+        "action_success": "Actie was succesvol!",
         "roles": {
             "fpsa": "FPSA",
             "association": "Vereniging"
@@ -39,6 +40,7 @@
         "kvk": "KvK",
         "establishment": "Establishment",
         "role": "Role",
+        "action_success": "Action was successful!",
         "roles": {
             "fpsa": "FPSA",
             "association": "Association"

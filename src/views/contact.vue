@@ -77,7 +77,7 @@ export default class Contact extends Vue {
     this.application.kvk = +this.application.kvk;
 
     openApiContainer.get<UserService>('UserService').applicationCreate(this.application, 'response').subscribe(() => {
-      this.$message.success(this.$t('application.successful').toString());
+      this.$notify({group: 'foo', text: this.$t('application.successful').toString(), type: 'success'});
       this.application = {name: '', email: '', academy: '', establishment: '', kvk: 0};
       this.repeatEmail = '';
       this.privacy = false;
@@ -86,10 +86,10 @@ export default class Contact extends Vue {
     }, (err) => {
       this.loading = false;
       if (err.status === 400) {
-        this.$message.error(this.$t('error.form_not_filled_in_correctly').toString());
+        this.$notify({group: 'foo', text: this.$t('error.form_not_filled_in_correctly').toString(), type: 'error'});
 
       } else {
-        this.$message.error(this.$t('error.unknown').toString());
+        this.$notify({group: 'foo', text: this.$t('error.unknown').toString(), type: 'error'});
       }
     });
   }

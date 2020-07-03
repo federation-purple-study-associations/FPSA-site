@@ -4,6 +4,7 @@
     <AdminHeader v-if="window.location.pathname.split('/')[1] === 'admin'"/>
     <router-view class="content"/>
     <Footer />
+    <notifications group="foo" />
   </div>
 </template>
 

@@ -3,6 +3,7 @@
         "location": "Locatie:",
         "date": "Datum:",
         "new_item": "Nieuw agenda item",
+        "action_success": "Actie was succesvol!",
         "dialog": {
             "title_edit": "Agenda item bewerken",
             "title_add": "Agenda item toevoegen",
@@ -29,6 +30,7 @@
         "location": "Location:",
         "date": "Date:",
         "new_item": "New agenda item",
+        "action_success": "Action was successful!",
         "dialog": {
             "title_edit": "Edit agenda item",
             "title_add": "Add agenda item",

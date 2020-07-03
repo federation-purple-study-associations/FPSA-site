@@ -214,14 +214,15 @@ export default class AgendaAdmin extends Vue {
 
   private handleError(err: HttpResponse) {
     if (err.status === 400) {
-      this.$message.error(this.$t('error.form_not_filled_in_correctly').toString());
+      this.$notify({group: 'foo', text: this.$t('error.form_not_filled_in_correctly').toString(), type: 'error'});
 
     } else {
-      this.$message.error(this.$t('error.unknown').toString());
+      this.$notify({group: 'foo', text: this.$t('error.unknown').toString(), type: 'error'});
     }
   }
 
   private handleSucces() {
+    this.$notify({group: 'foo', text: this.$t('action_success').toString(), type: 'success'});
     this.getAgendaItems(this.$store.getters.currentLanguage);
     this.dialogVisible = false;
   }

@@ -80,10 +80,10 @@ export default class HomeHeader extends Vue {
         this.isLoading = false;
 
         if (err.status === 400) {
-          this.$message.error(this.$t('error.wrong_credentials').toString());
+          this.$notify({group: 'foo', text: this.$t('error.wrong_credentials').toString(), type: 'error'});
 
         } else {
-          this.$message.error(this.$t('error.unknown').toString());
+          this.$notify({group: 'foo', text: this.$t('error.unknown').toString(), type: 'error'});
         }
       },
     );

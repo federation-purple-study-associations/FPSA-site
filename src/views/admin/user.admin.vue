@@ -216,14 +216,15 @@ export default class BoardAdmin extends Vue {
 
   private handleError(err: HttpResponse) {
     if (err.status === 400) {
-      this.$message.error(this.$t('error.form_not_filled_in_correctly').toString());
+      this.$notify({group: 'foo', text: this.$t('error.form_not_filled_in_correctly').toString(), type: 'error'});
 
     } else {
-      this.$message.error(this.$t('error.unknown').toString());
+      this.$notify({group: 'foo', text: this.$t('error.unknown').toString(), type: 'error'});
     }
   }
 
   private handleSucces() {
+    this.$notify({group: 'foo', text: this.$t('applications.successful').toString(), type: 'success'});
     (this.$refs.tableUsers as any).refresh();
     this.dialogUserVisible = false;
   }
@@ -250,7 +251,7 @@ export default class BoardAdmin extends Vue {
 
   private handleApplicationSuccess() {
     (this.$refs.tableApplication as any).refresh();
-    this.$message.success(this.$t('applications.successful').toString());
+    this.$notify({group: 'foo', text: this.$t('applications.successful').toString(), type: 'success'});
   }
 }
 </script>

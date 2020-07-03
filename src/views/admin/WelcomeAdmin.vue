@@ -96,9 +96,9 @@ export default class WelcomeAdmin extends Vue {
 
   private updateMe() {
     openApiContainer.get<UserService>('UserService').updateMe(this.me, 'response').subscribe(() => {
-      this.$message.success(this.$t('email.succesfull').toString());
+      this.$notify({group: 'foo', text: this.$t('email.succesfull').toString(), type: 'success'});
     }, () => {
-      this.$message.error(this.$t('email.failed').toString());
+      this.$notify({group: 'foo', text: this.$t('error.unknown').toString(), type: 'error'});
     });
   }
 
