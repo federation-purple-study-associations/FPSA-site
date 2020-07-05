@@ -144,7 +144,7 @@ export default class ImportAccountancy extends Vue {
 
     private handleGetError(err: HttpResponse) {
         if (err.status === 418) {
-            this.$notify({group: 'foo', text: this.$t('error.api_not_activated').toString() + ' <a href="/dashboard/accountancy/activate">' + this.$t('error.api_not_activated_link_text').toString() + '</a>', type: 'error'});
+            this.$notify({group: 'foo', text: this.$t('error.api_not_activated').toString() + ' <a href="/dashboard/accountancy/activate">' + this.$t('error.api_not_activated_link_text').toString() + '</a>', type: 'error', duration: 60000});
         } else {
             this.$notify({group: 'foo', text: this.$t('error.unknown').toString(), type: 'error'});
         }
