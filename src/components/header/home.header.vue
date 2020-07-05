@@ -74,7 +74,7 @@ export default class HomeHeader extends Vue {
     this.isLoading = true;
     openApiContainer.get<UserService>('UserService').login(this.loginForm, 'response').subscribe(
       () => {
-        window.location.href = '/admin';
+        this.$router.push('/admin');
       },
       (err: HttpResponse) => {
         this.isLoading = false;
