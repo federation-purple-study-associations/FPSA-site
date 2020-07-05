@@ -309,6 +309,26 @@ export class UserService {
 
 
     /**
+     * getAllFull
+     * This call can be used to get all of the users
+     
+     */
+    public userGetAllFull(observe?: 'body', headers?: Headers): Observable<Array<User>>;
+    public userGetAllFull(observe?: 'response', headers?: Headers): Observable<HttpResponse<Array<User>>>;
+    public userGetAllFull(observe: any = 'body', headers: Headers = {}): Observable<any> {
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<Array<User>>> = this.httpClient.get(`${this.basePath}/user/full`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <Array<User>>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
      * getOne
      * This call can be used to get one of the users in the FPSA database
      * @param id 

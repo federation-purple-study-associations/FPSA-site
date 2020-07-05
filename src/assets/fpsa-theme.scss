@@ -19,10 +19,18 @@ $--color-active: #431f82;
     color: $--color-primary;
     border-color: $--color-primary;
 
-    &:hover, &:active, &:focus {
+    &:hover:not(:disabled), &:active, &:focus {
         color: white;
         border-color: $--color-active !important;
         background-color: $--color-active !important;
+    }
+
+    &:disabled {
+        color: $--color-primary;
+
+        &:hover {
+            border-color: $--color-active !important;
+        }
     }
 }
 

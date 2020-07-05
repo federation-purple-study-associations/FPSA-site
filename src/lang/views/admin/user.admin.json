@@ -13,6 +13,7 @@
             "fpsa": "FPSA",
             "association": "Vereniging"
         },
+        "export": "Exporteer leden",
         "dialog": {
             "title_edit": "Gebruiker bewerken",
             "title_add": "Gebruiker toevoegen",
@@ -45,6 +46,7 @@
             "fpsa": "FPSA",
             "association": "Association"
         },
+        "export": "Export members",
         "dialog": {
             "title_edit": "Edit user",
             "title_add": "Add user",
