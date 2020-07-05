@@ -18,19 +18,6 @@
       </b-col>
     </b-row>
 
-    <!-- <el-main class="home__about-us">
-      <h2 class="fpsa-header">{{$t('about_us.title')}}</h2>
-      <span>{{$t('about_us.content_intro')}}</span>
-      <br><br>
-      <span>{{$t('about_us.content_workshops')}}</span>
-      <br><br>
-      <span>{{$t('about_us.content_partner')}}</span>
-      <br><br>
-      <span>{{$t('about_us.content_role')}}</span>
-      <br><br>
-      <span>{{$t('about_us.content_more_info')}}</span> <a href="mailto:info@fpsa.nl">info@fpsa.nl</a>
-    </el-main> -->
-
     <b-row class="home__agenda">
       <b-col><router-link to="/agenda">
         <h2>{{$t('agenda.title')}}</h2>
@@ -73,6 +60,11 @@ export default class Home extends Vue {
     });
 
     openApiContainer.get<StatisticService>('StatisticService').pageViewNew('response').subscribe();
+
+    const error = new URLSearchParams(window.location.search.substring(1)).get('error');
+    if (error === '404') {
+      this.$notify({group: 'foo', text: this.$t('error.page_could_not_be_found').toString(), type: 'error'});
+    }
   }
 
   public mounted() {

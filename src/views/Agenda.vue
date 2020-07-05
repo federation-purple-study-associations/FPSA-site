@@ -14,7 +14,7 @@
             <b-card-text>{{item.summary}}</b-card-text>
         </b-card>
 
-        <b-pagination align="center" :total-rows="count" :per-page="pageSize" @input="changePage"></b-pagination>
+        <b-pagination align="center" :total-rows="count" :per-page="pageSize" v-model="page" @input="changePage"></b-pagination>
 
         <b-modal id="agenda__modal" :title="agendaItem.title" hide-footer>
           <img :src="this.url + '/agenda/photo?id=' + agendaItem.id" style="width: 100%"/><br><br>
@@ -45,7 +45,7 @@ export default class Agenda extends Vue {
   private agendaItems: AgendaSummaryDTO[] = [];
   private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
-  private skip = -25;
+  private page = 1;
   private readonly pageSize = 25;
   private count = 0;
 
@@ -67,17 +67,22 @@ export default class Agenda extends Vue {
     });
   }
 
+  public mounted() {
+    this.getAgendaItems(this.$store.getters.currentLanguage);
+  }
+
   private getAgendaItems(language: string) {
-    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, this.skip, this.pageSize, 'response')
+    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, (this.page - 1) * this.pageSize, this.pageSize, 'response')
     .subscribe((res: HttpResponse<AgendaAllDTO>) => {
       this.agendaItems = res.response.items;
       this.count = res.response.count;
     });
   }
 
-  private changePage(page: number) {
-    this.skip = ((this.skip / this.pageSize) + 1) * this.pageSize;
-    this.getAgendaItems(this.$store.getters.currentLanguage);
+  private changePage(index: number | null) {
+    if (index) {
+      this.getAgendaItems(this.$store.getters.currentLanguage);
+    }
   }
 
   private openDialog(id: number) {

@@ -19,10 +19,18 @@ $--color-active: #431f82;
     color: $--color-primary;
     border-color: $--color-primary;
 
-    &:hover, &:active, &:focus {
+    &:hover:not(:disabled), &:active, &:focus {
         color: white;
         border-color: $--color-active !important;
         background-color: $--color-active !important;
+    }
+
+    &:disabled {
+        color: $--color-primary;
+
+        &:hover {
+            border-color: $--color-active !important;
+        }
     }
 }
 
@@ -32,6 +40,15 @@ $--color-active: #431f82;
     &:hover, &:active, &:focus {
         color: $--color-active;
     }
+}
+
+.page-item.active button.page-link {
+    background-color: $--color-primary;
+    border-color: $--color-primary;
+}
+
+.page-item button.page-link {
+    color: $--color-primary;
 }
 
 .custom-control-input:checked ~ .custom-control-label::before {
@@ -72,6 +89,10 @@ h2 {
 
 a {
     color: $--color-primary;
+
+    &:hover {
+        color: $--color-active;
+    }
 }
 
 @media only screen and (max-width: 768px) {

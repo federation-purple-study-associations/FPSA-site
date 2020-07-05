@@ -10,6 +10,9 @@ import UserAdmin from '../views/admin/user.admin.vue';
 import Confirmation from '../views/confirmation.vue';
 import Contact from '../views/contact.vue';
 import AboutUs from '../views/aboutUs.vue';
+import ActivateAccountancy from '../views/admin/accountancy/activate.vue';
+import AccountancyAdmin from '../views/admin/accountancyAdmin.vue';
+import Error404 from '../views/error/404.vue';
 
 Vue.use(VueRouter);
 const withPrefix = (prefix: string, routesConfig: RouteConfig[]) =>
@@ -44,6 +47,16 @@ const routes: RouteConfig[] = [
     path: '/aboutus',
     component: AboutUs,
   },
+  {
+    path: '*',
+    redirect: '/error/404',
+  },
+  ...withPrefix('/error', [
+    {
+      path: '/404',
+      component: Error404,
+    },
+  ]),
   ...withPrefix('/admin', [
     {
       path: '/',
@@ -61,6 +74,16 @@ const routes: RouteConfig[] = [
       path: '/user',
       component: UserAdmin,
     },
+    ...withPrefix('/accountancy', [
+      {
+        path: '/',
+        component: AccountancyAdmin,
+      },
+      {
+        path: '/callback',
+        component: ActivateAccountancy,
+      },
+    ]),
   ]),
 ];
 

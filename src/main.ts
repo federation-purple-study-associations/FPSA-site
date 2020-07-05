@@ -8,6 +8,8 @@ import Vuex from 'vuex';
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 import VueApexCharts from 'vue-apexcharts';
 import Notifications from 'vue-notification';
+import VueExcelXlsx from 'vue-excel-xlsx';
+import { PluginObject } from 'vue/types/umd';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
@@ -19,6 +21,7 @@ Vue.use(BootstrapVueIcons);
 Vue.use(Notifications);
 Vue.use(Vuex);
 Vue.use(VueApexCharts);
+Vue.use(VueExcelXlsx as PluginObject<any>);
 
 Vue.component('apexchart', VueApexCharts);
 

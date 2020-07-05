@@ -2,6 +2,7 @@
   <b-container class="user-admin">
     <b-row>
       <b-col class="mb-3 mt-3 w-100 text-right">
+        <vue-excel-xlsx class="mr-2 btn btn-outline-primary" :columns="excelColumns" :data="excelData" sheetname="Blad1" :filename="'Ledenbestand_FPSA_' + moment().format('DD-MM-YYYYTHH:mm:ss')" :disabled="excelData.length === 0">{{$t('export')}}</vue-excel-xlsx>
         <b-button @click="openApplicationDialog" variant="outline-primary" class="mr-2">{{$t('applications.title')}}</b-button>
         <b-button @click="openAddDialog" variant="outline-primary">{{$t('add')}}</b-button>
       </b-col>
@@ -80,6 +81,7 @@ import { User } from '../../openapi/model/user';
 import { UserUpdateDTO } from '../../openapi/model/userUpdateDTO';
 import { UserNewDTO } from '../../openapi/model/userNewDTO';
 import { Application } from '../../openapi/model/application';
+import moment from 'moment';
 
 @Component({})
 export default class BoardAdmin extends Vue {
@@ -87,6 +89,7 @@ export default class BoardAdmin extends Vue {
   private userService: UserService = openApiContainer.get<UserService>('UserService');
   private fieldsUsers: any[] = [];
   private fieldsApplications: any[] = [];
+  private moment = moment;
 
   // Dialog
   private dialogUserVisible = false;
@@ -107,7 +110,22 @@ export default class BoardAdmin extends Vue {
   private dialogApplicationsVisible = false;
   private applications: Application[] = [];
 
+  // Excel export
+  private readonly excelColumns: Array<{label: string, field: string}> = [
+    { label: 'Naam', field: 'fullName' },
+    { label: 'Email', field: 'email' },
+    { label: 'Instituut', field: 'academy' },
+    { label: 'Vestiging', field: 'establishment' },
+    { label: 'KvK', field: 'kvk' },
+  ];
+
+  private excelData: User[] = [];
+
   public mounted() {
+    this.userService.userGetAllFull('response').subscribe((res: HttpResponse<User[]>) => {
+      this.excelData = res.response;
+    });
+
     this.fieldsUsers = [
       {
         key: 'fullName',

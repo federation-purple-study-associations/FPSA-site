@@ -1,4 +1,4 @@
-declare module 'element-ui/lib/locale/lang/en' {
+declare module 'vue-excel-xlsx' {
 }
 declare module 'vue-bootstrap-datetimepicker' {
 }
