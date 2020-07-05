@@ -1,10 +1,15 @@
 <template>
   <div id="app">
-    <HomeHeader v-if="window.location.pathname.split('/')[1] !== 'admin'"/>
-    <AdminHeader v-if="window.location.pathname.split('/')[1] === 'admin'"/>
-    <router-view class="content"/>
-    <Footer />
-    <notifications group="foo" />
+    <div v-if="window.location.pathname.split('/')[1] !== 'error'">
+      <HomeHeader v-if="window.location.pathname.split('/')[1] !== 'admin'"/>
+      <AdminHeader v-if="window.location.pathname.split('/')[1] === 'admin'"/>
+      <router-view class="content"/>
+      <Footer />
+      <notifications group="foo" />
+    </div>
+    <div v-else class="error">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -33,12 +38,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.content {
+#app .content {
   min-height: calc(100vh - 56px - 78px);
 }
 
+#app>.error {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
 @media only screen and (max-width: 768px) {
-  .content {
+  #app .content {
     min-height: calc(100vh - 150px - 56px);
   }
 }

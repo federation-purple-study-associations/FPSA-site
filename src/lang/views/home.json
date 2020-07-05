@@ -25,6 +25,9 @@
         },
         "documents": {
             "title": "Officiele documenten"
+        },
+        "error": {
+            "page_could_not_be_found": "Pagina kon niet worden gevonden..."
         }
     },
     "en": {
@@ -53,6 +56,9 @@
         },
         "documents": {
             "title": "Official documents"
+        },
+        "error": {
+            "page_could_not_be_found": "Page could not be found..."
         }
     }
 }
