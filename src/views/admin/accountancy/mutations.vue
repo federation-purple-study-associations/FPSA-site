@@ -62,7 +62,7 @@ import { MutationResponseDTO } from '@/openapi/model/mutationResponseDTO';
 import { BalanceDTO } from '@/openapi/model/balanceDTO';
 
 @Component({})
-export default class AccountancyMutation extends Vue {
+export default class MutationAccountancy extends Vue {
     private accountancyService: AccountancyService = openApiContainer.get<AccountancyService>('AccountancyService');
     private moment = moment;
 

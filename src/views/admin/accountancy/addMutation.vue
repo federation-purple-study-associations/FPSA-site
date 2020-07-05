@@ -45,7 +45,7 @@ import HttpResponse from '../../../openapi/HttpResponse';
 import moment from 'moment';
 
 @Component({ })
-export default class MutationAccountancy extends Vue {
+export default class AddMutationAccountancy extends Vue {
     private accountancyService: AccountancyService = openApiContainer.get<AccountancyService>('AccountancyService');
 
     private paymentMethodOptions: Array<{value: number, text: string}> = [];

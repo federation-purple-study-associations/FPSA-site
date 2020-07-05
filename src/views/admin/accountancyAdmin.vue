@@ -3,10 +3,10 @@
       <b-tabs class="mt-3">
         <AccountancyBalance/>
         <IncomeStatement/>
-        <AccountancyMutation/>
-        <ImportAccountancy/>
         <MutationAccountancy/>
-        <SettingsAccountancy/>
+        <ImportAccountancy v-if="hasWritePermission"/>
+        <AddMutationAccountancy v-if="hasWritePermission"/>
+        <SettingsAccountancy v-if="hasWritePermission"/>
       </b-tabs>
   </b-container>
 </template>
@@ -18,21 +18,27 @@ import openApiContainer from '@/openapi.container';
 import { ActivationLinkDTO } from '../../openapi/model/activationLinkDTO';
 import HttpResponse from '../../openapi/HttpResponse';
 import SettingsAccountancy from './accountancy/settings.vue';
-import MutationAccountancy from './accountancy/addMutation.vue';
+import AddMutationAccountancy from './accountancy/addMutation.vue';
 import AccountancyBalance from './accountancy/balance.vue';
 import ImportAccountancy from './accountancy/import.vue';
 import IncomeStatement from './accountancy/incomeStatement.vue';
-import AccountancyMutation from './accountancy/mutations.vue';
+import MutationAccountancy from './accountancy/mutations.vue';
 
 @Component({
   components: {
     SettingsAccountancy,
-    MutationAccountancy,
+    AddMutationAccountancy,
     AccountancyBalance,
     ImportAccountancy,
     IncomeStatement,
-    AccountancyMutation,
+    MutationAccountancy,
   },
 })
-export default class AccountancyAdmin extends Vue { }
+export default class AccountancyAdmin extends Vue {
+  private hasWritePermission = false;
+
+  public async mounted() {
+    this.hasWritePermission = this.$store.getters.hasPermission('Accountancy:Write');
+  }
+}
 </script>
