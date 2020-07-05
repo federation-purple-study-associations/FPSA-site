@@ -19,7 +19,7 @@
             </template>
         </b-card>
 
-        <b-pagination align="center" :total-rows="count" :per-page="pageSize" @input="changePage"></b-pagination>
+        <b-pagination align="center" :total-rows="count" :per-page="pageSize" v-model="page" @input="changePage"></b-pagination>
       </b-col>
     </b-row>
   </b-container>
@@ -31,13 +31,14 @@ import { BoardInfoDTO } from '../openapi/model/boardInfoDTO';
 import openApiContainer from '../openapi.container';
 import { BoardService } from '../openapi/api/board.service';
 import HttpResponse from '../openapi/HttpResponse';
+import { BoardInfoTotalDTO } from '../openapi/model/boardInfoTotalDTO';
 
 @Component({})
 export default class Board extends Vue {
   private boardItems: BoardInfoDTO[] = [];
   private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
-  private skip = -25;
+  private page = 1;
   private readonly pageSize = 25;
   private count = 0;
 
@@ -51,14 +52,20 @@ export default class Board extends Vue {
     });
   }
 
-  private changePage() {
-    this.skip = ((this.skip / this.pageSize) + 1) * this.pageSize;
+  public mounted() {
     this.getBoards(this.$store.getters.currentLanguage);
   }
 
+  private changePage(index: number | null) {
+    if (index) {
+      this.getBoards(this.$store.getters.currentLanguage);
+    }
+  }
+
   private getBoards(lang: string) {
-    openApiContainer.get<BoardService>('BoardService').boardGetAll(lang, this.skip, this.pageSize, 'response').subscribe((res: HttpResponse<BoardInfoDTO[]>) => {
-      this.boardItems = res.response;
+    openApiContainer.get<BoardService>('BoardService').boardGetAll(lang, (this.page - 1) * this.pageSize, this.pageSize, 'response').subscribe((res: HttpResponse<BoardInfoTotalDTO>) => {
+      this.boardItems = res.response.boards;
+      this.count = res.response.total;
     });
   }
 }

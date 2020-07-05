@@ -19,7 +19,7 @@
             <b-card-text>{{item.summary}}</b-card-text>
         </b-card>
 
-        <b-pagination align="center" :total-rows="count" :per-page="pageSize" @input="changePage"></b-pagination>
+        <b-pagination align="center" :total-rows="count" :per-page="pageSize" v-model="page" @input="changePage"></b-pagination>
       </b-col>
     </b-row>
 
@@ -100,14 +100,14 @@ export default class AgendaAdmin extends Vue {
   private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
   // Pagination
-  private skip = -25;
+  private page = 1;
   private readonly pageSize = 25;
   private count = 0;
 
   // Dialog
   private dialogVisible = false;
   private edit = false;
-  private image: File[] = [];
+  private image: File = new File([], '');
   private time: string = '';
   private agendaItemForDialog: AgendaItem = {
     id: 0,
@@ -132,13 +132,18 @@ export default class AgendaAdmin extends Vue {
     });
   }
 
-  private changePage(page: number) {
-    this.skip = ((this.skip / this.pageSize) + 1) * this.pageSize;
+  public mounted() {
     this.getAgendaItems(this.$store.getters.currentLanguage);
   }
 
+  private changePage(index: number | null) {
+    if (index) {
+      this.getAgendaItems(this.$store.getters.currentLanguage);
+    }
+  }
+
   private getAgendaItems(language: string) {
-    this.agendaService.agendaGetAll(language, this.skip, this.pageSize, 'response')
+    this.agendaService.agendaGetAll(language, (this.page - 1) * this.pageSize, this.pageSize, 'response')
     .subscribe((res: HttpResponse<AgendaAllDTO>) => {
       this.agendaItems = res.response.items;
       this.count = res.response.count;
@@ -150,7 +155,7 @@ export default class AgendaAdmin extends Vue {
     this.agendaService.agendaGetOriginalOne(id, 'response').subscribe((res: HttpResponse<AgendaItem>) => {
       this.agendaItemForDialog = res.response;
       this.time = moment(res.response.date).format('HH:mm:ss');
-      this.image = [];
+      this.image = new File([], '');
       this.dialogVisible = true;
       this.edit = true;
     });
@@ -191,7 +196,7 @@ export default class AgendaAdmin extends Vue {
         this.agendaItemForDialog.descriptionNL,
         this.agendaItemForDialog.descriptionEN,
         this.agendaItemForDialog.isDraft ? 'true' : 'false',
-        (typeof this.image[0] ? this.image[0] : undefined),
+        (this.image.name === '' ? this.image : undefined),
         'response')
       .subscribe(this.handleSucces, this.handleError);
 
@@ -206,7 +211,7 @@ export default class AgendaAdmin extends Vue {
         this.agendaItemForDialog.descriptionNL,
         this.agendaItemForDialog.descriptionEN,
         this.agendaItemForDialog.isDraft ? 'true' : 'false',
-        this.image[0]!,
+        this.image,
         'response')
       .subscribe(this.handleSucces, this.handleError);
     }

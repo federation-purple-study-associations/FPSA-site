@@ -2,7 +2,7 @@
   <b-tab :title="$t('titles.balance')">
     <b-container class="mt-3">
         <b-row>
-            <b-col lg="4">
+            <b-col lg="3">
                 <b-card :title="$t('filter.title')">
                     <b-card-text>
                         <b-form-group :label="$t('filter.name')">
@@ -12,12 +12,13 @@
                             <b-form-datepicker v-model="dateFilter"></b-form-datepicker>
                         </b-form-group>
                         <div class="w-100 text-right">
+                            <b-button variant="danger" v-on:click="resetFilter" class="mr-2">{{$t('filter.reset')}}</b-button>
                             <b-button variant="primary" v-on:click="refreshTable">{{$t('filter.action')}}</b-button>
                         </div>
                     </b-card-text>
                 </b-card>
             </b-col>
-            <b-col lg="8">
+            <b-col lg="9">
                 <b-table sticky-header="100%" striped :items="getData" :fields="fields" ref="balance-table">
                     <template v-slot:cell(assets)="row">
                     {{row.item.assets ? '€' + row.item.assets.toFixed(2) : undefined}}
@@ -119,6 +120,13 @@ export default class AccountancyBalance extends Vue {
     private refreshTable() {
         this.needData = true;
         (this.$refs['balance-table'] as any).refresh();
+    }
+
+    private resetFilter() {
+        this.dateFilter = moment().format('YYYY-MM-DD');
+        this.nameFilter = '';
+
+        this.refreshTable();
     }
 
     private handleGetError(err: HttpResponse) {

@@ -29,6 +29,7 @@ import { ImportMutationDTO } from "../model/importMutationDTO";
 import { IncomeStatement } from "../model/incomeStatement";
 import { IncomeStatementDTO } from "../model/incomeStatementDTO";
 import { Mutation } from "../model/mutation";
+import { MutationResponseDTO } from "../model/mutationResponseDTO";
 import { NotImportedMutationDTO } from "../model/notImportedMutationDTO";
 import { PaymentMethod } from "../model/paymentMethod";
 import { SaveAuthorizationDTO } from "../model/saveAuthorizationDTO";
@@ -337,6 +338,60 @@ export class AccountancyService {
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <Array<IncomeStatementDTO>>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * Gets the mutations
+     * 
+     * @param skip 
+     * @param take 
+     * @param from 
+     * @param till 
+     * @param paymentMethode 
+     * @param incomeStatement 
+     
+     */
+    public getMutations(skip: number, take: number, from?: string, till?: string, paymentMethode?: number, incomeStatement?: number, observe?: 'body', headers?: Headers): Observable<MutationResponseDTO>;
+    public getMutations(skip: number, take: number, from?: string, till?: string, paymentMethode?: number, incomeStatement?: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<MutationResponseDTO>>;
+    public getMutations(skip: number, take: number, from?: string, till?: string, paymentMethode?: number, incomeStatement?: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (skip === null || skip === undefined){
+            throw new Error('Required parameter skip was null or undefined when calling getMutations.');
+        }
+
+        if (take === null || take === undefined){
+            throw new Error('Required parameter take was null or undefined when calling getMutations.');
+        }
+
+        let queryParameters: string[] = [];
+        if (from !== undefined) {
+            queryParameters.push("from="+encodeURIComponent(String(from)));
+        }
+        if (till !== undefined) {
+            queryParameters.push("till="+encodeURIComponent(String(till)));
+        }
+        if (skip !== undefined) {
+            queryParameters.push("skip="+encodeURIComponent(String(skip)));
+        }
+        if (take !== undefined) {
+            queryParameters.push("take="+encodeURIComponent(String(take)));
+        }
+        if (paymentMethode !== undefined) {
+            queryParameters.push("paymentMethode="+encodeURIComponent(String(paymentMethode)));
+        }
+        if (incomeStatement !== undefined) {
+            queryParameters.push("incomeStatement="+encodeURIComponent(String(incomeStatement)));
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<MutationResponseDTO>> = this.httpClient.get(`${this.basePath}/accountancy/mutation?${queryParameters.join('&')}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <MutationResponseDTO>(httpResponse.response))
                );
         }
         return response;

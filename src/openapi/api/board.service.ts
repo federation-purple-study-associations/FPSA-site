@@ -21,7 +21,7 @@ import { Headers } from "../Headers";
 import HttpResponse from "../HttpResponse";
 
 import { Board } from "../model/board";
-import { BoardInfoDTO } from "../model/boardInfoDTO";
+import { BoardInfoTotalDTO } from "../model/boardInfoTotalDTO";
 
 import { COLLECTION_FORMATS }  from "../variables";
 
@@ -133,8 +133,8 @@ export class BoardService {
      * @param size 
      
      */
-    public boardGetAll(lang: string, skip: number, size: number, observe?: 'body', headers?: Headers): Observable<Array<BoardInfoDTO>>;
-    public boardGetAll(lang: string, skip: number, size: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<Array<BoardInfoDTO>>>;
+    public boardGetAll(lang: string, skip: number, size: number, observe?: 'body', headers?: Headers): Observable<BoardInfoTotalDTO>;
+    public boardGetAll(lang: string, skip: number, size: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<BoardInfoTotalDTO>>;
     public boardGetAll(lang: string, skip: number, size: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (lang === null || lang === undefined){
             throw new Error('Required parameter lang was null or undefined when calling boardGetAll.');
@@ -161,10 +161,10 @@ export class BoardService {
 
         headers['Accept'] = 'application/json';
 
-        const response: Observable<HttpResponse<Array<BoardInfoDTO>>> = this.httpClient.get(`${this.basePath}/board?${queryParameters.join('&')}`, headers);
+        const response: Observable<HttpResponse<BoardInfoTotalDTO>> = this.httpClient.get(`${this.basePath}/board?${queryParameters.join('&')}`, headers);
         if (observe == 'body') {
                return response.pipe(
-                   map(httpResponse => <Array<BoardInfoDTO>>(httpResponse.response))
+                   map(httpResponse => <BoardInfoTotalDTO>(httpResponse.response))
                );
         }
         return response;

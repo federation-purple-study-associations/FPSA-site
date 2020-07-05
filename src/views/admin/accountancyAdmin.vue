@@ -3,6 +3,7 @@
       <b-tabs class="mt-3">
         <AccountancyBalance/>
         <IncomeStatement/>
+        <AccountancyMutation/>
         <ImportAccountancy/>
         <MutationAccountancy/>
         <SettingsAccountancy/>
@@ -18,9 +19,10 @@ import { ActivationLinkDTO } from '../../openapi/model/activationLinkDTO';
 import HttpResponse from '../../openapi/HttpResponse';
 import SettingsAccountancy from './accountancy/settings.vue';
 import MutationAccountancy from './accountancy/addMutation.vue';
-import AccountancyBalance from './accountancy/balans.vue';
+import AccountancyBalance from './accountancy/balance.vue';
 import ImportAccountancy from './accountancy/import.vue';
 import IncomeStatement from './accountancy/incomeStatement.vue';
+import AccountancyMutation from './accountancy/mutations.vue';
 
 @Component({
   components: {
@@ -29,6 +31,7 @@ import IncomeStatement from './accountancy/incomeStatement.vue';
     AccountancyBalance,
     ImportAccountancy,
     IncomeStatement,
+    AccountancyMutation,
   },
 })
 export default class AccountancyAdmin extends Vue { }

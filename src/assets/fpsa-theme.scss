@@ -34,6 +34,15 @@ $--color-active: #431f82;
     }
 }
 
+.page-item.active button.page-link {
+    background-color: $--color-primary;
+    border-color: $--color-primary;
+}
+
+.page-item button.page-link {
+    color: $--color-primary;
+}
+
 .custom-control-input:checked ~ .custom-control-label::before {
     border-color: $--color-primary !important;
     background-color: $--color-primary !important;
@@ -72,6 +81,10 @@ h2 {
 
 a {
     color: $--color-primary;
+
+    &:hover {
+        color: $--color-active;
+    }
 }
 
 @media only screen and (max-width: 768px) {
