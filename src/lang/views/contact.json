@@ -11,9 +11,9 @@
             "name": "Naam studievereniging",
             "email": "Email",
             "email_confirmation": "Herhaal email",
-            "academy": "Institu(u)t(en)",
+            "academy": "Instituut / Studie",
             "kvk": "KvK",
-            "establishment": "Vestiging",
+            "establishment": "Vestiging / Stad",
             "confirm": "Bevestigen",
             "successful": "Aanmelding is succesvol aangekomen!",
             "privacy": "Ik ga akkoord met het Privacybeleid van FPSA. "
@@ -35,9 +35,9 @@
             "name": "Name study association",
             "email": "Email",
             "email_confirmation": "Repeat email",
-            "academy": "Academy(s)",
+            "academy": "Academy / Study",
             "kvk": "KvK",
-            "establishment": "Establishment",
+            "establishment": "Establishment / City",
             "confirm": "Confirm",
             "successful": "Application has arrived successfully!",
             "privacy": "I agree with FPSA's Privacy Policy. "

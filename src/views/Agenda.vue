@@ -11,7 +11,11 @@
           @click="openDialog(item.id)"
           class="mb-3 mt-3 clickable">
 
-            <b-card-text>{{item.summary}}</b-card-text>
+            <b-card-text>
+              <b>{{$t('location')}}</b> {{item.location}}<br>
+              <b>{{$t('date')}}</b> {{moment(item.date).format('DD-MM-YYYY HH:mm')}}<br><br>
+              {{item.summary}}
+            </b-card-text>
         </b-card>
 
         <b-pagination align="center" :total-rows="count" :per-page="pageSize" v-model="page" @input="changePage"></b-pagination>
