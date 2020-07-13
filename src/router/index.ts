@@ -13,6 +13,7 @@ import AboutUs from '../views/aboutUs.vue';
 import ActivateAccountancy from '../views/admin/accountancy/activate.vue';
 import AccountancyAdmin from '../views/admin/accountancyAdmin.vue';
 import Error404 from '../views/error/404.vue';
+import ForgotPassword from '../views/forgot.password.vue';
 
 Vue.use(VueRouter);
 const withPrefix = (prefix: string, routesConfig: RouteConfig[]) =>
@@ -46,6 +47,10 @@ const routes: RouteConfig[] = [
   {
     path: '/aboutus',
     component: AboutUs,
+  },
+  {
+    path: '/forgot',
+    component: ForgotPassword,
   },
   {
     path: '*',

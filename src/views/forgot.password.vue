@@ -1,13 +1,13 @@
 <template scoped>
   <div class="confirmation">
       <div class="confirmation__center">
-          <h2 class="fpsa-header">{{$t('title')}}</h2>
+          <h2 class="fpsa-header">{{$t('title_forgot')}}</h2>
           <b-form>
-            <b-form-group :label="$t('password')">
-                <b-form-input type="password" autocomplete="new-password" required v-model="form.password"></b-form-input>
+            <b-form-group :label="$t('email')">
+                <b-form-input type="email" autocomplete="email" required v-model="form.email"></b-form-input>
             </b-form-group>
-            <b-form-group :label="$t('password_repeat')">
-                <b-form-input type="password" autocomplete="new-password" v-model="repeatPassword"></b-form-input>
+            <b-form-group :label="$t('email_repeat')">
+                <b-form-input type="email" autocomplete="email" required v-model="repeatEmail"></b-form-input>
             </b-form-group>
             <b-button class="confirmation__submit" variant="primary" @click="submit">{{$t('confirm')}}</b-button>
           </b-form>
@@ -24,33 +24,33 @@ import openApiContainer from '@/openapi.container';
 import moment from 'moment';
 import HttpResponse from '../openapi/HttpResponse';
 import { AgendaDetailsDTO } from '../openapi/model/agendaDetailsDTO';
-import { UserActivateDTO } from '../openapi/model/userActivateDTO';
+import { UserForgotDTO } from '../openapi/model/userForgotDTO';
 import { UserService } from '../openapi/api/user.service';
 
 @Component({})
-export default class Confirmation extends Vue {
-    private repeatPassword = '';
-    private form: UserActivateDTO = {
-        password: '',
-        token: new URLSearchParams(window.location.search.substring(1)).get('token') || '',
+export default class ForgotPassword extends Vue {
+    private repeatEmail = '';
+    private form: UserForgotDTO = {
+        email: '',
     };
 
     private submit() {
-        if (this.repeatPassword !== this.form.password) {
-            this.$notify({group: 'foo', text: this.$t('error.password_not_match').toString(), type: 'error'});
+        if (this.repeatEmail !== this.form.email) {
+            this.$notify({group: 'foo', text: this.$t('error.email_not_match').toString(), type: 'error'});
 
-        } else if (this.form.password === '') {
-            this.$notify({group: 'foo', text: this.$t('error.password_not_filled_in_correctly').toString(), type: 'error'});
+        } else if (this.form.email === '') {
+            this.$notify({group: 'foo', text: this.$t('error.email_not_filled_in_correctly').toString(), type: 'error'});
 
         } else {
-            openApiContainer.get<UserService>('UserService').activate(this.form, 'response').subscribe(() => {
-                window.location.href = '/';
+            openApiContainer.get<UserService>('UserService').userForgot(this.form, 'response').subscribe(() => {
+                this.$notify({group: 'foo', text: this.$t('forgot_success').toString(), type: 'success'});
+
             }, (res: HttpResponse) => {
                 if (res.status === 400) {
-                    this.$notify({group: 'foo', text: this.$t('error.password_not_filled_in_correctly').toString(), type: 'error'});
+                    this.$notify({group: 'foo', text: this.$t('error.email_not_filled_in_correctly').toString(), type: 'error'});
 
                 } else if (res.status === 404) {
-                    this.$notify({group: 'foo', text: this.$t('error.invalid_token').toString(), type: 'error'});
+                    this.$notify({group: 'foo', text: this.$t('error.invalid_email').toString(), type: 'error'});
 
                 } else {
                     this.$notify({group: 'foo', text: this.$t('error.unknown').toString(), type: 'error'});

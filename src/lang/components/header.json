@@ -8,6 +8,7 @@
         "contact": "Contact",
         "about_us": "Over ons",
         "accountancy": "Boekhouden",
+        "forgot_password": "Wachtwoord vergeten?",
         "login": {
             "email": "Email",
             "password": "Wachtwoord",
@@ -27,6 +28,7 @@
         "contact": "Contact",
         "about_us": "About us",
         "accountancy": "Accountancy",
+        "forgot_password": "Forgot password?",
         "login": {
             "email": "Email",
             "password": "Password",

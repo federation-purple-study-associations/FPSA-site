@@ -25,6 +25,7 @@ import { LoginDTO } from "../model/loginDTO";
 import { NewApplication } from "../model/newApplication";
 import { User } from "../model/user";
 import { UserActivateDTO } from "../model/userActivateDTO";
+import { UserForgotDTO } from "../model/userForgotDTO";
 import { UserNewDTO } from "../model/userNewDTO";
 import { UserSummaryDTO } from "../model/userSummaryDTO";
 import { UserUpdateDTO } from "../model/userUpdateDTO";
@@ -279,6 +280,32 @@ export class UserService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.delete(`${this.basePath}/user/${encodeURIComponent(String(id))}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * forgot
+     * This call can be used to send a user an email in order to reset its password
+     * @param userForgotDTO 
+     
+     */
+    public userForgot(userForgotDTO: UserForgotDTO, observe?: 'body', headers?: Headers): Observable<any>;
+    public userForgot(userForgotDTO: UserForgotDTO, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public userForgot(userForgotDTO: UserForgotDTO, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (userForgotDTO === null || userForgotDTO === undefined){
+            throw new Error('Required parameter userForgotDTO was null or undefined when calling userForgot.');
+        }
+
+        headers['Accept'] = 'application/json';
+        headers['Content-Type'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/forgot`, userForgotDTO , headers);
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))

@@ -35,8 +35,10 @@
             <b-form-group>
               <b-form-input type="password" :placeholder="$t('login.password')" v-model="loginForm.password" autocomplete="current-password"></b-form-input>
             </b-form-group>
+            <!--  -->
             <b-button variant="primary" @click="submitLogin">{{$t('login.action')}}</b-button>
           </b-dropdown-form>
+          <b-dropdown-item-button><router-link to="/forgot">{{$t('forgot_password')}}</router-link></b-dropdown-item-button>
         </b-nav-item-dropdown>
 
         <b-nav-item to="/admin" v-else><b-overlay :show="isLoading" rounded="sm"><b-icon-people></b-icon-people></b-overlay></b-nav-item>
