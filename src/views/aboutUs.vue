@@ -22,7 +22,7 @@
                 <a href="/statuten.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip>Statuten</a><br>
                 <a href="/huishoudelijk-regelement.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip>Huishoudelijk regelement</a><br>
                 <a href="/privacy.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip>Privacy</a><br>
-                <!--<a href="/gedragscode.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip>Gedragscode</a>-->
+                <a href="/gedragscode.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip>Gedragscode</a>
             </b-card>
         </b-col>
     </b-row>
