@@ -19,6 +19,7 @@ export interface User {
     establishment: string;
     kvk: number;
     lastLogin?: string;
+    memberSince?: string;
     recieveEmailUpdatesEvents: boolean;
     roleId: number;
 }

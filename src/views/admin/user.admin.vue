@@ -2,7 +2,7 @@
   <b-container class="user-admin">
     <b-row>
       <b-col class="mb-3 mt-3 w-100 text-right">
-        <vue-excel-xlsx class="mr-2 btn btn-outline-primary" :columns="excelColumns" :data="excelData" sheetname="Blad1" :filename="'Ledenbestand_FPSA_' + moment().format('DD-MM-YYYYTHH:mm:ss')" :disabled="excelData.length === 0">{{$t('export')}}</vue-excel-xlsx>
+        <b-button @click="exportMember" variant="outline-primary" class="mr-2">{{$t('export')}}</b-button>
         <b-button @click="openApplicationDialog" variant="outline-primary" class="mr-2">{{$t('applications.title')}}</b-button>
         <b-button @click="openAddDialog" variant="outline-primary">{{$t('add')}}</b-button>
       </b-col>
@@ -38,6 +38,9 @@
           </b-form-group>
           <b-form-group :label="$t('kvk')">
             <b-form-input type="number" v-model.number="userForDialog.kvk"></b-form-input>
+          </b-form-group>
+          <b-form-group :label="$t('member_since')">
+            <b-form-datepicker v-model="userForDialog.memberSince"></b-form-datepicker>
           </b-form-group>
           <b-form-group :label="$t('role')">
             <b-form-select v-model="userForDialog.roleId" :options="selectOptions"></b-form-select>
@@ -82,6 +85,7 @@ import { UserUpdateDTO } from '../../openapi/model/userUpdateDTO';
 import { UserNewDTO } from '../../openapi/model/userNewDTO';
 import { Application } from '../../openapi/model/application';
 import moment from 'moment';
+import XLSX from 'xlsx/xlsx';
 
 @Component({})
 export default class BoardAdmin extends Vue {
@@ -117,15 +121,12 @@ export default class BoardAdmin extends Vue {
     { label: 'Instituut', field: 'academy' },
     { label: 'Vestiging', field: 'establishment' },
     { label: 'KvK', field: 'kvk' },
+    { label: 'Lid sinds', field: 'memberSince' },
   ];
 
   private excelData: User[] = [];
 
   public mounted() {
-    this.userService.userGetAllFull('response').subscribe((res: HttpResponse<User[]>) => {
-      this.excelData = res.response;
-    });
-
     this.fieldsUsers = [
       {
         key: 'fullName',
@@ -270,6 +271,38 @@ export default class BoardAdmin extends Vue {
   private handleApplicationSuccess() {
     (this.$refs.tableApplication as any).refresh();
     this.$notify({group: 'foo', text: this.$t('applications.successful').toString(), type: 'success'});
+  }
+
+  private exportMember() {
+    this.userService.userGetAllFull('response').subscribe((res: HttpResponse<User[]>) => {
+      this.exportExcel(res.response);
+    });
+  }
+
+// Copied from https://github.com/t-chatoyan/vue-excel-xlsx/blob/master/VueExcelXlsx.vue
+  private exportExcel(data: User[]) {
+    const createXLSLFormatObj = [];
+    const newXlsHeader: string[] = [];
+
+    for (const value of this.excelColumns) {
+        newXlsHeader.push(value.label);
+    }
+
+    createXLSLFormatObj.push(newXlsHeader);
+    for (const value of data) {
+        const innerRowData: string[] = [];
+        for (const val of this.excelColumns) {
+          innerRowData.push((value as any)[val.field]);
+        }
+
+        createXLSLFormatObj.push(innerRowData);
+    }
+    const filename = 'Ledenbestand_FPSA_' + moment().format('DD-MM-YYYYTHH:mm:ss') + '.xlsx';
+    const wsName = 'Blad1';
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(createXLSLFormatObj);
+    XLSX.utils.book_append_sheet(wb, ws, wsName);
+    XLSX.writeFile(wb, filename);
   }
 }
 </script>
