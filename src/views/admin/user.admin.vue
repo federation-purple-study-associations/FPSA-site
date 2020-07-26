@@ -40,7 +40,7 @@
             <b-form-input type="number" v-model.number="userForDialog.kvk"></b-form-input>
           </b-form-group>
           <b-form-group :label="$t('member_since')">
-            <b-form-datepicker v-model="userForDialog.memberSince"></b-form-datepicker>
+            <b-form-datepicker v-model="userForDialog.memberSince" disabled></b-form-datepicker>
           </b-form-group>
           <b-form-group :label="$t('role')">
             <b-form-select v-model="userForDialog.roleId" :options="selectOptions"></b-form-select>

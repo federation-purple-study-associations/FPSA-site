@@ -18,5 +18,4 @@ export interface UserUpdateDTO {
     establishment: string;
     kvk: number;
     roleId: number;
-    memberSince: string;
 }

@@ -7,6 +7,7 @@
         "academy": "Institu(u)t(en)",
         "kvk": "KvK",
         "establishment": "Vestiging",
+        "member_since": "Lid sinds",
         "role": "Rol",
         "action_success": "Actie was succesvol!",
         "roles": {
@@ -40,6 +41,7 @@
         "academy": "Academy(s)",
         "kvk": "KvK",
         "establishment": "Establishment",
+        "member_since": "Member since",
         "role": "Role",
         "action_success": "Action was successful!",
         "roles": {
