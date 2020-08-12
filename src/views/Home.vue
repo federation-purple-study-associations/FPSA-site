@@ -1,37 +1,68 @@
 <template scoped>
-  <b-container class="home">
-    <b-row class="home__splash" align-v="center" align-h="center">
-      <b-col lg="5" class="home__splash--column mb-5">
-        <h2>{{$t('splash.umbrella_association')}} FPSA</h2>
-        <h3>{{$t('splash.register')}}</h3>
-        <router-link to="/contact#application"><b-button variant="primary" pill>{{$t('splash.click_here')}}</b-button></router-link>
-      </b-col>
-      <b-col lg="7" class="home__splash--column">
-        <img src="/logo.png"/>
-      </b-col>
-    </b-row>
+  <div>
+    <div class="splash">
+      <b-container class="h-100">
+        <b-row align-v="center" align-h="center" class="h-100">
+          <b-col lg="5" class="splash--column mb-5">
+            <h1>{{$t('splash.umbrella_association')}} FPSA</h1>
+            <div class="mb-3 text-left">{{$t('splash.welcome')}}</div>
+            <div class="splash__button-wrapper">
+              <router-link to="/"><b-button variant="primary" pill>{{$t('splash.register')}}</b-button></router-link>
+              <router-link to="/"><b-button variant="primary" pill>{{$t('splash.read_more')}}</b-button></router-link>
+            </div>
+          </b-col>
+          <b-col lg="7" class="splash--column">
+            <img src="/SplashIcon.svg"/>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
 
-    <b-row class="home__welcome mb-5">
-      <b-col>
-        <h2>{{$t('welcome.title')}}</h2>
-        <span>{{$t('welcome.text')}}</span><router-link to="/aboutus">{{$t('welcome.click_here')}}</router-link>
-      </b-col>
-    </b-row>
+    <div class="more-information">
+      <b-container>
+        <b-row class="mb-3 pt-5">
+          <b-col>
+            <h1>{{$t('about_us.title')}}</h1>
+            <span>{{$t('about_us.content_intro')}}</span>
+            <br><br>
+            <span>{{$t('about_us.content_workshops')}}</span>
+            <br><br>
+            <span>{{$t('about_us.content_partner')}}</span>
+            <br><br>
+            <span>{{$t('about_us.content_role')}}</span>
+            <br><br>
+            <span>{{$t('about_us.content_more_info')}}</span> <a href="mailto:info@fpsa.nl">info@fpsa.nl</a>
+          </b-col>
+        </b-row> 
 
-    <b-row class="home__agenda">
-      <b-col><router-link to="/agenda">
-        <h2>{{$t('agenda.title')}}</h2>
-        <b-carousel control indictators>
-          <b-carousel-slide
-            v-for="item in agendaItems" :key="item.id"
-            :caption="item.title"
-            :img-src="url+ '/agenda/photo?id=' + item.id"
-            :text="item.summary">
-          </b-carousel-slide>
-        </b-carousel>
-      </router-link></b-col>
-    </b-row> 
-  </b-container>
+        <b-row class="pb-5 mt-3">
+          <b-col>
+            <h1>{{$t('documents.title')}}</h1>
+            <a href="/statuten.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip>Statuten</a><br>
+            <a href="/huishoudelijk-regelement.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip>Huishoudelijk regelement</a><br>
+            <a href="/privacy.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip>Privacy</a><br>
+            <a href="/gedragscode.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip>Gedragscode</a>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
+
+    <b-container class="home">
+      <b-row class="home__agenda">
+        <b-col><router-link to="/agenda">
+          <h2>{{$t('agenda.title')}}</h2>
+          <b-carousel control indictators>
+            <b-carousel-slide
+              v-for="item in agendaItems" :key="item.id"
+              :caption="item.title"
+              :img-src="url+ '/agenda/photo?id=' + item.id"
+              :text="item.summary">
+            </b-carousel-slide>
+          </b-carousel>
+        </router-link></b-col>
+      </b-row> 
+    </b-container>
+  </div>
 </template>
 
 <script lang="ts" scoped>
@@ -81,26 +112,36 @@ export default class Home extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.home {
-  &__splash {
-    background: white;
-    height: calc(100vh - 60px);
+.splash {
+  background: linear-gradient(138deg, $color-active 80%, $color-primary 100%);
+  height: calc(100vh - 55px);
 
-    &--column {
-      animation: fadein 3s;
-      text-align: center;
-    }
-
-    img {
-      width: 75%;
-    }
+  &--column {
+    animation: fadein 3s;
+    text-align: center;
   }
 
-  @keyframes fadein {
+  &__button-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+.more-information {
+  background: #4D0073;
+}
+
+.home {
+}
+
+@keyframes fadein {
     0% { opacity: 0; }
     100%   { opacity: 1; }
   }
-}
 </style>
 
 <i18n src="@/lang/views/home.json"></i18n>

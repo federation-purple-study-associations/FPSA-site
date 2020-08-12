@@ -25,7 +25,7 @@ export default class Footer extends Vue {}
     left: 0px;
     right: 0px;
     padding: 0 20px;
-    background: #7D52C9;
+    background: $color-active;
     color: white;
     display: flex;
     justify-content: space-between;

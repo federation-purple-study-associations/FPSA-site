@@ -1,59 +1,62 @@
 /* theme color */
-$--color-primary: #7D52C9;
-$--color-active: #431f82;
-
 .btn-primary {
-    background: $--color-primary;
+    background: $color-primary;
+    border-color: $color-primary;
     color: white;
 
     &:hover {
-        background: $--color-active;
+        background: $color-primary;
+        box-shadow: 0 0 30px 8px rgba(248, 167, 231, 0.24);
     }
 
     &:disabled {
-        background: $--color-primary;
+        background: $color-disable;
     }
 }
 
 .btn-outline-primary {
-    color: $--color-primary;
-    border-color: $--color-primary;
+    color: $color-primary;
+    border-color: $color-primary;
 
     &:hover:not(:disabled), &:active, &:focus {
         color: white;
-        border-color: $--color-active !important;
-        background-color: $--color-active !important;
+        border-color: $color-active !important;
+        background-color: $color-active !important;
     }
 
     &:disabled {
-        color: $--color-primary;
+        color: $color-disable;
 
         &:hover {
-            border-color: $--color-active !important;
+            border-color: $color-disable !important;
         }
     }
 }
 
 .btn-link {
-    color: $--color-primary;
+    color: $color-primary;
 
     &:hover, &:active, &:focus {
-        color: $--color-active;
+        color: $color-active;
+    }
+
+    &:disabled {
+        color: $color-disable;
     }
 }
 
 .page-item.active button.page-link {
-    background-color: $--color-primary;
-    border-color: $--color-primary;
+    background-color: $color-primary;
+    border-color: $color-primary;
 }
 
 .page-item button.page-link {
-    color: $--color-primary;
+    color: $color-primary;
 }
 
 .custom-control-input:checked ~ .custom-control-label::before {
-    border-color: $--color-primary !important;
-    background-color: $--color-primary !important;
+    border-color: $color-primary !important;
+    background-color: $color-primary !important;
 }
 
 .header .nav-item a.nav-link {
@@ -64,7 +67,7 @@ $--color-active: #431f82;
     }
 
     &:hover:not(.dropdown-toggle) {
-        color: $--color-active;
+        color: $color-active;
     }
 }
 
@@ -83,16 +86,15 @@ img.card-img-right {
     position: absolute;
 }
 
-h2 {
-    color: $--color-primary;
+h2, h3, div, a, b {
+    color: #F5F2FF;
+    letter-spacing: 0.5px;
+    font-weight: 200;
 }
 
 a {
-    color: $--color-primary;
-
-    &:hover {
-        color: $--color-active;
-    }
+    text-decoration: none;
+    color: inherit;
 }
 
 @media only screen and (max-width: 768px) {

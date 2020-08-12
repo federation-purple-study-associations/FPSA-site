@@ -11,8 +11,6 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/agenda">{{$t('agenda')}}</b-nav-item>
         <b-nav-item to="/board">{{$t('board')}}</b-nav-item>
-        <b-nav-item to="/aboutus">{{$t('about_us')}}</b-nav-item>
-        <b-nav-item to="/contact">{{$t('contact')}}</b-nav-item>
 
         <b-nav-item-dropdown right class="header__language">
           <template v-slot:button-content>
@@ -95,11 +93,16 @@ export default class HomeHeader extends Vue {
 
 <style lang="scss" scoped>
 .header {
-  background: #7C4DD8;
-  border-bottom: solid 1px #e6e6e6;
+  background: rgba(93,0,137);
+  height: 100px;
+  font-size: 20px;
   
   & a.navbar-brand {
     color: white;
+  }
+
+  .nav-item {
+    color: $color-primary;
   }
 
   &__language {

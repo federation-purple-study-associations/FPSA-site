@@ -1,14 +1,11 @@
 {
     "nl": {
+        "click_here": "klik hier",
         "splash": {
             "umbrella_association": "Koepelvereniging",
             "register": "Meld je nu aan!",
-            "click_here": "Klik hier"
-        },
-        "welcome": {
-            "title": "Welkom!",
-            "text": "Welkom op de website van de Federation of Purple Study Associations (FPSA). Opgericht in 2020 als koepelvereniging voor alle Fontys studieverenigingen. Voor meer informatie ",
-            "click_here": "klik hier"
+            "welcome": "Welkom op de website van de Federation of Purple Study Associations (FPSA). Opgericht in 2020 als koepelvereniging voor alle Fontys studieverenigingen.",
+            "read_more": "Lees verder"
         },
         "agenda": {
             "title": "Agenda",
@@ -31,15 +28,12 @@
         }
     },
     "en": {
+        "click_here": "click here",
         "splash": {
             "umbrella_association": "Umbrella association",
             "register": "Register now!",
-            "click_here": "Click here"
-        },
-        "welcome": {
-            "title": "Welcome!",
-            "text": "Welcome to the website of the Federation of Purple Study Associations (FPSA). Founded in 2020 as an umbrella association for all Fontys study associations. For more information ",
-            "click_here": "click here"
+            "welcome": "Welcome to the website of the Federation of Purple Study Associations (FPSA). Founded in 2020 as an umbrella association for all Fontys study associations.",
+            "read_more": "Read more"
         },
         "agenda": {
             "title": "Agenda",
