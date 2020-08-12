@@ -55,7 +55,7 @@ jobs:
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
 
-    - name: Deploy production
+    - name: Deploy beta
       uses: 'deliverybot/helm@master'
       if: endsWith(github.ref, '/beta')
       with:
@@ -66,6 +66,6 @@ jobs:
         token: '${{ github.token }}'
         values: |
           tag: '${{ github.sha }}'
-          Version: 'beta'
+          Version: 'beta-'
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
