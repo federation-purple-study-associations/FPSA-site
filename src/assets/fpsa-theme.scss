@@ -2,7 +2,7 @@
 .btn-primary {
     background: $color-primary;
     border-color: $color-primary;
-    color: white;
+    color: $color-text;
 
     &:hover {
         background: $color-primary;
@@ -60,14 +60,18 @@
 }
 
 .header .nav-item a.nav-link {
-    color: white;
+    color: $color-text;
 
     &:active {
-        color: white;
+        color: $color-text;
     }
 
     &:hover:not(.dropdown-toggle) {
-        color: $color-active;
+        color: $color-primary;
+    }
+
+    &.dropdown-toggle:hover {
+        color: $color-primary;
     }
 }
 
@@ -87,7 +91,7 @@ img.card-img-right {
 }
 
 h2, h3, div, a, b {
-    color: #F5F2FF;
+    color: $color-text;
     letter-spacing: 0.5px;
     font-weight: 200;
 }
