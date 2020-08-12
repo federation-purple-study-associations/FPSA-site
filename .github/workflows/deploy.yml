@@ -40,8 +40,9 @@ jobs:
       run: docker push svfpsa/site:$GITHUB_SHA
 
 # Deploy container
-    - name: Deploy
+    - name: Deploy production
       uses: 'deliverybot/helm@master'
+      if: endsWith(github.ref, '/master')
       with:
         release: 'fpsa-site'
         namespace: 'fpsa'
@@ -51,5 +52,20 @@ jobs:
         values: |
           tag: '${{ github.sha }}'
           Version: ''
+      env:
+        KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
+
+    - name: Deploy production
+      uses: 'deliverybot/helm@master'
+      if: endsWith(github.ref, '/beta')
+      with:
+        release: 'beta-fpsa-site'
+        namespace: 'fpsa'
+        chart: 'k8b'
+        helm: 'helm3'
+        token: '${{ github.token }}'
+        values: |
+          tag: '${{ github.sha }}'
+          Version: 'beta'
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
