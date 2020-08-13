@@ -109,6 +109,12 @@
         </b-col>
       </b-row>
     </b-container>
+
+    <div class="social-media">
+      <a href="https://instagram.com/" target="_blank"><b-button pill class="social-media__button social-media__button--instagram"><img src="instagram.svg"/></b-button></a>
+      <a href="https://facebook.com/" target="_blank"><b-button pill class="social-media__button social-media__button--facebook">f</b-button></a>
+      <a href="https://linkedin.com/" target="_blank"><b-button pill class="social-media__button social-media__button--linkedin">In</b-button></a>
+    </div>
   </div>
 </template>
 
@@ -260,6 +266,49 @@ export default class Home extends Vue {
   &__link {
     &--no-underline {
       text-decoration: none;
+    }
+  }
+}
+
+.social-media {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+
+  &__button {
+    background: rgb(245, 242, 255);
+    color: #EE2DB6;
+    font-weight: 900;
+    line-height: 31px;
+    width: 44px;
+    clear: both;
+    margin-top: 10px;
+    font-family: 'BOGDAN BALA';
+    border: none;
+
+    &--instagram {
+      padding: 6px;
+
+      & img {
+        width: 25px;
+      }
+    }
+
+    &--linkedin {
+      font-size: 20px;
+    }
+
+    &--facebook {
+      font-size: 25px;
+    }
+
+    &:hover, &:active, &:focus {
+      background: $color-active;
+      border: none;
+      color: $color-primary;
     }
   }
 }
