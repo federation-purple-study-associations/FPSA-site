@@ -103,10 +103,17 @@ img.card-img-right {
     position: absolute;
 }
 
-h2, h3, div, a, b {
+h2, div, a, b {
     color: $color-text;
     letter-spacing: 0.5px;
     font-weight: 200;
+}
+
+h3, h4.card-title {
+    color: $color-active;
+}
+p.card-text {
+    color: black
 }
 
 a {

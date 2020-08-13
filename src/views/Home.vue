@@ -243,10 +243,6 @@ export default class Home extends Vue {
 }
 
 .contact {
-  h4.card-title {
-    color: $color-active;
-  }
-
   form {
     color: black;
   }
