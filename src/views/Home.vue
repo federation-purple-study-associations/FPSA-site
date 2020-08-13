@@ -7,12 +7,12 @@
             <h1>{{$t('splash.umbrella_association')}} FPSA</h1>
             <div class="mb-3 text-left">{{$t('splash.welcome')}}</div>
             <div class="splash__button-wrapper">
-              <router-link to="/"><b-button variant="primary" pill>{{$t('splash.register')}}</b-button></router-link>
-              <router-link to="/"><b-button variant="primary" pill>{{$t('splash.read_more')}}</b-button></router-link>
+              <b-button variant="primary" pill @click="scrollMeTo('register')">{{$t('splash.register')}}</b-button>
+              <b-button variant="primary" pill @click="scrollMeTo('about-us')">{{$t('splash.read_more')}}</b-button>
             </div>
           </b-col>
           <b-col lg="7" class="splash--column">
-            <img src="/SplashIcon.svg"/>
+            <img class="ml-3" src="/SplashIcon.svg"/>
           </b-col>
         </b-row>
       </b-container>
@@ -22,7 +22,7 @@
       <b-container>
         <b-row class="mb-3 pt-5">
           <b-col>
-            <h1>{{$t('about_us.title')}}</h1>
+            <h1 ref="about-us">{{$t('about_us.title')}}</h1>
             <span>{{$t('about_us.content_intro')}}</span>
             <br><br>
             <span>{{$t('about_us.content_workshops')}}</span>
@@ -30,12 +30,10 @@
             <span>{{$t('about_us.content_partner')}}</span>
             <br><br>
             <span>{{$t('about_us.content_role')}}</span>
-            <br><br>
-            <span>{{$t('about_us.content_more_info')}}</span> <a href="mailto:info@fpsa.nl">info@fpsa.nl</a>
           </b-col>
         </b-row> 
 
-        <b-row class="pb-5 mt-3">
+        <b-row class="mb-3 mt-3">
           <b-col>
             <h1>{{$t('documents.title')}}</h1>
             <a href="/statuten.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip>Statuten</a><br>
@@ -44,23 +42,72 @@
             <a href="/gedragscode.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip>Gedragscode</a>
           </b-col>
         </b-row>
+
+        <b-row class="pb-5 mt-3">
+          <b-col>
+            <h1>{{$t('contact.title')}}</h1>
+            <p>
+              <b>{{$t('contact.visit_address')}}</b><br>
+              Rachelsmolen 1,<br>
+              5612MA, Eindhoven<br>
+              <br>
+              <b>{{$t('contact.email')}}</b> <a href="mailto:info@fpsa.nl">info@fpsa.nl</a><br>
+              <b>{{$t('contact.kvk')}}</b> 78356830
+            </p>
+          </b-col>
+        </b-row>
       </b-container>
     </div>
 
-    <b-container class="home">
-      <b-row class="home__agenda">
-        <b-col><router-link to="/agenda">
-          <h2>{{$t('agenda.title')}}</h2>
-          <b-carousel control indictators>
-            <b-carousel-slide
-              v-for="item in agendaItems" :key="item.id"
-              :caption="item.title"
-              :img-src="url+ '/agenda/photo?id=' + item.id"
-              :text="item.summary">
-            </b-carousel-slide>
-          </b-carousel>
-        </router-link></b-col>
+    <b-container>
+      <b-row class="agenda">
+        <b-col>
+          <router-link to="/agenda" class="agenda__link--no-underline">
+            <h1 class="agenda__title--purple">{{$t('agenda.title')}}</h1>
+            <b-carousel control indictators>
+              <b-carousel-slide
+                v-for="item in agendaItems" :key="item.id"
+                :caption="item.title"
+                :img-src="url+ '/agenda/photo?id=' + item.id"
+                :text="item.summary">
+              </b-carousel-slide>
+            </b-carousel>
+          </router-link>
+        </b-col>
       </b-row> 
+    </b-container>
+
+    <b-container class="contact">
+      <b-row ref="register">
+        <b-col>
+          <b-card :title="$t('application.title')" class="mb-3 mt-3" id="application">
+            <b-form>
+              <b-form-group :label="$t('application.name')">
+                <b-form-input v-model="application.name"  v-on:input="checkLegal"></b-form-input>
+              </b-form-group>
+              <b-form-group :label="$t('application.email')">
+                <b-form-input v-model="application.email"  v-on:input="checkLegal"></b-form-input>
+              </b-form-group>
+              <b-form-group :label="$t('application.email_confirmation')">
+                <b-form-input v-model="repeatEmail"  v-on:input="checkLegal"></b-form-input>
+              </b-form-group>
+              <b-form-group :label="$t('application.academy')">
+                <b-form-input v-model="application.academy"  v-on:input="checkLegal"></b-form-input>
+              </b-form-group>
+              <b-form-group :label="$t('application.establishment')">
+                <b-form-input v-model="application.establishment"  v-on:input="checkLegal"></b-form-input>
+              </b-form-group>
+              <b-form-group :label="$t('application.kvk')">
+                <b-form-input type="number" v-model="application.kvk" v-on:input="checkLegal" min="0"></b-form-input>
+              </b-form-group>
+              <b-form-group>
+                <b-form-checkbox v-model="privacy" v-on:input="checkLegal">{{$t('application.privacy')}}<a href="privacy.pdf" target="_blank" class="contact--privacy">Link</a></b-form-checkbox>
+              </b-form-group>
+              <b-button variant="primary" :disabled="isIllegal || loading" @click="submitForm()"><b-overlay :show="loading" rounded="sm">{{$t('application.confirm')}}</b-overlay></b-button>
+            </b-form>
+          </b-card>
+        </b-col>
+      </b-row>
     </b-container>
   </div>
 </template>
@@ -74,12 +121,29 @@ import moment from 'moment';
 import HttpResponse from '../openapi/HttpResponse';
 import { StatisticService } from '../openapi/api/statistic.service';
 import { AgendaAllDTO } from '../openapi/model/agendaAllDTO';
+import { UserService } from '@/openapi/api/user.service';
+import { NewApplication } from '@/openapi/model/newApplication';
 
 @Component({})
 export default class Home extends Vue {
   private moment = moment;
   private agendaItems: AgendaSummaryDTO[] = [];
   private readonly url: string | undefined = process.env.VUE_APP_API_URL;
+
+  private application: NewApplication = {
+    name: '',
+    email: '',
+    academy: '',
+    establishment: '',
+    kvk: 0,
+  };
+  private repeatEmail = '';
+
+  private isIllegal = true;
+  private privacy = false;
+  private loading = false;
+
+  private readonly emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   constructor() {
     super();
@@ -98,6 +162,10 @@ export default class Home extends Vue {
     }
   }
 
+  public scrollMeTo(refName: string) {
+    (this.$refs[refName] as any).scrollIntoView({ behavior: 'smooth' });
+  }
+
   public mounted() {
     this.getAgendaItems(this.$store.getters.currentLanguage);
   }
@@ -107,6 +175,39 @@ export default class Home extends Vue {
     .subscribe((res: HttpResponse<AgendaAllDTO>) => {
       this.agendaItems = res.response.items;
     });
+  }
+
+  private submitForm() {
+    this.loading = true;
+    this.application.kvk = +this.application.kvk;
+
+    openApiContainer.get<UserService>('UserService').applicationCreate(this.application, 'response').subscribe(() => {
+      this.$notify({group: 'foo', text: this.$t('application.successful').toString(), type: 'success'});
+      this.application = {name: '', email: '', academy: '', establishment: '', kvk: 0};
+      this.repeatEmail = '';
+      this.privacy = false;
+      this.loading = false;
+
+    }, (err) => {
+      this.loading = false;
+      if (err.status === 400) {
+        this.$notify({group: 'foo', text: this.$t('error.form_not_filled_in_correctly').toString(), type: 'error'});
+
+      } else {
+        this.$notify({group: 'foo', text: this.$t('error.unknown').toString(), type: 'error'});
+      }
+    });
+  }
+
+  private checkLegal() {
+    this.isIllegal =  this.application.name === '' ||
+                      this.application.email === '' ||
+                      this.application.email !== this.repeatEmail ||
+                      !this.emailRegex.test(this.application.email) ||
+                      this.application.academy === '' ||
+                      this.application.establishment === '' ||
+                      this.application.kvk === 0 ||
+                      !this.privacy;
   }
 }
 </script>
@@ -135,7 +236,32 @@ export default class Home extends Vue {
   background: #4D0073;
 }
 
-.home {
+.contact {
+  h4.card-title {
+    color: $color-active;
+  }
+
+  form {
+    color: black;
+  }
+
+  &--privacy {
+    color: $color-primary;
+  }
+}
+
+.agenda {
+  &__title {
+    &--purple {
+      color: $color-active;
+    }
+  }
+
+  &__link {
+    &--no-underline {
+      text-decoration: none;
+    }
+  }
 }
 
 @keyframes fadein {

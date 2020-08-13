@@ -1,8 +1,17 @@
 /* theme color */
+html {
+    scroll-behavior: smooth;
+}
+
 .btn-primary {
     background: $color-primary;
     border-color: $color-primary;
     color: $color-text;
+
+    &:active, &:focus {
+        background: $color-primary !important;
+        border-color: $color-primary !important;
+    }
 
     &:hover {
         background: $color-primary;
@@ -54,9 +63,13 @@
     color: $color-primary;
 }
 
+/* Checkbox */
 .custom-control-input:checked ~ .custom-control-label::before {
     border-color: $color-primary !important;
     background-color: $color-primary !important;
+}
+.custom-control-label {
+    color: black;
 }
 
 .header .nav-item a.nav-link {
@@ -99,6 +112,10 @@ h2, h3, div, a, b {
 a {
     text-decoration: none;
     color: inherit;
+
+    &:hover {
+        color: $color-primary;
+    }
 }
 
 @media only screen and (max-width: 768px) {

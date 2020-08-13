@@ -1,8 +1,7 @@
 <template scoped>
   <b-navbar toggleable="lg" class="header">
     <b-navbar-brand to="/">
-      <b v-if="document.getElementsByTagName('body')[0].clientWidth > 900">Federation of Purple Study Associations</b>
-      <b v-else>FPSA</b>
+      <img src="logo.svg" />
     </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -97,8 +96,9 @@ export default class HomeHeader extends Vue {
   height: 100px;
   font-size: 20px;
   
-  & a.navbar-brand {
-    color: white;
+  & a.navbar-brand img {
+    margin-left: 25px;
+    width: 75px;
   }
 
   .nav-item {
