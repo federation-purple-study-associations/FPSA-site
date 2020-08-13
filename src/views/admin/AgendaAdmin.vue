@@ -107,7 +107,7 @@ export default class AgendaAdmin extends Vue {
   // Dialog
   private dialogVisible = false;
   private edit = false;
-  private image: File = new File([], '');
+  private image?: Blob = new Blob();
   private time: string = '';
   private agendaItemForDialog: AgendaItem = {
     id: 0,
@@ -155,7 +155,7 @@ export default class AgendaAdmin extends Vue {
     this.agendaService.agendaGetOriginalOne(id, 'response').subscribe((res: HttpResponse<AgendaItem>) => {
       this.agendaItemForDialog = res.response;
       this.time = moment(res.response.date).format('HH:mm:ss');
-      this.image = new File([], '');
+      this.image = undefined;
       this.dialogVisible = true;
       this.edit = true;
     });
@@ -196,7 +196,7 @@ export default class AgendaAdmin extends Vue {
         this.agendaItemForDialog.descriptionNL,
         this.agendaItemForDialog.descriptionEN,
         this.agendaItemForDialog.isDraft ? 'true' : 'false',
-        (this.image.name === '' ? this.image : undefined),
+        this.image,
         'response')
       .subscribe(this.handleSucces, this.handleError);
 
@@ -211,7 +211,7 @@ export default class AgendaAdmin extends Vue {
         this.agendaItemForDialog.descriptionNL,
         this.agendaItemForDialog.descriptionEN,
         this.agendaItemForDialog.isDraft ? 'true' : 'false',
-        this.image,
+        this.image!,
         'response')
       .subscribe(this.handleSucces, this.handleError);
     }
