@@ -8,7 +8,6 @@ import Vuex from 'vuex';
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 import VueApexCharts from 'vue-apexcharts';
 import Notifications from 'vue-notification';
-import { PluginObject } from 'vue/types/umd';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
