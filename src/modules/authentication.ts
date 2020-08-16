@@ -9,7 +9,8 @@ export default {
         },
 
         logout(): void {
-            document.cookie = 'auth=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            const sDomain = process.env.VUE_APP_COOKIE_DOMAIN;
+            document.cookie = 'auth=; domain=' + sDomain  + ': expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         },
     },
 };
