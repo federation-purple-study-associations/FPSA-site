@@ -1,10 +1,14 @@
 {
     "nl": {
         "location": "Locatie:",
-        "date": "Datum:"
+        "date": "Datum:",
+        "agenda": "Agenda",
+        "agenda_description": "Bij FPSA is er altijd wel iets gepland voor de studieverenigingen van Fontys, van Workshops tot ALV's. Zie hier voor meer details!"
     },
     "en": {
         "location": "Location:",
-        "date": "Date:"
+        "date": "Date:",
+        "agenda": "Agenda",
+        "agenda_description": "At FPSA, there is always something planned for Fontys study associations, from Workshops to ALVs. See here for more details!"
     }
 }

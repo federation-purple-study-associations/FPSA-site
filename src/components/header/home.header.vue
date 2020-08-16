@@ -6,7 +6,7 @@
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-    <b-collapse id="nav-collapse" is-nav>
+    <b-collapse id="nav-collapse" is-nav class="dark-background">
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/agenda">{{$t('agenda')}}</b-nav-item>
         <b-nav-item to="/board">{{$t('board')}}</b-nav-item>
@@ -32,10 +32,9 @@
             <b-form-group>
               <b-form-input type="password" :placeholder="$t('login.password')" v-model="loginForm.password" autocomplete="current-password"></b-form-input>
             </b-form-group>
-            <!--  -->
             <b-button variant="primary" @click="submitLogin">{{$t('login.action')}}</b-button>
           </b-dropdown-form>
-          <b-dropdown-item-button><router-link to="/forgot">{{$t('forgot_password')}}</router-link></b-dropdown-item-button>
+          <b-dropdown-item-button><router-link to="/forgot" style="color: black !important">{{$t('forgot_password')}}</router-link></b-dropdown-item-button>
         </b-nav-item-dropdown>
 
         <b-nav-item to="/admin" v-else><b-overlay :show="isLoading" rounded="sm"><b-icon-people></b-icon-people></b-overlay></b-nav-item>
@@ -108,6 +107,11 @@ export default class HomeHeader extends Vue {
   &__language {
     margin-left: 20px;
   }
+}
+
+#nav-collapse {
+  z-index: 999;
+  background: $color-active;
 }
 
 @media (max-width: 992px) {

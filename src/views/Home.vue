@@ -1,6 +1,6 @@
 <template scoped>
   <div>
-    <div class="splash">
+    <div class="splash dark-background">
       <b-container class="h-100">
         <b-row align-v="center" align-h="center" class="h-100">
           <b-col lg="5" class="splash--column mb-5">
@@ -18,7 +18,7 @@
       </b-container>
     </div>
 
-    <div class="more-information">
+    <div class="more-information dark-background">
       <b-container>
         <b-row class="mb-3 pt-5">
           <b-col>
@@ -243,10 +243,6 @@ export default class Home extends Vue {
 }
 
 .contact {
-  form {
-    color: black;
-  }
-
   &--privacy {
     color: $color-primary;
   }

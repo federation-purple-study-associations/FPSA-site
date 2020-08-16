@@ -1,28 +1,40 @@
 <template scoped>
-  <b-container class="board">
-    <b-row>
-      <b-col>
-        <b-card
-          v-for="item in boardItems" :key="item.id"
-          :title="item.title"
-          :img-src="url+ '/board/photo?id=' + item.id"
-          img-right
-          class="mb-3 mt-3">
+  <div class="boad">
+     <div class="board__heading dark-background">
+      <b-container class="h-100">
+        <b-row align-h="between" align-v="center" class="h-100">
+          <b-col md>
+            <h1>{{$t('board')}}</h1>
+          </b-col>
+          <b-col class="board__heading-text" md>{{$t('board_description')}}</b-col>
+        </b-row>
+      </b-container>
+    </div>
+    <b-container>
+      <b-row>
+        <b-col>
+          <b-card
+            v-for="item in boardItems" :key="item.id"
+            :title="item.title"
+            :img-src="url+ '/board/photo?id=' + item.id"
+            img-right
+            class="mb-3 mt-3">
 
-            <b-card-text>{{item.text}}</b-card-text>
+              <b-card-text>{{item.text}}</b-card-text>
 
-            <template v-slot:footer v-if="item.hasPolicyPlan">
-              <a style="cursor: pointer; height: 100%" target="_blank" :href="url+ '/board/policy?id=' + item.id">
-                <b-icon-paperclip></b-icon-paperclip><br>
-                {{$t('policy_plan')}}
-              </a>
-            </template>
-        </b-card>
+              <template v-slot:footer v-if="item.hasPolicyPlan">
+                <a style="cursor: pointer; height: 100%" target="_blank" :href="url+ '/board/policy?id=' + item.id">
+                  <b-icon-paperclip></b-icon-paperclip><br>
+                  {{$t('policy_plan')}}
+                </a>
+              </template>
+          </b-card>
 
-        <b-pagination align="center" :total-rows="count" :per-page="pageSize" v-model="page" @input="changePage"></b-pagination>
-      </b-col>
-    </b-row>
-  </b-container>
+          <b-pagination align="center" :total-rows="count" :per-page="pageSize" v-model="page" @input="changePage"></b-pagination>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script lang="ts" scoped>
@@ -70,5 +82,29 @@ export default class Board extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.board {
+  &__heading {
+    height: 150px;
+    background: $color-active;
+    color: $color-text;
+
+    &-text {
+      text-align: right;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .board__heading {
+    height: 200px;
+
+    &-text {
+     text-align: left;
+    }
+  }
+}
+</style>
 
 <i18n src="@/lang/views/board.json"></i18n>

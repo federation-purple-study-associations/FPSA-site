@@ -68,25 +68,7 @@ html {
     border-color: $color-primary !important;
     background-color: $color-primary !important;
 }
-.custom-control-label {
-    color: black;
-}
 
-.header .nav-item a.nav-link {
-    color: $color-text;
-
-    &:active {
-        color: $color-text;
-    }
-
-    &:hover:not(.dropdown-toggle) {
-        color: $color-primary;
-    }
-
-    &.dropdown-toggle:hover {
-        color: $color-primary;
-    }
-}
 
 .card-text, .modal-body {
     white-space: pre-line;
@@ -103,10 +85,28 @@ img.card-img-right {
     position: absolute;
 }
 
-h2, div, a {
-    color: $color-text;
+div.dark-background h2,
+div.dark-background div,
+div.dark-background a:not(.dropdown-item) {
+    color: $color-text !important;
     letter-spacing: 0.5px;
     font-weight: 200;
+
+    &:active {
+        color: $color-text;
+    }
+
+    &:focus {
+        color: $color-primary;
+    }
+
+    &:hover:not(.dropdown-toggle) {
+        color: $color-primary;
+    }
+
+    &.dropdown-toggle:hover {
+        color: $color-primary;
+    }
 }
 
 h3, h4.card-title {
