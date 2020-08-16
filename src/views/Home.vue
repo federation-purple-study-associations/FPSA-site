@@ -177,7 +177,7 @@ export default class Home extends Vue {
   }
 
   private getAgendaItems(language: string) {
-    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, 0, 10, 'response')
+    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, 0, 10, undefined, 'response')
     .subscribe((res: HttpResponse<AgendaAllDTO>) => {
       this.agendaItems = res.response.items;
     });

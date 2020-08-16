@@ -3,6 +3,7 @@
     <b-container class="agenda-admin">
       <b-row>
         <b-col class="mb-3 mt-3 w-100 text-right">
+          <b-button @click="toggleTime" variant="outline-primary" class="mr-2">{{inPast ? $t('seeComming') : $t('seePast')}}</b-button>
           <b-button @click="openAddDialog" variant="outline-primary">{{$t('new_item')}}</b-button>
         </b-col>
       </b-row>
@@ -70,8 +71,8 @@
           <template v-slot:modal-footer>
             <div class="w-100 text-right">
               <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
-              <b-button variant="outline-primary" @click="dialogVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
-              <b-button variant="primary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
+              <b-button variant="dark" @click="dialogVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
+              <b-button variant="secondary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
             </div>
           </template>
       </b-modal>
@@ -109,6 +110,7 @@ export default class AgendaAdmin extends Vue {
   private page = 1;
   private readonly pageSize = 25;
   private count = 0;
+  private inPast = false;
 
   // Dialog
   private dialogVisible = false;
@@ -148,8 +150,13 @@ export default class AgendaAdmin extends Vue {
     }
   }
 
+  private toggleTime() {
+    this.inPast = !this.inPast;
+    this.getAgendaItems(this.$store.getters.currentLanguage);
+  }
+
   private getAgendaItems(language: string) {
-    this.agendaService.agendaGetAll(language, (this.page - 1) * this.pageSize, this.pageSize, 'response')
+    this.agendaService.agendaGetAll(language, (this.page - 1) * this.pageSize, this.pageSize, this.inPast, 'response')
     .subscribe((res: HttpResponse<AgendaAllDTO>) => {
       this.agendaItems = res.response.items;
       this.count = res.response.count;
@@ -291,4 +298,4 @@ export default class AgendaAdmin extends Vue {
 }
 </style>
 
-<i18n src="@/lang/views/admin/agendaAdmin.json"></i18n>
+<i18n src="@/lang/views/agenda.json"></i18n>

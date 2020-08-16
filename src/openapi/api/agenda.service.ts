@@ -171,12 +171,13 @@ export class AgendaService {
      * This call can be used to get the complete agenda of FPSA
      * @param lang 
      * @param skip 
-     * @param size 
+     * @param take 
+     * @param past 
      
      */
-    public agendaGetAll(lang: string, skip: number, size: number, observe?: 'body', headers?: Headers): Observable<AgendaAllDTO>;
-    public agendaGetAll(lang: string, skip: number, size: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<AgendaAllDTO>>;
-    public agendaGetAll(lang: string, skip: number, size: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public agendaGetAll(lang: string, skip: number, take: number, past?: boolean, observe?: 'body', headers?: Headers): Observable<AgendaAllDTO>;
+    public agendaGetAll(lang: string, skip: number, take: number, past?: boolean, observe?: 'response', headers?: Headers): Observable<HttpResponse<AgendaAllDTO>>;
+    public agendaGetAll(lang: string, skip: number, take: number, past?: boolean, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (lang === null || lang === undefined){
             throw new Error('Required parameter lang was null or undefined when calling agendaGetAll.');
         }
@@ -185,8 +186,8 @@ export class AgendaService {
             throw new Error('Required parameter skip was null or undefined when calling agendaGetAll.');
         }
 
-        if (size === null || size === undefined){
-            throw new Error('Required parameter size was null or undefined when calling agendaGetAll.');
+        if (take === null || take === undefined){
+            throw new Error('Required parameter take was null or undefined when calling agendaGetAll.');
         }
 
         let queryParameters: string[] = [];
@@ -196,8 +197,11 @@ export class AgendaService {
         if (skip !== undefined) {
             queryParameters.push("skip="+encodeURIComponent(String(skip)));
         }
-        if (size !== undefined) {
-            queryParameters.push("size="+encodeURIComponent(String(size)));
+        if (take !== undefined) {
+            queryParameters.push("take="+encodeURIComponent(String(take)));
+        }
+        if (past !== undefined) {
+            queryParameters.push("past="+encodeURIComponent(String(past)));
         }
 
         headers['Accept'] = 'application/json';

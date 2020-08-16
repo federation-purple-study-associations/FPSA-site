@@ -6,7 +6,10 @@
           <b-col md>
             <h1>{{$t('agenda')}}</h1>
           </b-col>
-          <b-col class="agenda__heading-text" md>{{$t('agenda_description')}}</b-col>
+          <b-col class="agenda__heading-text" md>
+            {{$t('agenda_description')}}
+            <b-button variant="primary" @click="toggleTime" class="mt-2">{{inPast ? $t('seeComming') : $t('seePast')}}</b-button>
+          </b-col>
         </b-row>
       </b-container>
     </div>
@@ -64,6 +67,7 @@ export default class Agenda extends Vue {
   private page = 1;
   private readonly pageSize = 25;
   private count = 0;
+  private inPast: boolean = false;
 
   private agendaItem: AgendaDetailsDTO = {
     id: 0,
@@ -87,8 +91,13 @@ export default class Agenda extends Vue {
     this.getAgendaItems(this.$store.getters.currentLanguage);
   }
 
+  private toggleTime() {
+    this.inPast = !this.inPast;
+    this.getAgendaItems(this.$store.getters.currentLanguage);
+  }
+
   private getAgendaItems(language: string) {
-    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, (this.page - 1) * this.pageSize, this.pageSize, 'response')
+    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, (this.page - 1) * this.pageSize, this.pageSize, this.inPast, 'response')
     .subscribe((res: HttpResponse<AgendaAllDTO>) => {
       this.agendaItems = res.response.items;
       this.count = res.response.count;
