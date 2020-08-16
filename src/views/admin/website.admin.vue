@@ -1,9 +1,9 @@
 <template scoped>
   <b-container>
       <b-tabs class="pt-3">
-        <UserAdmin />
         <AgendaAdmin />
         <BoardAdmin />
+        <UserAdmin />
       </b-tabs>
   </b-container>
 </template>
