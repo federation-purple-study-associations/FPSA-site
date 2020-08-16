@@ -1,7 +1,7 @@
 <template scoped>
   <b-navbar toggleable="lg" class="header">
     <b-navbar-brand to="/">
-      <img src="logo.svg" />
+      <img src="/logo.svg" />
     </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -9,9 +9,7 @@
     <b-collapse id="nav-collapse" is-nav class="dark-background">
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/admin">{{$t('start')}}</b-nav-item>
-        <b-nav-item to="/admin/user" v-if="hasPermissionForUser">{{$t('user')}}</b-nav-item>
-        <b-nav-item to="/admin/agenda" v-if="hasPermissionForAgenda">{{$t('agenda')}}</b-nav-item>
-        <b-nav-item to="/admin/board" v-if="hasPermissionForBoard">{{$t('board')}}</b-nav-item>
+        <b-nav-item to="/admin/website" v-if="hasPermissionForAgenda && hasPermissionForBoard && hasPermissionForUser">{{$t('website')}}</b-nav-item>
         <b-nav-item to="/admin/accountancy" v-if="hasPermissionForAccountancy">{{$t('accountancy')}}</b-nav-item>
 
         <b-nav-item-dropdown right class="header__language">

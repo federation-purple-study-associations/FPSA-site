@@ -15,7 +15,9 @@ export interface MutationDTO {
     id: number;
     entryReference: number;
     description: string;
-    date: Date;
+    date: string;
     amount: number;
     debtorIban: string;
+    incomeStatementId: number;
+    balanceId: number;
 }

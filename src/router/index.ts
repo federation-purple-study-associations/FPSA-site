@@ -2,14 +2,12 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '../views/Home.vue';
 import Agenda from '../views/Agenda.vue';
-import WelcomeAdmin from '../views/admin/WelcomeAdmin.vue';
-import AgendaAdmin from '../views/admin/AgendaAdmin.vue';
+import WelcomeAdmin from '../views/admin/welcome.admin.vue';
 import Board from '../views/Board.vue';
-import BoardAdmin from '../views/admin/BoardAdmin.vue';
-import UserAdmin from '../views/admin/user.admin.vue';
 import Confirmation from '../views/confirmation.vue';
 import ActivateAccountancy from '../views/admin/accountancy/activate.vue';
-import AccountancyAdmin from '../views/admin/accountancyAdmin.vue';
+import AccountancyAdmin from '../views/admin/accountancy.admin.vue';
+import WebsiteAdmin from '../views/admin/website.admin.vue';
 import Error404 from '../views/error/404.vue';
 import ForgotPassword from '../views/forgot.password.vue';
 
@@ -58,16 +56,8 @@ const routes: RouteConfig[] = [
       component: WelcomeAdmin,
     },
     {
-      path: '/agenda',
-      component: AgendaAdmin,
-    },
-    {
-      path: '/board',
-      component: BoardAdmin,
-    },
-    {
-      path: '/user',
-      component: UserAdmin,
+      path: '/website',
+      component: WebsiteAdmin,
     },
     ...withPrefix('/accountancy', [
       {

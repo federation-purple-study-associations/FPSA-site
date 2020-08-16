@@ -1,5 +1,6 @@
 {
     "nl": {
+        "user": "Gebruikers",
         "edit": "Bewerken",
         "add": "Toevoegen",
         "fullName": "Volledige naam",
@@ -34,6 +35,7 @@
         }
     },
     "en": {
+        "user": "Users",
         "edit": "Edit",
         "add": "Add",
         "fullName": "Fullname",

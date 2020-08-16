@@ -2,9 +2,9 @@
     "nl": {
         "success": "Actie was succesvol!",
         "titles": {
-            "add_mutation": "Boekstuk invoeren",
+            "add_mutation": "Mutatie invoeren",
             "balance": "Balans",
-            "import": "Importeer mutaties",
+            "import": "Mutaties importeren",
             "income_statement": "Winsten & verliezen",
             "settings": "Instellingen",
             "mutation": "Mutaties"
@@ -48,11 +48,15 @@
             "payment_method": "Betaal methode",
             "income_statement": "Winsten & verliezen"
         },
-        "modal": {
-            "title": "Importeer",
+        "mutation": {
+            "edit_modal_title": "Mutatie bewerken",
+            "import_title": "Importeer",
             "payment_method": "Betaal rekening",
             "income_statement": "Winst & verlies rekening",
             "success": "Succesvol geïmporteerd!",
+            "amount": "Bedrag",
+            "description": "Omschrijving",
+            "iban": "IBAN",
             "failed": "Kan mutatie niet importeren..."
         },
         "payment_method": {
@@ -134,11 +138,15 @@
             "payment_method": "Payment method",
             "income_statement": "Income statement"
         },
-        "modal": {
-            "title": "Import",
+        "mutation": {
+            "edit_modaltitle": "Edit muation",
+            "import_title": "Import",
             "payment_method": "Payment method",
             "income_statement": "Income statement",
             "success": "Succesful importerd!",
+            "description": "Description",
+            "amount": "Amount",
+            "iban": "IBAN",
             "failed": "Failed to import mutation..."
         },
         "payment_method": {

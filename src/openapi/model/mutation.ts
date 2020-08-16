@@ -17,7 +17,7 @@ export interface Mutation {
     id: number;
     entryReference: number;
     description: string;
-    date: Date;
+    date: string;
     amount: number;
     debtorIban: string;
     imported: boolean;

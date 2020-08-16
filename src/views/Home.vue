@@ -63,7 +63,7 @@
       <b-row class="agenda">
         <b-col>
           <router-link to="/agenda" class="agenda__link--no-underline">
-            <h1 class="agenda__title--purple">{{$t('agenda.title')}}</h1>
+            <h1 class="title--purple">{{$t('agenda.title')}}</h1>
             <b-carousel control indictators>
               <b-carousel-slide
                 v-for="item in agendaItems" :key="item.id"

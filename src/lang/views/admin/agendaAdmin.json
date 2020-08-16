@@ -1,5 +1,6 @@
 {
     "nl": {
+        "agenda": "Agenda",
         "location": "Locatie:",
         "date": "Datum:",
         "new_item": "Nieuw agenda item",
@@ -27,6 +28,7 @@
         }
     },
     "en": {
+        "agenda": "Agenda",
         "location": "Location:",
         "date": "Date:",
         "new_item": "New agenda item",

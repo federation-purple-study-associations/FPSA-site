@@ -3,36 +3,26 @@
     <b-container class="mt-3">
         <b-row>
             <b-col md="12">
-              <h2>{{$t('payment_method.title')}}</h2>
-              <b-table sticky-header="100%" :items="getBalanceData" :fields="balanceFields" ref="balance-table">
-                <template v-slot:cell(link)="row">
-                  <b-button variant="link" v-on:click="showEditBalanceRowModal(row.item)">{{$t('payment_method.edit')}}</b-button>
-                </template>
-                
+              <h2 class="title--purple">{{$t('payment_method.title')}}</h2>
+              <b-table sticky-header="100%" :items="getBalanceData" :fields="balanceFields" ref="balance-table" @row-clicked="showEditBalanceRowModal" class="clickable">
                 <template v-slot:head(code)>{{$t('payment_method.code')}}</template>
                 <template v-slot:head(name)>{{$t('payment_method.name')}}</template>
                 <template v-slot:head(startAssets)>{{$t('payment_method.start_assets')}}</template>
                 <template v-slot:head(startLiabilities)>{{$t('payment_method.start_liabilities')}}</template>
-                <template v-slot:head(link)></template>
               </b-table>
               <div class="w-100 text-right">
-                <b-button variant="primary" v-on:click="showAddBalanceRowModal">{{$t('payment_method.add_action')}}</b-button>
+                <b-button variant="secondary" v-on:click="showAddBalanceRowModal">{{$t('payment_method.add_action')}}</b-button>
               </div>
             </b-col>
 
             <b-col md="12">
-              <h2>{{$t('income_statement.title')}}</h2>
-              <b-table sticky-header="100%" :items="getIncomeStatementData" :fields="incomeStatementFields" ref="income-statement-table">
-                <template v-slot:cell(link)="row">
-                  <b-button variant="link" v-on:click="openEditIncomeStatementRowModal(row.item)">{{$t('income_statement.edit')}}</b-button>
-                </template>
-                
+              <h2 class="title--purple">{{$t('income_statement.title')}}</h2>
+              <b-table sticky-header="100%" :items="getIncomeStatementData" :fields="incomeStatementFields" ref="income-statement-table" @row-clicked="openEditIncomeStatementRowModal" class="clickable">
                 <template v-slot:head(code)>{{$t('income_statement.code')}}</template>
                 <template v-slot:head(name)>{{$t('income_statement.name')}}</template>
-                <template v-slot:head(link)></template>
               </b-table>
               <div class="w-100 text-right">
-                <b-button variant="primary" v-on:click="showAddIncomeStatementModal">{{$t('income_statement.add_action')}}</b-button>
+                <b-button variant="secondary" v-on:click="showAddIncomeStatementModal">{{$t('income_statement.add_action')}}</b-button>
               </div>
             </b-col>
         </b-row>
@@ -55,8 +45,8 @@
         </template>
 
         <template v-slot:modal-footer="{ ok, cancel }">
-            <b-button size="sm" @click="cancel()">Cancel</b-button>
-            <b-button size="sm" variant="primary" @click="ok()">OK</b-button>
+            <b-button size="sm" variant="dark" @click="cancel()">Cancel</b-button>
+            <b-button size="sm" variant="secondary" @click="ok()">OK</b-button>
         </template>
     </b-modal>
 
@@ -71,8 +61,8 @@
         </template>
 
         <template v-slot:modal-footer="{ ok, cancel }">
-            <b-button size="sm" @click="cancel()">Cancel</b-button>
-            <b-button size="sm" variant="primary" @click="ok()">OK</b-button>
+            <b-button size="sm" variant="dark" @click="cancel()">Cancel</b-button>
+            <b-button size="sm" variant="secondary" @click="ok()">OK</b-button>
         </template>
     </b-modal>
 
@@ -94,8 +84,8 @@
 
         <template v-slot:modal-footer="{ cancel }">
           <b-button size="sm" variant="danger" @click="deleteBalanceRow()">Delete</b-button>
-            <b-button size="sm" @click="cancel()">Cancel</b-button>
-            <b-button size="sm" variant="primary" @click="editBalanceRow()">OK</b-button>
+          <b-button size="sm" variant="dark" @click="cancel()">Cancel</b-button>
+          <b-button size="sm" variant="secondary" @click="editBalanceRow()">OK</b-button>
         </template>
     </b-modal>
 
@@ -111,8 +101,8 @@
 
         <template v-slot:modal-footer="{ cancel }">
           <b-button size="sm" variant="danger" @click="deleteIncomeStatementRow()">Delete</b-button>
-            <b-button size="sm" @click="cancel()">Cancel</b-button>
-            <b-button size="sm" variant="primary" @click="editIncomeStatementRow()">OK</b-button>
+            <b-button size="sm" variant="dark" @click="cancel()">Cancel</b-button>
+            <b-button size="sm" variant="secondary" @click="editIncomeStatementRow()">OK</b-button>
         </template>
     </b-modal>
   </b-tab>
@@ -142,7 +132,6 @@ export default class SettingsAccountancy extends Vue {
     { key: 'name', sortable: true },
     { key: 'startAssets', sortable: true },
     { key: 'startLiabilities', sortable: true },
-    { key: 'link', sortable: false },
   ];
 
   private editBalance: BalanceDTO = {
@@ -164,7 +153,6 @@ export default class SettingsAccountancy extends Vue {
   private incomeStatementFields = [
     { key: 'code', sortable: true },
     { key: 'name', sortable: true },
-    { key: 'link', sortable: false },
   ];
 
   private addIncomeStatement: AddIncomeStatementDTO = {
@@ -230,7 +218,7 @@ export default class SettingsAccountancy extends Vue {
   private showAddBalanceRowModal() {
     (this.$refs['add-balance-modal'] as any).show();
   }
-  private showEditBalanceRowModal(balance: PaymentMethod) {
+  private showEditBalanceRowModal(balance: BalanceDTO) {
     this.editBalance = balance;
     (this.$refs['edit-balance-modal'] as any).show();
   }

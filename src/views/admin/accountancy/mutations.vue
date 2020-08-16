@@ -19,13 +19,13 @@
                         </b-form-group>
                         <div class="w-100 text-right">
                             <b-button variant="danger" v-on:click="resetFilter" class="mr-2">{{$t('filter.reset')}}</b-button>
-                            <b-button variant="primary" v-on:click="refreshTable">{{$t('filter.action')}}</b-button>
+                            <b-button variant="secondary" v-on:click="refreshTable">{{$t('filter.action')}}</b-button>
                         </div>
                     </b-card-text>
                 </b-card>
             </b-col>
             <b-col lg="9">
-                <b-table sticky-header="100%" striped hover :items="getData" :fields="fields" ref="mutation-table">
+                <b-table sticky-header="100%" striped hover :items="getData" :fields="fields" ref="mutation-table" @row-clicked="showEditModal" class="clickable">
                     <template v-slot:cell(date)="row">
                         {{moment(row.item.date).format('DD-MM-YYYY')}}
                     </template>
@@ -47,6 +47,32 @@
             </b-col>
         </b-row>
     </b-container>
+
+    <b-modal ref="edit-mutation-modal" centered :title="$t('mutation.edit_modal_title')" hide-header-close @ok="editMutationRow()">
+        <template v-slot:default="{ }">
+          <b-form-group :label="$t('mutation.iban')">
+            <b-form-input v-model="editMutation.debtorIban"/>
+          </b-form-group>
+          <b-form-group :label="$t('mutation.amount')">
+            <b-form-input v-model="editMutation.amount"/>
+          </b-form-group>
+          <b-form-group :label="$t('mutation.description')">
+            <b-form-input v-model="editMutation.description"/>
+          </b-form-group>
+          <b-form-group :label="$t('mutation.payment_method')" label-for="input-paymentMethod">
+            <b-form-select v-model="editMutation.paymentMethodId" :options="paymentMethodOptions" id="input-paymentMethod"></b-form-select>
+          </b-form-group>
+          <b-form-group :label="$t('mutation.income_statement')" label-for="input-incomeStatement">
+            <b-form-select v-model="editMutation.incomeStatementId" :options="incomeStatementOptions" id="input-incomeStatement"></b-form-select>
+          </b-form-group>
+        </template>
+
+        <template v-slot:modal-footer="{ cancel, ok }">
+            <b-button size="sm" variant="danger" @click="deleteMutationRow()">Delete</b-button>
+            <b-button size="sm" variant="dark" @click="cancel()">Cancel</b-button>
+            <b-button size="sm" variant="secondary" @click="ok()">OK</b-button>
+        </template>
+    </b-modal>
   </b-tab>
 </template>
 
@@ -60,6 +86,8 @@ import moment from 'moment';
 import { MutationDTO } from '@/openapi/model/mutationDTO';
 import { MutationResponseDTO } from '@/openapi/model/mutationResponseDTO';
 import { BalanceDTO } from '@/openapi/model/balanceDTO';
+import { AddMutationDTO } from '@/openapi/model/addMutationDTO';
+import { Mutation } from '@/openapi/model/mutation';
 
 @Component({})
 export default class MutationAccountancy extends Vue {
@@ -87,6 +115,17 @@ export default class MutationAccountancy extends Vue {
 
     private paymentMethodOptions: Array<{value: number, text: string}> = [];
     private incomeStatementOptions: Array<{value: number, text: string}> = [];
+
+    private editMutationId: number = 0;
+    private editMutation: AddMutationDTO = {
+        entryReference: 0,
+        description: '',
+        date: '',
+        amount: 0,
+        debtorIban: '',
+        incomeStatementId: 0,
+        paymentMethodId: 0,
+    };
 
     constructor() {
         super();
@@ -134,6 +173,45 @@ export default class MutationAccountancy extends Vue {
 
             callback(this.items);
         }
+    }
+
+    private showEditModal(record: MutationDTO, index: number) {
+      this.editMutationId = record.id;
+      this.editMutation = {
+        description: record.description,
+        date: record.date,
+        amount: record.amount,
+        debtorIban: record.debtorIban,
+        entryReference: record.entryReference,
+        paymentMethodId: record.balanceId,
+        incomeStatementId: record.incomeStatementId,
+      };
+      (this.$refs['edit-mutation-modal'] as any).show();
+    }
+
+    private editMutationRow() {
+      this.needData = true;
+
+      this.accountancyService.updateMutation(this.editMutationId, this.editMutation, 'response').subscribe((res: HttpResponse<Mutation>) => {
+            this.$notify({group: 'foo', text: this.$t('success').toString(), type: 'success'});
+            (this.$refs['mutation-table'] as any).refresh();
+
+        }, () => {
+            this.$notify({group: 'foo', text: this.$t('error.unknown').toString(), type: 'error'});
+        });
+    }
+
+    private deleteMutationRow() {
+      this.needData = true;
+
+      this.accountancyService.deleteMutation(this.editMutationId, 'response').subscribe((res: HttpResponse) => {
+            this.$notify({group: 'foo', text: this.$t('success').toString(), type: 'success'});
+            (this.$refs['mutation-table'] as any).refresh();
+            (this.$refs['edit-mutation-modal'] as any).hide();
+
+        }, () => {
+            this.$notify({group: 'foo', text: this.$t('error.unknown').toString(), type: 'error'});
+        });
     }
 
     private changePage(index: number | null) {

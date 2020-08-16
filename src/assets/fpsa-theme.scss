@@ -23,6 +23,26 @@ html {
     }
 }
 
+.btn-secondary {
+    background: $color-active;
+    border-color: $color-active;
+    color: $color-text;
+
+    &:active, &:focus {
+        background: $color-active !important;
+        border-color: $color-active !important;
+    }
+
+    &:hover {
+        background: $color-active;
+        box-shadow: 0 0 30px 8px rgba(248, 167, 231, 0.24);
+    }
+
+    &:disabled {
+        background: $color-disable;
+    }
+}
+
 .btn-outline-primary {
     color: $color-primary;
     border-color: $color-primary;
@@ -85,6 +105,10 @@ img.card-img-right {
     position: absolute;
 }
 
+.title--purple {
+    color: #5D0089;
+}
+
 div.dark-background h2,
 div.dark-background div,
 div.dark-background a:not(.dropdown-item) {
@@ -129,6 +153,10 @@ a {
     img.card-img-right {
         display: none;
     }
+}
+
+div.clickable table tbody tr {
+    cursor: pointer;
 }
 
 /* custom carousel shit to place the caption below the image*/

@@ -3,7 +3,7 @@
     <b-container class="mt-3">
         <b-row>
         <b-col>
-            <b-table sticky-header="100%" striped :items="getData" :fields="fields" ref="import-table">
+            <b-table sticky-header="100%" striped :items="getData" :fields="fields" ref="import-table" @row-clicked="rowClicked" class="clickable">
                 <template v-slot:cell(date)="row">
                   {{moment(row.item.date).format('DD-MM-YYYY')}}
                 </template>
@@ -12,33 +12,28 @@
                   {{'€' + row.item.amount.toFixed(2)}}
                 </template>
                 
-                <template v-slot:cell(import)="row">
-                  <b-button variant="link" v-on:click="showModal(row.item.id)">{{$t('table.import')}}</b-button>
-                </template>
-                
                 <template v-slot:head(debtorIban)>{{$t('table.debtorIban')}}</template>
                 <template v-slot:head(description)>{{$t('table.description')}}</template>
                 <template v-slot:head(date)>{{$t('table.date')}}</template>
                 <template v-slot:head(amount)>{{$t('table.amount')}}</template>
-                <template v-slot:head(import)></template>
             </b-table>
         </b-col>
         </b-row>
     </b-container>
 
-    <b-modal ref="import-modal" id="import-modal" centered @ok="importMutation" :title="$t('modal.title')">
+    <b-modal ref="import-modal" id="import-modal" centered @ok="importMutation" :title="$t('mutation.import_title')">
         <template v-slot:default="{ }">
-            <b-form-group :label="$t('modal.payment_method')" label-for="input-paymentMethod">
+            <b-form-group :label="$t('mutation.payment_method')" label-for="input-paymentMethod">
                 <b-form-select v-model="paymentMethodSelected" :options="paymentMethodOptions" autofocus id="input-paymentMethod"></b-form-select>
             </b-form-group>
-            <b-form-group :label="$t('modal.income_statement')" label-for="input-incomeStatement">
+            <b-form-group :label="$t('mutation.income_statement')" label-for="input-incomeStatement">
                 <b-form-select v-model="incomeStatementSelected" :options="incomeStatementOptions" id="input-incomeStatement"></b-form-select>
             </b-form-group>
         </template>
 
         <template v-slot:modal-footer="{ ok, cancel }">
-            <b-button size="sm" @click="cancel()">Cancel</b-button>
-            <b-button size="sm" variant="primary" @click="ok()">OK</b-button>
+            <b-button size="sm" variant="dark" @click="cancel()">Cancel</b-button>
+            <b-button size="sm" variant="secondary" @click="ok()">OK</b-button>
         </template>
     </b-modal>
   </b-tab>
@@ -72,7 +67,6 @@ export default class ImportAccountancy extends Vue {
         { key: 'description', sortable: true },
         { key: 'date', sortable: true },
         { key: 'amount', sortable: true },
-        { key: 'import', sortable: false },
     ];
 
     constructor() {
@@ -119,6 +113,10 @@ export default class ImportAccountancy extends Vue {
 
             callback(this.items);
         }
+    }
+
+    private rowClicked(record: NotImportedMutationDTO, index: number) {
+        this.showModal(record.id);
     }
 
     private showModal(id: number) {

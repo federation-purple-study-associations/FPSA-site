@@ -1,89 +1,88 @@
 <template scoped>
-  <b-container class="user-admin">
-    <b-row>
-      <b-col class="mb-3 mt-3 w-100 text-right">
-        <b-button @click="exportMember" variant="outline-primary" class="mr-2">{{$t('export')}}</b-button>
-        <b-button @click="openApplicationDialog" variant="outline-primary" class="mr-2">{{$t('applications.title')}}</b-button>
-        <b-button @click="openAddDialog" variant="outline-primary">{{$t('add')}}</b-button>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <b-table striped hover sticky-header ref="tableUsers" :items="getUsers" :fields="fieldsUsers">
-          <template v-slot:cell(details)="row">
-            <b-button @click="openEditDialog(row.item.id)" variant="link" style="float: right">{{$t('edit')}}</b-button>
-          </template>
-        </b-table>
-      </b-col>
-    </b-row>
+  <b-tab :title="$t('user')">
+    <b-container class="user-admin">
+      <b-row>
+        <b-col class="mb-3 mt-3 w-100 text-right">
+          <b-button @click="exportMember" variant="outline-primary" class="mr-2">{{$t('export')}}</b-button>
+          <b-button @click="openApplicationDialog" variant="outline-primary" class="mr-2">{{$t('applications.title')}}</b-button>
+          <b-button @click="openAddDialog" variant="outline-primary">{{$t('add')}}</b-button>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <b-table striped hover sticky-header ref="tableUsers" :items="getUsers" :fields="fieldsUsers" class="clickable" @row-clicked="rowClicked">
+          </b-table>
+        </b-col>
+      </b-row>
 
-    <b-modal
-      :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')"
-      :visible.sync="dialogUserVisible"
-      no-close-on-backdrop
-      scrollable
-      hide-header-close>
-        <b-form>
-          <b-form-group :label="$t('fullName')">
-            <b-form-input v-model="userForDialog.fullName"></b-form-input>
-          </b-form-group>
-          <b-form-group :label="$t('email')">
-            <b-form-input v-model="userForDialog.email"></b-form-input>
-          </b-form-group>
-          <b-form-group :label="$t('academy')">
-            <b-form-input v-model="userForDialog.academy"></b-form-input>
-          </b-form-group>
-          <b-form-group :label="$t('establishment')">
-            <b-form-input v-model="userForDialog.establishment"></b-form-input>
-          </b-form-group>
-          <b-form-group :label="$t('kvk')">
-            <b-form-input type="number" v-model.number="userForDialog.kvk"></b-form-input>
-          </b-form-group>
-          <b-form-group :label="$t('member_since')">
-            <b-form-datepicker v-model="userForDialog.memberSince" disabled></b-form-datepicker>
-          </b-form-group>
-          <b-form-group :label="$t('role')">
-            <b-form-select v-model="userForDialog.roleId" :options="selectOptions"></b-form-select>
-          </b-form-group>
-        </b-form>
-        <template v-slot:modal-footer>
-          <div class="w-100 text-right">
-            <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
-            <b-button variant="outline-primary" @click="dialogUserVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
-            <b-button variant="primary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
-          </div>
-        </template>
-    </b-modal>
-
-    <b-modal
-      :title="$t('applications.title')"
-      :visible.sync="dialogApplicationsVisible"
-      scrollable
-      size="xl"
-      hide-footer
-      @hidden="dialogApplicationsVisible = false">
-        <b-table :items="getApplications" ref="tableApplication" :fields="fieldsApplications" striped sticky-header>
-          <template v-slot:cell(details)="row">
-            <div class="text-right">
-              <b-button variant="success" @click="acceptApplication(row.item.id)" size="small">{{$t('applications.accept')}}</b-button>
-              <b-button variant="danger" @click="declineApplication(row.item.id)" size="small" class="ml-2">{{$t('applications.decline')}}</b-button>
+      <b-modal
+        :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')"
+        :visible.sync="dialogUserVisible"
+        no-close-on-backdrop
+        scrollable
+        hide-header-close>
+          <b-form>
+            <b-form-group :label="$t('fullName')">
+              <b-form-input v-model="userForDialog.fullName"></b-form-input>
+            </b-form-group>
+            <b-form-group :label="$t('email')">
+              <b-form-input v-model="userForDialog.email"></b-form-input>
+            </b-form-group>
+            <b-form-group :label="$t('academy')">
+              <b-form-input v-model="userForDialog.academy"></b-form-input>
+            </b-form-group>
+            <b-form-group :label="$t('establishment')">
+              <b-form-input v-model="userForDialog.establishment"></b-form-input>
+            </b-form-group>
+            <b-form-group :label="$t('kvk')">
+              <b-form-input type="number" v-model.number="userForDialog.kvk"></b-form-input>
+            </b-form-group>
+            <b-form-group :label="$t('member_since')">
+              <b-form-datepicker v-model="userForDialog.memberSince" disabled></b-form-datepicker>
+            </b-form-group>
+            <b-form-group :label="$t('role')">
+              <b-form-select v-model="userForDialog.roleId" :options="selectOptions"></b-form-select>
+            </b-form-group>
+          </b-form>
+          <template v-slot:modal-footer>
+            <div class="w-100 text-right">
+              <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
+              <b-button variant="dark" @click="dialogUserVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
+              <b-button variant="secondary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
             </div>
           </template>
-        </b-table>
-    </b-modal>
-  </b-container>
+      </b-modal>
+
+      <b-modal
+        :title="$t('applications.title')"
+        :visible.sync="dialogApplicationsVisible"
+        scrollable
+        size="xl"
+        hide-footer
+        @hidden="dialogApplicationsVisible = false">
+          <b-table :items="getApplications" ref="tableApplication" :fields="fieldsApplications" striped sticky-header>
+            <template v-slot:cell(details)="row">
+              <div class="text-right">
+                <b-button variant="success" @click="acceptApplication(row.item.id)" size="small">{{$t('applications.accept')}}</b-button>
+                <b-button variant="danger" @click="declineApplication(row.item.id)" size="small" class="ml-2">{{$t('applications.decline')}}</b-button>
+              </div>
+            </template>
+          </b-table>
+      </b-modal>
+    </b-container>
+  </b-tab>
 </template>
 
 <script lang="ts" scoped>
 import { Component, Vue } from 'vue-property-decorator';
-import openApiContainer from '../../openapi.container';
-import HttpResponse from '../../openapi/HttpResponse';
-import { UserService } from '../../openapi/api/user.service';
-import { UserSummaryDTO } from '../../openapi/model/userSummaryDTO';
-import { User } from '../../openapi/model/user';
-import { UserUpdateDTO } from '../../openapi/model/userUpdateDTO';
-import { UserNewDTO } from '../../openapi/model/userNewDTO';
-import { Application } from '../../openapi/model/application';
+import openApiContainer from '../../../openapi.container';
+import HttpResponse from '../../../openapi/HttpResponse';
+import { UserService } from '../../../openapi/api/user.service';
+import { UserSummaryDTO } from '../../../openapi/model/userSummaryDTO';
+import { User } from '../../../openapi/model/user';
+import { UserUpdateDTO } from '../../../openapi/model/userUpdateDTO';
+import { UserNewDTO } from '../../../openapi/model/userNewDTO';
+import { Application } from '../../../openapi/model/application';
 import moment from 'moment';
 import XLSX from 'xlsx/xlsx';
 
@@ -205,6 +204,10 @@ export default class BoardAdmin extends Vue {
 
     this.edit = false;
     this.dialogUserVisible = true;
+  }
+
+  private rowClicked(record: UserSummaryDTO, index: number) {
+    this.openEditDialog(record.id);
   }
 
   private async openEditDialog(id: number) {
