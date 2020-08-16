@@ -18,7 +18,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Build env file
-      run: echo "VUE_APP_API_URL=https://api.fpsa.nl\nVUE_APP_COOKIE_DOMAIN=.fpsa.nl" > .env
+      run: printf "VUE_APP_API_URL=https://api.fpsa.nl\nVUE_APP_COOKIE_DOMAIN=.fpsa.nl" > .env
 
 # Build and test project
     - name: Install packages
