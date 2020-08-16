@@ -20,7 +20,11 @@
             "content_role": "FPSA heeft dan ook een vertegenwoordigend karakter en géén controlerende rol. Alle aangesloten verenigingen behouden hun eigen identiteit, verantwoordelijkheid en autonomie!"
         },
         "documents": {
-            "title": "Officiële documenten"
+            "title": "Officiële documenten",
+            "by_law": "Statuten",
+            "house_rules": "Huishoudelijk reglement",
+            "privacy": "Privacy",
+            "code_of_conduct": "Gedragscode"
         },
         "contact": {
             "title": "Contact gegevens",
@@ -67,7 +71,11 @@
             "content_role": "FPSA therefore has a representative character and no supervisory role. All affiliated associations retain their own identity, responsibility and autonomy!"
         },
         "documents": {
-            "title": "Official documents"
+            "title": "Official documents",
+            "by_law": "By law",
+            "house_rules": "House rules",
+            "privacy": "Privacy",
+            "code_of_conduct": "Code of conduct"
         },
         "contact": {
             "title": "Contact information",

@@ -36,10 +36,10 @@
         <b-row class="mb-3 mt-3">
           <b-col>
             <h1>{{$t('documents.title')}}</h1>
-            <a href="/statuten.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip>Statuten</a><br>
-            <a href="/huishoudelijk-regelement.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip>Huishoudelijk regelement</a><br>
-            <a href="/privacy.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip>Privacy</a><br>
-            <a href="/gedragscode.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip>Gedragscode</a>
+            <a href="/statuten.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.by_law')}}</a><br>
+            <a href="/huishoudelijk-regelement.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.house_rules')}}</a><br>
+            <a href="/privacy.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.privacy')}}</a><br>
+            <a href="/gedragscode.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.code_of_conduct')}}</a>
           </b-col>
         </b-row>
 
