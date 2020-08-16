@@ -11,7 +11,7 @@
         <b-nav-item to="/agenda">{{$t('agenda')}}</b-nav-item>
         <b-nav-item to="/board">{{$t('board')}}</b-nav-item>
         <b-nav-item to="/contact">{{$t('contact')}}</b-nav-item>
-        <b-nav-item to="/register" class="text-active">{{$t('register')}}</b-nav-item>
+        <b-nav-item to="/application" class="text-active">{{$t('register')}}</b-nav-item>
 
         <b-nav-item-dropdown right class="header__language">
           <template v-slot:button-content>
