@@ -9,7 +9,7 @@
     <b-collapse id="nav-collapse" is-nav class="dark-background">
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/admin">{{$t('start')}}</b-nav-item>
-        <b-nav-item to="/admin/website" v-if="hasPermissionForAgenda && hasPermissionForBoard && hasPermissionForUser">{{$t('website')}}</b-nav-item>
+        <b-nav-item to="/admin/website" v-if="hasPermissionForAgenda || hasPermissionForBoard || hasPermissionForUser">{{$t('website')}}</b-nav-item>
         <b-nav-item to="/admin/accountancy" v-if="hasPermissionForAccountancy">{{$t('accountancy')}}</b-nav-item>
 
         <b-nav-item-dropdown right class="header__language">
