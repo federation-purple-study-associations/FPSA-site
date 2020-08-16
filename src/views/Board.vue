@@ -1,12 +1,12 @@
 <template scoped>
   <div class="boad">
-     <div class="board__heading dark-background">
+     <div class="page__heading dark-background">
       <b-container class="h-100">
         <b-row align-h="between" align-v="center" class="h-100">
           <b-col md>
             <h1>{{$t('board')}}</h1>
           </b-col>
-          <b-col class="board__heading-text" md>{{$t('board_description')}}</b-col>
+          <b-col class="page__heading-text" md>{{$t('board_description')}}</b-col>
         </b-row>
       </b-container>
     </div>
@@ -82,29 +82,5 @@ export default class Board extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.board {
-  &__heading {
-    height: 150px;
-    background: $color-active;
-    color: $color-text;
-
-    &-text {
-      text-align: right;
-    }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .board__heading {
-    height: 200px;
-
-    &-text {
-     text-align: left;
-    }
-  }
-}
-</style>
 
 <i18n src="@/lang/views/board.json"></i18n>

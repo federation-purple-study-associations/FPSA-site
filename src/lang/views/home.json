@@ -26,12 +26,6 @@
             "privacy": "Privacy",
             "code_of_conduct": "Gedragscode"
         },
-        "contact": {
-            "title": "Contact gegevens",
-            "email": "Email:",
-            "kvk": "KvK:",
-            "visit_address": "Bezoek adres:"
-        },
         "application": {
             "title": "Aanmelden bij FPSA",
             "name": "Naam studievereniging",
@@ -76,12 +70,6 @@
             "house_rules": "House rules",
             "privacy": "Privacy",
             "code_of_conduct": "Code of conduct"
-        },
-        "contact": {
-            "title": "Contact information",
-            "email": "Email:",
-            "kvk": "KvK:",
-            "visit_address": "Visit address:"
         },
         "application": {
             "title": "Register to FPSA",

@@ -173,3 +173,23 @@ div.carousel-inner {
     width: 100%;
     padding-bottom: 75px;
 }
+
+div.page__heading {
+    height: 150px;
+    background: $color-active;
+    color: $color-text;
+
+    &-text {
+      text-align: right;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    div.page__heading {
+      height: 200px;
+  
+      &-text {
+        text-align: left;
+      }
+    }
+  }

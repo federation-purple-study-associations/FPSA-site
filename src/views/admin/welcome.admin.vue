@@ -1,12 +1,12 @@
 <template scoped>
   <div class="admin">
-    <div class="admin__heading dark-background">
+    <div class="page__heading dark-background">
       <b-container class="h-100">
         <b-row align-h="between" align-v="center" class="h-100">
           <b-col md>
             <h1>{{$t('message.welcome').toString()}}<br>{{me.fullName}}</h1>
           </b-col>
-          <b-col class="admin__heading-text" md>
+          <b-col class="page__heading-text" md>
             {{$t('message.last_login')}}
             {{ me.lastLogin ? moment(me.lastLogin).format($t('message.last_login_format').toString()) : $t('message.last_login_never') }}
             <br>
@@ -118,30 +118,9 @@ export default class WelcomeAdmin extends Vue {
 
 <style lang="scss" scoped>
 .admin {
-  &__heading {
-    height: 150px;
-    background: $color-active;
-    color: $color-text;
-
-    &-text {
-      text-align: right;
-    }
-  }
-
   & .welcome-admin {
-
     &__logout {
       margin-top: 10px;
-    }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .admin__heading {
-    height: 200px;
-
-    &-text {
-      text-align: left;
     }
   }
 }

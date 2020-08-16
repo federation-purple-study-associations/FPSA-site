@@ -1,0 +1,38 @@
+{
+    "nl": {
+        "title": "Contact gegevens",
+        "visit_address": "Bezoek adres:",
+        "description": "Heb je vragen of opmerking? Neem dan meteen contact op met ons!",
+        "form" : {
+            "title": "Neem contact op",
+            "name": "Naam",
+            "subject": "Onderwerp",
+            "email": "Email",
+            "message": "Bericht",
+            "successful": "Uw bericht is met succes verzonden naar FPSA!",
+            "send": "Vesturen"
+        },
+        "error": {
+            "form_not_filled_in_correctly": "Niet alles is correct ingevuld...",
+            "unknown": "Een onbekende error is opgetreden..."
+        }
+    },
+    "en": {
+        "title": "Contact information",
+        "visit_address": "Visit address:",
+        "description": "Do you have any questions or comments? Then contact us immediately!",
+        "form" : {
+            "title": "Contact us",
+            "name": "Name",
+            "subject": "Subject",
+            "email": "Email",
+            "message": "Message",
+            "successful": "Your message has been successfully sent to FPSA!",
+            "send": "Send"
+        },
+        "error": {
+            "form_not_filled_in_correctly": "Form is not filled in correctly...",
+            "unknown": "An unknown error has occured..."
+        }
+    }
+}

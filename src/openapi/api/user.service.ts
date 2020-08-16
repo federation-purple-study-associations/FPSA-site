@@ -21,6 +21,7 @@ import { Headers } from "../Headers";
 import HttpResponse from "../HttpResponse";
 
 import { Application } from "../model/application";
+import { ContactFormDTO } from "../model/contactFormDTO";
 import { LoginDTO } from "../model/loginDTO";
 import { NewApplication } from "../model/newApplication";
 import { User } from "../model/user";
@@ -160,6 +161,32 @@ export class UserService {
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <Array<Application>>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * contact
+     * This call can be used to send an email to info@fpsa.nl
+     * @param contactFormDTO 
+     
+     */
+    public contact(contactFormDTO: ContactFormDTO, observe?: 'body', headers?: Headers): Observable<any>;
+    public contact(contactFormDTO: ContactFormDTO, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public contact(contactFormDTO: ContactFormDTO, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (contactFormDTO === null || contactFormDTO === undefined){
+            throw new Error('Required parameter contactFormDTO was null or undefined when calling contact.');
+        }
+
+        headers['Accept'] = 'application/json';
+        headers['Content-Type'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/contact`, contactFormDTO , headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
                );
         }
         return response;

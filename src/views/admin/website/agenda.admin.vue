@@ -156,7 +156,7 @@ export default class AgendaAdmin extends Vue {
   }
 
   private getAgendaItems(language: string) {
-    this.agendaService.agendaGetAll(language, (this.page - 1) * this.pageSize, this.pageSize, this.inPast, 'response')
+    this.agendaService.agendaGetAll(language, (this.page - 1) * this.pageSize, this.pageSize, '' + this.inPast, 'response')
     .subscribe((res: HttpResponse<AgendaAllDTO>) => {
       this.agendaItems = res.response.items;
       this.count = res.response.count;

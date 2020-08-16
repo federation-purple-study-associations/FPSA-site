@@ -33,27 +33,13 @@
           </b-col>
         </b-row> 
 
-        <b-row class="mb-3 mt-3">
+        <b-row class="pb-5 mt-3">
           <b-col>
             <h1>{{$t('documents.title')}}</h1>
             <a href="/statuten.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.by_law')}}</a><br>
             <a href="/huishoudelijk-regelement.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.house_rules')}}</a><br>
             <a href="/privacy.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.privacy')}}</a><br>
             <a href="/gedragscode.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.code_of_conduct')}}</a>
-          </b-col>
-        </b-row>
-
-        <b-row class="pb-5 mt-3">
-          <b-col>
-            <h1>{{$t('contact.title')}}</h1>
-            <p>
-              <b>{{$t('contact.visit_address')}}</b><br>
-              Rachelsmolen 1,<br>
-              5612MA, Eindhoven<br>
-              <br>
-              <b>{{$t('contact.email')}}</b> <a href="mailto:info@fpsa.nl">info@fpsa.nl</a><br>
-              <b>{{$t('contact.kvk')}}</b> 78356830
-            </p>
           </b-col>
         </b-row>
       </b-container>

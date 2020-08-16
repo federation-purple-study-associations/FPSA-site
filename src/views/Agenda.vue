@@ -1,12 +1,12 @@
 <template scoped>
   <div class="agenda">
-    <div class="agenda__heading dark-background">
+    <div class="page__heading dark-background">
       <b-container class="h-100">
         <b-row align-h="between" align-v="center" class="h-100">
           <b-col md>
             <h1>{{$t('agenda')}}</h1>
           </b-col>
-          <b-col class="agenda__heading-text" md>
+          <b-col class="page__heading-text" md>
             {{$t('agenda_description')}}
             <b-button variant="primary" @click="toggleTime" class="mt-2">{{inPast ? $t('seeComming') : $t('seePast')}}</b-button>
           </b-col>
@@ -97,7 +97,7 @@ export default class Agenda extends Vue {
   }
 
   private getAgendaItems(language: string) {
-    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, (this.page - 1) * this.pageSize, this.pageSize, this.inPast, 'response')
+    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, (this.page - 1) * this.pageSize, this.pageSize, '' + this.inPast, 'response')
     .subscribe((res: HttpResponse<AgendaAllDTO>) => {
       this.agendaItems = res.response.items;
       this.count = res.response.count;
@@ -122,28 +122,8 @@ export default class Agenda extends Vue {
 
 <style lang="scss" scoped>
 .agenda {
-  &__heading {
-    height: 150px;
-    background: $color-active;
-    color: $color-text;
-
-    &-text {
-      text-align: right;
-    }
-  }
-
   .clickable {
     cursor: pointer;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .agenda__heading {
-    height: 200px;
-
-    &-text {
-      text-align: left;
-    }
   }
 }
 </style>

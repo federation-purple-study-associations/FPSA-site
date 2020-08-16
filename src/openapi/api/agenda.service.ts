@@ -175,9 +175,9 @@ export class AgendaService {
      * @param past 
      
      */
-    public agendaGetAll(lang: string, skip: number, take: number, past?: boolean, observe?: 'body', headers?: Headers): Observable<AgendaAllDTO>;
-    public agendaGetAll(lang: string, skip: number, take: number, past?: boolean, observe?: 'response', headers?: Headers): Observable<HttpResponse<AgendaAllDTO>>;
-    public agendaGetAll(lang: string, skip: number, take: number, past?: boolean, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public agendaGetAll(lang: string, skip: number, take: number, past?: string, observe?: 'body', headers?: Headers): Observable<AgendaAllDTO>;
+    public agendaGetAll(lang: string, skip: number, take: number, past?: string, observe?: 'response', headers?: Headers): Observable<HttpResponse<AgendaAllDTO>>;
+    public agendaGetAll(lang: string, skip: number, take: number, past?: string, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (lang === null || lang === undefined){
             throw new Error('Required parameter lang was null or undefined when calling agendaGetAll.');
         }
