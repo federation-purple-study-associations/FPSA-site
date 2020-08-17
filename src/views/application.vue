@@ -13,7 +13,7 @@
     <b-container>
       <b-row ref="register">
         <b-col>
-          <b-card :title="$t('title')" class="mb-3 mt-3" id="application">
+          <b-card class="mb-3 mt-3" id="application">
             <b-form>
               <b-form-group :label="$t('name')">
                 <b-form-input v-model="application.name"  v-on:input="checkLegal"></b-form-input>
