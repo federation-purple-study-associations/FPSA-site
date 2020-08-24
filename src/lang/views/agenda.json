@@ -1,10 +1,64 @@
 {
     "nl": {
+        "agenda": "Agenda",
         "location": "Locatie:",
-        "date": "Datum:"
+        "date": "Datum:",
+        "agenda_description": "Bij FPSA is er altijd wel iets gepland voor de studieverenigingen van Fontys, van Workshops tot ALV's. Zie hier voor meer details!",
+        "seeComming": "Zie komende activiteiten",
+        "seePast": "Zie afgelopen activiteiten",
+        "new_item": "Nieuw agenda item",
+        "action_success": "Actie was succesvol!",
+        "dialog": {
+            "title_edit": "Agenda item bewerken",
+            "title_add": "Agenda item toevoegen",
+            "location": "Locatie",
+            "date": "Datum",
+            "title": "Titel",
+            "summary": "Samenvatting",
+            "description": "Omschrijving",
+            "image": "Afbeelding",
+            "draft": "Is nog niet klaar?",
+            "image_note": "Laat leeg als je geen nieuwe foto wilt uploaden",
+            "dutch": "Nederlands",
+            "english": "Engels",
+            "confirm": "Bevestigen",
+            "delete": "Verwijderen",
+            "cancel": "Annuleren"
+        },
+        "error": {
+            "form_not_filled_in_correctly": "Niet alles is correct ingevuld...",
+            "unknown": "Een onbekende error is opgetreden..."
+        }
     },
     "en": {
+        "agenda": "Agenda",
         "location": "Location:",
-        "date": "Date:"
+        "date": "Date:",
+        "agenda_description": "At FPSA, there is always something planned for Fontys study associations, from Workshops to ALVs. See here for more details!",
+        "seeComming": "See comming events",
+        "seePast": "See past events",
+        "new_item": "New agenda item",
+        "action_success": "Action was successful!",
+        "dialog": {
+            "title_edit": "Edit agenda item",
+            "title_add": "Add agenda item",
+            "location": "Location",
+            "date": "Date",
+            "title": "Title",
+            "summary": "Summary",
+            "description": "Description",
+            "draft": "Still a draft?",
+            "image": "Image",
+            "image_note": "Leave blank if you do not want to upload a new photo",
+            "dutch": "Dutch",
+            "english": "English",
+            "confirm": "Confirm",
+            "delete": "Delete",
+            "cancel": "Cancel"
+        },
+        "error": {
+            "form_not_filled_in_correctly": "Form is not filled in correctly...",
+            "unknown": "An unknown error has occured..."
+        }
     }
 }

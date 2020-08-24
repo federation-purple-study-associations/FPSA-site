@@ -1,18 +1,15 @@
 <template scoped>
   <b-navbar toggleable="lg" class="header">
     <b-navbar-brand to="/">
-      <b v-if="document.getElementsByTagName('body')[0].clientWidth > 900">Federation of Purple Study Associations</b>
-      <b v-else>FPSA</b>
+      <img src="/logo.svg" />
     </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-    <b-collapse id="nav-collapse" is-nav>
+    <b-collapse id="nav-collapse" is-nav class="dark-background">
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/admin">{{$t('start')}}</b-nav-item>
-        <b-nav-item to="/admin/user" v-if="hasPermissionForUser">{{$t('user')}}</b-nav-item>
-        <b-nav-item to="/admin/agenda" v-if="hasPermissionForAgenda">{{$t('agenda')}}</b-nav-item>
-        <b-nav-item to="/admin/board" v-if="hasPermissionForBoard">{{$t('board')}}</b-nav-item>
+        <b-nav-item to="/admin/website" v-if="hasPermissionForAgenda || hasPermissionForBoard || hasPermissionForUser">{{$t('website')}}</b-nav-item>
         <b-nav-item to="/admin/accountancy" v-if="hasPermissionForAccountancy">{{$t('accountancy')}}</b-nav-item>
 
         <b-nav-item-dropdown right class="header__language">
@@ -62,11 +59,17 @@ export default class AdminHeader extends Vue {
 
 <style lang="scss" scoped>
 .header {
-  background: #7C4DD8;
-  border-bottom: solid 1px #e6e6e6;
-  
-  & a.navbar-brand {
-    color: white;
+  background: rgba(93,0,137);
+  height: 100px;
+  font-size: 20px;
+
+  & a.navbar-brand img {
+    margin-left: 25px;
+    width: 75px;
+  }
+
+  .nav-item {
+    color: $color-primary;
   }
 
   &__language {

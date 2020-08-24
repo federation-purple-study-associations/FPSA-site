@@ -11,13 +11,9 @@
  */
 
 
-export interface MutationDTO { 
-    id: number;
-    entryReference: number;
-    description: string;
-    date: string;
-    amount: number;
-    debtorIban: string;
-    incomeStatementId: number;
-    balanceId: number;
+export interface ContactFormDTO { 
+    name: string;
+    email: string;
+    subject: string;
+    message: string;
 }

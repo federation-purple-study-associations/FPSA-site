@@ -1,6 +1,6 @@
 <template scoped>
   <b-container>
-      <b-tabs class="mt-3">
+      <b-tabs class="pt-3">
         <AccountancyBalance/>
         <IncomeStatement/>
         <MutationAccountancy/>

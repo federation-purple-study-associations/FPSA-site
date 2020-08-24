@@ -13,7 +13,7 @@
                         </b-form-group>
                         <div class="w-100 text-right">
                             <b-button variant="danger" v-on:click="resetFilter" class="mr-2">{{$t('filter.reset')}}</b-button>
-                            <b-button variant="primary" v-on:click="refreshTable">{{$t('filter.action')}}</b-button>
+                            <b-button variant="secondary" v-on:click="refreshTable">{{$t('filter.action')}}</b-button>
                         </div>
                     </b-card-text>
                 </b-card>

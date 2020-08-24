@@ -1,37 +1,74 @@
 <template scoped>
-  <b-container class="home">
-    <b-row class="home__splash" align-v="center" align-h="center">
-      <b-col lg="5" class="home__splash--column mb-5">
-        <h2>{{$t('splash.umbrella_association')}} FPSA</h2>
-        <h3>{{$t('splash.register')}}</h3>
-        <router-link to="/contact#application"><b-button variant="primary" pill>{{$t('splash.click_here')}}</b-button></router-link>
-      </b-col>
-      <b-col lg="7" class="home__splash--column">
-        <img src="/logo.png"/>
-      </b-col>
-    </b-row>
+  <div>
+    <div class="splash dark-background">
+      <b-container class="h-100">
+        <b-row align-v="center" align-h="center" class="h-100">
+          <b-col lg="5" class="splash--column mb-5">
+            <h1>{{$t('splash.umbrella_association')}} FPSA</h1>
+            <div class="mb-3 text-left">{{$t('splash.welcome')}}</div>
+            <div class="splash__button-wrapper">
+              <router-link to="register"><b-button variant="primary" pill>{{$t('splash.register')}}</b-button></router-link>
+              <b-button variant="primary" pill @click="scrollMeTo('about-us')">{{$t('splash.read_more')}}</b-button>
+            </div>
+          </b-col>
+          <b-col lg="7" class="splash--column">
+            <img class="ml-3" src="/SplashIcon.svg"/>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
 
-    <b-row class="home__welcome mb-5">
-      <b-col>
-        <h2>{{$t('welcome.title')}}</h2>
-        <span>{{$t('welcome.text')}}</span><router-link to="/aboutus">{{$t('welcome.click_here')}}</router-link>
-      </b-col>
-    </b-row>
+    <div class="more-information dark-background">
+      <b-container>
+        <b-row class="mb-3 pt-5">
+          <b-col>
+            <h1 ref="about-us">{{$t('about_us.title')}}</h1>
+            <span>{{$t('about_us.content_intro')}}</span>
+            <br><br>
+            <span>{{$t('about_us.content_workshops')}}</span>
+            <br><br>
+            <span>{{$t('about_us.content_partner')}}</span>
+            <br><br>
+            <span>{{$t('about_us.content_role')}}</span>
+          </b-col>
+        </b-row> 
 
-    <b-row class="home__agenda">
-      <b-col><router-link to="/agenda">
-        <h2>{{$t('agenda.title')}}</h2>
-        <b-carousel control indictators>
-          <b-carousel-slide
-            v-for="item in agendaItems" :key="item.id"
-            :caption="item.title"
-            :img-src="url+ '/agenda/photo?id=' + item.id"
-            :text="item.summary">
-          </b-carousel-slide>
-        </b-carousel>
-      </router-link></b-col>
-    </b-row> 
-  </b-container>
+        <b-row class="pb-5 mt-3">
+          <b-col>
+            <h1>{{$t('documents.title')}}</h1>
+            <a href="/statuten.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.by_law')}}</a><br>
+            <a href="/huishoudelijk-regelement.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.house_rules')}}</a><br>
+            <a href="/privacy.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.privacy')}}</a><br>
+            <a href="/gedragscode.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.code_of_conduct')}}</a>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
+
+    <b-container>
+      <b-row class="agenda">
+        <b-col>
+          <router-link to="/agenda" class="agenda__link--no-underline">
+            <h1 class="title--purple">{{$t('agenda.title')}}</h1>
+            <b-carousel control indictators>
+              <b-carousel-slide
+                v-for="item in agendaItems" :key="item.id"
+                :caption="item.title"
+                :img-src="url+ '/agenda/photo?id=' + item.id"
+                :text="item.summary">
+              </b-carousel-slide>
+            </b-carousel>
+          </router-link>
+        </b-col>
+      </b-row> 
+    </b-container>
+
+    <div class="social-media">
+      <a href="https://instagram.com/" target="_blank"><b-button pill class="social-media__button social-media__button--instagram"><img src="instagram.svg"/></b-button></a>
+      <a href="https://facebook.com/" target="_blank"><b-button pill class="social-media__button social-media__button--facebook">f</b-button></a>
+      <a href="https://linkedin.com/" target="_blank"><b-button pill class="social-media__button social-media__button--linkedin">In</b-button></a>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" scoped>
@@ -43,6 +80,8 @@ import moment from 'moment';
 import HttpResponse from '../openapi/HttpResponse';
 import { StatisticService } from '../openapi/api/statistic.service';
 import { AgendaAllDTO } from '../openapi/model/agendaAllDTO';
+import { UserService } from '@/openapi/api/user.service';
+import { NewApplication } from '@/openapi/model/newApplication';
 
 @Component({})
 export default class Home extends Vue {
@@ -60,11 +99,10 @@ export default class Home extends Vue {
     });
 
     openApiContainer.get<StatisticService>('StatisticService').pageViewNew('response').subscribe();
+  }
 
-    const error = new URLSearchParams(window.location.search.substring(1)).get('error');
-    if (error === '404') {
-      this.$notify({group: 'foo', text: this.$t('error.page_could_not_be_found').toString(), type: 'error'});
-    }
+  public scrollMeTo(refName: string) {
+    (this.$refs[refName] as any).scrollIntoView({ behavior: 'smooth' });
   }
 
   public mounted() {
@@ -72,7 +110,7 @@ export default class Home extends Vue {
   }
 
   private getAgendaItems(language: string) {
-    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, 0, 10, 'response')
+    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, 0, 1, undefined, 'response')
     .subscribe((res: HttpResponse<AgendaAllDTO>) => {
       this.agendaItems = res.response.items;
     });
@@ -81,26 +119,96 @@ export default class Home extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.home {
-  &__splash {
-    background: white;
-    height: calc(100vh - 60px);
+.splash {
+  background: linear-gradient(138deg, $color-active 80%, $color-primary 100%);
+  height: calc(100vh - 55px);
 
-    &--column {
-      animation: fadein 3s;
-      text-align: center;
-    }
+  &--column {
+    animation: fadein 3s;
+    text-align: center;
+  }
 
-    img {
-      width: 75%;
+  &__button-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+.more-information {
+  background: $color-active;
+}
+
+.contact {
+  &--privacy {
+    color: $color-primary;
+  }
+}
+
+.agenda {
+  &__title {
+    &--purple {
+      color: $color-active;
     }
   }
 
-  @keyframes fadein {
+  &__link {
+    &--no-underline {
+      text-decoration: none;
+    }
+  }
+}
+
+.social-media {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  display: none; //flex
+  flex-direction: column;
+  z-index: 999;
+
+  &__button {
+    background: rgb(245, 242, 255);
+    color: #EE2DB6;
+    font-weight: 900;
+    line-height: 31px;
+    width: 44px;
+    clear: both;
+    margin-top: 10px;
+    font-family: 'BOGDAN BALA';
+    border: none;
+
+    &--instagram {
+      padding: 6px;
+
+      & img {
+        width: 25px;
+      }
+    }
+
+    &--linkedin {
+      font-size: 20px;
+    }
+
+    &--facebook {
+      font-size: 25px;
+    }
+
+    &:hover, &:active, &:focus {
+      background: $color-active;
+      border: none;
+      color: $color-primary;
+    }
+  }
+}
+
+@keyframes fadein {
     0% { opacity: 0; }
     100%   { opacity: 1; }
   }
-}
 </style>
 
 <i18n src="@/lang/views/home.json"></i18n>

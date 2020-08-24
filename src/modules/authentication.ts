@@ -1,3 +1,5 @@
+import Vue from 'vue';
+
 export default {
     namespace: false,
     getters: {
@@ -9,7 +11,7 @@ export default {
         },
 
         logout(): void {
-            document.cookie = 'auth=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            deleteAuthCookie();
         },
     },
 };
@@ -18,15 +20,5 @@ function parseJWT() {
     return JSON.parse(atob(getAuthCookie().split('.')[1]));
 }
 
-function getAuthCookie() {
-    const list: any = {};
-    document.cookie.split(';').forEach((cookie) => {
-        const parts = cookie.split('=');
-        const key = parts.shift();
-        if (key !== undefined) {
-            list[key.trim()] = decodeURI(parts.join('='));
-        }
-    });
-
-    return list.auth;
-}
+const getAuthCookie = () => Vue.$cookies.get('auth');
+const deleteAuthCookie = () => Vue.$cookies.remove('auth');

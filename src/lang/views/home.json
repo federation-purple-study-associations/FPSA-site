@@ -1,14 +1,11 @@
 {
     "nl": {
+        "click_here": "klik hier",
         "splash": {
             "umbrella_association": "Koepelvereniging",
             "register": "Meld je nu aan!",
-            "click_here": "Klik hier"
-        },
-        "welcome": {
-            "title": "Welkom!",
-            "text": "Welkom op de website van de Federation of Purple Study Associations (FPSA). Opgericht in 2020 als koepelvereniging voor alle Fontys studieverenigingen. Voor meer informatie ",
-            "click_here": "klik hier"
+            "welcome": "Welkom op de website van de Federation of Purple Study Associations (FPSA). Opgericht in 2020 als koepelvereniging voor alle Fontys studieverenigingen.",
+            "read_more": "Lees verder"
         },
         "agenda": {
             "title": "Agenda",
@@ -17,29 +14,26 @@
         },
         "about_us": {
             "title": "Over ons",
-            "content_intro": "Koepelvereniging Federation of Purple Study Associations (FPSA) is begin 2020 in het leven geroepen om de studieverenigingen van Fontys te vertegenwoordigen en hen te helpen met zaken waar zij tegenaan lopen. Denk hierbij aan invulling van eigen ruimte voor de vereniging, financiële vraagstukken, bestuurswisselingen etc.",
+            "content_intro": "Koepelvereniging Federation of Purple Study Associations (FPSA) is begin 2020 in het leven geroepen om de studieverenigingen van Fontys te vertegenwoordigen en hen te helpen met zaken waar zij tegenaan lopen. Denk hierbij aan invulling van eigen ruimte voor de vereniging, financiële vraagstukken, bestuurswisselingen, etc.",
             "content_workshops": "Daarnaast staat FPSA ook voor de kwaliteit van het bestuur van de vereniging. Zo worden er jaarlijks bijeenkomsten en workshops geregeld voor bijvoorbeeld de penningmeesters en de voorzitters van de studieverenigingen maar is zijn er ook trainingen gericht op het werven van sponsoren, bestuurswisselingen en trainingen op maat per verenigingen mogelijk.",
             "content_partner": "Tevens treed FPSA als gesprekspartner op naar verschillende partijen waar de studieverenigingen van Fontys mee te maken krijgen waaronder de Commissie Profileringsfonds, de gemeenten Eindhoven, Tilburg en andere leslocaties van Fontys en het College van Bestuur.",
-            "content_role": "FPSA heeft dan ook een vertegenwoordigend karakter en géén controlerende rol. Alle aangesloten verenigingen behouden hun eigen identiteit, verantwoordelijkheid en autonomie!",
-            "content_more_info": "Heb je een vraag? Stel hem meteen via "
+            "content_role": "FPSA heeft dan ook een vertegenwoordigend karakter en géén controlerende rol. Alle aangesloten verenigingen behouden hun eigen identiteit, verantwoordelijkheid en autonomie!"
         },
         "documents": {
-            "title": "Officiële documenten"
-        },
-        "error": {
-            "page_could_not_be_found": "Pagina kon niet worden gevonden..."
+            "title": "Officiële documenten",
+            "by_law": "Statuten",
+            "house_rules": "Huishoudelijk reglement",
+            "privacy": "Privacy",
+            "code_of_conduct": "Gedragscode"
         }
     },
     "en": {
+        "click_here": "click here",
         "splash": {
             "umbrella_association": "Umbrella association",
             "register": "Register now!",
-            "click_here": "Click here"
-        },
-        "welcome": {
-            "title": "Welcome!",
-            "text": "Welcome to the website of the Federation of Purple Study Associations (FPSA). Founded in 2020 as an umbrella association for all Fontys study associations. For more information ",
-            "click_here": "click here"
+            "welcome": "Welcome to the website of the Federation of Purple Study Associations (FPSA). Founded in 2020 as an umbrella association for all of Fontys' study associations.",
+            "read_more": "Read more"
         },
         "agenda": {
             "title": "Agenda",
@@ -51,14 +45,14 @@
             "content_intro": "The Federation of Purple Study Associations (FPSA) umbrella association was set up at the beginning of 2020 to represent Fontys' study associations and to help them with matters that they encounter. Consider, for example, how to fill in your own space for the association, financial issues, board changes, etc.",
             "content_workshops": "In addition, FPSA also stands for the quality of the board of the association. For example, annual meetings and workshops are arranged for, for example, the treasurers and chairmen of the study associations, but there are also training courses aimed at recruiting sponsors, board changes and tailor-made training sessions per association.",
             "content_partner": "FPSA also acts as a discussion partner to various parties with which the study associations of Fontys are confronted, including the Profile Fund Committee, the municipalities of Eindhoven, Tilburg and other teaching locations of Fontys and the Executive Board.",
-            "content_role": "FPSA therefore has a representative character and no supervisory role. All affiliated associations retain their own identity, responsibility and autonomy!",
-            "content_more_info": "Do you have a question? Immediately send it via"
+            "content_role": "FPSA therefore has a representative character and no supervisory role. All affiliated associations retain their own identity, responsibility and autonomy!"
         },
         "documents": {
-            "title": "Official documents"
-        },
-        "error": {
-            "page_could_not_be_found": "Page could not be found..."
+            "title": "Official documents",
+            "by_law": "By law",
+            "house_rules": "House rules",
+            "privacy": "Privacy",
+            "code_of_conduct": "Code of conduct"
         }
     }
 }

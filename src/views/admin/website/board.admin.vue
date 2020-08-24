@@ -1,80 +1,82 @@
 <template scoped>
-  <b-container class="board-admin">
-    <b-row>
-      <b-col class="mb-3 mt-3 w-100 text-right">
-        <b-button @click="openAddDialog" variant="outline-primary">{{$t('new_board')}}</b-button>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <b-card
-          v-for="item in boardItems" :key="item.id"
-          :title="item.title"
-          :img-src="url+ '/board/photo?id=' + item.id + '&time=' + new Date().getTime()"
-          img-right
-          class="mb-3 mt-3"
-          style="cursor: pointer;"
-          @click="openDialog(item.id)">
+  <b-tab :title="$t('board')">
+    <b-container class="board-admin">
+      <b-row>
+        <b-col class="mb-3 mt-3 w-100 text-right">
+          <b-button @click="openAddDialog" variant="outline-primary">{{$t('new_board')}}</b-button>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <b-card
+            v-for="item in boardItems" :key="item.id"
+            :title="item.title"
+            :img-src="url+ '/board/photo?id=' + item.id + '&time=' + new Date().getTime()"
+            img-right
+            class="mb-3 mt-3"
+            style="cursor: pointer;"
+            @click="openDialog(item.id)">
 
-            <b-card-text>{{item.text}}</b-card-text>
+              <b-card-text>{{item.text}}</b-card-text>
 
-            <template v-slot:footer v-if="item.hasPolicyPlan">
-              <a style="cursor: pointer; height: 100%" target="_blank" :href="url+ '/board/policy?id=' + item.id">
-                <b-icon-paperclip></b-icon-paperclip><br>
-                {{$t('policy_plan')}}
-              </a>
-            </template>
-        </b-card>
+              <template v-slot:footer v-if="item.hasPolicyPlan">
+                <a style="cursor: pointer; height: 100%" target="_blank" :href="url+ '/board/policy?id=' + item.id">
+                  <b-icon-paperclip></b-icon-paperclip><br>
+                  {{$t('policy_plan')}}
+                </a>
+              </template>
+          </b-card>
 
-        <b-pagination align="center" :total-rows="total" :per-page="pageSize" v-model="page" @input="changePage"></b-pagination>
-      </b-col>
-    </b-row>
+          <b-pagination align="center" :total-rows="total" :per-page="pageSize" v-model="page" @input="changePage"></b-pagination>
+        </b-col>
+      </b-row>
 
-    <b-modal
-      :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')"
-      :visible.sync="dialogVisible"
-      no-close-on-backdrop
-      scrollable
-      hide-header-close>
-        <b-form>
-          <b-form-group :label="$t('dialog.title')">
-            <b-form-input :placeholder="$t('dialog.dutch')" v-model="boardForDialog.titleNL"></b-form-input>
-          </b-form-group>
-          <b-form-group>
-            <b-form-input :placeholder="$t('dialog.english')" v-model="boardForDialog.titleEN"></b-form-input>
-          </b-form-group>
-          <b-form-group :label="$t('dialog.text')">
-            <b-form-textarea :placeholder="$t('dialog.dutch')" v-model="boardForDialog.textNL"></b-form-textarea>
-          </b-form-group>
-          <b-form-group>
-            <b-form-textarea :placeholder="$t('dialog.english')" v-model="boardForDialog.textEN"></b-form-textarea>
-          </b-form-group>
-          <b-form-group :label="$t('dialog.image')">
-            <b-form-file :placeholder="edit ? $t('dialog.image_note') : ''" accept="image/*" v-model="boardImage"></b-form-file>
-          </b-form-group>
-          <b-form-group :label="$t('policy_plan')">
-            <b-form-file :placeholder="$t('dialog.policy_plan_note')" v-model="policyPlan"></b-form-file>
-          </b-form-group>
-        </b-form>
-        <template v-slot:modal-footer>
-          <div class="w-100 text-right">
-            <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
-            <b-button variant="outline-primary" @click="dialogVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
-            <b-button variant="primary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
-          </div>
-        </template>
-    </b-modal>
-  </b-container>
+      <b-modal
+        :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')"
+        :visible.sync="dialogVisible"
+        no-close-on-backdrop
+        scrollable
+        hide-header-close>
+          <b-form>
+            <b-form-group :label="$t('dialog.title')">
+              <b-form-input :placeholder="$t('dialog.dutch')" v-model="boardForDialog.titleNL"></b-form-input>
+            </b-form-group>
+            <b-form-group>
+              <b-form-input :placeholder="$t('dialog.english')" v-model="boardForDialog.titleEN"></b-form-input>
+            </b-form-group>
+            <b-form-group :label="$t('dialog.text')">
+              <b-form-textarea :placeholder="$t('dialog.dutch')" v-model="boardForDialog.textNL"></b-form-textarea>
+            </b-form-group>
+            <b-form-group>
+              <b-form-textarea :placeholder="$t('dialog.english')" v-model="boardForDialog.textEN"></b-form-textarea>
+            </b-form-group>
+            <b-form-group :label="$t('dialog.image')">
+              <b-form-file :placeholder="edit ? $t('dialog.image_note') : ''" accept="image/*" v-model="boardImage"></b-form-file>
+            </b-form-group>
+            <b-form-group :label="$t('policy_plan')">
+              <b-form-file :placeholder="$t('dialog.policy_plan_note')" v-model="policyPlan"></b-form-file>
+            </b-form-group>
+          </b-form>
+          <template v-slot:modal-footer>
+            <div class="w-100 text-right">
+              <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
+              <b-button variant="dark" @click="dialogVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
+              <b-button variant="secondary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
+            </div>
+          </template>
+      </b-modal>
+    </b-container>
+  </b-tab>
 </template>
 
 <script lang="ts" scoped>
 import { Component, Vue } from 'vue-property-decorator';
-import { BoardInfoDTO } from '../../openapi/model/boardInfoDTO';
-import openApiContainer from '../../openapi.container';
-import { BoardService } from '../../openapi/api/board.service';
-import HttpResponse from '../../openapi/HttpResponse';
-import { Board } from '../../openapi/model/board';
-import { BoardInfoTotalDTO } from '../../openapi/model/boardInfoTotalDTO';
+import { BoardInfoDTO } from '../../../openapi/model/boardInfoDTO';
+import openApiContainer from '../../../openapi.container';
+import { BoardService } from '../../../openapi/api/board.service';
+import HttpResponse from '../../../openapi/HttpResponse';
+import { Board } from '../../../openapi/model/board';
+import { BoardInfoTotalDTO } from '../../../openapi/model/boardInfoTotalDTO';
 
 @Component({})
 export default class BoardAdmin extends Vue {

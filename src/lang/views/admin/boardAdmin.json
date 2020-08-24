@@ -1,5 +1,6 @@
 {
     "nl": {
+        "board": "Bestuur",
         "policy_plan": "Beleidsplan",
         "new_board": "Nieuw bestuur",
         "action_success": "Actie was succesvol!",
@@ -23,6 +24,7 @@
         }
     },
     "en": {
+        "board": "Board",
         "policy_plan": "Policy plan",
         "new_board": "New board",
         "action_success": "Action was successful!",

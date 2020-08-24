@@ -1,87 +1,89 @@
 <template scoped>
-  <b-container class="contact">
-    <b-row>
-      <b-col>
-        <b-card :title="$t('contact.title')" class="mb-3 mt-3">
-          <p>
-            <b>{{$t('contact.visit_address')}}</b><br>
-            Rachelsmolen 1,<br>
-            5612MA, Eindhoven<br>
-            <br>
-            <b>{{$t('contact.email')}}</b> <a href="mailto:info@fpsa.nl">info@fpsa.nl</a><br>
-            <b>{{$t('contact.kvk')}}</b> 78356830
-          </p>
-        </b-card>
-      </b-col>
-    </b-row>
-
-    <b-row>
-      <b-col>
-        <b-card :title="$t('application.title')" class="mb-3 mt-3" id="application">
-          <b-form>
-            <b-form-group :label="$t('application.name')">
-              <b-form-input v-model="application.name"  v-on:input="checkLegal"></b-form-input>
-            </b-form-group>
-            <b-form-group :label="$t('application.email')">
-              <b-form-input v-model="application.email"  v-on:input="checkLegal"></b-form-input>
-            </b-form-group>
-            <b-form-group :label="$t('application.email_confirmation')">
-              <b-form-input v-model="repeatEmail"  v-on:input="checkLegal"></b-form-input>
-            </b-form-group>
-            <b-form-group :label="$t('application.academy')">
-              <b-form-input v-model="application.academy"  v-on:input="checkLegal"></b-form-input>
-            </b-form-group>
-            <b-form-group :label="$t('application.establishment')">
-              <b-form-input v-model="application.establishment"  v-on:input="checkLegal"></b-form-input>
-            </b-form-group>
-            <b-form-group :label="$t('application.kvk')">
-              <b-form-input type="number" v-model="application.kvk" v-on:input="checkLegal" min="0"></b-form-input>
-            </b-form-group>
-            <b-form-group>
-              <b-form-checkbox v-model="privacy" v-on:input="checkLegal">{{$t('application.privacy')}}<a href="privacy.pdf" target="_blank">Link</a></b-form-checkbox>
-            </b-form-group>
-            <b-button variant="primary" :disabled="isIllegal || loading" @click="submitForm()"><b-overlay :show="loading" rounded="sm">{{$t('application.confirm')}}</b-overlay></b-button>
-          </b-form>
-        </b-card>
-      </b-col>
-    </b-row>
-  </b-container>
+    <div class="contact">
+    <div class="page__heading dark-background">
+      <b-container class="h-100">
+        <b-row align-h="between" align-v="center" class="h-100">
+          <b-col md>
+            <h1>{{$t('title')}}</h1>
+          </b-col>
+          <b-col class="page__heading-text" md>{{$t('description')}}</b-col>
+        </b-row>
+      </b-container>
+    </div>
+    <b-container>
+      <b-row class="mb-3 mt-3">
+        <b-col>
+          <b>{{$t('visit_address')}}</b><br>
+          Rachelsmolen 1,<br>
+          5612MA, Eindhoven<br>
+        </b-col>
+        <b-col>
+          <b>Email: </b> <a href="mailto:info@fpsa.nl" class="contact__email-link--add-underline">info@fpsa.nl</a><br>
+          <b>KvK: </b> 78356830
+        </b-col>
+      </b-row>
+      <b-row class="mb-3 mt-3">
+        <b-col>
+          <b-card :title="$t('form.title')" class="mb-3 mt-3" id="form">
+            <b-form>
+              <b-form-group :label="$t('form.name')">
+                <b-form-input v-model="form.name"  v-on:input="checkLegal"></b-form-input>
+              </b-form-group>
+              <b-form-group :label="$t('form.subject')">
+                <b-form-input v-model="form.subject"  v-on:input="checkLegal"></b-form-input>
+              </b-form-group>
+              <b-form-group :label="$t('form.email')">
+                <b-form-input v-model="form.email"  v-on:input="checkLegal"></b-form-input>
+              </b-form-group>
+              <b-form-group :label="$t('form.message')">
+                <b-form-textarea v-model="form.message"  v-on:input="checkLegal"></b-form-textarea>
+              </b-form-group>
+              <b-button variant="primary" :disabled="isIllegal || loading" @click="submitForm()"><b-overlay :show="loading" rounded="sm">{{$t('form.send')}}</b-overlay></b-button>
+            </b-form>
+          </b-card>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script lang="ts" scoped>
 import { Component, Vue } from 'vue-property-decorator';
+import { ContactFormDTO } from '@/openapi/model/contactFormDTO';
+import { UserService } from '@/openapi/api/user.service';
 import openApiContainer from '@/openapi.container';
-import HttpResponse from '../openapi/HttpResponse';
-import { NewApplication } from '../openapi/model/newApplication';
-import { UserService } from '../openapi/api/user.service';
 
 @Component({})
 export default class Contact extends Vue {
-  private application: NewApplication = {
-    name: '',
-    email: '',
-    academy: '',
-    establishment: '',
-    kvk: 0,
-  };
-  private repeatEmail = '';
-
-  private isIllegal = true;
-  private privacy = false;
-  private loading = false;
-
   private readonly emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  private submitForm() {
-    this.loading = true;
-    this.application.kvk = +this.application.kvk;
+  private form: ContactFormDTO = {
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  };
 
-    openApiContainer.get<UserService>('UserService').applicationCreate(this.application, 'response').subscribe(() => {
-      this.$notify({group: 'foo', text: this.$t('application.successful').toString(), type: 'success'});
-      this.application = {name: '', email: '', academy: '', establishment: '', kvk: 0};
-      this.repeatEmail = '';
-      this.privacy = false;
+  private isIllegal: boolean = true;
+  private loading: boolean = false;
+  private userService: UserService = openApiContainer.get<UserService>('UserService');
+
+  private checkLegal() {
+    this.isIllegal = (
+      this.form.name === '' ||
+      this.form.subject === '' ||
+      this.form.email === '' ||
+      !this.emailRegex.test(this.form.email) ||
+      this.form.message === ''
+    );
+  }
+
+  private submitForm() {
+    this.userService.contact(this.form, 'response').subscribe(() => {
+      this.$notify({group: 'foo', text: this.$t('form.successful').toString(), type: 'success'});
+      this.form = {name: '', email: '', subject: '', message: ''};
       this.loading = false;
+      this.isIllegal = true;
 
     }, (err) => {
       this.loading = false;
@@ -93,21 +95,19 @@ export default class Contact extends Vue {
       }
     });
   }
-
-  private checkLegal() {
-    this.isIllegal =  this.application.name === '' ||
-                      this.application.email === '' ||
-                      this.application.email !== this.repeatEmail ||
-                      !this.emailRegex.test(this.application.email) ||
-                      this.application.academy === '' ||
-                      this.application.establishment === '' ||
-                      this.application.kvk === 0 ||
-                      !this.privacy;
-  }
 }
 </script>
 
 <style lang="scss" scoped>
+.contact {
+  &--privacy {
+    color: $color-primary;
+  }
+
+  &__email-link--add-underline {
+    text-decoration: underline;
+  }
+}
 </style>
 
 <i18n src="@/lang/views/contact.json"></i18n>

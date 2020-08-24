@@ -1,34 +1,49 @@
 <template scoped>
-  <b-container class="agenda">
-    <b-row>
-      <b-col>
-        <b-card
-          v-for="item in agendaItems" :key="item.id"
-          :title="item.title"
-          :img-src="url+ '/agenda/photo?id=' + item.id"
-          img-right
-          img-width="300px"
-          @click="openDialog(item.id)"
-          class="mb-3 mt-3 clickable">
+  <div class="agenda">
+    <div class="page__heading dark-background">
+      <b-container class="h-100">
+        <b-row align-h="between" align-v="center" class="h-100">
+          <b-col md>
+            <h1>{{$t('agenda')}}</h1>
+          </b-col>
+          <b-col class="page__heading-text" md>
+            {{$t('agenda_description')}} <br>
+            <b-button variant="primary" @click="toggleTime" class="mt-2">{{inPast ? $t('seeComming') : $t('seePast')}}</b-button>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
+    <b-container>
+      <b-row>
+        <b-col>
+          <b-card
+            v-for="item in agendaItems" :key="item.id"
+            :title="item.title"
+            :img-src="url+ '/agenda/photo?id=' + item.id"
+            img-right
+            img-width="300px"
+            @click="openDialog(item.id)"
+            class="mb-3 mt-3 clickable">
 
-            <b-card-text>
-              <b>{{$t('location')}}</b> {{item.location}}<br>
-              <b>{{$t('date')}}</b> {{moment(item.date).format('DD-MM-YYYY HH:mm')}}<br><br>
-              {{item.summary}}
-            </b-card-text>
-        </b-card>
+              <b-card-text>
+                <b>{{$t('location')}}</b> {{item.location}}<br>
+                <b>{{$t('date')}}</b> {{moment(item.date).format('DD-MM-YYYY HH:mm')}}<br><br>
+                {{item.summary}}
+              </b-card-text>
+          </b-card>
 
-        <b-pagination align="center" :total-rows="count" :per-page="pageSize" v-model="page" @input="changePage"></b-pagination>
+          <b-pagination align="center" :total-rows="count" :per-page="pageSize" v-model="page" @input="changePage"></b-pagination>
 
-        <b-modal id="agenda__modal" :title="agendaItem.title" hide-footer>
-          <img :src="this.url + '/agenda/photo?id=' + agendaItem.id" style="width: 100%"/><br><br>
-          <b>{{$t('location')}}</b> {{agendaItem.location}}<br>
-          <b>{{$t('date')}}</b> {{moment(agendaItem.date).format('DD-MM-YYYY HH:mm')}}<br><br>
-          {{agendaItem.description}}
-        </b-modal>
-      </b-col>
-    </b-row>
-  </b-container>
+          <b-modal id="agenda__modal" :title="agendaItem.title" hide-footer>
+            <img :src="this.url + '/agenda/photo?id=' + agendaItem.id" style="width: 100%"/><br><br>
+            <b>{{$t('location')}}</b> {{agendaItem.location}}<br>
+            <b>{{$t('date')}}</b> {{moment(agendaItem.date).format('DD-MM-YYYY HH:mm')}}<br><br>
+            {{agendaItem.description}}
+          </b-modal>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script lang="ts" scoped>
@@ -52,6 +67,7 @@ export default class Agenda extends Vue {
   private page = 1;
   private readonly pageSize = 25;
   private count = 0;
+  private inPast: boolean = false;
 
   private agendaItem: AgendaDetailsDTO = {
     id: 0,
@@ -75,8 +91,13 @@ export default class Agenda extends Vue {
     this.getAgendaItems(this.$store.getters.currentLanguage);
   }
 
+  private toggleTime() {
+    this.inPast = !this.inPast;
+    this.getAgendaItems(this.$store.getters.currentLanguage);
+  }
+
   private getAgendaItems(language: string) {
-    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, (this.page - 1) * this.pageSize, this.pageSize, 'response')
+    openApiContainer.get<AgendaService>('AgendaService').agendaGetAll(language, (this.page - 1) * this.pageSize, this.pageSize, '' + this.inPast, 'response')
     .subscribe((res: HttpResponse<AgendaAllDTO>) => {
       this.agendaItems = res.response.items;
       this.count = res.response.count;
@@ -101,10 +122,6 @@ export default class Agenda extends Vue {
 
 <style lang="scss" scoped>
 .agenda {
-  &__pagination {
-    text-align: center
-  }
-
   .clickable {
     cursor: pointer;
   }

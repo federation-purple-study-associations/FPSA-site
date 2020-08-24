@@ -1,18 +1,17 @@
 <template scoped>
   <b-navbar toggleable="lg" class="header">
     <b-navbar-brand to="/">
-      <b v-if="document.getElementsByTagName('body')[0].clientWidth > 900">Federation of Purple Study Associations</b>
-      <b v-else>FPSA</b>
+      <img src="/logo.svg" />
     </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-    <b-collapse id="nav-collapse" is-nav>
+    <b-collapse id="nav-collapse" is-nav class="dark-background">
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/agenda">{{$t('agenda')}}</b-nav-item>
         <b-nav-item to="/board">{{$t('board')}}</b-nav-item>
-        <b-nav-item to="/aboutus">{{$t('about_us')}}</b-nav-item>
         <b-nav-item to="/contact">{{$t('contact')}}</b-nav-item>
+        <b-nav-item to="/application" class="text-active">{{$t('register')}}</b-nav-item>
 
         <b-nav-item-dropdown right class="header__language">
           <template v-slot:button-content>
@@ -35,10 +34,9 @@
             <b-form-group>
               <b-form-input type="password" :placeholder="$t('login.password')" v-model="loginForm.password" autocomplete="current-password"></b-form-input>
             </b-form-group>
-            <!--  -->
             <b-button variant="primary" @click="submitLogin">{{$t('login.action')}}</b-button>
           </b-dropdown-form>
-          <b-dropdown-item-button><router-link to="/forgot">{{$t('forgot_password')}}</router-link></b-dropdown-item-button>
+          <b-dropdown-item-button><router-link to="/forgot" style="color: black !important">{{$t('forgot_password')}}</router-link></b-dropdown-item-button>
         </b-nav-item-dropdown>
 
         <b-nav-item to="/admin" v-else><b-overlay :show="isLoading" rounded="sm"><b-icon-people></b-icon-people></b-overlay></b-nav-item>
@@ -95,16 +93,31 @@ export default class HomeHeader extends Vue {
 
 <style lang="scss" scoped>
 .header {
-  background: #7C4DD8;
-  border-bottom: solid 1px #e6e6e6;
+  background: rgba(93,0,137);
+  height: 100px;
+  font-size: 20px;
+
+  .text-active a {
+    color: $color-primary !important;
+  }
   
-  & a.navbar-brand {
-    color: white;
+  & a.navbar-brand img {
+    margin-left: 25px;
+    width: 75px;
+  }
+
+  .nav-item {
+    color: $color-primary;
   }
 
   &__language {
     margin-left: 20px;
   }
+}
+
+#nav-collapse {
+  z-index: 999;
+  background: $color-active;
 }
 
 @media (max-width: 992px) {

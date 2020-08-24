@@ -1,33 +1,40 @@
 <template scoped>
-  <b-container class="admin">
-    <b-row class="welcome-admin">
-      <b-col md class="welcome-admin__message mb-3 mt-3">
-        <h2>{{$t('message.welcome').toString() + me.fullName}}</h2>
-        <div>
-          {{$t('message.last_login')}}
-          {{
-          me.lastLogin ? moment(me.lastLogin).format($t('message.last_login_format').toString()) : $t('message.last_login_never')
-          }}
-        </div>
+  <div class="admin">
+    <div class="page__heading dark-background">
+      <b-container class="h-100">
+        <b-row align-h="between" align-v="center" class="h-100">
+          <b-col md>
+            <h1>{{$t('message.welcome').toString()}}<br>{{me.fullName}}</h1>
+          </b-col>
+          <b-col class="page__heading-text" md>
+            {{$t('message.last_login')}}
+            {{ me.lastLogin ? moment(me.lastLogin).format($t('message.last_login_format').toString()) : $t('message.last_login_never') }}
+            <br>
+            <b-button class="welcome-admin__logout" variant="primary" @click="logout">{{$t('logout')}}</b-button>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
+    <b-container>
+      <b-row class="welcome-admin">
+        <b-col md class="welcome-admin__message mb-3 mt-3">
+          <div class="welcome-admin__settings">
+            <h2>{{$t('email.title')}}</h2>
+            <b-form label-position="left" label-width="100px" onsubmit="event.preventDefault()">
+              <b-form-group :label="$t('email.email')">
+                <b-form-input v-model="me.email" @change="updateMe"></b-form-input>
+              </b-form-group>
+              <b-form-checkbox v-model="me.recieveEmailUpdatesEvents" @change="updateMe">{{$t('email.events')}}</b-form-checkbox>
+            </b-form>
+          </div>
+        </b-col>
 
-        <b-button class="welcome-admin__logout" variant="primary" @click="logout">{{$t('logout')}}</b-button>
-
-        <div class="welcome-admin__settings">
-          <h2>{{$t('email.title')}}</h2>
-          <b-form label-position="left" label-width="100px" onsubmit="event.preventDefault()">
-            <b-form-group :label="$t('email.email')">
-              <b-form-input v-model="me.email" @change="updateMe"></b-form-input>
-            </b-form-group>
-            <b-form-checkbox v-model="me.recieveEmailUpdatesEvents" @change="updateMe">{{$t('email.events')}}</b-form-checkbox>
-          </b-form>
-        </div>
-      </b-col>
-
-      <b-col md class="mb-3 mt-3">
-        <apexchart class="welcome-admin__page-views-chart" v-if="hasPermissionForStatistics" width="100%" type="line" :options="chartOptions" :series="series"></apexchart>
-      </b-col>
-    </b-row>
-  </b-container>
+        <b-col md class="mb-3 mt-3">
+          <apexchart class="welcome-admin__page-views-chart" v-if="hasPermissionForStatistics" width="100%" type="line" :options="chartOptions" :series="series"></apexchart>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script lang="ts" scoped>
@@ -112,16 +119,6 @@ export default class WelcomeAdmin extends Vue {
 <style lang="scss" scoped>
 .admin {
   & .welcome-admin {
-    padding: 0px 10px;
-
-    &__settings {
-      margin-top: 30px;
-
-      h2 {
-        font-size: 15px;
-      }
-    }
-
     &__logout {
       margin-top: 10px;
     }

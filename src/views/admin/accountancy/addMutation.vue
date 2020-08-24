@@ -25,7 +25,7 @@
                 <b-form-select v-model="dto.incomeStatementId" :options="incomeStatementOptions"></b-form-select>
               </b-form-group>
               <div class="w-100 text-right">
-                <b-button variant="primary" v-on:click="addMutation">{{$t('form.action')}}</b-button>
+                <b-button variant="secondary" v-on:click="addMutation">{{$t('form.action')}}</b-button>
               </div>
             </b-col>
         </b-row>

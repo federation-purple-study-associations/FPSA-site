@@ -203,6 +203,31 @@ export class AccountancyService {
 
 
     /**
+     * Deletes the mutation
+     * 
+     * @param id 
+     
+     */
+    public deleteMutation(id: number, observe?: 'body', headers?: Headers): Observable<any>;
+    public deleteMutation(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public deleteMutation(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling deleteMutation.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.delete(`${this.basePath}/accountancy/mutation/${encodeURIComponent(String(id))}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
      * Edits a balance / payment method
      * 
      * @param id 
@@ -408,7 +433,7 @@ export class AccountancyService {
     public getNotImportedMutations(observe: any = 'body', headers: Headers = {}): Observable<any> {
         headers['Accept'] = 'application/json';
 
-        const response: Observable<HttpResponse<Array<NotImportedMutationDTO>>> = this.httpClient.get(`${this.basePath}/accountancy/import`, headers);
+        const response: Observable<HttpResponse<Array<NotImportedMutationDTO>>> = this.httpClient.get(`${this.basePath}/accountancy/mutation/import`, headers);
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <Array<NotImportedMutationDTO>>(httpResponse.response))
@@ -439,7 +464,7 @@ export class AccountancyService {
         headers['Accept'] = 'application/json';
         headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/accountancy/import/${encodeURIComponent(String(id))}`, importMutationDTO , headers);
+        const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/accountancy/mutation/import/${encodeURIComponent(String(id))}`, importMutationDTO , headers);
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))
@@ -463,6 +488,37 @@ export class AccountancyService {
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * Updates the mutation
+     * 
+     * @param id 
+     * @param addMutationDTO 
+     
+     */
+    public updateMutation(id: number, addMutationDTO: AddMutationDTO, observe?: 'body', headers?: Headers): Observable<Mutation>;
+    public updateMutation(id: number, addMutationDTO: AddMutationDTO, observe?: 'response', headers?: Headers): Observable<HttpResponse<Mutation>>;
+    public updateMutation(id: number, addMutationDTO: AddMutationDTO, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling updateMutation.');
+        }
+
+        if (addMutationDTO === null || addMutationDTO === undefined){
+            throw new Error('Required parameter addMutationDTO was null or undefined when calling updateMutation.');
+        }
+
+        headers['Accept'] = 'application/json';
+        headers['Content-Type'] = 'application/json';
+
+        const response: Observable<HttpResponse<Mutation>> = this.httpClient.put(`${this.basePath}/accountancy/mutation/${encodeURIComponent(String(id))}`, addMutationDTO , headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <Mutation>(httpResponse.response))
                );
         }
         return response;

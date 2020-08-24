@@ -6,7 +6,8 @@
         "board": "Besturen",
         "user": "Gebruikers",
         "contact": "Contact",
-        "about_us": "Over ons",
+        "register": "Meld je nu aan!",
+        "website": "Website",
         "accountancy": "Boekhouden",
         "forgot_password": "Wachtwoord vergeten?",
         "login": {
@@ -26,7 +27,8 @@
         "board": "Boards",
         "user": "Users",
         "contact": "Contact",
-        "about_us": "About us",
+        "register": "Register now!",
+        "website": "Website",
         "accountancy": "Accountancy",
         "forgot_password": "Forgot password?",
         "login": {

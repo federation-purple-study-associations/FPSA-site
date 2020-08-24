@@ -6,5 +6,12 @@ module.exports = {
       localeDir: "lang",
       enableInSFC: true
     }
+  },
+  css: {
+    loaderOptions: {
+      sass: {
+        prependData: '@import "~@/assets/variables.scss";',
+      },
+    },
   }
 };
