@@ -7,7 +7,7 @@
             <h1>{{$t('splash.umbrella_association')}} FPSA</h1>
             <div class="mb-3 text-left">{{$t('splash.welcome')}}</div>
             <div class="splash__button-wrapper">
-              <b-button variant="primary" pill @click="scrollMeTo('register')">{{$t('splash.register')}}</b-button>
+              <router-link to="register"><b-button variant="primary" pill>{{$t('splash.register')}}</b-button></router-link>
               <b-button variant="primary" pill @click="scrollMeTo('about-us')">{{$t('splash.read_more')}}</b-button>
             </div>
           </b-col>
@@ -139,7 +139,7 @@ export default class Home extends Vue {
 }
 
 .more-information {
-  background: #4D0073;
+  background: $color-active;
 }
 
 .contact {

@@ -7,7 +7,7 @@
             <h1>{{$t('agenda')}}</h1>
           </b-col>
           <b-col class="page__heading-text" md>
-            {{$t('agenda_description')}}
+            {{$t('agenda_description')}} <br>
             <b-button variant="primary" @click="toggleTime" class="mt-2">{{inPast ? $t('seeComming') : $t('seePast')}}</b-button>
           </b-col>
         </b-row>
