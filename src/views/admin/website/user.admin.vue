@@ -3,6 +3,7 @@
     <b-container class="user-admin">
       <b-row>
         <b-col class="mb-3 mt-3 w-100 text-right">
+          <b-button @click="openContactMembersDialog" variant="outline-primary" class="mr-2">{{$t('contact_member')}}</b-button>
           <b-button @click="exportMember" variant="outline-primary" class="mr-2">{{$t('export')}}</b-button>
           <b-button @click="openApplicationDialog" variant="outline-primary" class="mr-2">{{$t('applications.title')}}</b-button>
           <b-button @click="openAddDialog" variant="outline-primary">{{$t('add')}}</b-button>
@@ -69,6 +70,46 @@
             </template>
           </b-table>
       </b-modal>
+
+    <b-modal
+        :title="$t('contact.title')"
+        :visible.sync="dialogContactVisible"
+        scrollable
+        size="xl"
+        hide-footer
+        @hidden="dialogContactVisible = false">
+          <b-tabs>
+            <b-tab :title="$t('contact.title')">
+              <b-form class="mt-3">
+                <b-form-group :label="$t('contact.subject')" label-for="input-subject">
+                  <b-form-input id="input-subject" v-model="contactForm.subject" v-on:input="checkLegal"></b-form-input>
+                </b-form-group>
+                <b-form-group :label="$t('contact.message')" label-for="input-message">
+                  <b-form-textarea id="input-message" v-model="contactForm.message" v-on:input="checkLegal"></b-form-textarea>
+                </b-form-group>
+                <div class="w-100 text-right">
+                  <b-button variant="primary" :disabled="isIllegal || loading" @click="submitContactMembersForm()"><b-overlay :show="loading" rounded="sm">{{$t('contact.send')}}</b-overlay></b-button>
+                </div>
+              </b-form>
+            </b-tab>
+            <b-tab :title="$t('contact.preview')">
+              <div class="w-100 text-center mt-5">
+                <img src="/logo.png" style="width: 100px"/>
+              </div>
+              <div>
+                Beste {STUDIE VERENIGING},<br>
+                <br>
+                {{contactForm.message}}<br>
+                <br>
+                Met vriendelijke groeten,<br>
+                Bestuur FPSA
+              </div>
+              <div style="background: #7D52C9; color: white; font-size:10px;" class="w-100 text-center mt-3">
+                Dit bericht is automatisch verzonden, desondanks is antwoorden wel mogelijk. Federation of Purple Study Associations (FPSA), Rachelsmolen 1, 5612MA Eindhoven, KvK nr. 78356830
+              </div>
+            </b-tab>
+          </b-tabs>
+      </b-modal>
     </b-container>
   </b-tab>
 </template>
@@ -85,6 +126,7 @@ import { UserNewDTO } from '../../../openapi/model/userNewDTO';
 import { Application } from '../../../openapi/model/application';
 import moment from 'moment';
 import XLSX from 'xlsx/xlsx';
+import { ContactMembersDTO } from '@/openapi/model/contactMembersDTO';
 
 @Component({})
 export default class BoardAdmin extends Vue {
@@ -94,7 +136,7 @@ export default class BoardAdmin extends Vue {
   private fieldsApplications: any[] = [];
   private moment = moment;
 
-  // Dialog
+  // Dialog user
   private dialogUserVisible = false;
   private selectOptions: any[] = [];
   private edit = false;
@@ -109,7 +151,16 @@ export default class BoardAdmin extends Vue {
     recieveEmailUpdatesEvents: true,
   };
 
-  // Applications
+  // Dialog contact members
+  private dialogContactVisible = false;
+  private loading = false;
+  private isIllegal = true;
+  private contactForm: ContactMembersDTO = {
+    subject: '',
+    message: '',
+  };
+
+  // Dialog applications
   private dialogApplicationsVisible = false;
   private applications: Application[] = [];
 
@@ -280,6 +331,28 @@ export default class BoardAdmin extends Vue {
     this.userService.userGetAllFull('response').subscribe((res: HttpResponse<User[]>) => {
       this.exportExcel(res.response);
     });
+  }
+
+  private openContactMembersDialog() {
+    this.contactForm = { subject: '', message: '' };
+    this.dialogContactVisible = true;
+  }
+
+  private submitContactMembersForm() {
+    this.loading = true;
+    this.userService.contactMembers(this.contactForm, 'response').subscribe(() => {
+      this.$notify({group: 'foo', text: this.$t('contact.successful').toString(), type: 'success'});
+      this.dialogContactVisible = false;
+      this.loading = false;
+
+    }, this.handleError);
+  }
+
+  private checkLegal(): void {
+    this.isIllegal = (
+      this.contactForm.message === '' ||
+      this.contactForm.subject === ''
+    );
   }
 
 // Copied from https://github.com/t-chatoyan/vue-excel-xlsx/blob/master/VueExcelXlsx.vue
