@@ -79,12 +79,18 @@
         hide-footer
         @hidden="dialogContactVisible = false">
           <b-tabs>
-            <b-tab :title="$t('contact.title')">
+            <b-tab :title="$t('contact.message')">
               <b-form class="mt-3">
                 <b-form-group :label="$t('contact.subject')" label-for="input-subject">
                   <b-form-input id="input-subject" v-model="contactForm.subject" v-on:input="checkLegal"></b-form-input>
                 </b-form-group>
                 <b-form-group :label="$t('contact.message')" label-for="input-message">
+                  <div class="w-100">
+                    <b-button variant="light" @click="addBold()"><b>B</b></b-button>
+                    <b-button variant="light" @click="addItallic()" class="ml-1"><i>i</i></b-button>
+                    <b-button variant="light" @click="addUnderline()" class="ml-1"><ins>U</ins></b-button>
+                    <b-button variant="light" @click="addImage()" class="ml-3"><b-icon-image/></b-button>
+                  </div>
                   <b-form-textarea id="input-message" v-model="contactForm.message" v-on:input="checkLegal"></b-form-textarea>
                 </b-form-group>
                 <div class="w-100 text-right">
@@ -99,7 +105,7 @@
               <div>
                 Beste {STUDIE VERENIGING},<br>
                 <br>
-                {{contactForm.message}}<br>
+                <div v-html="contactForm.message"></div>
                 <br>
                 Met vriendelijke groeten,<br>
                 Bestuur FPSA
@@ -346,6 +352,22 @@ export default class BoardAdmin extends Vue {
       this.loading = false;
 
     }, this.handleError);
+  }
+
+  private addBold() {
+    this.contactForm.message += '<b>TEXT</b>';
+  }
+
+  private addItallic() {
+    this.contactForm.message += '<i>TEXT</i>';
+  }
+
+  private addUnderline() {
+    this.contactForm.message += '<ins>TEXT</ins>';
+  }
+
+  private addImage() {
+    this.contactForm.message += '<img src="https://fpsa.nl/logo.png" style="width: 150px"/>';
   }
 
   private checkLegal(): void {
