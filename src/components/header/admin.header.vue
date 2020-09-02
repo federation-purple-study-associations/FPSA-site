@@ -77,6 +77,11 @@ export default class AdminHeader extends Vue {
   }
 }
 
+#nav-collapse {
+  z-index: 999;
+  background: $color-active;
+}
+
 @media (max-width: 992px) {
   .header__language {
     margin-left: 0px;

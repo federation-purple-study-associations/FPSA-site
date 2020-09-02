@@ -4,6 +4,7 @@
         <AccountancyBalance/>
         <IncomeStatement/>
         <MutationAccountancy/>
+        <AssetsAccountancy/>
         <ImportAccountancy v-if="hasWritePermission"/>
         <AddMutationAccountancy v-if="hasWritePermission"/>
         <SettingsAccountancy v-if="hasWritePermission"/>
@@ -23,6 +24,7 @@ import AccountancyBalance from './accountancy/balance.vue';
 import ImportAccountancy from './accountancy/import.vue';
 import IncomeStatement from './accountancy/incomeStatement.vue';
 import MutationAccountancy from './accountancy/mutations.vue';
+import AssetsAccountancy from './accountancy/assets.vue';
 
 @Component({
   components: {
@@ -32,6 +34,7 @@ import MutationAccountancy from './accountancy/mutations.vue';
     ImportAccountancy,
     IncomeStatement,
     MutationAccountancy,
+    AssetsAccountancy,
   },
 })
 export default class AccountancyAdmin extends Vue {

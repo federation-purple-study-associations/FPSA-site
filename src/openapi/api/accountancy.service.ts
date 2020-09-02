@@ -24,6 +24,8 @@ import { ActivationLinkDTO } from "../model/activationLinkDTO";
 import { AddBalanceDTO } from "../model/addBalanceDTO";
 import { AddIncomeStatementDTO } from "../model/addIncomeStatementDTO";
 import { AddMutationDTO } from "../model/addMutationDTO";
+import { Assets } from "../model/assets";
+import { AssetsDTO } from "../model/assetsDTO";
 import { BalanceDTO } from "../model/balanceDTO";
 import { ImportMutationDTO } from "../model/importMutationDTO";
 import { IncomeStatement } from "../model/incomeStatement";
@@ -68,6 +70,32 @@ export class AccountancyService {
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * Create a new assets
+     * 
+     * @param assetsDTO 
+     
+     */
+    public addAssets(assetsDTO: AssetsDTO, observe?: 'body', headers?: Headers): Observable<Assets>;
+    public addAssets(assetsDTO: AssetsDTO, observe?: 'response', headers?: Headers): Observable<HttpResponse<Assets>>;
+    public addAssets(assetsDTO: AssetsDTO, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (assetsDTO === null || assetsDTO === undefined){
+            throw new Error('Required parameter assetsDTO was null or undefined when calling addAssets.');
+        }
+
+        headers['Accept'] = 'application/json';
+        headers['Content-Type'] = 'application/json';
+
+        const response: Observable<HttpResponse<Assets>> = this.httpClient.post(`${this.basePath}/accountancy/assets`, assetsDTO , headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <Assets>(httpResponse.response))
                );
         }
         return response;
@@ -146,6 +174,31 @@ export class AccountancyService {
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <Mutation>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * Deletes an assets
+     * 
+     * @param id 
+     
+     */
+    public deleteAssets(id: number, observe?: 'body', headers?: Headers): Observable<any>;
+    public deleteAssets(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public deleteAssets(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling deleteAssets.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.delete(`${this.basePath}/accountancy/assets/${encodeURIComponent(String(id))}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
                );
         }
         return response;
@@ -303,6 +356,32 @@ export class AccountancyService {
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <ActivationLinkDTO>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * Gets the assets
+     * 
+     * @param name 
+     
+     */
+    public getAssets(name?: string, observe?: 'body', headers?: Headers): Observable<Array<Assets>>;
+    public getAssets(name?: string, observe?: 'response', headers?: Headers): Observable<HttpResponse<Array<Assets>>>;
+    public getAssets(name?: string, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        let queryParameters: string[] = [];
+        if (name !== undefined) {
+            queryParameters.push("name="+encodeURIComponent(String(name)));
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<Array<Assets>>> = this.httpClient.get(`${this.basePath}/accountancy/assets?${queryParameters.join('&')}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <Array<Assets>>(httpResponse.response))
                );
         }
         return response;
@@ -488,6 +567,37 @@ export class AccountancyService {
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * Updates an assets
+     * 
+     * @param id 
+     * @param assetsDTO 
+     
+     */
+    public updateAssets(id: number, assetsDTO: AssetsDTO, observe?: 'body', headers?: Headers): Observable<Assets>;
+    public updateAssets(id: number, assetsDTO: AssetsDTO, observe?: 'response', headers?: Headers): Observable<HttpResponse<Assets>>;
+    public updateAssets(id: number, assetsDTO: AssetsDTO, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling updateAssets.');
+        }
+
+        if (assetsDTO === null || assetsDTO === undefined){
+            throw new Error('Required parameter assetsDTO was null or undefined when calling updateAssets.');
+        }
+
+        headers['Accept'] = 'application/json';
+        headers['Content-Type'] = 'application/json';
+
+        const response: Observable<HttpResponse<Assets>> = this.httpClient.put(`${this.basePath}/accountancy/assets/${encodeURIComponent(String(id))}`, assetsDTO , headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <Assets>(httpResponse.response))
                );
         }
         return response;
