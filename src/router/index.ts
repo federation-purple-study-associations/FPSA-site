@@ -75,6 +75,10 @@ const routes: RouteConfig[] = [
         component: AccountancyAdmin,
       },
       {
+        path: '/activate',
+        component: ActivateAccountancy,
+      },
+      {
         path: '/callback',
         component: ActivateAccountancy,
       },
