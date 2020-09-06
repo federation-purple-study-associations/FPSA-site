@@ -10,7 +10,6 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/admin">{{$t('start')}}</b-nav-item>
         <b-nav-item to="/admin/website" v-if="hasPermissionForAgenda || hasPermissionForBoard || hasPermissionForUser">{{$t('website')}}</b-nav-item>
-        <b-nav-item to="/admin/accountancy" v-if="hasPermissionForAccountancy">{{$t('accountancy')}}</b-nav-item>
 
         <b-nav-item-dropdown right class="header__language">
           <template v-slot:button-content>
@@ -41,14 +40,12 @@ export default class AdminHeader extends Vue {
   private hasPermissionForUser = false;
   private hasPermissionForAgenda = false;
   private hasPermissionForBoard = false;
-  private hasPermissionForAccountancy = false;
 
   public async mounted() {
     this.isLoggedIn = await this.$store.dispatch('isLoggedIn');
     this.hasPermissionForUser = this.$store.getters.hasPermission('User:Read');
     this.hasPermissionForAgenda = this.$store.getters.hasPermission('Agenda:Write');
     this.hasPermissionForBoard = this.$store.getters.hasPermission('Board:Write');
-    this.hasPermissionForAccountancy = this.$store.getters.hasPermission('Accountancy:Read');
   }
 
   private switchLanguage(lang: string): void {
