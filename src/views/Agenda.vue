@@ -27,7 +27,7 @@
 
               <b-card-text>
                 <b>{{$t('location')}}</b> {{item.location}}<br>
-                <b>{{$t('date')}}</b> {{moment(item.date).format('DD-MM-YYYY HH:mm')}}<br><br>
+                <b>{{$t('date')}}</b> {{moment(item.date).tz("UTC").format('DD-MM-YYYY HH:mm')}}<br><br>
                 {{item.summary}}
               </b-card-text>
           </b-card>
@@ -52,7 +52,7 @@ import { AgendaSummaryDTO } from '@/openapi/model/agendaSummaryDTO';
 import { AgendaAllDTO } from '@/openapi/model/agendaAllDTO';
 import { AgendaService } from '@/openapi/api/agenda.service';
 import openApiContainer from '@/openapi.container';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import HttpResponse from '../openapi/HttpResponse';
 import { AgendaDetailsDTO } from '../openapi/model/agendaDetailsDTO';
 
