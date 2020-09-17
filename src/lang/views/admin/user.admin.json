@@ -9,6 +9,7 @@
         "kvk": "KvK",
         "establishment": "Vestiging",
         "member_since": "Lid sinds",
+        "contact_member": "Contacteer leden",
         "role": "Rol",
         "action_success": "Actie was succesvol!",
         "roles": {
@@ -29,6 +30,14 @@
             "decline": "Weigeren",
             "successful": "Aanmelding is succesvol verwerkt!"
         },
+        "contact": {
+            "title": "Contacteer leden",
+            "subject": "Onderwerp",
+            "message": "Bericht",
+            "successful": "Bericht succesvol verzonden!",
+            "preview": "Voorbeeld",
+            "send": "Versturen"
+        },
         "error": {
             "form_not_filled_in_correctly": "Niet alles is correct ingevuld...",
             "unknown": "Een onbekende error is opgetreden..."
@@ -44,6 +53,7 @@
         "kvk": "KvK",
         "establishment": "Establishment",
         "member_since": "Member since",
+        "contact_member": "Contact members",
         "role": "Role",
         "action_success": "Action was successful!",
         "roles": {
@@ -63,6 +73,14 @@
             "accept": "Accept",
             "decline": "Decline",
             "successful": "Application has successfully been processed!"
+        },
+        "contact": {
+            "title": "Contact members",
+            "subject": "Subject",
+            "message": "Message",
+            "successful": "Message succesfully send!",
+            "preview": "Preview",
+            "send": "Send"
         },
         "error": {
             "form_not_filled_in_correctly": "Form is not filled in correctly...",

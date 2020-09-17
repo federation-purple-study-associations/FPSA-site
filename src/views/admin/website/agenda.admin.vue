@@ -20,7 +20,7 @@
 
               <b-card-text>
                 <b>{{$t('location')}}</b> {{item.location}}<br>
-                <b>{{$t('date')}}</b> {{moment(item.date).format('DD-MM-YYYY HH:mm')}}<br><br>
+                <b>{{$t('date')}}</b> {{moment(item.date).tz("UTC").format('DD-MM-YYYY HH:mm')}}<br><br>
                 {{item.summary}}
               </b-card-text>
           </b-card>

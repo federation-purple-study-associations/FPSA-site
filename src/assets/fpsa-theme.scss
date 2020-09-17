@@ -99,7 +99,7 @@ div.b-table-sticky-header {
 }
 
 img.card-img-right {
-    width: 300px;
+    width: 250px;
     height: 100%;
     object-fit: contain;
     position: absolute;
@@ -186,7 +186,7 @@ div.page__heading {
 
 @media screen and (max-width: 768px) {
     div.page__heading {
-      height: 200px;
+      height: 225px;
   
       &-text {
         text-align: left;

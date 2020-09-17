@@ -5,8 +5,6 @@ import Agenda from '../views/Agenda.vue';
 import WelcomeAdmin from '../views/admin/welcome.admin.vue';
 import Board from '../views/Board.vue';
 import Confirmation from '../views/confirmation.vue';
-import ActivateAccountancy from '../views/admin/accountancy/activate.vue';
-import AccountancyAdmin from '../views/admin/accountancy.admin.vue';
 import WebsiteAdmin from '../views/admin/website.admin.vue';
 import Error404 from '../views/error/404.vue';
 import ForgotPassword from '../views/forgot.password.vue';
@@ -69,16 +67,6 @@ const routes: RouteConfig[] = [
       path: '/website',
       component: WebsiteAdmin,
     },
-    ...withPrefix('/accountancy', [
-      {
-        path: '/',
-        component: AccountancyAdmin,
-      },
-      {
-        path: '/callback',
-        component: ActivateAccountancy,
-      },
-    ]),
   ]),
 ];
 

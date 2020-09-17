@@ -10,7 +10,7 @@
             {{$t('message.last_login')}}
             {{ me.lastLogin ? moment(me.lastLogin).format($t('message.last_login_format').toString()) : $t('message.last_login_never') }}
             <br>
-            <b-button class="welcome-admin__logout" variant="primary" @click="logout">{{$t('logout')}}</b-button>
+            <b-button class="welcome-admin__logout mb-3" variant="primary" @click="logout">{{$t('logout')}}</b-button>
           </b-col>
         </b-row>
       </b-container>

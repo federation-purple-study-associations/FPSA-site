@@ -22,6 +22,7 @@ import HttpResponse from "../HttpResponse";
 
 import { Application } from "../model/application";
 import { ContactFormDTO } from "../model/contactFormDTO";
+import { ContactMembersDTO } from "../model/contactMembersDTO";
 import { LoginDTO } from "../model/loginDTO";
 import { NewApplication } from "../model/newApplication";
 import { User } from "../model/user";
@@ -184,6 +185,32 @@ export class UserService {
         headers['Content-Type'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/contact`, contactFormDTO , headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * contactMembers
+     * This call can be used to send an email to all of the members
+     * @param contactMembersDTO 
+     
+     */
+    public contactMembers(contactMembersDTO: ContactMembersDTO, observe?: 'body', headers?: Headers): Observable<any>;
+    public contactMembers(contactMembersDTO: ContactMembersDTO, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public contactMembers(contactMembersDTO: ContactMembersDTO, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (contactMembersDTO === null || contactMembersDTO === undefined){
+            throw new Error('Required parameter contactMembersDTO was null or undefined when calling contactMembers.');
+        }
+
+        headers['Accept'] = 'application/json';
+        headers['Content-Type'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/contact/members`, contactMembersDTO , headers);
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))
