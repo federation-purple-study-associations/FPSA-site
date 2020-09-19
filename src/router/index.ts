@@ -10,6 +10,7 @@ import Error404 from '../views/error/404.vue';
 import ForgotPassword from '../views/forgot.password.vue';
 import Contact from '../views/contact.vue';
 import Application from '../views/application.vue';
+import AdministrationAdmin from '../views/admin/administration.admin.vue';
 
 Vue.use(VueRouter);
 const withPrefix = (prefix: string, routesConfig: RouteConfig[]) =>
@@ -66,6 +67,10 @@ const routes: RouteConfig[] = [
     {
       path: '/website',
       component: WebsiteAdmin,
+    },
+    {
+      path: '/administration',
+      component: AdministrationAdmin,
     },
   ]),
 ];

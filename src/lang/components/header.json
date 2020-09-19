@@ -8,7 +8,7 @@
         "contact": "Contact",
         "register": "Meld je nu aan!",
         "website": "Website",
-        "accountancy": "Boekhouden",
+        "administration": "Administratie",
         "forgot_password": "Wachtwoord vergeten?",
         "login": {
             "email": "Email",
@@ -29,7 +29,7 @@
         "contact": "Contact",
         "register": "Register now!",
         "website": "Website",
-        "accountancy": "Accountancy",
+        "administration": "Administration",
         "forgot_password": "Forgot password?",
         "login": {
             "email": "Email",

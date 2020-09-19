@@ -1,0 +1,58 @@
+{
+    "nl": {
+        "title": "Activiteitenplannen",
+        "add": "Toevoegen",
+        "handy_files": "Handige bestanden",
+        "action_success": "Actie was succesvol!",
+        "format": "Format activiteitenplan",
+        "example": "Voorbeeld activiteitenplan",
+        "table": {
+            "start": "Begin",
+            "end": "Einde",
+            "delivered": "Ingelevered op",
+            "name": "Naam",
+            "activity_plan": "Activiteiten plan" 
+        },
+        "dialog": {
+            "title_edit": "Bewerk activiteitenplan",
+            "title_add": "Toevoegen activiteitenplan",
+            "activity_plan_note": "Laat leeg als je geen nieuw activiteitenplan wilt uploaden",
+            "confirm": "Bevestigen",
+            "delete": "Verwijderen",
+            "cancel": "Annuleren"
+        },
+        "error": {
+            "form_not_filled_in_correctly": "Niet alles is correct ingevuld...",
+            "file_not_pdf": "Het bestand is niet in PDF-formaat",
+            "unknown": "Een onbekende error is opgetreden..."
+        }
+    },
+    "en": {
+        "title": "Activity plans",
+        "add": "Add",
+        "handy_files": "Handy files",
+        "action_success": "Action was successful!",
+        "format": "Format activity plan",
+        "example": "Example activity plan",
+        "table": {
+            "start": "Start",
+            "end": "End",
+            "delivered": "Delevered on",
+            "name": "Name",
+            "activity_plan": "Activity plan" 
+        },
+        "dialog": {
+            "title_edit": "Edit activity plan",
+            "title_add": "Add activity plan",
+            "activity_plan_note": "Leave blank if you do not want to upload a new activity plan",
+            "confirm": "Confirm",
+            "delete": "Delete",
+            "cancel": "Cancel"
+        },
+        "error": {
+            "form_not_filled_in_correctly": "Form is not filled in correctly...",
+            "file_not_pdf": "The file is not in PDF format",
+            "unknown": "An unknown error has occured..."
+        }
+    }
+}

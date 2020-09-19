@@ -10,6 +10,7 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/admin">{{$t('start')}}</b-nav-item>
         <b-nav-item to="/admin/website" v-if="hasPermissionForAgenda || hasPermissionForBoard || hasPermissionForUser">{{$t('website')}}</b-nav-item>
+        <b-nav-item to="/admin/administration">{{$t('administration')}}</b-nav-item>
 
         <b-nav-item-dropdown right class="header__language">
           <template v-slot:button-content>
