@@ -1,6 +1,6 @@
 {
     "nl": {
-        "title": "Activiteitenplannen",
+        "title": "Activiteitenplan",
         "add": "Toevoegen",
         "handy_files": "Handige bestanden",
         "action_success": "Actie was succesvol!",
@@ -28,7 +28,7 @@
         }
     },
     "en": {
-        "title": "Activity plans",
+        "title": "Activity plan",
         "add": "Add",
         "handy_files": "Handy files",
         "action_success": "Action was successful!",
