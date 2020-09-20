@@ -64,9 +64,7 @@
     </b-container>
 
     <div class="social-media">
-      <a href="https://instagram.com/" target="_blank"><b-button pill class="social-media__button social-media__button--instagram"><img src="instagram.svg"/></b-button></a>
-      <a href="https://facebook.com/" target="_blank"><b-button pill class="social-media__button social-media__button--facebook">f</b-button></a>
-      <a href="https://linkedin.com/" target="_blank"><b-button pill class="social-media__button social-media__button--linkedin">In</b-button></a>
+      <a href="https://www.facebook.com/FederationOfPurpleStudyAssociations/" target="_blank"><b-button pill class="social-media__button social-media__button--facebook">f</b-button></a>
     </div>
   </div>
 </template>
@@ -166,7 +164,7 @@ export default class Home extends Vue {
   position: fixed;
   right: 30px;
   bottom: 30px;
-  display: none; //flex
+  display: flex; 
   flex-direction: column;
   z-index: 999;
 
