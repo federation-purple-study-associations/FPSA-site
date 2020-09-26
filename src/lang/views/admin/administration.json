@@ -1,6 +1,9 @@
 {
     "nl": {
-        "title": "Activiteitenplan",
+        "titles": {
+            "activity_plan": "Activiteitenplan",
+            "annual_report": "Jaarverslag"
+        },
         "add": "Toevoegen",
         "handy_files": "Handige bestanden",
         "action_success": "Actie was succesvol!",
@@ -11,12 +14,15 @@
             "end": "Einde",
             "delivered": "Ingelevered op",
             "name": "Naam",
-            "activity_plan": "Activiteiten plan" 
+            "period": "Periode",
+            "activity_plan": "Activiteiten plan",
+            "document": "Document"
         },
         "dialog": {
             "title_edit": "Bewerk activiteitenplan",
             "title_add": "Toevoegen activiteitenplan",
-            "activity_plan_note": "Laat leeg als je geen nieuw activiteitenplan wilt uploaden",
+            "document_note": "Laat leeg als je geen nieuw activiteitenplan wilt uploaden",
+            "empty_activity_plans_note": "Er zijn geen activiteitenplannen gevonden zonder jaarverslag...",
             "confirm": "Bevestigen",
             "delete": "Verwijderen",
             "cancel": "Annuleren"
@@ -28,7 +34,10 @@
         }
     },
     "en": {
-        "title": "Activity plan",
+        "titles": {
+            "activity_plan": "Activity plan",
+            "annual_report": "Annual report"
+        },
         "add": "Add",
         "handy_files": "Handy files",
         "action_success": "Action was successful!",
@@ -39,12 +48,15 @@
             "end": "End",
             "delivered": "Delevered on",
             "name": "Name",
-            "activity_plan": "Activity plan" 
+            "period": "Period",
+            "activity_plan": "Activity plan",
+            "document": "Document"
         },
         "dialog": {
             "title_edit": "Edit activity plan",
             "title_add": "Add activity plan",
-            "activity_plan_note": "Leave blank if you do not want to upload a new activity plan",
+            "document_note": "Leave blank if you do not want to upload a new activity plan",
+            "empty_activity_plans_note": "No activity plans were found without an annual report ...",
             "confirm": "Confirm",
             "delete": "Delete",
             "cancel": "Cancel"

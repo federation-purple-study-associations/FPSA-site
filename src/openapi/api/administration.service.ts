@@ -20,7 +20,8 @@ import { IAPIConfiguration } from "../IAPIConfiguration";
 import { Headers } from "../Headers";
 import HttpResponse from "../HttpResponse";
 
-import { ActivityPlan } from "../model/activityPlan";
+import { ResultActivityPlan } from "../model/resultActivityPlan";
+import { ResultAnnualReport } from "../model/resultAnnualReport";
 
 import { COLLECTION_FORMATS }  from "../variables";
 
@@ -35,6 +36,26 @@ export class AdministrationService {
         if(this.APIConfiguration.basePath)
             this.basePath = this.APIConfiguration.basePath;
     }
+
+    /**
+     * check
+     * This call can be used to check the end dates of each user\&#39;s last activity plan
+     
+     */
+    public activityPlanCheck(observe?: 'body', headers?: Headers): Observable<any>;
+    public activityPlanCheck(observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public activityPlanCheck(observe: any = 'body', headers: Headers = {}): Observable<any> {
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/administration/activityplan/check`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
 
     /**
      * create
@@ -109,11 +130,12 @@ export class AdministrationService {
      * This call can be used to get all of the activity plans. Based on your account you will get all of your activity plan (if you have roleId 2), or you will get all of the activity plans in the db (if you have roleId 1)
      * @param skip 
      * @param size 
+     * @param emptyReport 
      
      */
-    public activityPlanGetAll(skip?: number, size?: number, observe?: 'body', headers?: Headers): Observable<Array<ActivityPlan>>;
-    public activityPlanGetAll(skip?: number, size?: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<Array<ActivityPlan>>>;
-    public activityPlanGetAll(skip?: number, size?: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public activityPlanGetAll(skip?: number, size?: number, emptyReport?: boolean, observe?: 'body', headers?: Headers): Observable<ResultActivityPlan>;
+    public activityPlanGetAll(skip?: number, size?: number, emptyReport?: boolean, observe?: 'response', headers?: Headers): Observable<HttpResponse<ResultActivityPlan>>;
+    public activityPlanGetAll(skip?: number, size?: number, emptyReport?: boolean, observe: any = 'body', headers: Headers = {}): Observable<any> {
         let queryParameters: string[] = [];
         if (skip !== undefined) {
             queryParameters.push("skip="+encodeURIComponent(String(skip)));
@@ -121,13 +143,16 @@ export class AdministrationService {
         if (size !== undefined) {
             queryParameters.push("size="+encodeURIComponent(String(size)));
         }
+        if (emptyReport !== undefined) {
+            queryParameters.push("emptyReport="+encodeURIComponent(String(emptyReport)));
+        }
 
         headers['Accept'] = 'application/json';
 
-        const response: Observable<HttpResponse<Array<ActivityPlan>>> = this.httpClient.get(`${this.basePath}/administration/activityplan?${queryParameters.join('&')}`, headers);
+        const response: Observable<HttpResponse<ResultActivityPlan>> = this.httpClient.get(`${this.basePath}/administration/activityplan?${queryParameters.join('&')}`, headers);
         if (observe == 'body') {
                return response.pipe(
-                   map(httpResponse => <Array<ActivityPlan>>(httpResponse.response))
+                   map(httpResponse => <ResultActivityPlan>(httpResponse.response))
                );
         }
         return response;
@@ -198,6 +223,161 @@ export class AdministrationService {
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/administration/activityplan/${encodeURIComponent(String(id))}`, formData, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * create
+     * This call can be used to save a new annual report
+     * @param activityPlanId 
+     * @param document 
+     
+     */
+    public annualReportCreate(activityPlanId: number, document?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public annualReportCreate(activityPlanId: number, document?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public annualReportCreate(activityPlanId: number, document?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (activityPlanId === null || activityPlanId === undefined){
+            throw new Error('Required parameter activityPlanId was null or undefined when calling annualReportCreate.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        let formData: FormData = new FormData();
+        headers['Content-Type'] = 'multipart/form-data';
+        if (activityPlanId !== undefined) {
+            formData.append('activityPlanId', <any>activityPlanId);
+        }
+        if (document !== undefined) {
+            formData.append('document', <any>document);
+        }
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/administration/annualReport`, formData, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * delete
+     * This call can be used to delete the annual report
+     * @param id 
+     
+     */
+    public annualReportDelete(id: number, observe?: 'body', headers?: Headers): Observable<any>;
+    public annualReportDelete(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public annualReportDelete(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling annualReportDelete.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.delete(`${this.basePath}/administration/annualReport/${encodeURIComponent(String(id))}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * getAll
+     * This call can be used to get all of the annual reports. Based on your account you will get all of your annual reports (if you have roleId 2), or you will get all of the annual reports in the db (if you have roleId 1)
+     * @param skip 
+     * @param size 
+     
+     */
+    public annualReportGetAll(skip?: number, size?: number, observe?: 'body', headers?: Headers): Observable<ResultAnnualReport>;
+    public annualReportGetAll(skip?: number, size?: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<ResultAnnualReport>>;
+    public annualReportGetAll(skip?: number, size?: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        let queryParameters: string[] = [];
+        if (skip !== undefined) {
+            queryParameters.push("skip="+encodeURIComponent(String(skip)));
+        }
+        if (size !== undefined) {
+            queryParameters.push("size="+encodeURIComponent(String(size)));
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<ResultAnnualReport>> = this.httpClient.get(`${this.basePath}/administration/annualReport?${queryParameters.join('&')}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <ResultAnnualReport>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * getDocument
+     * This call can be used to get the PDF of the annual report
+     * @param id 
+     
+     */
+    public annualReportGetDocument(id: number, observe?: 'body', headers?: Headers): Observable<any>;
+    public annualReportGetDocument(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public annualReportGetDocument(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling annualReportGetDocument.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/administration/annualReport/${encodeURIComponent(String(id))}/document`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * update
+     * This call can be used to update the annualReport
+     * @param id 
+     * @param activityPlanId 
+     * @param document 
+     
+     */
+    public annualReportUpdate(id: number, activityPlanId: number, document?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public annualReportUpdate(id: number, activityPlanId: number, document?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public annualReportUpdate(id: number, activityPlanId: number, document?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling annualReportUpdate.');
+        }
+
+        if (activityPlanId === null || activityPlanId === undefined){
+            throw new Error('Required parameter activityPlanId was null or undefined when calling annualReportUpdate.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        let formData: FormData = new FormData();
+        headers['Content-Type'] = 'multipart/form-data';
+        if (activityPlanId !== undefined) {
+            formData.append('activityPlanId', <any>activityPlanId);
+        }
+        if (document !== undefined) {
+            formData.append('document', <any>document);
+        }
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/administration/annualReport/${encodeURIComponent(String(id))}`, formData, headers);
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))

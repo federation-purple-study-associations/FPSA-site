@@ -1,15 +1,14 @@
 <template scoped>
-  <b-tab :title="$t('titles.activity_plan')">
-    <b-container class="activity-plan">
+  <b-tab :title="$t('titles.annual_report')">
+    <b-container class="annual-report">
         <b-row>
         <b-col class="mb-3 mt-3 w-100 text-right">
-          <b-button @click="openLinkDialog" variant="outline-primary" class="mr-2">{{$t('handy_files')}}</b-button>
           <b-button @click="openAddDialog" variant="outline-primary">{{$t('add')}}</b-button>
         </b-col>
       </b-row>
       <b-row>
         <b-col>
-          <b-table striped hover sticky-header ref="tablePlans" :items="getPlans" :fields="fieldsPlans" class="clickable" @row-clicked="rowClicked">
+          <b-table striped hover sticky-header ref="tableReports" :items="getReports" :fields="fieldsReports" class="clickable" @row-clicked="rowClicked">
           </b-table>
 
           <b-pagination align="center" :total-rows="count" :per-page="pageSize" v-model="page" @input="changePage"></b-pagination>
@@ -19,35 +18,30 @@
 
     <b-modal
         :title="edit ? $t('dialog.title_edit') : $t('dialog.title_add')"
-        :visible.sync="dialogActivityVisible"
+        :visible.sync="dialogAnnualVisible"
         no-close-on-backdrop
         hide-header-close
         scrollable>
           <b-form>
-            <b-form-group :label="$t('table.start')">
-              <b-form-datepicker v-model="activityPlan.start"></b-form-datepicker>
-            </b-form-group>
-            <b-form-group :label="$t('table.end')">
-              <b-form-datepicker v-model="activityPlan.end"></b-form-datepicker>
+            <b-form-group :label="$t('table.activity_plan')">
+                <b-form-select v-model="activityPlanId" :options="activityPlans">
+                    <b-form-select-option v-if="activityPlans.length == 0" :value="null" disabled>{{$t('dialog.empty_activity_plans_note')}}</b-form-select-option>
+                </b-form-select>
             </b-form-group>
             <b-form-group :label="$t('table.delivered')" v-if="edit">
-              <b-form-datepicker v-model="activityPlan.delivered" disabled></b-form-datepicker>
+              <b-form-datepicker v-model="annualReport.delivered" disabled></b-form-datepicker>
             </b-form-group>
             <b-form-group :label="$t('table.document')">
-              <b-form-file :placeholder="edit ? $t('dialog.activity_plan_note') : ''" v-model="activityPlanDocument"></b-form-file>
+              <b-form-file :placeholder="edit ? $t('dialog.document_note') : ''" v-model="annualReportDocument"></b-form-file>
             </b-form-group>
           </b-form>
           <template v-slot:modal-footer>
             <div class="w-100 text-right">
               <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
-              <b-button variant="dark" @click="dialogActivityVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
+              <b-button variant="dark" @click="dialogAnnualVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
               <b-button variant="secondary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
             </div>
           </template>
-    </b-modal>
-
-    <b-modal :title="$t('handy_files')" id="handyFiles" hide-footer>
-      <a href="/voorbeeld_activiteitenplan.pdf" target="_blank"><b-icon-paperclip></b-icon-paperclip> {{$t('example')}}</a>
     </b-modal>
   </b-tab>
 </template>
@@ -57,40 +51,42 @@ import openApiContainer from '@/openapi.container';
 import { AdministrationService } from '@/openapi/api/administration.service';
 import HttpResponse from '@/openapi/HttpResponse';
 import { ActivityPlan } from '@/openapi/model/activityPlan';
+import { AnnualReport } from '@/openapi/model/annualReport';
 import { ResultActivityPlan } from '@/openapi/model/resultActivityPlan';
+import { ResultAnnualReport } from '@/openapi/model/resultAnnualReport';
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({})
-export default class OverviewActivityPlan extends Vue {
+export default class OverviewAnnualReport extends Vue {
     private readonly administrationService = openApiContainer.get<AdministrationService>('AdministrationService');
-    private fieldsPlans: any[] = [];
+    private fieldsReports: any[] = [];
 
-    private dialogActivityVisible: boolean = false;
+    private dialogAnnualVisible: boolean = false;
     private edit: boolean = false;
-    private activityPlan: ActivityPlan = { id: 0, delivered: '', start: '', end: '', user: {id: 0, email: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
-    private activityPlanDocument?: Blob = new Blob();
-
-    private dialogLinksVisible: boolean = false;
+    private annualReport: AnnualReport = { id: 0, delivered: '' };
+    private annualReportDocument?: Blob = new Blob();
+    private activityPlanId: number = 0;
+    private activityPlans: Array<{value: number, text: string}> = [];
 
     private count: number = 0;
     private pageSize: number = 25;
     private page: number = 1;
 
     public mounted() {
-        this.fieldsPlans = [
+        this.fieldsReports = [
             {
-                key: 'user.fullName',
+                key: 'activityPlan.user.fullName',
                 label: this.$t('table.name').toString(),
                 sortable: true,
             },
             {
-                key: 'start',
+                key: 'activityPlan.start',
                 label: this.$t('table.start').toString(),
                 sortable: true,
             },
             {
-                key: 'end',
+                key: 'activityPlan.end',
                 label: this.$t('table.end').toString(),
                 sortable: true,
             },
@@ -100,68 +96,77 @@ export default class OverviewActivityPlan extends Vue {
                 sortable: true,
             },
         ];
-    }
 
-    private getPlans() {
-        return new Promise((resolve) => {
-            this.administrationService.activityPlanGetAll(0, 100, undefined, 'response').subscribe((res: HttpResponse<ResultActivityPlan>) => {
-                res.response.activityPlans.forEach((plan) => {
-                    plan.start = moment(plan.start).format('DD-MM-YYYY');
-                    plan.end = moment(plan.end).format('DD-MM-YYYY');
-                    plan.delivered = moment(plan.delivered).tz('UTC').format('DD-MM-YYYY HH:mm:ss');
-                });
+        this.administrationService.activityPlanGetAll(0, 100, true, 'response').subscribe((res: HttpResponse<ResultActivityPlan>) => {
+            this.activityPlans = [];
 
-                resolve(res.response.activityPlans);
+            res.response.activityPlans.forEach((x) => {
+                this.activityPlans.push({value: x.id, text: moment(x.start).tz('UTC').format('DD-MM-YYYY') + ' - ' + moment(x.end).tz('UTC').format('DD-MM-YYYY') });
             });
         });
     }
 
+    private getReports() {
+        return new Promise((resolve) => {
+            this.administrationService.annualReportGetAll((this.page - 1) * this.pageSize, this.pageSize, 'response').subscribe((res: HttpResponse<ResultAnnualReport>) => {
+                this.count = res.response.count;
+
+                res.response.annualReports.forEach((plan) => {
+                    plan.delivered = moment(plan.delivered).tz('UTC').format('DD-MM-YYYY HH:mm:ss');
+                    plan.activityPlan!.start = moment(plan.activityPlan!.start).format('DD-MM-YYYY');
+                    plan.activityPlan!.end = moment(plan.activityPlan!.end).format('DD-MM-YYYY');
+                });
+
+                resolve(res.response.annualReports);
+            });
+        });
+    }
+
+    private rowClicked(record: AnnualReport, index: number) {
+      const value = JSON.parse(JSON.stringify(record));
+      value.delivered = moment(value.delivered, 'DD-MM-YYYY').toDate() as any;
+      this.annualReport = value;
+      this.activityPlanId = value.activityPlan.id;
+      this.annualReportDocument = undefined;
+
+      this.edit = true;
+      this.dialogAnnualVisible = true;
+    }
+
     private changePage(index: number | null) {
     if (index) {
-      (this.$refs.tablePlans as any).refresh();
+      (this.$refs.tableReports as any).refresh();
     }
   }
 
-    private rowClicked(record: ActivityPlan, index: number) {
-      const value = JSON.parse(JSON.stringify(record));
-      value.start = moment(value.start, 'DD-MM-YYYY').toDate() as any;
-      value.end = moment(value.end, 'DD-MM-YYYY').toDate() as any;
-      value.delivered = moment(value.delivered, 'DD-MM-YYYY').toDate() as any;
-      this.activityPlan = value;
-      this.activityPlanDocument = undefined;
-
-      this.edit = true;
-      this.dialogActivityVisible = true;
-    }
-
     private openAddDialog() {
-      this.activityPlanDocument = undefined;
-      this.activityPlan = { id: 0, delivered: '', start: '', end: '', user: {id: 0, email: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
+      this.annualReportDocument = undefined;
+      this.annualReport = { id: 0, delivered: '' };
 
       this.edit = false;
-      this.dialogActivityVisible = true;
+      this.dialogAnnualVisible = true;
     }
 
     private submitDialog() {
       if (!this.edit) {
-        this.administrationService.activityPlanCreate(this.activityPlan.start, this.activityPlan.end, this.activityPlanDocument!, 'response')
+        this.administrationService.annualReportCreate(this.activityPlanId, this.annualReportDocument!, 'response')
           .subscribe(this.handleSucces, this.handleError);
 
       } else {
-        this.administrationService.activityPlanUpdate(this.activityPlan.id, this.activityPlan.start, this.activityPlan.end, this.activityPlanDocument, 'response')
+        this.administrationService.annualReportUpdate(this.annualReport.id, this.activityPlanId, this.annualReportDocument, 'response')
           .subscribe(this.handleSucces, this.handleError);
       }
     }
 
     private deleteItem() {
-      this.administrationService.activityPlanDelete(this.activityPlan.id, 'response')
+      this.administrationService.annualReportDelete(this.annualReport.id, 'response')
         .subscribe(this.handleSucces, this.handleError);
     }
 
     private handleSucces() {
       this.$notify({group: 'foo', text: this.$t('action_success').toString(), type: 'success'});
-      (this.$refs.tablePlans as any).refresh();
-      this.dialogActivityVisible = false;
+      (this.$refs.tableReports as any).refresh();
+      this.dialogAnnualVisible = false;
     }
 
     private handleError(err: HttpResponse) {
@@ -174,10 +179,6 @@ export default class OverviewActivityPlan extends Vue {
       } else {
         this.$notify({group: 'foo', text: this.$t('error.unknown').toString(), type: 'error'});
       }
-    }
-
-    private openLinkDialog() {
-      this.$bvModal.show('handyFiles');
     }
 }
 </script>
