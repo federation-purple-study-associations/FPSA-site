@@ -3,7 +3,7 @@
     <b-container class="activity-plan">
         <b-row>
         <b-col class="mb-3 mt-3 w-100 text-right">
-          <b-button @click="openLinkDialog" variant="outline-primary" class="mr-2">{{$t('handy_files')}}</b-button>
+          <!-- <b-button @click="openLinkDialog" variant="outline-primary" class="mr-2">{{$t('handy_files')}}</b-button> -->
           <b-button @click="openAddDialog" variant="outline-primary">{{$t('add')}}</b-button>
         </b-col>
       </b-row>
