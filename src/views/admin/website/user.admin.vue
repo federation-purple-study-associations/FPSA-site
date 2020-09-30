@@ -297,6 +297,9 @@ export default class BoardAdmin extends Vue {
     if (err.status === 400) {
       this.$notify({group: 'foo', text: this.$t('error.form_not_filled_in_correctly').toString(), type: 'error'});
 
+    } else if (err.status === 401 || err.status === 403) {
+      this.$notify({group: 'foo', text: this.$t('error.no_permission').toString(), type: 'error'});
+
     } else {
       this.$notify({group: 'foo', text: this.$t('error.unknown').toString(), type: 'error'});
     }

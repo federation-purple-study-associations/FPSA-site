@@ -40,6 +40,7 @@
         },
         "error": {
             "form_not_filled_in_correctly": "Niet alles is correct ingevuld...",
+            "no_permission": "U heeft geen rechten tot deze actie...",
             "unknown": "Een onbekende error is opgetreden..."
         }
     },
@@ -84,6 +85,7 @@
         },
         "error": {
             "form_not_filled_in_correctly": "Form is not filled in correctly...",
+            "no_permission": "You have no rights to this action ...",
             "unknown": "An unknown error has occured..."
         }
     }
