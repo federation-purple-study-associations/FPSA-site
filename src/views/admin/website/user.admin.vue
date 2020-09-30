@@ -3,10 +3,10 @@
     <b-container class="user-admin">
       <b-row>
         <b-col class="mb-3 mt-3 w-100 text-right">
-          <b-button @click="openContactMembersDialog" variant="outline-primary" class="mr-2">{{$t('contact_member')}}</b-button>
-          <b-button @click="exportMember" variant="outline-primary" class="mr-2">{{$t('export')}}</b-button>
-          <b-button @click="openApplicationDialog" variant="outline-primary" class="mr-2">{{$t('applications.title')}}</b-button>
-          <b-button @click="openAddDialog" variant="outline-primary">{{$t('add')}}</b-button>
+          <b-button @click="openContactMembersDialog" variant="outline-primary" v-if="hasWritePermission">{{$t('contact_member')}}</b-button>
+          <b-button @click="exportMember" variant="outline-primary" class="ml-2">{{$t('export')}}</b-button>
+          <b-button @click="openApplicationDialog" variant="outline-primary" class="ml-2" v-if="hasWritePermission">{{$t('applications.title')}}</b-button>
+          <b-button @click="openAddDialog" variant="outline-primary" class="ml-2" v-if="hasWritePermission">{{$t('add')}}</b-button>
         </b-col>
       </b-row>
       <b-row>
@@ -182,7 +182,12 @@ export default class BoardAdmin extends Vue {
 
   private excelData: User[] = [];
 
+  // Permissions
+  private hasWritePermission: boolean = false;
+
   public mounted() {
+    this.hasWritePermission = this.$store.getters.hasPermission('User:Write');
+
     this.fieldsUsers = [
       {
         key: 'fullName',
