@@ -14,7 +14,8 @@
         "action_success": "Actie was succesvol!",
         "roles": {
             "fpsa": "FPSA",
-            "association": "Vereniging"
+            "association": "Vereniging",
+            "fontys": "Fontys"
         },
         "export": "Exporteer leden",
         "dialog": {
@@ -59,7 +60,8 @@
         "action_success": "Action was successful!",
         "roles": {
             "fpsa": "FPSA",
-            "association": "Association"
+            "association": "Association",
+            "fontys": "Fontys"
         },
         "export": "Export members",
         "dialog": {
