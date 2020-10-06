@@ -37,7 +37,7 @@
           <b-modal id="agenda__modal" :title="agendaItem.title" hide-footer>
             <img :src="this.url + '/agenda/photo?id=' + agendaItem.id" style="width: 100%"/><br><br>
             <b>{{$t('location')}}</b> {{agendaItem.location}}<br>
-            <b>{{$t('date')}}</b> {{moment(agendaItem.date).format('DD-MM-YYYY HH:mm')}}<br><br>
+            <b>{{$t('date')}}</b> {{moment(agendaItem.date).tz("UTC").format('DD-MM-YYYY HH:mm')}}<br><br>
             {{agendaItem.description}}
           </b-modal>
         </b-col>
