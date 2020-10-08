@@ -50,14 +50,11 @@
         <b-col>
           <router-link to="/agenda" class="agenda__link--no-underline">
             <h1 class="title--purple">{{$t('agenda.title')}}</h1>
-            <b-carousel control indictators>
-              <b-carousel-slide
-                v-for="item in agendaItems" :key="item.id"
-                :caption="item.title"
-                :img-src="url+ '/agenda/photo?id=' + item.id"
-                :text="item.summary">
-              </b-carousel-slide>
-            </b-carousel>
+            <div v-if="agendaItems[0]" class="text-center">
+              <img :src="url+ '/agenda/photo?id=' + agendaItems[0].id" class="agenda__image"/>
+              <h2 class="title--purple">{{agendaItems[0].title}}</h2>
+              <p>{{agendaItems[0].summary}}</p>
+            </div>
           </router-link>
         </b-col>
       </b-row> 
@@ -151,6 +148,10 @@ export default class Home extends Vue {
     &--purple {
       color: $color-active;
     }
+  }
+
+  &__image {
+    height: 300px;
   }
 
   &__link {
