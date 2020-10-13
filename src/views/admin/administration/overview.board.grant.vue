@@ -1,15 +1,14 @@
 <template scoped>
-  <b-tab :title="$t('titles.activity_plan')">
-    <b-container class="activity-plan">
+  <b-tab :title="$t('titles.board_grant')">
+    <b-container class="board-grant">
         <b-row>
         <b-col class="mb-3 mt-3 w-100 text-right">
-          <!-- <b-button @click="openLinkDialog" variant="outline-primary" class="mr-2">{{$t('handy_files')}}</b-button> -->
           <b-button @click="openAddDialog" variant="outline-primary">{{$t('add')}}</b-button>
         </b-col>
       </b-row>
       <b-row>
         <b-col>
-          <b-table striped hover sticky-header ref="tablePlans" :items="getPlans" :fields="fieldsPlans" class="clickable" @row-clicked="rowClicked">
+          <b-table striped hover sticky-header ref="tableGrants" :items="getGrants" :fields="fieldsGrants" class="clickable" @row-clicked="rowClicked">
           </b-table>
 
           <b-pagination align="center" :total-rows="count" :per-page="pageSize" v-model="page" @input="changePage"></b-pagination>
@@ -24,26 +23,42 @@
         hide-header-close
         scrollable>
           <b-form>
-            <b-form-group :label="$t('table.start')">
-              <b-form-datepicker v-model="activityPlan.start"></b-form-datepicker>
-            </b-form-group>
-            <b-form-group :label="$t('table.end')">
-              <b-form-datepicker v-model="activityPlan.end"></b-form-datepicker>
-            </b-form-group>
             <b-form-group :label="$t('table.delivered')" v-if="edit">
-              <b-form-datepicker v-model="activityPlan.delivered" disabled></b-form-datepicker>
+              <b-form-datepicker v-model="boardGrant.delivered" disabled></b-form-datepicker>
             </b-form-group>
             <b-form-group :label="$t('table.document')">
-              <b-form-file :placeholder="edit ? $t('dialog.activity_plan_note') : ''" v-model="activityPlanDocument"></b-form-file>
+              <b-form-file :placeholder="edit ? $t('dialog.document_note') : ''" v-model="boardGrantDocument"></b-form-file>
             </b-form-group>
           </b-form>
           <template v-slot:modal-footer>
             <div class="w-100 text-right">
               <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
               <b-button variant="dark" @click="dialogActivityVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
-              <b-button variant="secondary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
+              <b-button variant="secondary" @click="dialogConfirmationVisible = true">{{$t('dialog.confirm')}}</b-button>
             </div>
           </template>
+    </b-modal>
+
+    <b-modal :visible.sync="dialogConfirmationVisible" :title="$t('dialog.title_confirmation')">
+      <div>
+        <b>
+          {{$t('dialog.confirmation')}}
+          <ul>
+            <li>{{$t('dialog.checklist.board')}}</li>
+            <li>{{$t('dialog.checklist.kvk')}}</li>
+            <li>{{$t('dialog.checklist.members')}}</li>
+            <li>{{$t('dialog.checklist.code_of_conduct')}}</li>
+            <li>{{$t('dialog.checklist.statutes')}}</li>
+            <li>{{$t('dialog.checklist.checklist')}}</li>
+          </ul>
+        </b>
+      </div>
+      <template v-slot:modal-footer>
+        <div class="w-100 text-right">
+          <b-button variant="dark" @click="dialogConfirmationVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
+          <b-button variant="secondary" @click="uploadDocument">{{$t('dialog.confirm')}}</b-button>
+        </div>
+      </template>
     </b-modal>
   </b-tab>
 </template>
@@ -52,42 +67,32 @@
 import openApiContainer from '@/openapi.container';
 import { AdministrationService } from '@/openapi/api/administration.service';
 import HttpResponse from '@/openapi/HttpResponse';
-import { ActivityPlan } from '@/openapi/model/activityPlan';
+import { BoardGrant } from '@/openapi/model/boardGrant';
 import { ResultActivityPlan } from '@/openapi/model/resultActivityPlan';
+import { ResultBoardGrant } from '@/openapi/model/resultBoardGrant';
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({})
-export default class OverviewActivityPlan extends Vue {
+export default class OverviewBoardGrants extends Vue {
     private readonly administrationService = openApiContainer.get<AdministrationService>('AdministrationService');
-    private fieldsPlans: any[] = [];
+    private fieldsGrants: any[] = [];
 
     private dialogActivityVisible: boolean = false;
+    private dialogConfirmationVisible: boolean = false;
     private edit: boolean = false;
-    private activityPlan: ActivityPlan = { id: 0, delivered: '', start: '', end: '', user: {id: 0, email: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
-    private activityPlanDocument?: Blob = new Blob();
-
-    private dialogLinksVisible: boolean = false;
+    private boardGrant: BoardGrant = { id: 0, delivered: '', checked: false, checkedAt: '', user: {id: 0, email: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
+    private boardGrantDocument?: Blob = new Blob();
 
     private count: number = 0;
     private pageSize: number = 25;
     private page: number = 1;
 
     public mounted() {
-        this.fieldsPlans = [
+        this.fieldsGrants = [
             {
                 key: 'user.fullName',
                 label: this.$t('table.name').toString(),
-                sortable: true,
-            },
-            {
-                key: 'start',
-                label: this.$t('table.start').toString(),
-                sortable: true,
-            },
-            {
-                key: 'end',
-                label: this.$t('table.end').toString(),
                 sortable: true,
             },
             {
@@ -98,16 +103,14 @@ export default class OverviewActivityPlan extends Vue {
         ];
     }
 
-    private getPlans() {
+    private getGrants() {
         return new Promise((resolve) => {
-            this.administrationService.activityPlanGetAll(0, 100, undefined, 'response').subscribe((res: HttpResponse<ResultActivityPlan>) => {
-                res.response.activityPlans.forEach((plan) => {
-                    plan.start = moment(plan.start).format('DD-MM-YYYY');
-                    plan.end = moment(plan.end).format('DD-MM-YYYY');
-                    plan.delivered = moment(plan.delivered).tz('UTC').format('DD-MM-YYYY HH:mm:ss');
+            this.administrationService.boardGrantGetAll(0, 100, 'response').subscribe((res: HttpResponse<ResultBoardGrant>) => {
+                res.response.boardGrants.forEach((grants) => {
+                    grants.delivered = moment(grants.delivered).tz('UTC').format('DD-MM-YYYY HH:mm:ss');
                 });
 
-                resolve(res.response.activityPlans);
+                resolve(res.response.boardGrants);
             });
         });
     }
@@ -118,46 +121,45 @@ export default class OverviewActivityPlan extends Vue {
     }
   }
 
-    private rowClicked(record: ActivityPlan, index: number) {
+    private rowClicked(record: BoardGrant, index: number) {
       const value = JSON.parse(JSON.stringify(record));
-      value.start = moment(value.start, 'DD-MM-YYYY').toDate() as any;
-      value.end = moment(value.end, 'DD-MM-YYYY').toDate() as any;
       value.delivered = moment(value.delivered, 'DD-MM-YYYY').toDate() as any;
-      this.activityPlan = value;
-      this.activityPlanDocument = undefined;
+      this.boardGrant = value;
+      this.boardGrantDocument = undefined;
 
       this.edit = true;
       this.dialogActivityVisible = true;
     }
 
     private openAddDialog() {
-      this.activityPlanDocument = undefined;
-      this.activityPlan = { id: 0, delivered: '', start: '', end: '', user: {id: 0, email: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
+      this.boardGrantDocument = undefined;
+      this.boardGrant = { id: 0, delivered: '', checked: false, checkedAt: '', user: {id: 0, email: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
 
       this.edit = false;
       this.dialogActivityVisible = true;
     }
 
-    private submitDialog() {
+    private uploadDocument() {
       if (!this.edit) {
-        this.administrationService.activityPlanCreate(this.activityPlan.start, this.activityPlan.end, this.activityPlanDocument!, 'response')
+        this.administrationService.boardGrantCreate(this.boardGrantDocument!, 'response')
           .subscribe(this.handleSucces, this.handleError);
 
       } else {
-        this.administrationService.activityPlanUpdate(this.activityPlan.id, this.activityPlan.start, this.activityPlan.end, this.activityPlanDocument, 'response')
+        this.administrationService.boardGrantUpdate(this.boardGrant.id, this.boardGrantDocument, 'response')
           .subscribe(this.handleSucces, this.handleError);
       }
     }
 
     private deleteItem() {
-      this.administrationService.activityPlanDelete(this.activityPlan.id, 'response')
+      this.administrationService.boardGrantDelete(this.boardGrant.id, 'response')
         .subscribe(this.handleSucces, this.handleError);
     }
 
     private handleSucces() {
       this.$notify({group: 'foo', text: this.$t('action_success').toString(), type: 'success'});
-      (this.$refs.tablePlans as any).refresh();
+      (this.$refs.tableGrants as any).refresh();
       this.dialogActivityVisible = false;
+      this.dialogConfirmationVisible = false;
     }
 
     private handleError(err: HttpResponse) {

@@ -2,7 +2,8 @@
     "nl": {
         "titles": {
             "activity_plan": "Activiteitenplan",
-            "annual_report": "Jaarverslag"
+            "annual_report": "Jaarverslag",
+            "board_grant": "Bestuursbeursen"
         },
         "add": "Toevoegen",
         "handy_files": "Handige bestanden",
@@ -21,8 +22,18 @@
         "dialog": {
             "title_edit": "Bewerk activiteitenplan",
             "title_add": "Toevoegen activiteitenplan",
-            "document_note": "Laat leeg als je geen nieuw activiteitenplan wilt uploaden",
+            "title_confirmation": "Bevestiging",
+            "document_note": "Laat leeg als je geen nieuw document wilt uploaden",
             "empty_activity_plans_note": "Er zijn geen activiteitenplannen gevonden zonder jaarverslag...",
+            "confirmation": "Weet u zeker dat de volgende onderdelen aanwezig zijn in dit document:",
+            "checklist": {
+                "board": "Een overzicht van bestuursleden met hun functie",
+                "kvk": "Actuele uittreksel van de Kamer van Koophandel",
+                "members": "Ledenaantal per 1 januari (ondertekend door de voorzitter)",
+                "code_of_conduct": "Gedragscode (ondertekend door het gehele huidige bestuur)",
+                "statutes": "De laatste notariële statuten",
+                "checklist": "De checklist (ondertekend door de voorzitter)"
+            },
             "confirm": "Bevestigen",
             "delete": "Verwijderen",
             "cancel": "Annuleren"
@@ -36,7 +47,8 @@
     "en": {
         "titles": {
             "activity_plan": "Activity plan",
-            "annual_report": "Annual report"
+            "annual_report": "Annual report",
+            "board_grant": "Board grant"
         },
         "add": "Add",
         "handy_files": "Handy files",
@@ -55,8 +67,18 @@
         "dialog": {
             "title_edit": "Edit activity plan",
             "title_add": "Add activity plan",
-            "document_note": "Leave blank if you do not want to upload a new activity plan",
+            "title_confirmation": "Confirmation",
+            "document_note": "Leave blank if you do not want to upload a new document",
             "empty_activity_plans_note": "No activity plans were found without an annual report ...",
+            "confirmation": "Are you sure that the following items are included in the single document:",
+            "checklist": {
+                "board": "An overview of board members with their position",
+                "kvk": "Current extract from the Chamber of Commerce",
+                "members": "Number of members as of January 1 (signed by the chairman)",
+                "code_of_conduct": "Code of conduct (signed by the entire current board)",
+                "statutes": "The latest notarized statutes",
+                "checklist": "The checklist (signed by the chairman)"
+            },
             "confirm": "Confirm",
             "delete": "Delete",
             "cancel": "Cancel"

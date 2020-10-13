@@ -22,6 +22,7 @@ import HttpResponse from "../HttpResponse";
 
 import { ResultActivityPlan } from "../model/resultActivityPlan";
 import { ResultAnnualReport } from "../model/resultAnnualReport";
+import { ResultBoardGrant } from "../model/resultBoardGrant";
 
 import { COLLECTION_FORMATS }  from "../variables";
 
@@ -127,7 +128,7 @@ export class AdministrationService {
 
     /**
      * getAll
-     * This call can be used to get all of the activity plans. Based on your account you will get all of your activity plan (if you have roleId 2), or you will get all of the activity plans in the db (if you have roleId 1)
+     * This call can be used to get all of the activity plans. Based on your account you will get all of your activity plan (if you have roleId 2), or you will get all of the activity plans in the db (if you have roleId 1 or 3)
      * @param skip 
      * @param size 
      * @param emptyReport 
@@ -294,7 +295,7 @@ export class AdministrationService {
 
     /**
      * getAll
-     * This call can be used to get all of the annual reports. Based on your account you will get all of your annual reports (if you have roleId 2), or you will get all of the annual reports in the db (if you have roleId 1)
+     * This call can be used to get all of the annual reports. Based on your account you will get all of your annual reports (if you have roleId 2), or you will get all of the annual reports in the db (if you have roleId 1 or 3)
      * @param skip 
      * @param size 
      
@@ -378,6 +379,170 @@ export class AdministrationService {
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/administration/annualReport/${encodeURIComponent(String(id))}`, formData, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * check
+     * This call can be used to update the status of the board grant to checked
+     * @param id 
+     
+     */
+    public boardGrantCheck(id: number, observe?: 'body', headers?: Headers): Observable<any>;
+    public boardGrantCheck(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public boardGrantCheck(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling boardGrantCheck.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/administration/boardGrant/${encodeURIComponent(String(id))}/checked`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * create
+     * This call can be used to save a new board grant
+     * @param document 
+     
+     */
+    public boardGrantCreate(document?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public boardGrantCreate(document?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public boardGrantCreate(document?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        headers['Accept'] = 'application/json';
+
+        let formData: FormData = new FormData();
+        headers['Content-Type'] = 'multipart/form-data';
+        if (document !== undefined) {
+            formData.append('document', <any>document);
+        }
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/administration/boardGrant`, formData, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * delete
+     * This call can be used to delete the boardGrant
+     * @param id 
+     
+     */
+    public boardGrantDelete(id: number, observe?: 'body', headers?: Headers): Observable<any>;
+    public boardGrantDelete(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public boardGrantDelete(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling boardGrantDelete.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.delete(`${this.basePath}/administration/boardGrant/${encodeURIComponent(String(id))}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * getAll
+     * This call can be used to get all of the board garnts. Based on your account you will get all of your board grant (if you have roleId 2), or you will get all of the board grants in the db (if you have roleId 1 or 3)
+     * @param skip 
+     * @param size 
+     
+     */
+    public boardGrantGetAll(skip?: number, size?: number, observe?: 'body', headers?: Headers): Observable<ResultBoardGrant>;
+    public boardGrantGetAll(skip?: number, size?: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<ResultBoardGrant>>;
+    public boardGrantGetAll(skip?: number, size?: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        let queryParameters: string[] = [];
+        if (skip !== undefined) {
+            queryParameters.push("skip="+encodeURIComponent(String(skip)));
+        }
+        if (size !== undefined) {
+            queryParameters.push("size="+encodeURIComponent(String(size)));
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<ResultBoardGrant>> = this.httpClient.get(`${this.basePath}/administration/boardGrant?${queryParameters.join('&')}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <ResultBoardGrant>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * getDocument
+     * This call can be used to get the PDF of the board grant
+     * @param id 
+     
+     */
+    public boardGrantGetDocument(id: number, observe?: 'body', headers?: Headers): Observable<any>;
+    public boardGrantGetDocument(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public boardGrantGetDocument(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling boardGrantGetDocument.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/administration/boardGrant/${encodeURIComponent(String(id))}/document`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * update
+     * This call can be used to update the board grant
+     * @param id 
+     * @param document 
+     
+     */
+    public boardGrantUpdate(id: number, document?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public boardGrantUpdate(id: number, document?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public boardGrantUpdate(id: number, document?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling boardGrantUpdate.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        let formData: FormData = new FormData();
+        headers['Content-Type'] = 'multipart/form-data';
+        if (document !== undefined) {
+            formData.append('document', <any>document);
+        }
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/administration/boardGrant/${encodeURIComponent(String(id))}`, formData, headers);
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))
