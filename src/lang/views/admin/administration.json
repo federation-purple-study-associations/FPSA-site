@@ -17,7 +17,9 @@
             "name": "Naam",
             "period": "Periode",
             "activity_plan": "Activiteiten plan",
-            "document": "Document"
+            "document": "Document",
+            "checked": "Controleerd",
+            "checked_at": "Controleerd op"
         },
         "dialog": {
             "title_edit": "Bewerk activiteitenplan",
@@ -36,7 +38,8 @@
             },
             "confirm": "Bevestigen",
             "delete": "Verwijderen",
-            "cancel": "Annuleren"
+            "cancel": "Annuleren",
+            "complete": "Gecontroleerd"
         },
         "error": {
             "form_not_filled_in_correctly": "Niet alles is correct ingevuld...",
@@ -62,7 +65,9 @@
             "name": "Name",
             "period": "Period",
             "activity_plan": "Activity plan",
-            "document": "Document"
+            "document": "Document",
+            "checked": "Checked",
+            "checked_at": "Checked at"
         },
         "dialog": {
             "title_edit": "Edit activity plan",
@@ -81,7 +86,8 @@
             },
             "confirm": "Confirm",
             "delete": "Delete",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "complete": "Checked"
         },
         "error": {
             "form_not_filled_in_correctly": "Form is not filled in correctly...",

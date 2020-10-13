@@ -26,12 +26,19 @@
             <b-form-group :label="$t('table.delivered')" v-if="edit">
               <b-form-datepicker v-model="boardGrant.delivered" disabled></b-form-datepicker>
             </b-form-group>
+            <b-form-group :label="$t('table.checked')" v-if="edit && hasFPSARights">
+              <b-form-checkbox :checked="boardGrant.checked" disabled></b-form-checkbox>
+            </b-form-group>
+            <b-form-group :label="$t('table.checked_at')" v-if="edit && hasFPSARights">
+              <b-form-datepicker v-model="boardGrant.checkedAt" disabled></b-form-datepicker>
+            </b-form-group>
             <b-form-group :label="$t('table.document')">
               <b-form-file :placeholder="edit ? $t('dialog.document_note') : ''" v-model="boardGrantDocument"></b-form-file>
             </b-form-group>
           </b-form>
           <template v-slot:modal-footer>
             <div class="w-100 text-right">
+              <b-button variant="secondary" v-if="edit && hasFPSARights" @click="checkedItem" class="mr-2">{{$t('dialog.complete')}}</b-button>
               <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
               <b-button variant="dark" @click="dialogActivityVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
               <b-button variant="secondary" @click="dialogConfirmationVisible = true">{{$t('dialog.confirm')}}</b-button>
@@ -88,7 +95,11 @@ export default class OverviewBoardGrants extends Vue {
     private pageSize: number = 25;
     private page: number = 1;
 
+    private hasFPSARights: boolean = false;
+
     public mounted() {
+        this.hasFPSARights = this.$store.getters.hasPermission('Administration:System');
+
         this.fieldsGrants = [
             {
                 key: 'user.fullName',
@@ -152,6 +163,11 @@ export default class OverviewBoardGrants extends Vue {
 
     private deleteItem() {
       this.administrationService.boardGrantDelete(this.boardGrant.id, 'response')
+        .subscribe(this.handleSucces, this.handleError);
+    }
+
+    private checkedItem() {
+      this.administrationService.boardGrantCheck(this.boardGrant.id, 'response')
         .subscribe(this.handleSucces, this.handleError);
     }
 
