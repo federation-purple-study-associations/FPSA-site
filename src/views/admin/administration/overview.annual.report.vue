@@ -47,16 +47,7 @@
     </b-modal>
   
     <b-modal :title="$t('explanation')" id="explanation_annual_report" hide-footer>
-        {{$t('explanations.board_grant')}}
-       <ul>
-          <li>{{$t('dialog.checklist.board')}}</li>
-          <li>{{$t('dialog.checklist.kvk')}}</li>
-          <li>{{$t('dialog.checklist.members')}}</li>
-          <li>{{$t('dialog.checklist.code_of_conduct')}}</li>
-          <li>{{$t('dialog.checklist.statutes')}}</li>
-          <li>{{$t('dialog.checklist.checklist')}}</li>
-        </ul>
-        <b>{{$t('explanations.board_grant_note')}}</b>
+        {{$t('explanations.annual_report')}}
     </b-modal>
   </b-tab>
 </template>

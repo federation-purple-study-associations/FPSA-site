@@ -11,7 +11,8 @@
             "example": "Voorbeeld",
             "board_grant": "Om in aanmerking te komen voor de bestuursbeurzen dient in de periode van 1 november tot en met 26 januari het volgende aangeleverd te worden:",
             "board_grant_note": "LET OP: alles dient in 1 PDF aangeleverd te worden",
-            "activity_plan": "Binnen 2 maanden van iedere bestuurswissel dient er een activiteitenplan geupload te worden. Hierin leg je uit wat je gaat doen / wilt bereiken in je bestuursperiode. Hier is een format voor vanuit de Commissie Profileringsfonds. Hieronder is dit format te vinden samen met een voorbeeld:"
+            "activity_plan": "Binnen 2 maanden van iedere bestuurswissel dient er een activiteitenplan geupload te worden. Hierin leg je uit wat je gaat doen / wilt bereiken in je bestuursperiode. Hier is een format voor vanuit de Commissie Profileringsfonds. Hieronder is dit format te vinden samen met een voorbeeld:",
+            "annual_report": "Binnen 1 week van iedere bestuurswissel dient er een jaarverslag geupload te worden. Hierin leg je uit wat je hebt gedaan relatief gelegd aan je activiteitenplan"
         },
         "action_success": "Actie was succesvol!",
         "format": "Format activiteitenplan",
@@ -64,7 +65,8 @@
             "example": "Example",
             "board_grant": "In order to be eligible for the committee grants, the following must be submitted in the period from 1 November to 26 January:",
             "board_grant_note": "NOTE: everything must be delivered in 1 PDF-file",
-            "activity_plan": "An activity plan must be uploaded within 2 months of each board change. Here you explain what you are going to do / want to achieve during your board period. There is a format for this from the Profile Fund Committee. Below this format can be found together with an example:"
+            "activity_plan": "An activity plan must be uploaded within 2 months of each board change. Here you explain what you are going to do / want to achieve during your board period. There is a format for this from the Profile Fund Committee. Below this format can be found together with an example:",
+            "annual_report": "An annual report must be uploaded within 1 week of each board change. In it you explain what you have done relative to your activity plan"
         },
         "action_success": "Action was successful!",
         "format": "Format activity plan",
