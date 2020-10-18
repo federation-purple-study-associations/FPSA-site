@@ -3,6 +3,7 @@
     <b-container class="annual-report">
         <b-row>
         <b-col class="mb-3 mt-3 w-100 text-right">
+          <b-button class="mr-2" @click="openExplanationDialog" variant="outline-primary">{{$t('explanation')}}</b-button>
           <b-button @click="openAddDialog" variant="outline-primary">{{$t('add')}}</b-button>
         </b-col>
       </b-row>
@@ -34,6 +35,7 @@
             <b-form-group :label="$t('table.document')">
               <b-form-file :placeholder="edit ? $t('dialog.document_note') : ''" v-model="annualReportDocument"></b-form-file>
             </b-form-group>
+            <a :href="url + '/administration/annualReport/' + annualReport.id + '/document'" target="_blank" v-if="edit"><b-icon-paperclip/>Download</a><br>
           </b-form>
           <template v-slot:modal-footer>
             <div class="w-100 text-right">
@@ -42,6 +44,19 @@
               <b-button variant="secondary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
             </div>
           </template>
+    </b-modal>
+  
+    <b-modal :title="$t('explanation')" id="explanation" hide-footer>
+        {{$t('explanations.board_grant')}}
+       <ul>
+          <li>{{$t('dialog.checklist.board')}}</li>
+          <li>{{$t('dialog.checklist.kvk')}}</li>
+          <li>{{$t('dialog.checklist.members')}}</li>
+          <li>{{$t('dialog.checklist.code_of_conduct')}}</li>
+          <li>{{$t('dialog.checklist.statutes')}}</li>
+          <li>{{$t('dialog.checklist.checklist')}}</li>
+        </ul>
+        <b>{{$t('explanations.board_grant_note')}}</b>
     </b-modal>
   </b-tab>
 </template>
@@ -134,10 +149,14 @@ export default class OverviewAnnualReport extends Vue {
     }
 
     private changePage(index: number | null) {
-    if (index) {
-      (this.$refs.tableReports as any).refresh();
+      if (index) {
+        (this.$refs.tableReports as any).refresh();
+      }
     }
-  }
+
+    private openExplanationDialog() {
+      this.$bvModal.show('explanation');
+    }
 
     private openAddDialog() {
       this.annualReportDocument = undefined;

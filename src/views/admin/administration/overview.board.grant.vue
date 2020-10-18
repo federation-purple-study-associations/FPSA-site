@@ -3,7 +3,7 @@
     <b-container class="board-grant">
         <b-row>
         <b-col class="mb-3 mt-3 w-100 text-right">
-          <b-button @click="openExplanationDialog" variant="outline-primary">{{$t('explanation')}}</b-button>
+          <b-button class="mr-2" @click="openExplanationDialog" variant="outline-primary">{{$t('explanation')}}</b-button>
           <b-button @click="openAddDialog" variant="outline-primary">{{$t('add')}}</b-button>
         </b-col>
       </b-row>
@@ -36,7 +36,7 @@
             <b-form-group :label="$t('table.document')">
               <b-form-file :placeholder="edit ? $t('dialog.document_note') : ''" v-model="boardGrantDocument"></b-form-file>
             </b-form-group>
-            <a :href="url + '/administration/' + boardGrant.id + '/document'" target="_blank"><b-icon-paperclip/>Download</a><br>
+            <a :href="url + '/administration/boardGrant/' + boardGrant.id + '/document'" target="_blank" v-if="edit"><b-icon-paperclip/>Download</a><br>
           </b-form>
           <template v-slot:modal-footer>
             <div class="w-100 text-right">
@@ -71,7 +71,7 @@
     </b-modal>
 
     <b-modal :title="$t('explanation')" id="explanation" hide-footer>
-        {{$t('explanation.board_grant')}}
+        {{$t('explanations.board_grant')}}
        <ul>
             <li>{{$t('dialog.checklist.board')}}</li>
             <li>{{$t('dialog.checklist.kvk')}}</li>
@@ -80,7 +80,7 @@
             <li>{{$t('dialog.checklist.statutes')}}</li>
             <li>{{$t('dialog.checklist.checklist')}}</li>
         </ul>
-        <b>{{$t('explanation.board_grant_note')}}</b>
+        <b>{{$t('explanations.board_grant_note')}}</b>
     </b-modal>
   </b-tab>
 </template>
