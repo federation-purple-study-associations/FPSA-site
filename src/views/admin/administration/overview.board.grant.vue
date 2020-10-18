@@ -36,6 +36,7 @@
             <b-form-group :label="$t('table.document')">
               <b-form-file :placeholder="edit ? $t('dialog.document_note') : ''" v-model="boardGrantDocument"></b-form-file>
             </b-form-group>
+            <a :href="url + '/administration/' + boardGrant.id + '/document'" target="_blank"><b-icon-paperclip/>Download</a><br>
           </b-form>
           <template v-slot:modal-footer>
             <div class="w-100 text-right">
@@ -98,6 +99,7 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class OverviewBoardGrants extends Vue {
     private readonly administrationService = openApiContainer.get<AdministrationService>('AdministrationService');
     private fieldsGrants: any[] = [];
+    private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
     private dialogActivityVisible: boolean = false;
     private dialogConfirmationVisible: boolean = false;
