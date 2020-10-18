@@ -46,7 +46,7 @@
           </template>
     </b-modal>
   
-    <b-modal :title="$t('explanation')" id="explanation" hide-footer>
+    <b-modal :title="$t('explanation')" id="explanation_annual_report" hide-footer>
         {{$t('explanations.board_grant')}}
        <ul>
           <li>{{$t('dialog.checklist.board')}}</li>
@@ -76,6 +76,7 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class OverviewAnnualReport extends Vue {
     private readonly administrationService = openApiContainer.get<AdministrationService>('AdministrationService');
     private fieldsReports: any[] = [];
+    private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
     private dialogAnnualVisible: boolean = false;
     private edit: boolean = false;
@@ -155,7 +156,7 @@ export default class OverviewAnnualReport extends Vue {
     }
 
     private openExplanationDialog() {
-      this.$bvModal.show('explanation');
+      this.$bvModal.show('explanation_annual_report');
     }
 
     private openAddDialog() {

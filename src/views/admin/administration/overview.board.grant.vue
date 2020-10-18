@@ -70,7 +70,7 @@
       </template>
     </b-modal>
 
-    <b-modal :title="$t('explanation')" id="explanation" hide-footer>
+    <b-modal :title="$t('explanation')" id="explanation_board_grant" hide-footer>
         {{$t('explanations.board_grant')}}
        <ul>
             <li>{{$t('dialog.checklist.board')}}</li>
@@ -154,7 +154,7 @@ export default class OverviewBoardGrants extends Vue {
     }
 
     private openExplanationDialog() {
-      this.$bvModal.show('explanation');
+      this.$bvModal.show('explanation_board_grant');
     }
 
     private rowClicked(record: BoardGrant, index: number) {

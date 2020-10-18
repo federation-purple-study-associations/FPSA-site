@@ -47,17 +47,10 @@
           </template>
     </b-modal>
 
-    <b-modal :title="$t('explanation')" id="explanation" hide-footer>
-        {{$t('explanations.board_grant')}}
-       <ul>
-          <li>{{$t('dialog.checklist.board')}}</li>
-          <li>{{$t('dialog.checklist.kvk')}}</li>
-          <li>{{$t('dialog.checklist.members')}}</li>
-          <li>{{$t('dialog.checklist.code_of_conduct')}}</li>
-          <li>{{$t('dialog.checklist.statutes')}}</li>
-          <li>{{$t('dialog.checklist.checklist')}}</li>
-        </ul>
-        <b>{{$t('explanations.board_grant_note')}}</b>
+    <b-modal :title="$t('explanation')" id="explanation_activity_plan" hide-footer>
+        {{$t('explanations.activity_plan')}}
+        <a href="/format-activity-plan.docx" target="_blank"><b-icon-paperclip/>Format {{$t('titles.activity_plan')}}</a><br>
+        <a href="/example-activity-plan.pdf" target="_blank"><b-icon-paperclip/>{{$t('explanations.example')}} {{$t('titles.activity_plan')}}</a><br>
     </b-modal>
   </b-tab>
 </template>
@@ -75,6 +68,7 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class OverviewActivityPlan extends Vue {
     private readonly administrationService = openApiContainer.get<AdministrationService>('AdministrationService');
     private fieldsPlans: any[] = [];
+    private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
     private dialogActivityVisible: boolean = false;
     private edit: boolean = false;
@@ -127,10 +121,10 @@ export default class OverviewActivityPlan extends Vue {
     }
 
     private changePage(index: number | null) {
-    if (index) {
-      (this.$refs.tablePlans as any).refresh();
+      if (index) {
+        (this.$refs.tablePlans as any).refresh();
+      }
     }
-  }
 
     private rowClicked(record: ActivityPlan, index: number) {
       const value = JSON.parse(JSON.stringify(record));
@@ -145,7 +139,7 @@ export default class OverviewActivityPlan extends Vue {
     }
 
     private openExplanationDialog() {
-      this.$bvModal.show('explanation');
+      this.$bvModal.show('explanation_activity_plan');
     }
 
     private openAddDialog() {
