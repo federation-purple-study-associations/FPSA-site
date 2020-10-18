@@ -34,9 +34,9 @@
               <b-form-datepicker v-model="activityPlan.delivered" disabled></b-form-datepicker>
             </b-form-group>
             <b-form-group :label="$t('table.document')">
-              <b-form-file :placeholder="edit ? $t('dialog.activity_plan_note') : ''" v-model="activityPlanDocument"></b-form-file>
+              <b-form-file :placeholder="edit ? $t('dialog.document_note') : ''" v-model="activityPlanDocument"></b-form-file>
             </b-form-group>
-            <a :href="url + '/administration/activityPlan/' + activityPlan.id + '/document'" target="_blank" v-if="edit"><b-icon-paperclip/>Download</a><br>
+            <a :href="url + '/administration/activityplan/' + activityPlan.id + '/document'" target="_blank" v-if="edit"><b-icon-paperclip/>Download</a><br>
           </b-form>
           <template v-slot:modal-footer>
             <div class="w-100 text-right">
