@@ -48,7 +48,8 @@
     </b-modal>
 
     <b-modal :title="$t('explanation')" id="explanation_activity_plan" hide-footer>
-        {{$t('explanations.activity_plan')}}
+        {{$t('explanations.activity_plan')}}<br>
+        <br>
         <a href="/format-activity-plan.docx" target="_blank"><b-icon-paperclip/>Format {{$t('titles.activity_plan')}}</a><br>
         <a href="/example-activity-plan.pdf" target="_blank"><b-icon-paperclip/>{{$t('explanations.example')}} {{$t('titles.activity_plan')}}</a><br>
     </b-modal>
