@@ -6,7 +6,11 @@
             "board_grant": "Bestuursbeurzen"
         },
         "add": "Toevoegen",
-        "handy_files": "Handige bestanden",
+        "explanation": "Uitleg",
+        "explanations": {
+            "board_grant": "Om in aanmerking te komen voor de bestuursbeurzen dient in de periode van 1 november tot en met 26 januari het volgende aangeleverd te worden:",
+            "board_grant_note": "LET OP: alles dient in 1 PDF aangeleverd te worden"
+        },
         "action_success": "Actie was succesvol!",
         "format": "Format activiteitenplan",
         "example": "Voorbeeld activiteitenplan",
@@ -54,7 +58,10 @@
             "board_grant": "Board grant"
         },
         "add": "Add",
-        "handy_files": "Handy files",
+        "explanations": {
+            "board_grant": "In order to be eligible for the committee grants, the following must be submitted in the period from 1 November to 26 January:",
+            "board_grant_note": "NOTE: everything must be delivered in 1 PDF-file"
+        },
         "action_success": "Action was successful!",
         "format": "Format activity plan",
         "example": "Example activity plan",
