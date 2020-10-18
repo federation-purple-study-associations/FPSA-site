@@ -111,6 +111,11 @@ export default class OverviewBoardGrants extends Vue {
                 label: this.$t('table.delivered').toString(),
                 sortable: true,
             },
+            {
+              key: 'checked',
+              label: this.$t('table.checked').toString(),
+              sortable: true,
+            }
         ];
     }
 

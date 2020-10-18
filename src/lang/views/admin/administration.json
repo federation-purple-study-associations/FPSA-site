@@ -22,8 +22,8 @@
             "checked_at": "Controleerd op"
         },
         "dialog": {
-            "title_edit": "Bewerk activiteitenplan",
-            "title_add": "Toevoegen activiteitenplan",
+            "title_edit": "Bewerken",
+            "title_add": "Toevoegen",
             "title_confirmation": "Bevestiging",
             "document_note": "Laat leeg als je geen nieuw document wilt uploaden",
             "empty_activity_plans_note": "Er zijn geen activiteitenplannen gevonden zonder jaarverslag...",
