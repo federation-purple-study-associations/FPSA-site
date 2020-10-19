@@ -61,7 +61,7 @@
             <div class="w-100 text-right">
               <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
               <b-button variant="dark" @click="dialogVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
-              <b-button variant="secondary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
+              <b-button variant="secondary" @click="submitDialog" :disabled="loading"><b-overlay :show="loading" rounded="sm">{{$t('dialog.confirm')}}</b-overlay></b-button>
             </div>
           </template>
       </b-modal>
@@ -93,6 +93,7 @@ export default class BoardAdmin extends Vue {
   // Dialog
   private dialogVisible = false;
   private edit = false;
+  private loading = false;
   private boardForDialog: Board = {
     titleNL: '',
     titleEN: '',
@@ -154,6 +155,8 @@ export default class BoardAdmin extends Vue {
   }
 
   private submitDialog() {
+    this.loading = true;
+
     if (this.edit) {
         this.boardService.boardpdate(
             this.boardForDialog.id,
@@ -180,6 +183,8 @@ export default class BoardAdmin extends Vue {
   }
 
   private handleError(err: HttpResponse) {
+    this.loading = false;
+
     if (err.status === 400) {
       this.$notify({group: 'foo', text: this.$t('error.form_not_filled_in_correctly').toString(), type: 'error'});
 
@@ -192,6 +197,7 @@ export default class BoardAdmin extends Vue {
     this.$notify({group: 'foo', text: this.$t('action_success').toString(), type: 'success'});
     this.getBoards(this.$store.getters.currentLanguage);
     this.dialogVisible = false;
+    this.loading = false;
   }
 
   private deleteItem() {

@@ -49,7 +49,7 @@
             <div class="w-100 text-right">
               <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
               <b-button variant="dark" @click="dialogUserVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
-              <b-button variant="secondary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
+              <b-button variant="secondary" @click="submitDialog" :disabled="loading"><b-overlay :show="loading" rounded="sm">{{$t('dialog.confirm')}}</b-overlay></b-button>
             </div>
           </template>
       </b-modal>
@@ -141,6 +141,7 @@ export default class BoardAdmin extends Vue {
   private fieldsUsers: any[] = [];
   private fieldsApplications: any[] = [];
   private moment = moment;
+  private loading = false;
 
   // Dialog user
   private dialogUserVisible = false;
@@ -159,7 +160,6 @@ export default class BoardAdmin extends Vue {
 
   // Dialog contact members
   private dialogContactVisible = false;
-  private loading = false;
   private isIllegal = true;
   private contactForm: ContactMembersDTO = {
     subject: '',
@@ -282,6 +282,8 @@ export default class BoardAdmin extends Vue {
   }
 
   private submitDialog() {
+    this.loading = true;
+
     if (this.edit) {
       this.userService.userUpdate(
         this.userForDialog.id,
@@ -300,6 +302,8 @@ export default class BoardAdmin extends Vue {
   }
 
   private handleError(err: HttpResponse) {
+    this.loading = false;
+
     if (err.status === 400) {
       this.$notify({group: 'foo', text: this.$t('error.form_not_filled_in_correctly').toString(), type: 'error'});
 
@@ -315,6 +319,7 @@ export default class BoardAdmin extends Vue {
     this.$notify({group: 'foo', text: this.$t('applications.successful').toString(), type: 'success'});
     (this.$refs.tableUsers as any).refresh();
     this.dialogUserVisible = false;
+    this.loading = false;
   }
 
   private openApplicationDialog() {

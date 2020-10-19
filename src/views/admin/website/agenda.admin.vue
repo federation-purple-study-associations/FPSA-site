@@ -72,7 +72,7 @@
             <div class="w-100 text-right">
               <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
               <b-button variant="dark" @click="dialogVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
-              <b-button variant="secondary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
+              <b-button variant="secondary" @click="submitDialog" :disabled="loading"><b-overlay :show="loading" rounded="sm">{{$t('dialog.confirm')}}</b-overlay></b-button>
             </div>
           </template>
       </b-modal>
@@ -115,6 +115,7 @@ export default class AgendaAdmin extends Vue {
   // Dialog
   private dialogVisible = false;
   private edit = false;
+  private loading = false;
   private image?: Blob = new Blob();
   private time: string = '';
   private agendaItemForDialog: AgendaItem = {
@@ -197,6 +198,8 @@ export default class AgendaAdmin extends Vue {
   }
 
   private submitDialog() {
+    this.loading = true;
+
     if (this.edit) {
       this.agendaService.agendaUpdate(
         this.agendaItemForDialog.id,
@@ -231,6 +234,8 @@ export default class AgendaAdmin extends Vue {
   }
 
   private handleError(err: HttpResponse) {
+    this.loading = false;
+
     if (err.status === 400) {
       this.$notify({group: 'foo', text: this.$t('error.form_not_filled_in_correctly').toString(), type: 'error'});
 
@@ -243,6 +248,7 @@ export default class AgendaAdmin extends Vue {
     this.$notify({group: 'foo', text: this.$t('action_success').toString(), type: 'success'});
     this.getAgendaItems(this.$store.getters.currentLanguage);
     this.dialogVisible = false;
+    this.loading = false;
   }
 
   private deleteItem() {

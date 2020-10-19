@@ -65,7 +65,7 @@
       <template v-slot:modal-footer>
         <div class="w-100 text-right">
           <b-button variant="dark" @click="dialogConfirmationVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
-          <b-button variant="secondary" @click="uploadDocument"><b-overlay :show="loading" rounded="sm">{{$t('dialog.confirm')}}</b-overlay></b-button>
+          <b-button variant="secondary" @click="uploadDocument" :disabled="loading"><b-overlay :show="loading" rounded="sm">{{$t('dialog.confirm')}}</b-overlay></b-button>
         </div>
       </template>
     </b-modal>
