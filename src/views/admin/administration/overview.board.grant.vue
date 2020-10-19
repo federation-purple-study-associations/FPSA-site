@@ -10,6 +10,9 @@
       <b-row>
         <b-col>
           <b-table striped hover sticky-header ref="tableGrants" :items="getGrants" :fields="fieldsGrants" class="clickable" @row-clicked="rowClicked">
+            <template #cell(checked)="data">
+              {{ data.value ? $t('table.yes') + ' (' + moment(data.checkedAt).format('DD-MM-YYYY') + ')' : $t('table.no') }}
+            </template>
           </b-table>
 
           <b-pagination align="center" :total-rows="count" :per-page="pageSize" v-model="page" @input="changePage"></b-pagination>
@@ -99,6 +102,7 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class OverviewBoardGrants extends Vue {
     private readonly administrationService = openApiContainer.get<AdministrationService>('AdministrationService');
     private fieldsGrants: any[] = [];
+    private moment = moment;
     private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
     private dialogActivityVisible: boolean = false;
