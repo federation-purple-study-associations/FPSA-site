@@ -42,7 +42,7 @@
             <div class="w-100 text-right">
               <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
               <b-button variant="dark" @click="dialogActivityVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
-              <b-button variant="secondary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
+              <b-button variant="secondary" @click="submitDialog"><b-overlay :show="loading" rounded="sm">{{$t('dialog.confirm')}}</b-overlay></b-button>
             </div>
           </template>
     </b-modal>
@@ -73,6 +73,7 @@ export default class OverviewActivityPlan extends Vue {
 
     private dialogActivityVisible: boolean = false;
     private edit: boolean = false;
+    private loading: boolean = false;
     private activityPlan: ActivityPlan = { id: 0, delivered: '', start: '', end: '', user: {id: 0, email: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
     private activityPlanDocument?: Blob = new Blob();
 
@@ -152,6 +153,8 @@ export default class OverviewActivityPlan extends Vue {
     }
 
     private submitDialog() {
+      this.loading = true;
+
       if (!this.edit) {
         this.administrationService.activityPlanCreate(this.activityPlan.start, this.activityPlan.end, this.activityPlanDocument!, 'response')
           .subscribe(this.handleSucces, this.handleError);
@@ -171,9 +174,12 @@ export default class OverviewActivityPlan extends Vue {
       this.$notify({group: 'foo', text: this.$t('action_success').toString(), type: 'success'});
       (this.$refs.tablePlans as any).refresh();
       this.dialogActivityVisible = false;
+      this.loading = false;
     }
 
     private handleError(err: HttpResponse) {
+      this.loading = false;
+
       if (err.status === 400) {
         this.$notify({group: 'foo', text: this.$t('error.form_not_filled_in_correctly').toString(), type: 'error'});
 

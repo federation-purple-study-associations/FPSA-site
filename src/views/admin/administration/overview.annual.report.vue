@@ -41,7 +41,7 @@
             <div class="w-100 text-right">
               <b-button variant="danger" v-if="edit" @click="deleteItem" class="mr-2">{{$t('dialog.delete')}}</b-button>
               <b-button variant="dark" @click="dialogAnnualVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
-              <b-button variant="secondary" @click="submitDialog">{{$t('dialog.confirm')}}</b-button>
+              <b-button variant="secondary" @click="submitDialog"><b-overlay :show="loading" rounded="sm">{{$t('dialog.confirm')}}</b-overlay></b-button>
             </div>
           </template>
     </b-modal>
@@ -71,6 +71,7 @@ export default class OverviewAnnualReport extends Vue {
 
     private dialogAnnualVisible: boolean = false;
     private edit: boolean = false;
+    private loading: boolean = false;
     private annualReport: AnnualReport = { id: 0, delivered: '' };
     private annualReportDocument?: Blob = new Blob();
     private activityPlanId: number = 0;
@@ -159,6 +160,8 @@ export default class OverviewAnnualReport extends Vue {
     }
 
     private submitDialog() {
+      this.loading = true;
+
       if (!this.edit) {
         this.administrationService.annualReportCreate(this.activityPlanId, this.annualReportDocument!, 'response')
           .subscribe(this.handleSucces, this.handleError);
@@ -178,9 +181,12 @@ export default class OverviewAnnualReport extends Vue {
       this.$notify({group: 'foo', text: this.$t('action_success').toString(), type: 'success'});
       (this.$refs.tableReports as any).refresh();
       this.dialogAnnualVisible = false;
+      this.loading = false;
     }
 
     private handleError(err: HttpResponse) {
+      this.loading = false;
+
       if (err.status === 400) {
         this.$notify({group: 'foo', text: this.$t('error.form_not_filled_in_correctly').toString(), type: 'error'});
 

@@ -65,7 +65,7 @@
       <template v-slot:modal-footer>
         <div class="w-100 text-right">
           <b-button variant="dark" @click="dialogConfirmationVisible = false" class="mr-2">{{$t('dialog.cancel')}}</b-button>
-          <b-button variant="secondary" @click="uploadDocument">{{$t('dialog.confirm')}}</b-button>
+          <b-button variant="secondary" @click="uploadDocument"><b-overlay :show="loading" rounded="sm">{{$t('dialog.confirm')}}</b-overlay></b-button>
         </div>
       </template>
     </b-modal>
@@ -104,6 +104,7 @@ export default class OverviewBoardGrants extends Vue {
     private dialogActivityVisible: boolean = false;
     private dialogConfirmationVisible: boolean = false;
     private edit: boolean = false;
+    private loading: boolean = false;
     private boardGrant: BoardGrant = { id: 0, delivered: '', checked: false, checkedAt: '', user: {id: 0, email: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
     private boardGrantDocument?: Blob = new Blob();
 
@@ -176,6 +177,8 @@ export default class OverviewBoardGrants extends Vue {
     }
 
     private uploadDocument() {
+      this.loading = true;
+
       if (!this.edit) {
         this.administrationService.boardGrantCreate(this.boardGrantDocument!, 'response')
           .subscribe(this.handleSucces, this.handleError);
@@ -201,9 +204,12 @@ export default class OverviewBoardGrants extends Vue {
       (this.$refs.tableGrants as any).refresh();
       this.dialogActivityVisible = false;
       this.dialogConfirmationVisible = false;
+      this.loading = false;
     }
 
     private handleError(err: HttpResponse) {
+      this.loading = false;
+
       if (err.status === 400) {
         this.$notify({group: 'foo', text: this.$t('error.form_not_filled_in_correctly').toString(), type: 'error'});
 
