@@ -25,10 +25,10 @@
             "period": "Periode",
             "activity_plan": "Activiteiten plan",
             "document": "Document",
-            "checked": "Controleerd",
+            "checked": "Volledig",
             "checked_at": "Controleerd op",
             "yes": "Ja",
-            "no": "Nee"
+            "no": "Onbekend"
         },
         "dialog": {
             "title_edit": "Bewerken",
@@ -81,10 +81,10 @@
             "period": "Period",
             "activity_plan": "Activity plan",
             "document": "Document",
-            "checked": "Checked",
+            "checked": "Compleet",
             "checked_at": "Checked at",
             "yes": "Yes",
-            "no": "No"
+            "no": "Unknown"
         },
         "dialog": {
             "title_edit": "Edit activity plan",
