@@ -1,9 +1,11 @@
 <template scoped>
   <b-tab :title="$t('titles.annual_report')">
     <b-container class="annual-report">
-        <b-row>
-        <b-col class="mb-3 mt-3 w-100 text-right">
-          <b-button class="mr-2" @click="openExplanationDialog" variant="outline-primary">{{$t('explanation')}}</b-button>
+      <b-row>
+        <b-col sm="9" class="mb-3 mt-3">
+          {{$t('explanations.annual_report')}}
+        </b-col>
+        <b-col class="mb-3 mt-3 text-right" sm="3">
           <b-button @click="openAddDialog" variant="outline-primary">{{$t('add')}}</b-button>
         </b-col>
       </b-row>
@@ -47,7 +49,7 @@
     </b-modal>
   
     <b-modal :title="$t('explanation')" id="explanation_annual_report" hide-footer>
-        {{$t('explanations.annual_report')}}
+        
     </b-modal>
   </b-tab>
 </template>
@@ -145,10 +147,6 @@ export default class OverviewAnnualReport extends Vue {
       if (index) {
         (this.$refs.tableReports as any).refresh();
       }
-    }
-
-    private openExplanationDialog() {
-      this.$bvModal.show('explanation_annual_report');
     }
 
     private openAddDialog() {

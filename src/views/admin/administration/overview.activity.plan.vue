@@ -1,9 +1,14 @@
 <template scoped>
   <b-tab :title="$t('titles.activity_plan')">
     <b-container class="activity-plan">
-        <b-row>
-        <b-col class="mb-3 mt-3 w-100 text-right">
-          <b-button class="mr-2" @click="openExplanationDialog" variant="outline-primary">{{$t('explanation')}}</b-button>
+      <b-row>
+        <b-col sm="9" class="mb-3 mt-3">
+          {{$t('explanations.activity_plan')}}<br>
+          <br>
+          <a href="/format-activity-plan.docx" target="_blank"><b-icon-paperclip/>Format {{$t('titles.activity_plan')}}</a><br>
+          <a href="/example-activity-plan.pdf" target="_blank"><b-icon-paperclip/>{{$t('explanations.example')}} {{$t('titles.activity_plan')}}</a><br>
+        </b-col>
+        <b-col class="mb-3 mt-3 text-right" sm="3">
           <b-button @click="openAddDialog" variant="outline-primary">{{$t('add')}}</b-button>
         </b-col>
       </b-row>
@@ -45,13 +50,6 @@
               <b-button variant="secondary" @click="submitDialog" :disabled="loading"><b-overlay :show="loading" rounded="sm">{{$t('dialog.confirm')}}</b-overlay></b-button>
             </div>
           </template>
-    </b-modal>
-
-    <b-modal :title="$t('explanation')" id="explanation_activity_plan" hide-footer>
-        {{$t('explanations.activity_plan')}}<br>
-        <br>
-        <a href="/format-activity-plan.docx" target="_blank"><b-icon-paperclip/>Format {{$t('titles.activity_plan')}}</a><br>
-        <a href="/example-activity-plan.pdf" target="_blank"><b-icon-paperclip/>{{$t('explanations.example')}} {{$t('titles.activity_plan')}}</a><br>
     </b-modal>
   </b-tab>
 </template>
@@ -138,10 +136,6 @@ export default class OverviewActivityPlan extends Vue {
 
       this.edit = true;
       this.dialogActivityVisible = true;
-    }
-
-    private openExplanationDialog() {
-      this.$bvModal.show('explanation_activity_plan');
     }
 
     private openAddDialog() {

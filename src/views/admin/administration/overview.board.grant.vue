@@ -1,9 +1,20 @@
 <template scoped>
   <b-tab :title="$t('titles.board_grant')">
     <b-container class="board-grant">
-        <b-row>
-        <b-col class="mb-3 mt-3 w-100 text-right">
-          <b-button class="mr-2" @click="openExplanationDialog" variant="outline-primary">{{$t('explanation')}}</b-button>
+      <b-row>
+        <b-col sm="9" class="mb-3 mt-3">
+          {{$t('explanations.board_grant')}}
+          <ul>
+            <li>{{$t('dialog.checklist.board')}}</li>
+            <li>{{$t('dialog.checklist.kvk')}}</li>
+            <li>{{$t('dialog.checklist.members')}}</li>
+            <li>{{$t('dialog.checklist.code_of_conduct')}}</li>
+            <li>{{$t('dialog.checklist.statutes')}}</li>
+            <li>{{$t('dialog.checklist.checklist')}}</li>
+          </ul>
+          <b>{{$t('explanations.board_grant_note')}}</b>
+        </b-col>
+        <b-col class="mb-3 mt-3 text-right">
           <b-button @click="openAddDialog" variant="outline-primary">{{$t('add')}}</b-button>
         </b-col>
       </b-row>
@@ -71,19 +82,6 @@
           <b-button variant="secondary" @click="uploadDocument" :disabled="loading"><b-overlay :show="loading" rounded="sm">{{$t('dialog.confirm')}}</b-overlay></b-button>
         </div>
       </template>
-    </b-modal>
-
-    <b-modal :title="$t('explanation')" id="explanation_board_grant" hide-footer>
-        {{$t('explanations.board_grant')}}
-       <ul>
-            <li>{{$t('dialog.checklist.board')}}</li>
-            <li>{{$t('dialog.checklist.kvk')}}</li>
-            <li>{{$t('dialog.checklist.members')}}</li>
-            <li>{{$t('dialog.checklist.code_of_conduct')}}</li>
-            <li>{{$t('dialog.checklist.statutes')}}</li>
-            <li>{{$t('dialog.checklist.checklist')}}</li>
-        </ul>
-        <b>{{$t('explanations.board_grant_note')}}</b>
     </b-modal>
   </b-tab>
 </template>
@@ -156,10 +154,6 @@ export default class OverviewBoardGrants extends Vue {
       if (index) {
         (this.$refs.tablePlans as any).refresh();
       }
-    }
-
-    private openExplanationDialog() {
-      this.$bvModal.show('explanation_board_grant');
     }
 
     private rowClicked(record: BoardGrant, index: number) {
