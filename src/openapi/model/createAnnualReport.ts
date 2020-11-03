@@ -12,6 +12,5 @@
 
 
 export interface CreateAnnualReport { 
-    activityPlanId: number;
     document?: Blob;
 }

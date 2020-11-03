@@ -16,7 +16,7 @@
             "action": "Login"
         },
         "error": {
-            "unknown": "Een onbekende error is opgetreden...",
+            "unknown": "Een onbekende fout is opgetreden...",
             "wrong_credentials": "De gebruikersnaam of het wachtwoord is incorrect..."
         }
     },

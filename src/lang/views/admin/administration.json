@@ -53,7 +53,7 @@
         "error": {
             "form_not_filled_in_correctly": "Niet alles is correct ingevuld...",
             "file_not_pdf": "Het bestand is niet in PDF-formaat",
-            "unknown": "Een onbekende error is opgetreden..."
+            "unknown": "Een onbekende fout is opgetreden..."
         }
     },
     "en": {

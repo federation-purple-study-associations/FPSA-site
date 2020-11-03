@@ -13,7 +13,7 @@
         "description": "Ben je enthousiast geworden en ben jij een studievereniging van stichting Fontys? Dan kan je lid worden van FPSA!",
         "error": {
             "form_not_filled_in_correctly": "Niet alles is correct ingevuld...",
-            "unknown": "Een onbekende error is opgetreden..."
+            "unknown": "Een onbekende fout is opgetreden..."
         }
     },
     "en": {

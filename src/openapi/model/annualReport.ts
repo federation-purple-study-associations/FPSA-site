@@ -9,12 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ActivityPlan } from './activityPlan';
+import { User } from './user';
 
 
 export interface AnnualReport { 
     id: number;
     delivered: string;
     period?: string;
-    activityPlan?: ActivityPlan;
+    user: User;
 }

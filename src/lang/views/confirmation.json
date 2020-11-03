@@ -15,7 +15,7 @@
             "email_not_filled_in_correctly": "Niet alles is correct ingevuld...",
             "invalid_email": "Email adressen is niet gevonden...",
             "invalid_token": "Incorrecte token in gebruik...",
-            "unknown": "Een onbekende error is opgetreden..."
+            "unknown": "Een onbekende fout is opgetreden..."
         }
     },
     "en": {

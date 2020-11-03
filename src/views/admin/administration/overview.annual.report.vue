@@ -26,11 +26,6 @@
         hide-header-close
         scrollable>
           <b-form>
-            <b-form-group :label="$t('table.activity_plan')">
-                <b-form-select v-model="activityPlanId" :options="activityPlans">
-                    <b-form-select-option v-if="activityPlans.length == 0" :value="null" disabled>{{$t('dialog.empty_activity_plans_note')}}</b-form-select-option>
-                </b-form-select>
-            </b-form-group>
             <b-form-group :label="$t('table.delivered')" v-if="edit">
               <b-form-datepicker v-model="annualReport.delivered" disabled></b-form-datepicker>
             </b-form-group>
@@ -74,10 +69,8 @@ export default class OverviewAnnualReport extends Vue {
     private dialogAnnualVisible: boolean = false;
     private edit: boolean = false;
     private loading: boolean = false;
-    private annualReport: AnnualReport = { id: 0, delivered: '' };
+    private annualReport: AnnualReport = { id: 0, delivered: '', user: {id: 0, email: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
     private annualReportDocument?: Blob = new Blob();
-    private activityPlanId: number = 0;
-    private activityPlans: Array<{value: number, text: string}> = [];
 
     private count: number = 0;
     private pageSize: number = 25;
@@ -86,18 +79,8 @@ export default class OverviewAnnualReport extends Vue {
     public mounted() {
         this.fieldsReports = [
             {
-                key: 'activityPlan.user.fullName',
+                key: 'user.fullName',
                 label: this.$t('table.name').toString(),
-                sortable: true,
-            },
-            {
-                key: 'activityPlan.start',
-                label: this.$t('table.start').toString(),
-                sortable: true,
-            },
-            {
-                key: 'activityPlan.end',
-                label: this.$t('table.end').toString(),
                 sortable: true,
             },
             {
@@ -106,14 +89,6 @@ export default class OverviewAnnualReport extends Vue {
                 sortable: true,
             },
         ];
-
-        this.administrationService.activityPlanGetAll(0, 100, true, 'response').subscribe((res: HttpResponse<ResultActivityPlan>) => {
-            this.activityPlans = [];
-
-            res.response.activityPlans.forEach((x) => {
-                this.activityPlans.push({value: x.id, text: moment(x.start).tz('UTC').format('DD-MM-YYYY') + ' - ' + moment(x.end).tz('UTC').format('DD-MM-YYYY') });
-            });
-        });
     }
 
     private getReports() {
@@ -122,19 +97,7 @@ export default class OverviewAnnualReport extends Vue {
                 this.count = res.response.count;
 
                 res.response.annualReports.forEach((plan) => {
-                    if (!plan.activityPlan) {
-                      plan.activityPlan = {
-                        start: '',
-                        delivered: '',
-                        end: '',
-                        id: 0,
-                        user: { id: 0, email: '', fullName: '', academy: '', establishment: '', kvk: 0, recieveEmailUpdatesEvents: false, roleId: 0 },
-                      };
-                    }
-
                     plan.delivered = moment(plan.delivered).tz('UTC').format('DD-MM-YYYY HH:mm:ss');
-                    plan.activityPlan!.start = moment(plan.activityPlan!.start).format('DD-MM-YYYY');
-                    plan.activityPlan!.end = moment(plan.activityPlan!.end).format('DD-MM-YYYY');
                 });
 
                 resolve(res.response.annualReports);
@@ -146,7 +109,6 @@ export default class OverviewAnnualReport extends Vue {
       const value = JSON.parse(JSON.stringify(record));
       value.delivered = moment(value.delivered, 'DD-MM-YYYY').toDate() as any;
       this.annualReport = value;
-      this.activityPlanId = value.activityPlan.id;
       this.annualReportDocument = undefined;
 
       this.edit = true;
@@ -161,7 +123,7 @@ export default class OverviewAnnualReport extends Vue {
 
     private openAddDialog() {
       this.annualReportDocument = undefined;
-      this.annualReport = { id: 0, delivered: '' };
+      this.annualReport = { id: 0, delivered: '', user: {id: 0, email: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
 
       this.edit = false;
       this.dialogAnnualVisible = true;
@@ -171,11 +133,11 @@ export default class OverviewAnnualReport extends Vue {
       this.loading = true;
 
       if (!this.edit) {
-        this.administrationService.annualReportCreate(this.activityPlanId, this.annualReportDocument!, 'response')
+        this.administrationService.annualReportCreate(this.annualReportDocument!, 'response')
           .subscribe(this.handleSucces, this.handleError);
 
       } else {
-        this.administrationService.annualReportUpdate(this.annualReport.id, this.activityPlanId, this.annualReportDocument, 'response')
+        this.administrationService.annualReportUpdate(this.annualReport.id, this.annualReportDocument, 'response')
           .subscribe(this.handleSucces, this.handleError);
       }
     }

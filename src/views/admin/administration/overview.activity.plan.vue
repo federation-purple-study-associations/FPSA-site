@@ -108,7 +108,7 @@ export default class OverviewActivityPlan extends Vue {
 
     private getPlans() {
         return new Promise((resolve) => {
-            this.administrationService.activityPlanGetAll(0, 100, undefined, 'response').subscribe((res: HttpResponse<ResultActivityPlan>) => {
+            this.administrationService.activityPlanGetAll(0, 100, 'response').subscribe((res: HttpResponse<ResultActivityPlan>) => {
                 res.response.activityPlans.forEach((plan) => {
                     plan.start = moment(plan.start).format('DD-MM-YYYY');
                     plan.end = moment(plan.end).format('DD-MM-YYYY');

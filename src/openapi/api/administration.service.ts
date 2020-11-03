@@ -131,21 +131,17 @@ export class AdministrationService {
      * This call can be used to get all of the activity plans. Based on your account you will get all of your activity plan (if you have roleId 2), or you will get all of the activity plans in the db (if you have roleId 1 or 3)
      * @param skip 
      * @param size 
-     * @param emptyReport 
      
      */
-    public activityPlanGetAll(skip?: number, size?: number, emptyReport?: boolean, observe?: 'body', headers?: Headers): Observable<ResultActivityPlan>;
-    public activityPlanGetAll(skip?: number, size?: number, emptyReport?: boolean, observe?: 'response', headers?: Headers): Observable<HttpResponse<ResultActivityPlan>>;
-    public activityPlanGetAll(skip?: number, size?: number, emptyReport?: boolean, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public activityPlanGetAll(skip?: number, size?: number, observe?: 'body', headers?: Headers): Observable<ResultActivityPlan>;
+    public activityPlanGetAll(skip?: number, size?: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<ResultActivityPlan>>;
+    public activityPlanGetAll(skip?: number, size?: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
         let queryParameters: string[] = [];
         if (skip !== undefined) {
             queryParameters.push("skip="+encodeURIComponent(String(skip)));
         }
         if (size !== undefined) {
             queryParameters.push("size="+encodeURIComponent(String(size)));
-        }
-        if (emptyReport !== undefined) {
-            queryParameters.push("emptyReport="+encodeURIComponent(String(emptyReport)));
         }
 
         headers['Accept'] = 'application/json';
@@ -236,24 +232,16 @@ export class AdministrationService {
     /**
      * create
      * This call can be used to save a new annual report
-     * @param activityPlanId 
      * @param document 
      
      */
-    public annualReportCreate(activityPlanId: number, document?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
-    public annualReportCreate(activityPlanId: number, document?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public annualReportCreate(activityPlanId: number, document?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
-        if (activityPlanId === null || activityPlanId === undefined){
-            throw new Error('Required parameter activityPlanId was null or undefined when calling annualReportCreate.');
-        }
-
+    public annualReportCreate(document?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public annualReportCreate(document?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public annualReportCreate(document?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
         headers['Accept'] = 'application/json';
 
         let formData: FormData = new FormData();
         headers['Content-Type'] = 'multipart/form-data';
-        if (activityPlanId !== undefined) {
-            formData.append('activityPlanId', <any>activityPlanId);
-        }
         if (document !== undefined) {
             formData.append('document', <any>document);
         }
@@ -352,28 +340,20 @@ export class AdministrationService {
      * update
      * This call can be used to update the annualReport
      * @param id 
-     * @param activityPlanId 
      * @param document 
      
      */
-    public annualReportUpdate(id: number, activityPlanId: number, document?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
-    public annualReportUpdate(id: number, activityPlanId: number, document?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public annualReportUpdate(id: number, activityPlanId: number, document?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public annualReportUpdate(id: number, document?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public annualReportUpdate(id: number, document?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public annualReportUpdate(id: number, document?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (id === null || id === undefined){
             throw new Error('Required parameter id was null or undefined when calling annualReportUpdate.');
-        }
-
-        if (activityPlanId === null || activityPlanId === undefined){
-            throw new Error('Required parameter activityPlanId was null or undefined when calling annualReportUpdate.');
         }
 
         headers['Accept'] = 'application/json';
 
         let formData: FormData = new FormData();
         headers['Content-Type'] = 'multipart/form-data';
-        if (activityPlanId !== undefined) {
-            formData.append('activityPlanId', <any>activityPlanId);
-        }
         if (document !== undefined) {
             formData.append('document', <any>document);
         }
