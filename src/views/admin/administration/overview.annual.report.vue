@@ -122,7 +122,7 @@ export default class OverviewAnnualReport extends Vue {
                 this.count = res.response.count;
 
                 res.response.annualReports.forEach((plan) => {
-                    if(!plan.activityPlan) {
+                    if (!plan.activityPlan) {
                       plan.activityPlan = {
                         start: '',
                         delivered: '',
