@@ -20,7 +20,7 @@
         "table": {
             "start": "Begin",
             "end": "Einde",
-            "delivered": "Ingelevered op",
+            "delivered": "Ingeleverd op",
             "name": "Naam",
             "period": "Periode",
             "activity_plan": "Activiteiten plan",
