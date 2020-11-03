@@ -122,6 +122,16 @@ export default class OverviewAnnualReport extends Vue {
                 this.count = res.response.count;
 
                 res.response.annualReports.forEach((plan) => {
+                    if(!plan.activityPlan) {
+                      plan.activityPlan = {
+                        start: '',
+                        delivered: '',
+                        end: '',
+                        id: 0,
+                        user: { id: 0, email: '', fullName: '', academy: '', establishment: '', kvk: 0, recieveEmailUpdatesEvents: false, roleId: 0, } 
+                      };
+                    }
+
                     plan.delivered = moment(plan.delivered).tz('UTC').format('DD-MM-YYYY HH:mm:ss');
                     plan.activityPlan!.start = moment(plan.activityPlan!.start).format('DD-MM-YYYY');
                     plan.activityPlan!.end = moment(plan.activityPlan!.end).format('DD-MM-YYYY');
