@@ -128,7 +128,7 @@ export default class OverviewAnnualReport extends Vue {
                         delivered: '',
                         end: '',
                         id: 0,
-                        user: { id: 0, email: '', fullName: '', academy: '', establishment: '', kvk: 0, recieveEmailUpdatesEvents: false, roleId: 0, } 
+                        user: { id: 0, email: '', fullName: '', academy: '', establishment: '', kvk: 0, recieveEmailUpdatesEvents: false, roleId: 0 },
                       };
                     }
 
