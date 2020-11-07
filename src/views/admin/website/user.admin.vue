@@ -103,7 +103,7 @@
                 <img src="/logo.png" style="width: 100px"/>
               </div>
               <div>
-                Beste {STUDIE VERENIGING},<br>
+                Beste koepelgenootjes,<br>
                 <br>
                 <div v-html="contactForm.message"></div>
                 <br>
