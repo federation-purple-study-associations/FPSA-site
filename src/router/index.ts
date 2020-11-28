@@ -9,6 +9,7 @@ import WebsiteAdmin from '../views/admin/website.admin.vue';
 import Error404 from '../views/error/404.vue';
 import ForgotPassword from '../views/forgot.password.vue';
 import Contact from '../views/contact.vue';
+import Members from '../views/members.vue';
 import Application from '../views/application.vue';
 import AdministrationAdmin from '../views/admin/administration.admin.vue';
 
@@ -36,6 +37,10 @@ const routes: RouteConfig[] = [
   {
     path: '/confirmation',
     component: Confirmation,
+  },
+  {
+    path: '/members',
+    component: Members,
   },
   {
     path: '/forgot',

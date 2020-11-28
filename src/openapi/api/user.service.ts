@@ -24,6 +24,7 @@ import { Application } from "../model/application";
 import { ContactFormDTO } from "../model/contactFormDTO";
 import { ContactMembersDTO } from "../model/contactMembersDTO";
 import { LoginDTO } from "../model/loginDTO";
+import { MemberDTO } from "../model/memberDTO";
 import { User } from "../model/user";
 import { UserActivateDTO } from "../model/userActivateDTO";
 import { UserForgotDTO } from "../model/userForgotDTO";
@@ -555,15 +556,15 @@ export class UserService {
      * This call can be used to get all of the members of FPSA
      
      */
-    public userGetAllMembers(observe?: 'body', headers?: Headers): Observable<any>;
-    public userGetAllMembers(observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public userGetAllMembers(observe?: 'body', headers?: Headers): Observable<Array<MemberDTO>>;
+    public userGetAllMembers(observe?: 'response', headers?: Headers): Observable<HttpResponse<Array<MemberDTO>>>;
     public userGetAllMembers(observe: any = 'body', headers: Headers = {}): Observable<any> {
         headers['Accept'] = 'application/json';
 
-        const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/user/members`, headers);
+        const response: Observable<HttpResponse<Array<MemberDTO>>> = this.httpClient.get(`${this.basePath}/user/members`, headers);
         if (observe == 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map(httpResponse => <Array<MemberDTO>>(httpResponse.response))
                );
         }
         return response;

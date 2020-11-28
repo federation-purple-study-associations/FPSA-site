@@ -26,6 +26,7 @@ model/createActivityPlan.ts
 model/createAnnualReport.ts
 model/createBoardGrant.ts
 model/loginDTO.ts
+model/memberDTO.ts
 model/newAgendaDTO.ts
 model/newApplication.ts
 model/pageView.ts

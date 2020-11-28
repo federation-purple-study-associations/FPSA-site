@@ -10,6 +10,7 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/agenda">{{$t('agenda')}}</b-nav-item>
         <b-nav-item to="/board">{{$t('board')}}</b-nav-item>
+        <b-nav-item to="/members">{{$t('members')}}</b-nav-item>
         <b-nav-item to="/contact">{{$t('contact')}}</b-nav-item>
         <b-nav-item to="/application" class="text-active">{{$t('register')}}</b-nav-item>
 
