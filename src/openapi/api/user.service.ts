@@ -24,13 +24,10 @@ import { Application } from "../model/application";
 import { ContactFormDTO } from "../model/contactFormDTO";
 import { ContactMembersDTO } from "../model/contactMembersDTO";
 import { LoginDTO } from "../model/loginDTO";
-import { NewApplication } from "../model/newApplication";
 import { User } from "../model/user";
 import { UserActivateDTO } from "../model/userActivateDTO";
 import { UserForgotDTO } from "../model/userForgotDTO";
-import { UserNewDTO } from "../model/userNewDTO";
 import { UserSummaryDTO } from "../model/userSummaryDTO";
-import { UserUpdateDTO } from "../model/userUpdateDTO";
 
 import { COLLECTION_FORMATS }  from "../variables";
 
@@ -100,20 +97,73 @@ export class UserService {
     /**
      * create
      * This call can be used to create an application
-     * @param newApplication 
+     * @param name 
+     * @param email 
+     * @param academy 
+     * @param establishment 
+     * @param kvk 
+     * @param websiteUrl 
+     * @param photo 
      
      */
-    public applicationCreate(newApplication: NewApplication, observe?: 'body', headers?: Headers): Observable<any>;
-    public applicationCreate(newApplication: NewApplication, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public applicationCreate(newApplication: NewApplication, observe: any = 'body', headers: Headers = {}): Observable<any> {
-        if (newApplication === null || newApplication === undefined){
-            throw new Error('Required parameter newApplication was null or undefined when calling applicationCreate.');
+    public applicationCreate(name: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, photo: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public applicationCreate(name: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, photo: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public applicationCreate(name: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, photo: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (name === null || name === undefined){
+            throw new Error('Required parameter name was null or undefined when calling applicationCreate.');
+        }
+
+        if (email === null || email === undefined){
+            throw new Error('Required parameter email was null or undefined when calling applicationCreate.');
+        }
+
+        if (academy === null || academy === undefined){
+            throw new Error('Required parameter academy was null or undefined when calling applicationCreate.');
+        }
+
+        if (establishment === null || establishment === undefined){
+            throw new Error('Required parameter establishment was null or undefined when calling applicationCreate.');
+        }
+
+        if (kvk === null || kvk === undefined){
+            throw new Error('Required parameter kvk was null or undefined when calling applicationCreate.');
+        }
+
+        if (websiteUrl === null || websiteUrl === undefined){
+            throw new Error('Required parameter websiteUrl was null or undefined when calling applicationCreate.');
+        }
+
+        if (photo === null || photo === undefined){
+            throw new Error('Required parameter photo was null or undefined when calling applicationCreate.');
         }
 
         headers['Accept'] = 'application/json';
-        headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/application`, newApplication , headers);
+        let formData: FormData = new FormData();
+        headers['Content-Type'] = 'multipart/form-data';
+        if (name !== undefined) {
+            formData.append('name', <any>name);
+        }
+        if (email !== undefined) {
+            formData.append('email', <any>email);
+        }
+        if (academy !== undefined) {
+            formData.append('academy', <any>academy);
+        }
+        if (establishment !== undefined) {
+            formData.append('establishment', <any>establishment);
+        }
+        if (kvk !== undefined) {
+            formData.append('kvk', <any>kvk);
+        }
+        if (websiteUrl !== undefined) {
+            formData.append('websiteUrl', <any>websiteUrl);
+        }
+        if (photo !== undefined) {
+            formData.append('photo', <any>photo);
+        }
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/application`, formData, headers);
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))
@@ -293,22 +343,113 @@ export class UserService {
 
 
     /**
-     * create
-     * This call can be used to create a new user
-     * @param userNewDTO 
+     * 
+     * 
+     * @param id 
      
      */
-    public userCreate(userNewDTO: UserNewDTO, observe?: 'body', headers?: Headers): Observable<any>;
-    public userCreate(userNewDTO: UserNewDTO, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public userCreate(userNewDTO: UserNewDTO, observe: any = 'body', headers: Headers = {}): Observable<any> {
-        if (userNewDTO === null || userNewDTO === undefined){
-            throw new Error('Required parameter userNewDTO was null or undefined when calling userCreate.');
+    public userControllerGetApplicationPicture(id: number, observe?: 'body', headers?: Headers): Observable<any>;
+    public userControllerGetApplicationPicture(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public userControllerGetApplicationPicture(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling userControllerGetApplicationPicture.');
+        }
+
+        let queryParameters: string[] = [];
+        if (id !== undefined) {
+            queryParameters.push("id="+encodeURIComponent(String(id)));
         }
 
         headers['Accept'] = 'application/json';
-        headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user`, userNewDTO , headers);
+        const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/user/application/photo?${queryParameters.join('&')}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
+     * create
+     * This call can be used to create a new user
+     * @param fullName 
+     * @param email 
+     * @param academy 
+     * @param establishment 
+     * @param kvk 
+     * @param websiteUrl 
+     * @param roleId 
+     * @param photo 
+     
+     */
+    public userCreate(fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, roleId: number, photo: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public userCreate(fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, roleId: number, photo: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public userCreate(fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, roleId: number, photo: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (fullName === null || fullName === undefined){
+            throw new Error('Required parameter fullName was null or undefined when calling userCreate.');
+        }
+
+        if (email === null || email === undefined){
+            throw new Error('Required parameter email was null or undefined when calling userCreate.');
+        }
+
+        if (academy === null || academy === undefined){
+            throw new Error('Required parameter academy was null or undefined when calling userCreate.');
+        }
+
+        if (establishment === null || establishment === undefined){
+            throw new Error('Required parameter establishment was null or undefined when calling userCreate.');
+        }
+
+        if (kvk === null || kvk === undefined){
+            throw new Error('Required parameter kvk was null or undefined when calling userCreate.');
+        }
+
+        if (websiteUrl === null || websiteUrl === undefined){
+            throw new Error('Required parameter websiteUrl was null or undefined when calling userCreate.');
+        }
+
+        if (roleId === null || roleId === undefined){
+            throw new Error('Required parameter roleId was null or undefined when calling userCreate.');
+        }
+
+        if (photo === null || photo === undefined){
+            throw new Error('Required parameter photo was null or undefined when calling userCreate.');
+        }
+
+        headers['Accept'] = 'application/json';
+
+        let formData: FormData = new FormData();
+        headers['Content-Type'] = 'multipart/form-data';
+        if (fullName !== undefined) {
+            formData.append('fullName', <any>fullName);
+        }
+        if (email !== undefined) {
+            formData.append('email', <any>email);
+        }
+        if (academy !== undefined) {
+            formData.append('academy', <any>academy);
+        }
+        if (establishment !== undefined) {
+            formData.append('establishment', <any>establishment);
+        }
+        if (kvk !== undefined) {
+            formData.append('kvk', <any>kvk);
+        }
+        if (websiteUrl !== undefined) {
+            formData.append('websiteUrl', <any>websiteUrl);
+        }
+        if (roleId !== undefined) {
+            formData.append('roleId', <any>roleId);
+        }
+        if (photo !== undefined) {
+            formData.append('photo', <any>photo);
+        }
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user`, formData, headers);
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))
@@ -410,6 +551,26 @@ export class UserService {
 
 
     /**
+     * getAllMembers
+     * This call can be used to get all of the members of FPSA
+     
+     */
+    public userGetAllMembers(observe?: 'body', headers?: Headers): Observable<any>;
+    public userGetAllMembers(observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public userGetAllMembers(observe: any = 'body', headers: Headers = {}): Observable<any> {
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/user/members`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
      * getOne
      * This call can be used to get one of the users in the FPSA database
      * @param id 
@@ -435,27 +596,114 @@ export class UserService {
 
 
     /**
+     * getPhoto
+     * This call can be used to get the photo of the specific board
+     * @param id 
+     
+     */
+    public userGetPhoto(id: number, observe?: 'body', headers?: Headers): Observable<any>;
+    public userGetPhoto(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public userGetPhoto(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling userGetPhoto.');
+        }
+
+        let queryParameters: string[] = [];
+        if (id !== undefined) {
+            queryParameters.push("id="+encodeURIComponent(String(id)));
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/user/photo?${queryParameters.join('&')}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
      * update
      * This call can be used to update a user
      * @param id 
-     * @param userUpdateDTO 
+     * @param fullName 
+     * @param email 
+     * @param academy 
+     * @param establishment 
+     * @param kvk 
+     * @param websiteUrl 
+     * @param roleId 
+     * @param photo 
      
      */
-    public userUpdate(id: number, userUpdateDTO: UserUpdateDTO, observe?: 'body', headers?: Headers): Observable<any>;
-    public userUpdate(id: number, userUpdateDTO: UserUpdateDTO, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public userUpdate(id: number, userUpdateDTO: UserUpdateDTO, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public userUpdate(id: number, fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, roleId: number, photo?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public userUpdate(id: number, fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, roleId: number, photo?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public userUpdate(id: number, fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, roleId: number, photo?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (id === null || id === undefined){
             throw new Error('Required parameter id was null or undefined when calling userUpdate.');
         }
 
-        if (userUpdateDTO === null || userUpdateDTO === undefined){
-            throw new Error('Required parameter userUpdateDTO was null or undefined when calling userUpdate.');
+        if (fullName === null || fullName === undefined){
+            throw new Error('Required parameter fullName was null or undefined when calling userUpdate.');
+        }
+
+        if (email === null || email === undefined){
+            throw new Error('Required parameter email was null or undefined when calling userUpdate.');
+        }
+
+        if (academy === null || academy === undefined){
+            throw new Error('Required parameter academy was null or undefined when calling userUpdate.');
+        }
+
+        if (establishment === null || establishment === undefined){
+            throw new Error('Required parameter establishment was null or undefined when calling userUpdate.');
+        }
+
+        if (kvk === null || kvk === undefined){
+            throw new Error('Required parameter kvk was null or undefined when calling userUpdate.');
+        }
+
+        if (websiteUrl === null || websiteUrl === undefined){
+            throw new Error('Required parameter websiteUrl was null or undefined when calling userUpdate.');
+        }
+
+        if (roleId === null || roleId === undefined){
+            throw new Error('Required parameter roleId was null or undefined when calling userUpdate.');
         }
 
         headers['Accept'] = 'application/json';
-        headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/user/${encodeURIComponent(String(id))}`, userUpdateDTO , headers);
+        let formData: FormData = new FormData();
+        headers['Content-Type'] = 'multipart/form-data';
+        if (fullName !== undefined) {
+            formData.append('fullName', <any>fullName);
+        }
+        if (email !== undefined) {
+            formData.append('email', <any>email);
+        }
+        if (academy !== undefined) {
+            formData.append('academy', <any>academy);
+        }
+        if (establishment !== undefined) {
+            formData.append('establishment', <any>establishment);
+        }
+        if (kvk !== undefined) {
+            formData.append('kvk', <any>kvk);
+        }
+        if (websiteUrl !== undefined) {
+            formData.append('websiteUrl', <any>websiteUrl);
+        }
+        if (roleId !== undefined) {
+            formData.append('roleId', <any>roleId);
+        }
+        if (photo !== undefined) {
+            formData.append('photo', <any>photo);
+        }
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/user/${encodeURIComponent(String(id))}`, formData, headers);
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))

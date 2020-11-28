@@ -16,5 +16,6 @@ export interface AnnualReport {
     id: number;
     delivered: string;
     period?: string;
+    sendToCommission: string;
     user: User;
 }

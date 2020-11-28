@@ -72,7 +72,7 @@ export default class OverviewActivityPlan extends Vue {
     private dialogActivityVisible: boolean = false;
     private edit: boolean = false;
     private loading: boolean = false;
-    private activityPlan: ActivityPlan = { id: 0, delivered: '', start: '', end: '', user: {id: 0, email: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
+    private activityPlan: ActivityPlan = { id: 0, delivered: '', start: '', end: '', sendToCommission: '', user: {id: 0, email: '', fullName: '', websiteUrl: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
     private activityPlanDocument?: Blob = new Blob();
 
     private dialogLinksVisible: boolean = false;
@@ -140,7 +140,7 @@ export default class OverviewActivityPlan extends Vue {
 
     private openAddDialog() {
       this.activityPlanDocument = undefined;
-      this.activityPlan = { id: 0, delivered: '', start: '', end: '', user: {id: 0, email: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
+      this.activityPlan = { id: 0, delivered: '', start: '', end: '', sendToCommission: '', user: {id: 0, email: '', fullName: '', websiteUrl: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
 
       this.edit = false;
       this.dialogActivityVisible = true;

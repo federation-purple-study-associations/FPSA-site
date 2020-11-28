@@ -17,4 +17,6 @@ export interface NewApplication {
     academy: string;
     establishment: string;
     kvk: number;
+    websiteUrl: string;
+    photo: Blob;
 }

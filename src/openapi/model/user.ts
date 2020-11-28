@@ -18,6 +18,7 @@ export interface User {
     academy: string;
     establishment: string;
     kvk: number;
+    websiteUrl: string;
     lastLogin?: string;
     memberSince?: string;
     recieveEmailUpdatesEvents: boolean;

@@ -19,4 +19,5 @@ export interface Application {
     establishment: string;
     kvk: number;
     handedIn?: string;
+    websiteUrl: string;
 }

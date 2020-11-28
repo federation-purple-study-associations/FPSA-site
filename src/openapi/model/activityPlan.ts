@@ -17,5 +17,6 @@ export interface ActivityPlan {
     delivered: string;
     start: string;
     end: string;
+    sendToCommission: string;
     user: User;
 }

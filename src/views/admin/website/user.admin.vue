@@ -38,6 +38,12 @@
             <b-form-group :label="$t('kvk')">
               <b-form-input type="number" v-model.number="userForDialog.kvk"></b-form-input>
             </b-form-group>
+            <b-form-group :label="$t('website')">
+              <b-form-input v-model="userForDialog.websiteUrl"></b-form-input>
+            </b-form-group>
+            <b-form-group :label="$t('photo')">
+              <b-form-file v-model="photo" accept="image/*"></b-form-file>
+            </b-form-group>
             <b-form-group :label="$t('member_since')">
               <b-form-datepicker v-model="userForDialog.memberSince" disabled></b-form-datepicker>
             </b-form-group>
@@ -156,7 +162,9 @@ export default class BoardAdmin extends Vue {
     kvk: 0,
     roleId: 2,
     recieveEmailUpdatesEvents: true,
+    websiteUrl: 'https://',
   };
+  private photo = new File([], '');
 
   // Dialog contact members
   private dialogContactVisible = false;
@@ -263,6 +271,7 @@ export default class BoardAdmin extends Vue {
       kvk: 0,
       roleId: 2,
       recieveEmailUpdatesEvents: false,
+      websiteUrl: 'https://',
     };
 
     this.edit = false;
@@ -287,12 +296,34 @@ export default class BoardAdmin extends Vue {
     if (this.edit) {
       this.userService.userUpdate(
         this.userForDialog.id,
-        this.userForDialog as UserUpdateDTO,
+        this.userForDialog.fullName,
+        this.userForDialog.email,
+        this.userForDialog.academy,
+        this.userForDialog.establishment,
+        this.userForDialog.kvk,
+        this.userForDialog.websiteUrl,
+        this.userForDialog.roleId,
+        this.photo,
+        'response',
       ).subscribe(this.handleSucces, this.handleError);
 
     } else {
+      if (this.photo.size === 0) {
+        this.$notify({group: 'foo', text: this.$t('error.form_not_filled_in_correctly').toString(), type: 'error'});
+        this.loading = false;
+        return;
+      }
+
       this.userService.userCreate(
-        this.userForDialog as UserNewDTO,
+        this.userForDialog.fullName,
+        this.userForDialog.email,
+        this.userForDialog.academy,
+        this.userForDialog.establishment,
+        this.userForDialog.kvk,
+        this.userForDialog.websiteUrl,
+        this.userForDialog.roleId,
+        this.photo,
+        'response',
       ).subscribe(this.handleSucces, this.handleError);
     }
   }

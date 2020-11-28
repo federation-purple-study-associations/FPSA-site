@@ -8,6 +8,8 @@
         "academy": "Institu(u)t(en)",
         "kvk": "KvK",
         "establishment": "Vestiging",
+        "website": "Link naar website",
+        "photo": "Logo vereniging",
         "member_since": "Lid sinds",
         "contact_member": "Contacteer leden",
         "role": "Rol",
@@ -57,6 +59,8 @@
         "member_since": "Member since",
         "contact_member": "Contact members",
         "role": "Role",
+        "website": "Link to website",
+        "photo": "Logo association",
         "action_success": "Action was successful!",
         "roles": {
             "fpsa": "FPSA",

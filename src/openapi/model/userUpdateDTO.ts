@@ -17,5 +17,7 @@ export interface UserUpdateDTO {
     academy: string;
     establishment: string;
     kvk: number;
+    websiteUrl: string;
     roleId: number;
+    photo?: Blob;
 }

@@ -33,6 +33,12 @@
               <b-form-group :label="$t('kvk')">
                 <b-form-input type="number" v-model="application.kvk" v-on:input="checkLegal" min="0"></b-form-input>
               </b-form-group>
+              <b-form-group :label="$t('website')">
+                <b-form-input v-model="application.websiteUrl" v-on:input="checkLegal"></b-form-input>
+              </b-form-group>
+              <b-form-group :label="$t('photo')">
+                <b-form-file v-model="application.photo" v-on:input="checkLegal" accept="image/*"></b-form-file>
+              </b-form-group>
               <b-form-group>
                 <b-form-checkbox v-model="privacy" v-on:input="checkLegal">{{$t('privacy')}}<a href="privacy.pdf" target="_blank" class="contact--privacy">Link</a></b-form-checkbox>
               </b-form-group>
@@ -62,6 +68,8 @@ export default class Application extends Vue {
     academy: '',
     establishment: '',
     kvk: 0,
+    websiteUrl: 'https://',
+    photo: new File([], ''),
   };
   private repeatEmail = '';
 
@@ -79,6 +87,8 @@ export default class Application extends Vue {
                       this.application.academy === '' ||
                       this.application.establishment === '' ||
                       this.application.kvk === 0 ||
+                      this.application.websiteUrl === 'https://' ||
+                      this.application.photo.size === 0 ||
                       !this.privacy;
   }
 
@@ -86,9 +96,18 @@ export default class Application extends Vue {
     this.loading = true;
     this.application.kvk = +this.application.kvk;
 
-    openApiContainer.get<UserService>('UserService').applicationCreate(this.application, 'response').subscribe(() => {
+    openApiContainer.get<UserService>('UserService').applicationCreate(
+      this.application.name,
+      this.application.email,
+      this.application.academy,
+      this.application.establishment,
+      this.application.kvk,
+      this.application.websiteUrl,
+      this.application.photo,
+      'response',
+    ).subscribe(() => {
       this.$notify({group: 'foo', text: this.$t('application.successful').toString(), type: 'success'});
-      this.application = {name: '', email: '', academy: '', establishment: '', kvk: 0};
+      this.application = {name: '', email: '', academy: '', establishment: '', kvk: 0, websiteUrl: '', photo: new Blob()};
       this.repeatEmail = '';
       this.privacy = false;
       this.loading = false;
