@@ -12,7 +12,7 @@
     </div>
     <b-container>
       <b-row class="mb-3 mt-3" v-for="row in rows" v-bind:key="row.id">
-        <b-col v-for="item in row.columns" v-bind:key="item.id" sm="3">
+        <b-col v-for="item in row.columns" v-bind:key="item.id" md="4">
           <a :href="item.websiteUrl" target="_blank">
             <b-card class="members__card">
               <b-card-text>
