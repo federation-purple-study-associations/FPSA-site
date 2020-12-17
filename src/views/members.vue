@@ -61,8 +61,8 @@ export default class Members extends Vue {
         this.rows.push(row);
       }
 
-      for (let i = this.rows[this.rows.length-1].columns.length; i < 3; i++) {
-        this.rows[this.rows.length-1].columns.push({card: undefined, active: false});
+      for (let i = this.rows[this.rows.length - 1].columns.length; i < 3; i++) {
+        this.rows[this.rows.length - 1].columns.push({card: undefined, active: false});
       }
     });
   }
