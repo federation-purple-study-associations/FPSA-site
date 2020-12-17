@@ -13,13 +13,13 @@
     <b-container>
       <b-row v-for="row in rows" v-bind:key="row.id">
         <b-col class="mb-3 mt-3" v-for="item in row.columns" v-bind:key="item.id" md="4">
-          <a :href="item.websiteUrl" target="_blank">
+          <a :href="item.websiteUrl" target="_blank" v-if="item.active">
             <b-card class="members__card">
               <b-card-text>
                   <div style="max-width: 100%; max-height: 100px; text-align: center; margin-bottom: 10px;">
-                    <img :src="url + '/user/photo?id=' + item.id" style="max-width: 100%; max-height: 100px;"/><br>
+                    <img :src="url + '/user/photo?id=' + item.card.id" style="max-width: 100%; max-height: 100px;"/><br>
                   </div>
-                  {{item.fullName}}
+                  {{item.card.fullName}}
               </b-card-text>
             </b-card>
           </a>
@@ -45,7 +45,7 @@ export default class Members extends Vue {
 
     openApiContainer.get<UserService>('UserService').userGetAllMembers('response').subscribe((res) => {
       const nrOfCols = 3;
-      const nrOfRows = Math.floor(res.response.length / nrOfCols);
+      const nrOfRows = Math.round(res.response.length / nrOfCols);
 
       for (let i = 0; i < nrOfRows; i++) {
         const row: IGrid = {id: i, columns: []};
@@ -55,10 +55,14 @@ export default class Members extends Vue {
             break;
           }
 
-          row.columns.push(res.response[i * nrOfCols + j]);
+          row.columns.push({card: res.response[i * nrOfCols + j], active: true});
         }
 
         this.rows.push(row);
+      }
+
+      for (let i = this.rows[this.rows.length-1].columns.length; i < 3; i++) {
+        this.rows[this.rows.length-1].columns.push({card: undefined, active: false});
       }
     });
   }
@@ -66,7 +70,7 @@ export default class Members extends Vue {
 
 interface IGrid {
   id: number;
-  columns: MemberDTO[];
+  columns: Array<{card?: MemberDTO, active: boolean}>;
 }
 </script>
 
