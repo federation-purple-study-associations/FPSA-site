@@ -62,6 +62,7 @@
 
     <div class="social-media">
       <a href="https://www.facebook.com/FederationOfPurpleStudyAssociations/" target="_blank"><b-button pill class="social-media__button social-media__button--facebook">f</b-button></a>
+      <a href="https://www.linkedin.com/company/federation-of-purple-study-associations/" target="_blank"><b-button pill class="social-media__button social-media__button--linkedin">in</b-button></a>
     </div>
   </div>
 </template>
