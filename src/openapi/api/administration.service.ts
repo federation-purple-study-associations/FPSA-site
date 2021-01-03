@@ -397,17 +397,21 @@ export class AdministrationService {
      * create
      * This call can be used to save a new board grant
      * @param document 
+     * @param remarks 
      
      */
-    public boardGrantCreate(document?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
-    public boardGrantCreate(document?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public boardGrantCreate(document?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public boardGrantCreate(document?: Blob, remarks?: string, observe?: 'body', headers?: Headers): Observable<any>;
+    public boardGrantCreate(document?: Blob, remarks?: string, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public boardGrantCreate(document?: Blob, remarks?: string, observe: any = 'body', headers: Headers = {}): Observable<any> {
         headers['Accept'] = 'application/json';
 
         let formData: FormData = new FormData();
         headers['Content-Type'] = 'multipart/form-data';
         if (document !== undefined) {
             formData.append('document', <any>document);
+        }
+        if (remarks !== undefined) {
+            formData.append('remarks', <any>remarks);
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/administration/boardGrant`, formData, headers);
@@ -505,11 +509,12 @@ export class AdministrationService {
      * This call can be used to update the board grant
      * @param id 
      * @param document 
+     * @param remarks 
      
      */
-    public boardGrantUpdate(id: number, document?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
-    public boardGrantUpdate(id: number, document?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public boardGrantUpdate(id: number, document?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public boardGrantUpdate(id: number, document?: Blob, remarks?: string, observe?: 'body', headers?: Headers): Observable<any>;
+    public boardGrantUpdate(id: number, document?: Blob, remarks?: string, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public boardGrantUpdate(id: number, document?: Blob, remarks?: string, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (id === null || id === undefined){
             throw new Error('Required parameter id was null or undefined when calling boardGrantUpdate.');
         }
@@ -520,6 +525,9 @@ export class AdministrationService {
         headers['Content-Type'] = 'multipart/form-data';
         if (document !== undefined) {
             formData.append('document', <any>document);
+        }
+        if (remarks !== undefined) {
+            formData.append('remarks', <any>remarks);
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/administration/boardGrant/${encodeURIComponent(String(id))}`, formData, headers);

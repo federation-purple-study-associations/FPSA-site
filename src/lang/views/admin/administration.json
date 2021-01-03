@@ -27,6 +27,7 @@
             "document": "Document",
             "checked": "Volledig",
             "checked_at": "Controleerd op",
+            "remarks": "Opmerkingen",
             "yes": "Ja",
             "no": "Onbekend"
         },
@@ -83,6 +84,7 @@
             "document": "Document",
             "checked": "Compleet",
             "checked_at": "Checked at",
+            "remarks": "Remarks",
             "yes": "Yes",
             "no": "Unknown"
         },

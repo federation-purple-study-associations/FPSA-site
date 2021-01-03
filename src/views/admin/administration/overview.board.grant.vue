@@ -47,6 +47,9 @@
             <b-form-group :label="$t('table.checked_at')" v-if="edit && hasFPSARights">
               <b-form-datepicker v-model="boardGrant.checkedAt" disabled></b-form-datepicker>
             </b-form-group>
+            <b-form-group :label="$t('table.remarks')">
+              <b-form-textarea v-model="boardGrant.remarks"></b-form-textarea>
+            </b-form-group>
             <b-form-group :label="$t('table.document')">
               <b-form-file :placeholder="edit ? $t('dialog.document_note') : ''" v-model="boardGrantDocument"></b-form-file>
             </b-form-group>
@@ -107,7 +110,7 @@ export default class OverviewBoardGrants extends Vue {
     private dialogConfirmationVisible: boolean = false;
     private edit: boolean = false;
     private loading: boolean = false;
-    private boardGrant: BoardGrant = { id: 0, delivered: '', checked: false, checkedAt: '', user: {id: 0, email: '', websiteUrl: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
+    private boardGrant: BoardGrant = { id: 0, delivered: '', checked: false, checkedAt: '', remarks: '', user: {id: 0, email: '', websiteUrl: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
     private boardGrantDocument?: Blob = new Blob();
 
     private count: number = 0;
@@ -168,7 +171,7 @@ export default class OverviewBoardGrants extends Vue {
 
     private openAddDialog() {
       this.boardGrantDocument = undefined;
-      this.boardGrant = { id: 0, delivered: '', checked: false, checkedAt: '', user: {id: 0, email: '', websiteUrl: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
+      this.boardGrant = { id: 0, delivered: '', checked: false, checkedAt: '', remarks: '', user: {id: 0, email: '', websiteUrl: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
 
       this.edit = false;
       this.dialogActivityVisible = true;
@@ -178,11 +181,11 @@ export default class OverviewBoardGrants extends Vue {
       this.loading = true;
 
       if (!this.edit) {
-        this.administrationService.boardGrantCreate(this.boardGrantDocument!, 'response')
+        this.administrationService.boardGrantCreate(this.boardGrantDocument!, this.boardGrant.remarks, 'response')
           .subscribe(this.handleSucces, this.handleError);
 
       } else {
-        this.administrationService.boardGrantUpdate(this.boardGrant.id, this.boardGrantDocument, 'response')
+        this.administrationService.boardGrantUpdate(this.boardGrant.id, this.boardGrantDocument, this.boardGrant.remarks, 'response')
           .subscribe(this.handleSucces, this.handleError);
       }
     }

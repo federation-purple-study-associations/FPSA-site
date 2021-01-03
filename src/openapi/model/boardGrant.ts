@@ -17,5 +17,6 @@ export interface BoardGrant {
     delivered: string;
     checked: boolean;
     checkedAt: string;
+    remarks?: string;
     user: User;
 }

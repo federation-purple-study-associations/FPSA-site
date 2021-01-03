@@ -13,4 +13,5 @@
 
 export interface CreateBoardGrant { 
     document?: Blob;
+    remarks?: string;
 }

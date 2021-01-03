@@ -220,6 +220,36 @@ export class UserService {
 
 
     /**
+     * getPhoto
+     * This call can be used to get the photo of the specific application
+     * @param id 
+     
+     */
+    public applicationGetPhoto(id: number, observe?: 'body', headers?: Headers): Observable<any>;
+    public applicationGetPhoto(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public applicationGetPhoto(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (id === null || id === undefined){
+            throw new Error('Required parameter id was null or undefined when calling applicationGetPhoto.');
+        }
+
+        let queryParameters: string[] = [];
+        if (id !== undefined) {
+            queryParameters.push("id="+encodeURIComponent(String(id)));
+        }
+
+        headers['Accept'] = 'application/json';
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/user/application/photo?${queryParameters.join('&')}`, headers);
+        if (observe == 'body') {
+               return response.pipe(
+                   map(httpResponse => <any>(httpResponse.response))
+               );
+        }
+        return response;
+    }
+
+
+    /**
      * contact
      * This call can be used to send an email to info@fpsa.nl
      * @param contactFormDTO 
@@ -334,36 +364,6 @@ export class UserService {
         headers['Content-Type'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/me`, user , headers);
-        if (observe == 'body') {
-               return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
-               );
-        }
-        return response;
-    }
-
-
-    /**
-     * 
-     * 
-     * @param id 
-     
-     */
-    public userControllerGetApplicationPicture(id: number, observe?: 'body', headers?: Headers): Observable<any>;
-    public userControllerGetApplicationPicture(id: number, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public userControllerGetApplicationPicture(id: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
-        if (id === null || id === undefined){
-            throw new Error('Required parameter id was null or undefined when calling userControllerGetApplicationPicture.');
-        }
-
-        let queryParameters: string[] = [];
-        if (id !== undefined) {
-            queryParameters.push("id="+encodeURIComponent(String(id)));
-        }
-
-        headers['Accept'] = 'application/json';
-
-        const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/user/application/photo?${queryParameters.join('&')}`, headers);
         if (observe == 'body') {
                return response.pipe(
                    map(httpResponse => <any>(httpResponse.response))
