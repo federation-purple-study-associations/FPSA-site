@@ -22,7 +22,7 @@
         <b-col>
           <b-table striped hover sticky-header ref="tableGrants" :items="getGrants" :fields="fieldsGrants" class="clickable" @row-clicked="rowClicked">
             <template #cell(checked)="data">
-              {{ data.value ? $t('table.yes') + ' (' + moment(data.checkedAt).format('DD-MM-YYYY') + ')' : $t('table.no') }}
+              {{ data.item.checkedAt ? $t('table.yes') + ' (' + moment(data.item.checkedAt).format('DD-MM-YYYY') + ')' : $t('table.no') }}
             </template>
           </b-table>
 
