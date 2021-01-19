@@ -53,7 +53,7 @@
             <div v-if="agendaItems[0]" class="text-center">
               <img :src="url+ '/agenda/photo?id=' + agendaItems[0].id" class="agenda__image"/>
               <h2 class="title--purple">{{agendaItems[0].title}}</h2>
-              <p>{{agendaItems[0].summary}}</p>
+              <p>{{agendaItems[0].description}}</p>
             </div>
           </router-link>
         </b-col>
