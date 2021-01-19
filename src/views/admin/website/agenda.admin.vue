@@ -21,7 +21,7 @@
               <b-card-text>
                 <b>{{$t('location')}}</b> {{item.location}}<br>
                 <b>{{$t('date')}}</b> {{moment(item.date).tz("UTC").format('DD-MM-YYYY HH:mm')}}<br><br>
-                {{item.summary}}
+                {{item.description}}
               </b-card-text>
           </b-card>
 
@@ -48,12 +48,6 @@
             </b-form-group>
             <b-form-group>
               <b-form-input :placeholder="$t('dialog.english')" v-model="agendaItemForDialog.titleEN"></b-form-input>
-            </b-form-group>
-            <b-form-group :label="$t('dialog.summary')">
-              <b-form-textarea :placeholder="$t('dialog.dutch')" v-model="agendaItemForDialog.summaryNL"></b-form-textarea>
-            </b-form-group>
-            <b-form-group>
-              <b-form-textarea :placeholder="$t('dialog.english')" v-model="agendaItemForDialog.summaryEN"></b-form-textarea>
             </b-form-group>
             <b-form-group :label="$t('dialog.description')">
               <b-form-textarea :placeholder="$t('dialog.dutch')" v-model="agendaItemForDialog.descriptionNL"></b-form-textarea>
@@ -124,8 +118,6 @@ export default class AgendaAdmin extends Vue {
     date: '',
     titleNL: '',
     titleEN: '',
-    summaryNL: '',
-    summaryEN: '',
     descriptionNL: '',
     descriptionEN: '',
     isDraft: true,
@@ -182,8 +174,6 @@ export default class AgendaAdmin extends Vue {
       date: '',
       titleNL: '',
       titleEN: '',
-      summaryNL: '',
-      summaryEN: '',
       descriptionNL: '',
       descriptionEN: '',
       isDraft: true,
@@ -207,8 +197,6 @@ export default class AgendaAdmin extends Vue {
         moment(this.agendaItemForDialog.date).format('YYYY-MM-DD') + 'T' + this.time,
         this.agendaItemForDialog.titleNL,
         this.agendaItemForDialog.titleEN,
-        this.agendaItemForDialog.summaryNL,
-        this.agendaItemForDialog.summaryEN,
         this.agendaItemForDialog.descriptionNL,
         this.agendaItemForDialog.descriptionEN,
         this.agendaItemForDialog.isDraft ? 'true' : 'false',
@@ -222,8 +210,6 @@ export default class AgendaAdmin extends Vue {
         moment(this.agendaItemForDialog.date).format('YYYY-MM-DD') + 'T' + this.time,
         this.agendaItemForDialog.titleNL,
         this.agendaItemForDialog.titleEN,
-        this.agendaItemForDialog.summaryNL,
-        this.agendaItemForDialog.summaryEN,
         this.agendaItemForDialog.descriptionNL,
         this.agendaItemForDialog.descriptionEN,
         this.agendaItemForDialog.isDraft ? 'true' : 'false',

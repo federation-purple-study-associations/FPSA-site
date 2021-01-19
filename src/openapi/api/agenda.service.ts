@@ -45,17 +45,15 @@ export class AgendaService {
      * @param date 
      * @param titleNL 
      * @param titleEN 
-     * @param summaryNL 
-     * @param summaryEN 
      * @param descriptionNL 
      * @param descriptionEN 
      * @param isDraft 
      * @param image 
      
      */
-    public agendaCreateNew(location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, isDraft: string, image: Blob, observe?: 'body', headers?: Headers): Observable<any>;
-    public agendaCreateNew(location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, isDraft: string, image: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public agendaCreateNew(location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, isDraft: string, image: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public agendaCreateNew(location: string, date: string, titleNL: string, titleEN: string, descriptionNL: string, descriptionEN: string, isDraft: string, image: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public agendaCreateNew(location: string, date: string, titleNL: string, titleEN: string, descriptionNL: string, descriptionEN: string, isDraft: string, image: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public agendaCreateNew(location: string, date: string, titleNL: string, titleEN: string, descriptionNL: string, descriptionEN: string, isDraft: string, image: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (location === null || location === undefined){
             throw new Error('Required parameter location was null or undefined when calling agendaCreateNew.');
         }
@@ -70,14 +68,6 @@ export class AgendaService {
 
         if (titleEN === null || titleEN === undefined){
             throw new Error('Required parameter titleEN was null or undefined when calling agendaCreateNew.');
-        }
-
-        if (summaryNL === null || summaryNL === undefined){
-            throw new Error('Required parameter summaryNL was null or undefined when calling agendaCreateNew.');
-        }
-
-        if (summaryEN === null || summaryEN === undefined){
-            throw new Error('Required parameter summaryEN was null or undefined when calling agendaCreateNew.');
         }
 
         if (descriptionNL === null || descriptionNL === undefined){
@@ -111,12 +101,6 @@ export class AgendaService {
         }
         if (titleEN !== undefined) {
             formData.append('titleEN', <any>titleEN);
-        }
-        if (summaryNL !== undefined) {
-            formData.append('summaryNL', <any>summaryNL);
-        }
-        if (summaryEN !== undefined) {
-            formData.append('summaryEN', <any>summaryEN);
         }
         if (descriptionNL !== undefined) {
             formData.append('descriptionNL', <any>descriptionNL);
@@ -314,17 +298,15 @@ export class AgendaService {
      * @param date 
      * @param titleNL 
      * @param titleEN 
-     * @param summaryNL 
-     * @param summaryEN 
      * @param descriptionNL 
      * @param descriptionEN 
      * @param isDraft 
      * @param image 
      
      */
-    public agendaUpdate(id: number, location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, isDraft: string, image?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
-    public agendaUpdate(id: number, location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, isDraft: string, image?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public agendaUpdate(id: number, location: string, date: string, titleNL: string, titleEN: string, summaryNL: string, summaryEN: string, descriptionNL: string, descriptionEN: string, isDraft: string, image?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public agendaUpdate(id: number, location: string, date: string, titleNL: string, titleEN: string, descriptionNL: string, descriptionEN: string, isDraft: string, image?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public agendaUpdate(id: number, location: string, date: string, titleNL: string, titleEN: string, descriptionNL: string, descriptionEN: string, isDraft: string, image?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public agendaUpdate(id: number, location: string, date: string, titleNL: string, titleEN: string, descriptionNL: string, descriptionEN: string, isDraft: string, image?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (id === null || id === undefined){
             throw new Error('Required parameter id was null or undefined when calling agendaUpdate.');
         }
@@ -343,14 +325,6 @@ export class AgendaService {
 
         if (titleEN === null || titleEN === undefined){
             throw new Error('Required parameter titleEN was null or undefined when calling agendaUpdate.');
-        }
-
-        if (summaryNL === null || summaryNL === undefined){
-            throw new Error('Required parameter summaryNL was null or undefined when calling agendaUpdate.');
-        }
-
-        if (summaryEN === null || summaryEN === undefined){
-            throw new Error('Required parameter summaryEN was null or undefined when calling agendaUpdate.');
         }
 
         if (descriptionNL === null || descriptionNL === undefined){
@@ -380,12 +354,6 @@ export class AgendaService {
         }
         if (titleEN !== undefined) {
             formData.append('titleEN', <any>titleEN);
-        }
-        if (summaryNL !== undefined) {
-            formData.append('summaryNL', <any>summaryNL);
-        }
-        if (summaryEN !== undefined) {
-            formData.append('summaryEN', <any>summaryEN);
         }
         if (descriptionNL !== undefined) {
             formData.append('descriptionNL', <any>descriptionNL);

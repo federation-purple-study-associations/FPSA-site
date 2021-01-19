@@ -16,8 +16,6 @@ export interface NewAgendaDTO {
     date: string;
     titleNL: string;
     titleEN: string;
-    summaryNL: string;
-    summaryEN: string;
     descriptionNL: string;
     descriptionEN: string;
     isDraft: string;

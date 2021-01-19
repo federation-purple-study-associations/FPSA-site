@@ -16,5 +16,5 @@ export interface AgendaSummaryDTO {
     location: string;
     date: string;
     title: string;
-    summary: string;
+    description: string;
 }
