@@ -20,7 +20,7 @@
             img-right
             class="mb-3 mt-3">
 
-              <b-card-text>{{item.text}}</b-card-text>
+              <b-card-text class="card-text__text-cap">{{item.text}}</b-card-text>
 
               <template v-slot:footer v-if="item.hasPolicyPlan">
                 <a style="cursor: pointer; height: 100%" target="_blank" :href="url+ '/board/policy?id=' + item.id">

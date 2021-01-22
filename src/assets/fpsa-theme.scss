@@ -100,7 +100,10 @@ html {
 
 .card-text, .modal-body {
     white-space: pre-line;
-    width: calc(100% - 300px);
+
+    &__text-cap {
+        width: calc(100% - 300px);
+    }
 }
 
 div.b-table-sticky-header {

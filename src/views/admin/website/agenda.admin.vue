@@ -18,7 +18,7 @@
             @click="openEditDialog(item.id)"
             class="mb-3 mt-3 clickable">
 
-              <b-card-text>
+              <b-card-text class="card-text__text-cap">
                 <b>{{$t('location')}}</b> {{item.location}}<br>
                 <b>{{$t('date')}}</b> {{moment(item.date).tz("UTC").format('DD-MM-YYYY HH:mm')}}<br><br>
                 {{item.description}}
