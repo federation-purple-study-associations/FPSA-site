@@ -393,7 +393,6 @@ export default class BoardAdmin extends Vue {
 
   private submitContactMembersForm() {
     this.loading = true;
-    console.log(this.contactForm.attachments);
     this.userService.contactMembers(
       this.contactForm.subject,
       this.contactForm.message,
