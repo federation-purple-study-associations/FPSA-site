@@ -11,18 +11,18 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-import { map } from "rxjs/operators";
-import IHttpClient from "../IHttpClient";
-import { inject, injectable } from "inversify";
-import { IAPIConfiguration } from "../IAPIConfiguration";
-import { Headers } from "../Headers";
-import HttpResponse from "../HttpResponse";
+import { map } from 'rxjs/operators';
+import IHttpClient from '../IHttpClient';
+import { inject, injectable } from 'inversify';
+import { IAPIConfiguration } from '../IAPIConfiguration';
+import { Headers } from '../Headers';
+import HttpResponse from '../HttpResponse';
 
-import { PageView } from "../model/pageView";
+import { PageView } from '../model/pageView';
 
-import { COLLECTION_FORMATS }  from "../variables";
+import { COLLECTION_FORMATS }  from '../variables';
 
 
 
@@ -30,8 +30,8 @@ import { COLLECTION_FORMATS }  from "../variables";
 export class StatisticService {
     private basePath: string = 'http://localhost';
 
-    constructor(@inject("IApiHttpClient") private httpClient: IHttpClient,
-        @inject("IAPIConfiguration") private APIConfiguration: IAPIConfiguration ) {
+    constructor(@inject('IApiHttpClient') private httpClient: IHttpClient,
+        @inject('IAPIConfiguration') private APIConfiguration: IAPIConfiguration ) {
         if(this.APIConfiguration.basePath)
             this.basePath = this.APIConfiguration.basePath;
     }
@@ -47,9 +47,9 @@ export class StatisticService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<Array<PageView>>> = this.httpClient.get(`${this.basePath}/statistic/pageview`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <Array<PageView>>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <Array<PageView>>(httpResponse.response))
                );
         }
         return response;
@@ -67,9 +67,9 @@ export class StatisticService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/statistic/pageview`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;

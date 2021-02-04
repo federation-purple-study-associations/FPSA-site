@@ -11,26 +11,25 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-import { map } from "rxjs/operators";
-import IHttpClient from "../IHttpClient";
-import { inject, injectable } from "inversify";
-import { IAPIConfiguration } from "../IAPIConfiguration";
-import { Headers } from "../Headers";
-import HttpResponse from "../HttpResponse";
+import { map } from 'rxjs/operators';
+import IHttpClient from '../IHttpClient';
+import { inject, injectable } from 'inversify';
+import { IAPIConfiguration } from '../IAPIConfiguration';
+import { Headers } from '../Headers';
+import HttpResponse from '../HttpResponse';
 
-import { Application } from "../model/application";
-import { ContactFormDTO } from "../model/contactFormDTO";
-import { ContactMembersDTO } from "../model/contactMembersDTO";
-import { LoginDTO } from "../model/loginDTO";
-import { MemberDTO } from "../model/memberDTO";
-import { User } from "../model/user";
-import { UserActivateDTO } from "../model/userActivateDTO";
-import { UserForgotDTO } from "../model/userForgotDTO";
-import { UserSummaryDTO } from "../model/userSummaryDTO";
+import { Application } from '../model/application';
+import { ContactFormDTO } from '../model/contactFormDTO';
+import { LoginDTO } from '../model/loginDTO';
+import { MemberDTO } from '../model/memberDTO';
+import { User } from '../model/user';
+import { UserActivateDTO } from '../model/userActivateDTO';
+import { UserForgotDTO } from '../model/userForgotDTO';
+import { UserSummaryDTO } from '../model/userSummaryDTO';
 
-import { COLLECTION_FORMATS }  from "../variables";
+import { COLLECTION_FORMATS }  from '../variables';
 
 
 
@@ -38,8 +37,8 @@ import { COLLECTION_FORMATS }  from "../variables";
 export class UserService {
     private basePath: string = 'http://localhost';
 
-    constructor(@inject("IApiHttpClient") private httpClient: IHttpClient,
-        @inject("IAPIConfiguration") private APIConfiguration: IAPIConfiguration ) {
+    constructor(@inject('IApiHttpClient') private httpClient: IHttpClient,
+        @inject('IAPIConfiguration') private APIConfiguration: IAPIConfiguration ) {
         if(this.APIConfiguration.basePath)
             this.basePath = this.APIConfiguration.basePath;
     }
@@ -61,9 +60,9 @@ export class UserService {
         headers['Content-Type'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/activate`, userActivateDTO , headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -86,9 +85,9 @@ export class UserService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/application/${encodeURIComponent(String(id))}/accept`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -165,9 +164,9 @@ export class UserService {
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/application`, formData, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -190,9 +189,9 @@ export class UserService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/application/${encodeURIComponent(String(id))}/decline`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -210,9 +209,9 @@ export class UserService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<Array<Application>>> = this.httpClient.get(`${this.basePath}/user/application`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <Array<Application>>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <Array<Application>>(httpResponse.response))
                );
         }
         return response;
@@ -234,15 +233,15 @@ export class UserService {
 
         let queryParameters: string[] = [];
         if (id !== undefined) {
-            queryParameters.push("id="+encodeURIComponent(String(id)));
+            queryParameters.push('id='+encodeURIComponent(String(id)));
         }
 
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/user/application/photo?${queryParameters.join('&')}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -266,9 +265,9 @@ export class UserService {
         headers['Content-Type'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/contact`, contactFormDTO , headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -278,23 +277,44 @@ export class UserService {
     /**
      * contactMembers
      * This call can be used to send an email to all of the members
-     * @param contactMembersDTO 
+     * @param subject 
+     * @param message 
+     * @param attachments 
      
      */
-    public contactMembers(contactMembersDTO: ContactMembersDTO, observe?: 'body', headers?: Headers): Observable<any>;
-    public contactMembers(contactMembersDTO: ContactMembersDTO, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public contactMembers(contactMembersDTO: ContactMembersDTO, observe: any = 'body', headers: Headers = {}): Observable<any> {
-        if (contactMembersDTO === null || contactMembersDTO === undefined){
-            throw new Error('Required parameter contactMembersDTO was null or undefined when calling contactMembers.');
+    public contactMembers(subject: string, message: string, attachments: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public contactMembers(subject: string, message: string, attachments: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public contactMembers(subject: string, message: string, attachments: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+        if (subject === null || subject === undefined){
+            throw new Error('Required parameter subject was null or undefined when calling contactMembers.');
+        }
+
+        if (message === null || message === undefined){
+            throw new Error('Required parameter message was null or undefined when calling contactMembers.');
+        }
+
+        if (attachments === null || attachments === undefined){
+            throw new Error('Required parameter attachments was null or undefined when calling contactMembers.');
         }
 
         headers['Accept'] = 'application/json';
-        headers['Content-Type'] = 'application/json';
 
-        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/contact/members`, contactMembersDTO , headers);
-        if (observe == 'body') {
+        let formData: FormData = new FormData();
+        headers['Content-Type'] = 'multipart/form-data';
+        if (subject !== undefined) {
+            formData.append('subject', <any>subject);
+        }
+        if (message !== undefined) {
+            formData.append('message', <any>message);
+        }
+        if (attachments !== undefined) {
+            formData.append('attachments', <any>attachments);
+        }
+
+        const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/contact/members`, formData, headers);
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -312,9 +332,9 @@ export class UserService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<User>> = this.httpClient.get(`${this.basePath}/user/me`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <User>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <User>(httpResponse.response))
                );
         }
         return response;
@@ -338,9 +358,9 @@ export class UserService {
         headers['Content-Type'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/login`, loginDTO , headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -364,9 +384,9 @@ export class UserService {
         headers['Content-Type'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/me`, user , headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -451,9 +471,9 @@ export class UserService {
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user`, formData, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -476,9 +496,9 @@ export class UserService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.delete(`${this.basePath}/user/${encodeURIComponent(String(id))}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -502,9 +522,9 @@ export class UserService {
         headers['Content-Type'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/user/forgot`, userForgotDTO , headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -522,9 +542,9 @@ export class UserService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<Array<UserSummaryDTO>>> = this.httpClient.get(`${this.basePath}/user`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <Array<UserSummaryDTO>>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <Array<UserSummaryDTO>>(httpResponse.response))
                );
         }
         return response;
@@ -542,9 +562,9 @@ export class UserService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<Array<User>>> = this.httpClient.get(`${this.basePath}/user/full`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <Array<User>>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <Array<User>>(httpResponse.response))
                );
         }
         return response;
@@ -562,9 +582,9 @@ export class UserService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<Array<MemberDTO>>> = this.httpClient.get(`${this.basePath}/user/members`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <Array<MemberDTO>>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <Array<MemberDTO>>(httpResponse.response))
                );
         }
         return response;
@@ -587,9 +607,9 @@ export class UserService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<User>> = this.httpClient.get(`${this.basePath}/user/${encodeURIComponent(String(id))}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <User>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <User>(httpResponse.response))
                );
         }
         return response;
@@ -611,15 +631,15 @@ export class UserService {
 
         let queryParameters: string[] = [];
         if (id !== undefined) {
-            queryParameters.push("id="+encodeURIComponent(String(id)));
+            queryParameters.push('id='+encodeURIComponent(String(id)));
         }
 
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/user/photo?${queryParameters.join('&')}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -705,9 +725,9 @@ export class UserService {
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/user/${encodeURIComponent(String(id))}`, formData, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;

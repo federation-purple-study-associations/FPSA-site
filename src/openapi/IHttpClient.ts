@@ -1,6 +1,6 @@
-import { Observable, from } from "rxjs";
-import HttpResponse from "./HttpResponse";
-import { Headers } from "./Headers";
+import { Observable, from } from 'rxjs';
+import HttpResponse from './HttpResponse';
+import { Headers } from './Headers';
 
 interface IHttpClient {
     get(url:string, headers?: Headers):Observable<HttpResponse>

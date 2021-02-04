@@ -11,20 +11,20 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-import { map } from "rxjs/operators";
-import IHttpClient from "../IHttpClient";
-import { inject, injectable } from "inversify";
-import { IAPIConfiguration } from "../IAPIConfiguration";
-import { Headers } from "../Headers";
-import HttpResponse from "../HttpResponse";
+import { map } from 'rxjs/operators';
+import IHttpClient from '../IHttpClient';
+import { inject, injectable } from 'inversify';
+import { IAPIConfiguration } from '../IAPIConfiguration';
+import { Headers } from '../Headers';
+import HttpResponse from '../HttpResponse';
 
-import { AgendaAllDTO } from "../model/agendaAllDTO";
-import { AgendaDetailsDTO } from "../model/agendaDetailsDTO";
-import { AgendaItem } from "../model/agendaItem";
+import { AgendaAllDTO } from '../model/agendaAllDTO';
+import { AgendaDetailsDTO } from '../model/agendaDetailsDTO';
+import { AgendaItem } from '../model/agendaItem';
 
-import { COLLECTION_FORMATS }  from "../variables";
+import { COLLECTION_FORMATS }  from '../variables';
 
 
 
@@ -32,8 +32,8 @@ import { COLLECTION_FORMATS }  from "../variables";
 export class AgendaService {
     private basePath: string = 'http://localhost';
 
-    constructor(@inject("IApiHttpClient") private httpClient: IHttpClient,
-        @inject("IAPIConfiguration") private APIConfiguration: IAPIConfiguration ) {
+    constructor(@inject('IApiHttpClient') private httpClient: IHttpClient,
+        @inject('IAPIConfiguration') private APIConfiguration: IAPIConfiguration ) {
         if(this.APIConfiguration.basePath)
             this.basePath = this.APIConfiguration.basePath;
     }
@@ -116,9 +116,9 @@ export class AgendaService {
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/agenda`, formData, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -141,9 +141,9 @@ export class AgendaService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.delete(`${this.basePath}/agenda/${encodeURIComponent(String(id))}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -176,24 +176,24 @@ export class AgendaService {
 
         let queryParameters: string[] = [];
         if (lang !== undefined) {
-            queryParameters.push("lang="+encodeURIComponent(String(lang)));
+            queryParameters.push('lang='+encodeURIComponent(String(lang)));
         }
         if (skip !== undefined) {
-            queryParameters.push("skip="+encodeURIComponent(String(skip)));
+            queryParameters.push('skip='+encodeURIComponent(String(skip)));
         }
         if (take !== undefined) {
-            queryParameters.push("take="+encodeURIComponent(String(take)));
+            queryParameters.push('take='+encodeURIComponent(String(take)));
         }
         if (past !== undefined) {
-            queryParameters.push("past="+encodeURIComponent(String(past)));
+            queryParameters.push('past='+encodeURIComponent(String(past)));
         }
 
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<AgendaAllDTO>> = this.httpClient.get(`${this.basePath}/agenda?${queryParameters.join('&')}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <AgendaAllDTO>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <AgendaAllDTO>(httpResponse.response))
                );
         }
         return response;
@@ -220,15 +220,15 @@ export class AgendaService {
 
         let queryParameters: string[] = [];
         if (lang !== undefined) {
-            queryParameters.push("lang="+encodeURIComponent(String(lang)));
+            queryParameters.push('lang='+encodeURIComponent(String(lang)));
         }
 
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<AgendaDetailsDTO>> = this.httpClient.get(`${this.basePath}/agenda/${encodeURIComponent(String(id))}?${queryParameters.join('&')}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <AgendaDetailsDTO>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <AgendaDetailsDTO>(httpResponse.response))
                );
         }
         return response;
@@ -251,9 +251,9 @@ export class AgendaService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<AgendaItem>> = this.httpClient.get(`${this.basePath}/agenda/original/${encodeURIComponent(String(id))}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <AgendaItem>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <AgendaItem>(httpResponse.response))
                );
         }
         return response;
@@ -275,15 +275,15 @@ export class AgendaService {
 
         let queryParameters: string[] = [];
         if (id !== undefined) {
-            queryParameters.push("id="+encodeURIComponent(String(id)));
+            queryParameters.push('id='+encodeURIComponent(String(id)));
         }
 
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/agenda/photo?${queryParameters.join('&')}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -369,9 +369,9 @@ export class AgendaService {
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/agenda/${encodeURIComponent(String(id))}`, formData, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;

@@ -37,6 +37,7 @@
             "title": "Contacteer leden",
             "subject": "Onderwerp",
             "message": "Bericht",
+            "attachments": "Bijlage",
             "successful": "Bericht succesvol verzonden!",
             "preview": "Voorbeeld",
             "send": "Versturen"
@@ -85,6 +86,7 @@
             "title": "Contact members",
             "subject": "Subject",
             "message": "Message",
+            "attachments": "Attachment",
             "successful": "Message succesfully send!",
             "preview": "Preview",
             "send": "Send"

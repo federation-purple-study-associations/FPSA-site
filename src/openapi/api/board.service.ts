@@ -11,19 +11,19 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-import { map } from "rxjs/operators";
-import IHttpClient from "../IHttpClient";
-import { inject, injectable } from "inversify";
-import { IAPIConfiguration } from "../IAPIConfiguration";
-import { Headers } from "../Headers";
-import HttpResponse from "../HttpResponse";
+import { map } from 'rxjs/operators';
+import IHttpClient from '../IHttpClient';
+import { inject, injectable } from 'inversify';
+import { IAPIConfiguration } from '../IAPIConfiguration';
+import { Headers } from '../Headers';
+import HttpResponse from '../HttpResponse';
 
-import { Board } from "../model/board";
-import { BoardInfoTotalDTO } from "../model/boardInfoTotalDTO";
+import { Board } from '../model/board';
+import { BoardInfoTotalDTO } from '../model/boardInfoTotalDTO';
 
-import { COLLECTION_FORMATS }  from "../variables";
+import { COLLECTION_FORMATS }  from '../variables';
 
 
 
@@ -31,8 +31,8 @@ import { COLLECTION_FORMATS }  from "../variables";
 export class BoardService {
     private basePath: string = 'http://localhost';
 
-    constructor(@inject("IApiHttpClient") private httpClient: IHttpClient,
-        @inject("IAPIConfiguration") private APIConfiguration: IAPIConfiguration ) {
+    constructor(@inject('IApiHttpClient') private httpClient: IHttpClient,
+        @inject('IAPIConfiguration') private APIConfiguration: IAPIConfiguration ) {
         if(this.APIConfiguration.basePath)
             this.basePath = this.APIConfiguration.basePath;
     }
@@ -91,9 +91,9 @@ export class BoardService {
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/board`, formData, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -116,9 +116,9 @@ export class BoardService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.delete(`${this.basePath}/board/${encodeURIComponent(String(id))}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -150,21 +150,21 @@ export class BoardService {
 
         let queryParameters: string[] = [];
         if (lang !== undefined) {
-            queryParameters.push("lang="+encodeURIComponent(String(lang)));
+            queryParameters.push('lang='+encodeURIComponent(String(lang)));
         }
         if (skip !== undefined) {
-            queryParameters.push("skip="+encodeURIComponent(String(skip)));
+            queryParameters.push('skip='+encodeURIComponent(String(skip)));
         }
         if (size !== undefined) {
-            queryParameters.push("size="+encodeURIComponent(String(size)));
+            queryParameters.push('size='+encodeURIComponent(String(size)));
         }
 
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<BoardInfoTotalDTO>> = this.httpClient.get(`${this.basePath}/board?${queryParameters.join('&')}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <BoardInfoTotalDTO>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <BoardInfoTotalDTO>(httpResponse.response))
                );
         }
         return response;
@@ -187,9 +187,9 @@ export class BoardService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<Board>> = this.httpClient.get(`${this.basePath}/board/original/${encodeURIComponent(String(id))}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <Board>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <Board>(httpResponse.response))
                );
         }
         return response;
@@ -211,15 +211,15 @@ export class BoardService {
 
         let queryParameters: string[] = [];
         if (id !== undefined) {
-            queryParameters.push("id="+encodeURIComponent(String(id)));
+            queryParameters.push('id='+encodeURIComponent(String(id)));
         }
 
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/board/photo?${queryParameters.join('&')}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -241,15 +241,15 @@ export class BoardService {
 
         let queryParameters: string[] = [];
         if (id !== undefined) {
-            queryParameters.push("id="+encodeURIComponent(String(id)));
+            queryParameters.push('id='+encodeURIComponent(String(id)));
         }
 
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/board/policy?${queryParameters.join('&')}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -315,9 +315,9 @@ export class BoardService {
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/board/${encodeURIComponent(String(id))}`, formData, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;

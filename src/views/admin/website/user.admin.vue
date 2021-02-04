@@ -88,19 +88,16 @@
             <b-tab :title="$t('contact.message')">
               <b-form class="mt-3">
                 <b-form-group :label="$t('contact.subject')" label-for="input-subject">
-                  <b-form-input id="input-subject" v-model="contactForm.subject" v-on:input="checkLegal"></b-form-input>
+                  <b-form-input id="input-subject" v-model="contactForm.subject"></b-form-input>
                 </b-form-group>
                 <b-form-group :label="$t('contact.message')" label-for="input-message">
-                  <div class="w-100">
-                    <b-button variant="light" @click="addBold()"><b>B</b></b-button>
-                    <b-button variant="light" @click="addItallic()" class="ml-1"><i>i</i></b-button>
-                    <b-button variant="light" @click="addUnderline()" class="ml-1"><ins>U</ins></b-button>
-                    <b-button variant="light" @click="addImage()" class="ml-3"><b-icon-image/></b-button>
-                  </div>
-                  <b-form-textarea id="input-message" v-model="contactForm.message" v-on:input="checkLegal"></b-form-textarea>
+                  <wysiwyg v-model="contactForm.message"></wysiwyg>
+                </b-form-group>
+                <b-form-group :label="$t('contact.attachments')" label-for="input-attachments">
+                  <b-form-file id="input-attachments" v-model="attachment"></b-form-file>
                 </b-form-group>
                 <div class="w-100 text-right">
-                  <b-button variant="primary" :disabled="isIllegal || loading" @click="submitContactMembersForm()"><b-overlay :show="loading" rounded="sm">{{$t('contact.send')}}</b-overlay></b-button>
+                  <b-button variant="primary" :disabled="loading" @click="submitContactMembersForm()"><b-overlay :show="loading" rounded="sm">{{$t('contact.send')}}</b-overlay></b-button>
                 </div>
               </b-form>
             </b-tab>
@@ -133,8 +130,6 @@ import HttpResponse from '../../../openapi/HttpResponse';
 import { UserService } from '../../../openapi/api/user.service';
 import { UserSummaryDTO } from '../../../openapi/model/userSummaryDTO';
 import { User } from '../../../openapi/model/user';
-import { UserUpdateDTO } from '../../../openapi/model/userUpdateDTO';
-import { UserNewDTO } from '../../../openapi/model/userNewDTO';
 import { Application } from '../../../openapi/model/application';
 import moment from 'moment';
 import XLSX from 'xlsx/xlsx';
@@ -172,7 +167,9 @@ export default class BoardAdmin extends Vue {
   private contactForm: ContactMembersDTO = {
     subject: '',
     message: '',
+    attachments: [],
   };
+  private attachment?: Blob = new Blob();
 
   // Dialog applications
   private dialogApplicationsVisible = false;
@@ -385,41 +382,29 @@ export default class BoardAdmin extends Vue {
   }
 
   private openContactMembersDialog() {
-    this.contactForm = { subject: '', message: '' };
+    this.contactForm = { subject: '', message: '', attachments: [] };
+    this.attachment = undefined;
     this.dialogContactVisible = true;
+  }
+
+  private handleFileUpload() {
+    this.attachment = (this.$refs.file as any).files[0];
   }
 
   private submitContactMembersForm() {
     this.loading = true;
-    this.userService.contactMembers(this.contactForm, 'response').subscribe(() => {
+    console.log(this.contactForm.attachments);
+    this.userService.contactMembers(
+      this.contactForm.subject,
+      this.contactForm.message,
+      this.attachment!,
+      'response',
+    ).subscribe(() => {
       this.$notify({group: 'foo', text: this.$t('contact.successful').toString(), type: 'success'});
       this.dialogContactVisible = false;
       this.loading = false;
 
     }, this.handleError);
-  }
-
-  private addBold() {
-    this.contactForm.message += '<b>TEXT</b>';
-  }
-
-  private addItallic() {
-    this.contactForm.message += '<i>TEXT</i>';
-  }
-
-  private addUnderline() {
-    this.contactForm.message += '<ins>TEXT</ins>';
-  }
-
-  private addImage() {
-    this.contactForm.message += '<img src="https://fpsa.nl/logo.png" style="width: 150px"/>';
-  }
-
-  private checkLegal(): void {
-    this.isIllegal = (
-      this.contactForm.message === '' ||
-      this.contactForm.subject === ''
-    );
   }
 
 // Copied from https://github.com/t-chatoyan/vue-excel-xlsx/blob/master/VueExcelXlsx.vue

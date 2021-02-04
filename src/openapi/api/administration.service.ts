@@ -11,20 +11,20 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-import { map } from "rxjs/operators";
-import IHttpClient from "../IHttpClient";
-import { inject, injectable } from "inversify";
-import { IAPIConfiguration } from "../IAPIConfiguration";
-import { Headers } from "../Headers";
-import HttpResponse from "../HttpResponse";
+import { map } from 'rxjs/operators';
+import IHttpClient from '../IHttpClient';
+import { inject, injectable } from 'inversify';
+import { IAPIConfiguration } from '../IAPIConfiguration';
+import { Headers } from '../Headers';
+import HttpResponse from '../HttpResponse';
 
-import { ResultActivityPlan } from "../model/resultActivityPlan";
-import { ResultAnnualReport } from "../model/resultAnnualReport";
-import { ResultBoardGrant } from "../model/resultBoardGrant";
+import { ResultActivityPlan } from '../model/resultActivityPlan';
+import { ResultAnnualReport } from '../model/resultAnnualReport';
+import { ResultBoardGrant } from '../model/resultBoardGrant';
 
-import { COLLECTION_FORMATS }  from "../variables";
+import { COLLECTION_FORMATS }  from '../variables';
 
 
 
@@ -32,8 +32,8 @@ import { COLLECTION_FORMATS }  from "../variables";
 export class AdministrationService {
     private basePath: string = 'http://localhost';
 
-    constructor(@inject("IApiHttpClient") private httpClient: IHttpClient,
-        @inject("IAPIConfiguration") private APIConfiguration: IAPIConfiguration ) {
+    constructor(@inject('IApiHttpClient') private httpClient: IHttpClient,
+        @inject('IAPIConfiguration') private APIConfiguration: IAPIConfiguration ) {
         if(this.APIConfiguration.basePath)
             this.basePath = this.APIConfiguration.basePath;
     }
@@ -49,9 +49,9 @@ export class AdministrationService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/administration/activityplan/check`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -92,9 +92,9 @@ export class AdministrationService {
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/administration/activityplan`, formData, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -117,9 +117,9 @@ export class AdministrationService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.delete(`${this.basePath}/administration/activityplan/${encodeURIComponent(String(id))}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -138,18 +138,18 @@ export class AdministrationService {
     public activityPlanGetAll(skip?: number, size?: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
         let queryParameters: string[] = [];
         if (skip !== undefined) {
-            queryParameters.push("skip="+encodeURIComponent(String(skip)));
+            queryParameters.push('skip='+encodeURIComponent(String(skip)));
         }
         if (size !== undefined) {
-            queryParameters.push("size="+encodeURIComponent(String(size)));
+            queryParameters.push('size='+encodeURIComponent(String(size)));
         }
 
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<ResultActivityPlan>> = this.httpClient.get(`${this.basePath}/administration/activityplan?${queryParameters.join('&')}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <ResultActivityPlan>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <ResultActivityPlan>(httpResponse.response))
                );
         }
         return response;
@@ -172,9 +172,9 @@ export class AdministrationService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/administration/activityplan/${encodeURIComponent(String(id))}/document`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -220,9 +220,9 @@ export class AdministrationService {
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/administration/activityplan/${encodeURIComponent(String(id))}`, formData, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -247,9 +247,9 @@ export class AdministrationService {
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/administration/annualReport`, formData, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -272,9 +272,9 @@ export class AdministrationService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.delete(`${this.basePath}/administration/annualReport/${encodeURIComponent(String(id))}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -293,18 +293,18 @@ export class AdministrationService {
     public annualReportGetAll(skip?: number, size?: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
         let queryParameters: string[] = [];
         if (skip !== undefined) {
-            queryParameters.push("skip="+encodeURIComponent(String(skip)));
+            queryParameters.push('skip='+encodeURIComponent(String(skip)));
         }
         if (size !== undefined) {
-            queryParameters.push("size="+encodeURIComponent(String(size)));
+            queryParameters.push('size='+encodeURIComponent(String(size)));
         }
 
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<ResultAnnualReport>> = this.httpClient.get(`${this.basePath}/administration/annualReport?${queryParameters.join('&')}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <ResultAnnualReport>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <ResultAnnualReport>(httpResponse.response))
                );
         }
         return response;
@@ -327,9 +327,9 @@ export class AdministrationService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/administration/annualReport/${encodeURIComponent(String(id))}/document`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -359,9 +359,9 @@ export class AdministrationService {
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/administration/annualReport/${encodeURIComponent(String(id))}`, formData, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -384,9 +384,9 @@ export class AdministrationService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/administration/boardGrant/${encodeURIComponent(String(id))}/checked`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -415,9 +415,9 @@ export class AdministrationService {
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.post(`${this.basePath}/administration/boardGrant`, formData, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -440,9 +440,9 @@ export class AdministrationService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.delete(`${this.basePath}/administration/boardGrant/${encodeURIComponent(String(id))}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -461,18 +461,18 @@ export class AdministrationService {
     public boardGrantGetAll(skip?: number, size?: number, observe: any = 'body', headers: Headers = {}): Observable<any> {
         let queryParameters: string[] = [];
         if (skip !== undefined) {
-            queryParameters.push("skip="+encodeURIComponent(String(skip)));
+            queryParameters.push('skip='+encodeURIComponent(String(skip)));
         }
         if (size !== undefined) {
-            queryParameters.push("size="+encodeURIComponent(String(size)));
+            queryParameters.push('size='+encodeURIComponent(String(size)));
         }
 
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<ResultBoardGrant>> = this.httpClient.get(`${this.basePath}/administration/boardGrant?${queryParameters.join('&')}`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <ResultBoardGrant>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <ResultBoardGrant>(httpResponse.response))
                );
         }
         return response;
@@ -495,9 +495,9 @@ export class AdministrationService {
         headers['Accept'] = 'application/json';
 
         const response: Observable<HttpResponse<any>> = this.httpClient.get(`${this.basePath}/administration/boardGrant/${encodeURIComponent(String(id))}/document`, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;
@@ -531,9 +531,9 @@ export class AdministrationService {
         }
 
         const response: Observable<HttpResponse<any>> = this.httpClient.put(`${this.basePath}/administration/boardGrant/${encodeURIComponent(String(id))}`, formData, headers);
-        if (observe == 'body') {
+        if (observe === 'body') {
                return response.pipe(
-                   map(httpResponse => <any>(httpResponse.response))
+                   map((httpResponse: HttpResponse) => <any>(httpResponse.response))
                );
         }
         return response;

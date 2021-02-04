@@ -14,4 +14,5 @@
 export interface ContactMembersDTO { 
     subject: string;
     message: string;
+    attachments: Array<string>;
 }
