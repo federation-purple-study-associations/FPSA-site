@@ -282,19 +282,15 @@ export class UserService {
      * @param attachments 
      
      */
-    public contactMembers(subject: string, message: string, attachments: Blob, observe?: 'body', headers?: Headers): Observable<any>;
-    public contactMembers(subject: string, message: string, attachments: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public contactMembers(subject: string, message: string, attachments: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public contactMembers(subject: string, message: string, attachments?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public contactMembers(subject: string, message: string, attachments?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public contactMembers(subject: string, message: string, attachments?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (subject === null || subject === undefined){
             throw new Error('Required parameter subject was null or undefined when calling contactMembers.');
         }
 
         if (message === null || message === undefined){
             throw new Error('Required parameter message was null or undefined when calling contactMembers.');
-        }
-
-        if (attachments === null || attachments === undefined){
-            throw new Error('Required parameter attachments was null or undefined when calling contactMembers.');
         }
 
         headers['Accept'] = 'application/json';
