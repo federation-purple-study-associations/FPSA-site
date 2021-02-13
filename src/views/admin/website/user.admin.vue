@@ -310,6 +310,7 @@ export default class BoardAdmin extends Vue {
         this.userForDialog.establishment,
         this.userForDialog.kvk,
         this.userForDialog.websiteUrl,
+        this.userForDialog.boardTransfer,
         this.userForDialog.roleId,
         this.photo,
         'response',
@@ -331,6 +332,7 @@ export default class BoardAdmin extends Vue {
         this.userForDialog.websiteUrl,
         this.userForDialog.roleId,
         this.photo,
+        this.userForDialog.boardTransfer,
         'response',
       ).subscribe(this.handleSucces, this.handleError);
     }

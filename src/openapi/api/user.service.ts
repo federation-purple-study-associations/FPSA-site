@@ -400,11 +400,12 @@ export class UserService {
      * @param websiteUrl 
      * @param roleId 
      * @param photo 
+     * @param boardTransfer 
      
      */
-    public userCreate(fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, roleId: number, photo: Blob, observe?: 'body', headers?: Headers): Observable<any>;
-    public userCreate(fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, roleId: number, photo: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public userCreate(fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, roleId: number, photo: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public userCreate(fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, roleId: number, photo: Blob, boardTransfer?: string, observe?: 'body', headers?: Headers): Observable<any>;
+    public userCreate(fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, roleId: number, photo: Blob, boardTransfer?: string, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public userCreate(fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, roleId: number, photo: Blob, boardTransfer?: string, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (fullName === null || fullName === undefined){
             throw new Error('Required parameter fullName was null or undefined when calling userCreate.');
         }
@@ -458,6 +459,9 @@ export class UserService {
         }
         if (websiteUrl !== undefined) {
             formData.append('websiteUrl', <any>websiteUrl);
+        }
+        if (boardTransfer !== undefined) {
+            formData.append('boardTransfer', <any>boardTransfer);
         }
         if (roleId !== undefined) {
             formData.append('roleId', <any>roleId);
@@ -652,13 +656,14 @@ export class UserService {
      * @param establishment 
      * @param kvk 
      * @param websiteUrl 
+     * @param boardTransfer 
      * @param roleId 
      * @param photo 
      
      */
-    public userUpdate(id: number, fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, roleId: number, photo?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
-    public userUpdate(id: number, fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, roleId: number, photo?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public userUpdate(id: number, fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, roleId: number, photo?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public userUpdate(id: number, fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, boardTransfer: string, roleId: number, photo?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public userUpdate(id: number, fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, boardTransfer: string, roleId: number, photo?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public userUpdate(id: number, fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, boardTransfer: string, roleId: number, photo?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (id === null || id === undefined){
             throw new Error('Required parameter id was null or undefined when calling userUpdate.');
         }
@@ -687,6 +692,10 @@ export class UserService {
             throw new Error('Required parameter websiteUrl was null or undefined when calling userUpdate.');
         }
 
+        if (boardTransfer === null || boardTransfer === undefined){
+            throw new Error('Required parameter boardTransfer was null or undefined when calling userUpdate.');
+        }
+
         if (roleId === null || roleId === undefined){
             throw new Error('Required parameter roleId was null or undefined when calling userUpdate.');
         }
@@ -712,6 +721,9 @@ export class UserService {
         }
         if (websiteUrl !== undefined) {
             formData.append('websiteUrl', <any>websiteUrl);
+        }
+        if (boardTransfer !== undefined) {
+            formData.append('boardTransfer', <any>boardTransfer);
         }
         if (roleId !== undefined) {
             formData.append('roleId', <any>roleId);
