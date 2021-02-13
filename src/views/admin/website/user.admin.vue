@@ -38,6 +38,9 @@
             <b-form-group :label="$t('kvk')">
               <b-form-input type="number" v-model.number="userForDialog.kvk"></b-form-input>
             </b-form-group>
+            <b-form-group :label="$t('boardTransfer')">
+              <b-form-input v-model="userForDialog.boardTransfer"></b-form-input>
+            </b-form-group>
             <b-form-group :label="$t('website')">
               <b-form-input v-model="userForDialog.websiteUrl"></b-form-input>
             </b-form-group>
@@ -156,6 +159,7 @@ export default class BoardAdmin extends Vue {
     establishment: '',
     kvk: 0,
     roleId: 2,
+    boardTransfer: '',
     recieveEmailUpdatesEvents: true,
     websiteUrl: 'https://',
   };
@@ -182,6 +186,7 @@ export default class BoardAdmin extends Vue {
     { label: 'Instituut', field: 'academy' },
     { label: 'Vestiging', field: 'establishment' },
     { label: 'KvK', field: 'kvk' },
+    { label: 'Bestuurswissel in', field: 'boardTransfer' },
     { label: 'Lid sinds', field: 'memberSince' },
   ];
 
@@ -267,6 +272,7 @@ export default class BoardAdmin extends Vue {
       establishment: '',
       kvk: 0,
       roleId: 2,
+      boardTransfer: '',
       recieveEmailUpdatesEvents: false,
       websiteUrl: 'https://',
     };
