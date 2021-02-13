@@ -210,6 +210,11 @@ export default class BoardAdmin extends Vue {
         sortable: true,
       },
       {
+        key: 'boardTransfer',
+        label: this.$t('boardTransfer').toString(),
+        sortable: true,
+      },
+      {
         key: 'role',
         label: this.$t('role').toString(),
         sortable: true,

@@ -16,4 +16,5 @@ export interface UserSummaryDTO {
     fullName: string;
     email: string;
     role: string;
+    boardTransfer: string;
 }
