@@ -65,7 +65,7 @@ export default class Agenda extends Vue {
   private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
   private page = 1;
-  private readonly pageSize = 25;
+  private readonly pageSize = 5;
   private count = 0;
   private inPast: boolean = false;
 
