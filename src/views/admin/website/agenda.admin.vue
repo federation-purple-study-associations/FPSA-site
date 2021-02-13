@@ -102,7 +102,7 @@ export default class AgendaAdmin extends Vue {
 
   // Pagination
   private page = 1;
-  private readonly pageSize = 25;
+  private readonly pageSize = 5;
   private count = 0;
   private inPast = false;
 
