@@ -15,10 +15,10 @@
         <b-col class="mb-3 mt-3" v-for="item in row.columns" v-bind:key="item.id" md="4">
           <a :href="item.card.websiteUrl" target="_blank" v-if="item.active">
             <b-card class="members__card">
+              <div style="members__card-img">
+                  <img :src="url + '/user/photo?id=' + item.card.id" style="max-width: 100%; max-height: 100px;"/><br>
+                </div>
               <b-card-text>
-                  <div style="max-width: 100%; max-height: 100px; text-align: center; margin-bottom: 10px;">
-                    <img :src="url + '/user/photo?id=' + item.card.id" style="max-width: 100%; max-height: 100px;"/><br>
-                  </div>
                   {{item.card.fullName}}
               </b-card-text>
             </b-card>
@@ -79,10 +79,22 @@ interface IGrid {
   &__card {
     cursor: pointer;
     transition: transform .2s;
+    height: 180px;
+
+    .card-text {
+      position: absolute;
+      bottom: 20px;
+    }
 
     &:hover {
       transform: scale(1.2);
     }
+  }
+
+  &__card-img {
+    width: 100%;
+    max-height: 100px;
+    text-align: center;
   }
 }
 </style>
