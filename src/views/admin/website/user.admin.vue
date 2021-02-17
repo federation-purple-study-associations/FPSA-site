@@ -282,6 +282,7 @@ export default class BoardAdmin extends Vue {
       websiteUrl: 'https://',
     };
 
+    this.attachment = new Blob();
     this.edit = false;
     this.dialogUserVisible = true;
   }
@@ -293,6 +294,7 @@ export default class BoardAdmin extends Vue {
   private async openEditDialog(id: number) {
     this.userService.userGetOne((await id), 'response').subscribe((res: HttpResponse<User>) => {
       this.userForDialog = res.response;
+      this.attachment = new Blob();
       this.edit = true;
       this.dialogUserVisible = true;
     });
