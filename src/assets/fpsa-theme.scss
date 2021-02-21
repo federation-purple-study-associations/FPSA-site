@@ -6,9 +6,11 @@
 
 html {
     scroll-behavior: smooth;
-    font-family: fpsaFont !important;
 }
 
+h1, h2, h3, div, a, button, p, span {
+    font-family: fpsaFont;
+}
 
 
 .btn-primary {
