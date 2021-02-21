@@ -5,7 +5,7 @@
         <b-row align-v="center" align-h="center" class="h-100">
           <b-col lg="5" class="splash--column mb-5">
             <h1>{{$t('splash.umbrella_association')}} FPSA</h1>
-            <div class="mb-3 text-left">{{$t('splash.welcome')}}</div>
+            <div class="mb-3 text-justify">{{$t('splash.welcome')}}</div>
             <div class="splash__button-wrapper">
               <router-link to="application"><b-button variant="primary" pill>{{$t('splash.register')}}</b-button></router-link>
               <b-button variant="primary" pill @click="scrollMeTo('about-us')">{{$t('splash.read_more')}}</b-button>
@@ -23,13 +23,10 @@
         <b-row class="mb-3 pt-5">
           <b-col>
             <h1 ref="about-us">{{$t('about_us.title')}}</h1>
-            <span>{{$t('about_us.content_intro')}}</span>
-            <br><br>
-            <span>{{$t('about_us.content_workshops')}}</span>
-            <br><br>
-            <span>{{$t('about_us.content_partner')}}</span>
-            <br><br>
-            <span>{{$t('about_us.content_role')}}</span>
+            <div class="text-justify mb-3">{{$t('about_us.content_intro')}}</div>
+            <div class="text-justify mb-3">{{$t('about_us.content_workshops')}}</div>
+            <div class="text-justify mb-3">{{$t('about_us.content_partner')}}</div>
+            <div class="text-justify mb-3">{{$t('about_us.content_role')}}</div>
           </b-col>
         </b-row> 
 
@@ -59,11 +56,6 @@
         </b-col>
       </b-row> 
     </b-container>
-
-    <div class="social-media">
-      <a href="https://www.facebook.com/FederationOfPurpleStudyAssociations/" target="_blank"><b-button pill class="social-media__button social-media__button--facebook">f</b-button></a>
-      <a href="https://www.linkedin.com/company/federation-of-purple-study-associations/" target="_blank"><b-button pill class="social-media__button social-media__button--linkedin">in</b-button></a>
-    </div>
   </div>
 </template>
 
@@ -72,16 +64,12 @@ import { Component, Vue } from 'vue-property-decorator';
 import { AgendaSummaryDTO } from '@/openapi/model/agendaSummaryDTO';
 import { AgendaService } from '@/openapi/api/agenda.service';
 import openApiContainer from '@/openapi.container';
-import moment from 'moment';
 import HttpResponse from '../openapi/HttpResponse';
 import { StatisticService } from '../openapi/api/statistic.service';
 import { AgendaAllDTO } from '../openapi/model/agendaAllDTO';
-import { UserService } from '@/openapi/api/user.service';
-import { NewApplication } from '@/openapi/model/newApplication';
 
 @Component({})
 export default class Home extends Vue {
-  private moment = moment;
   private agendaItems: AgendaSummaryDTO[] = [];
   private readonly url: string | undefined = process.env.VUE_APP_API_URL;
 
@@ -116,7 +104,8 @@ export default class Home extends Vue {
 
 <style lang="scss" scoped>
 .splash {
-  background: linear-gradient(138deg, $color-active 80%, $color-primary 100%);
+  // background: linear-gradient(138deg, $color-active 80%, $color-primary 100%);
+  background: $color-active;
   height: calc(100vh - 55px);
 
   &--column {
@@ -158,49 +147,6 @@ export default class Home extends Vue {
   &__link {
     &--no-underline {
       text-decoration: none;
-    }
-  }
-}
-
-.social-media {
-  position: fixed;
-  right: 30px;
-  bottom: 30px;
-  display: flex; 
-  flex-direction: column;
-  z-index: 999;
-
-  &__button {
-    background: rgb(245, 242, 255);
-    color: #EE2DB6;
-    font-weight: 900;
-    line-height: 31px;
-    width: 44px;
-    clear: both;
-    margin-top: 10px;
-    font-family: 'BOGDAN BALA';
-    border: none;
-
-    &--instagram {
-      padding: 6px;
-
-      & img {
-        width: 25px;
-      }
-    }
-
-    &--linkedin {
-      font-size: 20px;
-    }
-
-    &--facebook {
-      font-size: 25px;
-    }
-
-    &:hover, &:active, &:focus {
-      background: $color-active;
-      border: none;
-      color: $color-primary;
     }
   }
 }

@@ -1,7 +1,7 @@
 /* theme color */
 @font-face {
     font-family: fpsaFont;
-    src: url(/font-test.ttf);
+    src: url(/Pragmatica-ExtraLight.ttf);
 }
 
 html {
@@ -10,6 +10,10 @@ html {
 
 h1, h2, h3, div, a, button, p, span {
     font-family: fpsaFont;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 800;
 }
 
 
