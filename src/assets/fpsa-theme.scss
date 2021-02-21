@@ -1,12 +1,12 @@
 /* theme color */
 @font-face {
     font-family: fpsaFont;
-    src: url(/HelveticaNeue.ttf);
+    src: url(HelveticaNeue.ttf);
 }
 
 html {
     scroll-behavior: smooth;
-    font-family: fpsaFont;
+    font-family: fpsaFont !important;
 }
 
 
