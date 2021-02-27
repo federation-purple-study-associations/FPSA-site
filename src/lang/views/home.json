@@ -12,6 +12,10 @@
             "location": "Locatie: ",
             "date": "Datum: "
         },
+        "social": {
+            "title": "Volg ons op social media!",
+            "description": "Wil je altijd op de hoogte zijn van de laatste nieuwtjes en de nieuwste activiteiten van FPSA? Volg ons dan op Facebook of via LinkedIn!"
+        },
         "about_us": {
             "title": "Over ons",
             "content_intro": "Koepelvereniging Federation of Purple Study Associations (FPSA) is begin 2020 opgericht om de studieverenigingen van Fontys te vertegenwoordigen en hen te helpen met zaken waar zij tegenaan lopen. Denk hierbij aan invulling van eigen ruimte voor de vereniging, financiële vraagstukken, bestuurswisselingen, etc.",
@@ -39,6 +43,10 @@
             "title": "Agenda",
             "location": "Location: ",
             "date": "Date: "
+        },
+        "social": {
+            "title": "Follow us on social media!",
+            "description": "Do you always want to be up to date with the latest news and activities of FPSA? Folow us on Facebook or via LinkedIn!"
         },
         "about_us": {
             "title": "About us",

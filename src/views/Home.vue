@@ -18,11 +18,11 @@
       </b-container>
     </div>
 
-    <div class="more-information dark-background">
+    <div class="more-information">
       <b-container>
         <b-row class="mb-3 pt-5">
           <b-col>
-            <h1 ref="about-us">{{$t('about_us.title')}}</h1>
+            <h1 class="more-information__title--purple" ref="about-us">{{$t('about_us.title')}}</h1>
             <div class="text-justify mb-3">{{$t('about_us.content_intro')}}</div>
             <div class="text-justify mb-3">{{$t('about_us.content_workshops')}}</div>
             <div class="text-justify mb-3">{{$t('about_us.content_partner')}}</div>
@@ -32,11 +32,29 @@
 
         <b-row class="pb-5 mt-3">
           <b-col>
-            <h1>{{$t('documents.title')}}</h1>
+            <h1 class="more-information__title--purple">{{$t('documents.title')}}</h1>
             <a href="/statuten.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.by_law')}}</a><br>
             <a href="/huishoudelijk-regelement.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.house_rules')}}</a><br>
             <a href="/privacy.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.privacy')}}</a><br>
             <a href="/gedragscode.pdf" target="_blank"><b-icon-paperclip/>{{$t('documents.code_of_conduct')}}</a>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
+
+    <div class="social-media dark-background">
+      <b-container>
+        <b-row class="mb-3 pt-5">
+          <b-col>
+            <h1>{{$t('social.title')}}</h1>
+            <div class="text-justify mb-3">{{$t('social.description')}}</div>
+          </b-col>
+        </b-row> 
+
+        <b-row class="pb-5 mt-3" align-h="center">
+          <b-col cols="2">
+            <a href="https://www.facebook.com/FederationOfPurpleStudyAssociations/" target="_blank" class="social-media__button mr-3"><b-icon-facebook font-scale="3" class="rounded-circle"></b-icon-facebook></a>
+            <a href="https://www.linkedin.com/company/federation-of-purple-study-associations/" target="_blank" class="social-media__button ml-3"><b-icon-linkedin font-scale="3"></b-icon-linkedin></a>
           </b-col>
         </b-row>
       </b-container>
@@ -104,8 +122,6 @@ export default class Home extends Vue {
 
 <style lang="scss" scoped>
 .splash {
-  // background: linear-gradient(138deg, $color-active 80%, $color-primary 100%);
-  background: $color-active;
   height: calc(100vh - 55px);
 
   &--column {
@@ -123,8 +139,16 @@ export default class Home extends Vue {
   }
 }
 
-.more-information {
+.dark-background {
   background: $color-active;
+}
+
+.more-information {
+  &__title {
+    &--purple {
+      color: $color-active;
+    }
+  }
 }
 
 .contact {
