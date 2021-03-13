@@ -109,8 +109,6 @@
                 <img src="/logo.png" style="width: 100px"/>
               </div>
               <div>
-                Beste koepelgenootjes,<br>
-                <br>
                 <div v-html="contactForm.message"></div>
                 <br>
                 Met vriendelijke groeten,<br>
