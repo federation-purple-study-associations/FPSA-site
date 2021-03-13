@@ -657,13 +657,14 @@ export class UserService {
      * @param kvk 
      * @param websiteUrl 
      * @param boardTransfer 
+     * @param isSleeping 
      * @param roleId 
      * @param photo 
      
      */
-    public userUpdate(id: number, fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, boardTransfer: string, roleId: number, photo?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
-    public userUpdate(id: number, fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, boardTransfer: string, roleId: number, photo?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
-    public userUpdate(id: number, fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, boardTransfer: string, roleId: number, photo?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
+    public userUpdate(id: number, fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, boardTransfer: string, isSleeping: boolean, roleId: number, photo?: Blob, observe?: 'body', headers?: Headers): Observable<any>;
+    public userUpdate(id: number, fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, boardTransfer: string, isSleeping: boolean, roleId: number, photo?: Blob, observe?: 'response', headers?: Headers): Observable<HttpResponse<any>>;
+    public userUpdate(id: number, fullName: string, email: string, academy: string, establishment: string, kvk: number, websiteUrl: string, boardTransfer: string, isSleeping: boolean, roleId: number, photo?: Blob, observe: any = 'body', headers: Headers = {}): Observable<any> {
         if (id === null || id === undefined){
             throw new Error('Required parameter id was null or undefined when calling userUpdate.');
         }
@@ -696,6 +697,10 @@ export class UserService {
             throw new Error('Required parameter boardTransfer was null or undefined when calling userUpdate.');
         }
 
+        if (isSleeping === null || isSleeping === undefined){
+            throw new Error('Required parameter isSleeping was null or undefined when calling userUpdate.');
+        }
+
         if (roleId === null || roleId === undefined){
             throw new Error('Required parameter roleId was null or undefined when calling userUpdate.');
         }
@@ -724,6 +729,9 @@ export class UserService {
         }
         if (boardTransfer !== undefined) {
             formData.append('boardTransfer', <any>boardTransfer);
+        }
+        if (isSleeping !== undefined) {
+            formData.append('isSleeping', <any>isSleeping);
         }
         if (roleId !== undefined) {
             formData.append('roleId', <any>roleId);

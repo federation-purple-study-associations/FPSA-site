@@ -20,6 +20,7 @@ export interface User {
     kvk: number;
     boardTransfer: string;
     websiteUrl: string;
+    isSleeping: boolean;
     lastLogin?: string;
     memberSince?: string;
     recieveEmailUpdatesEvents: boolean;

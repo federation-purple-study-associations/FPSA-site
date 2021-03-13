@@ -17,4 +17,5 @@ export interface UserSummaryDTO {
     email: string;
     role: string;
     boardTransfer: string;
+    isSleeping: boolean;
 }

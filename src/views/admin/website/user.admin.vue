@@ -12,6 +12,9 @@
       <b-row>
         <b-col>
           <b-table striped hover sticky-header ref="tableUsers" :items="getUsers" :fields="fieldsUsers" class="clickable" @row-clicked="rowClicked">
+            <template v-slot:cell(isSleeping)="row">
+              <b-form-checkbox disabled v-model="row.item.isSleeping" v-if="row.item.role !== 'FPSA' && row.item.role !== 'Fontys'"></b-form-checkbox>
+            </template>
           </b-table>
         </b-col>
       </b-row>
@@ -40,6 +43,9 @@
             </b-form-group>
             <b-form-group :label="$t('boardTransfer')">
               <b-form-input v-model="userForDialog.boardTransfer"></b-form-input>
+            </b-form-group>
+            <b-form-group :label="$t('isSleeping')">
+              <b-form-checkbox v-model="userForDialog.isSleeping"></b-form-checkbox>
             </b-form-group>
             <b-form-group :label="$t('website')">
               <b-form-input v-model="userForDialog.websiteUrl"></b-form-input>
@@ -158,6 +164,7 @@ export default class BoardAdmin extends Vue {
     kvk: 0,
     roleId: 2,
     boardTransfer: '',
+    isSleeping: false,
     recieveEmailUpdatesEvents: true,
     websiteUrl: 'https://',
   };
@@ -211,6 +218,11 @@ export default class BoardAdmin extends Vue {
         key: 'boardTransfer',
         label: this.$t('boardTransfer').toString(),
         sortable: true,
+      },
+      {
+        key: 'isSleeping',
+        label: this.$t('isSleeping').toString(),
+        sortable: false,
       },
       {
         key: 'role',
@@ -276,6 +288,7 @@ export default class BoardAdmin extends Vue {
       kvk: 0,
       roleId: 2,
       boardTransfer: '',
+      isSleeping: false,
       recieveEmailUpdatesEvents: false,
       websiteUrl: 'https://',
     };
@@ -311,6 +324,7 @@ export default class BoardAdmin extends Vue {
         this.userForDialog.kvk,
         this.userForDialog.websiteUrl,
         this.userForDialog.boardTransfer,
+        this.userForDialog.isSleeping,
         this.userForDialog.roleId,
         this.photo,
         'response',
