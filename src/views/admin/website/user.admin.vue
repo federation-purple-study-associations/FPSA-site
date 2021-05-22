@@ -274,7 +274,7 @@ export default class BoardAdmin extends Vue {
       { value: 3, text: this.$t('roles.fontys').toString()},
     ];
 
-    this.selectOptions = [
+    this.selectOptionsNationality = [
       { value: 0, text: this.$t('nationalities.dutch').toString() },
       { value: 1, text: this.$t('nationalities.international').toString() },
     ];
