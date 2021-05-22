@@ -62,6 +62,7 @@ import { ActivityPlan } from '@/openapi/model/activityPlan';
 import { ResultActivityPlan } from '@/openapi/model/resultActivityPlan';
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
+import { User } from '../../../openapi/model/user';
 
 @Component({})
 export default class OverviewActivityPlan extends Vue {
@@ -72,7 +73,7 @@ export default class OverviewActivityPlan extends Vue {
     private dialogActivityVisible: boolean = false;
     private edit: boolean = false;
     private loading: boolean = false;
-    private activityPlan: ActivityPlan = { id: 0, delivered: '', start: '', end: '', sendToCommission: '', user: {id: 0, email: '', isSleeping: false, fullName: '', boardTransfer: '', websiteUrl: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
+    private activityPlan: ActivityPlan = { id: 0, delivered: '', start: '', end: '', sendToCommission: '', user: {id: 0, email: '', nationality: User.NationalityEnum.Dutch, isSleeping: false, fullName: '', boardTransfer: '', websiteUrl: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
     private activityPlanDocument?: Blob = new Blob();
 
     private dialogLinksVisible: boolean = false;
@@ -140,7 +141,7 @@ export default class OverviewActivityPlan extends Vue {
 
     private openAddDialog() {
       this.activityPlanDocument = undefined;
-      this.activityPlan = { id: 0, delivered: '', start: '', end: '', sendToCommission: '', user: {id: 0, email: '', isSleeping: false, fullName: '', boardTransfer: '', websiteUrl: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
+      this.activityPlan = { id: 0, delivered: '', start: '', end: '', sendToCommission: '', user: {id: 0, email: '', nationality: User.NationalityEnum.Dutch, isSleeping: false, fullName: '', boardTransfer: '', websiteUrl: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
 
       this.edit = false;
       this.dialogActivityVisible = true;

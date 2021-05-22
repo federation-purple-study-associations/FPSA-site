@@ -21,6 +21,11 @@
             "association": "Vereniging",
             "fontys": "Fontys"
         },
+        "nationality": "Nationaliteit",
+        "nationalities": {
+            "dutch": "Nederlands",
+            "international": "Internationaal"
+        },
         "export": "Exporteer leden",
         "dialog": {
             "title_edit": "Gebruiker bewerken",
@@ -71,6 +76,11 @@
             "fpsa": "FPSA",
             "association": "Association",
             "fontys": "Fontys"
+        },
+        "nationality": "Nationality",
+        "nationalities": {
+            "dutch": "Dutch",
+            "international": "International"
         },
         "export": "Export members",
         "dialog": {

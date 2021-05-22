@@ -59,6 +59,7 @@ import { ResultActivityPlan } from '@/openapi/model/resultActivityPlan';
 import { ResultAnnualReport } from '@/openapi/model/resultAnnualReport';
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
+import { User } from '../../../openapi/model/user';
 
 @Component({})
 export default class OverviewAnnualReport extends Vue {
@@ -69,7 +70,7 @@ export default class OverviewAnnualReport extends Vue {
     private dialogAnnualVisible: boolean = false;
     private edit: boolean = false;
     private loading: boolean = false;
-    private annualReport: AnnualReport = { id: 0, delivered: '', sendToCommission: '', user: {id: 0, email: '', isSleeping: false, fullName: '', boardTransfer: '', websiteUrl: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
+    private annualReport: AnnualReport = { id: 0, delivered: '', sendToCommission: '', user: {id: 0, email: '', nationality: User.NationalityEnum.Dutch, isSleeping: false, fullName: '', boardTransfer: '', websiteUrl: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
     private annualReportDocument?: Blob = new Blob();
 
     private count: number = 0;
@@ -123,7 +124,7 @@ export default class OverviewAnnualReport extends Vue {
 
     private openAddDialog() {
       this.annualReportDocument = undefined;
-      this.annualReport = { id: 0, delivered: '', sendToCommission: '',  user: {id: 0, email: '', isSleeping: false, websiteUrl: '', fullName: '', boardTransfer: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
+      this.annualReport = { id: 0, delivered: '', sendToCommission: '',  user: {id: 0, email: '', nationality: User.NationalityEnum.Dutch, isSleeping: false, websiteUrl: '', fullName: '', boardTransfer: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
 
       this.edit = false;
       this.dialogAnnualVisible = true;

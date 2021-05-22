@@ -60,6 +60,7 @@ export default class WelcomeAdmin extends Vue {
     lastLogin: '',
     roleId: 0,
     boardTransfer: '',
+    nationality: User.NationalityEnum.Dutch,
     isSleeping: false,
     recieveEmailUpdatesEvents: false,
     websiteUrl: '',

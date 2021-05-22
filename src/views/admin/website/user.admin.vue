@@ -44,6 +44,9 @@
             <b-form-group :label="$t('boardTransfer')">
               <b-form-input v-model="userForDialog.boardTransfer"></b-form-input>
             </b-form-group>
+            <b-form-group :label="$t('nationality')">
+              <b-form-select v-model="userForDialog.nationality" :options="selectOptionsNationality"></b-form-select>
+            </b-form-group>
             <b-form-group :label="$t('isSleeping')">
               <b-form-checkbox v-model="userForDialog.isSleeping"></b-form-checkbox>
             </b-form-group>
@@ -154,6 +157,7 @@ export default class BoardAdmin extends Vue {
   // Dialog user
   private dialogUserVisible = false;
   private selectOptions: any[] = [];
+  private selectOptionsNationality: any[] = [];
   private edit = false;
   private userForDialog: User = {
     id: 0,
@@ -164,6 +168,7 @@ export default class BoardAdmin extends Vue {
     kvk: 0,
     roleId: 2,
     boardTransfer: '',
+    nationality: User.NationalityEnum.Dutch,
     isSleeping: false,
     recieveEmailUpdatesEvents: true,
     websiteUrl: 'https://',
@@ -268,6 +273,11 @@ export default class BoardAdmin extends Vue {
       { value: 2, text: this.$t('roles.association').toString() },
       { value: 3, text: this.$t('roles.fontys').toString()},
     ];
+
+    this.selectOptions = [
+      { value: 0, text: this.$t('nationalities.dutch').toString() },
+      { value: 1, text: this.$t('nationalities.international').toString() },
+    ];
   }
 
   private getUsers() {
@@ -288,6 +298,7 @@ export default class BoardAdmin extends Vue {
       kvk: 0,
       roleId: 2,
       boardTransfer: '',
+      nationality: User.NationalityEnum.Dutch,
       isSleeping: false,
       recieveEmailUpdatesEvents: false,
       websiteUrl: 'https://',

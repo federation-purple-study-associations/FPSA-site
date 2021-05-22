@@ -98,6 +98,7 @@ import { ResultActivityPlan } from '@/openapi/model/resultActivityPlan';
 import { ResultBoardGrant } from '@/openapi/model/resultBoardGrant';
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
+import { User } from '../../../openapi/model/user';
 
 @Component({})
 export default class OverviewBoardGrants extends Vue {
@@ -110,7 +111,7 @@ export default class OverviewBoardGrants extends Vue {
     private dialogConfirmationVisible: boolean = false;
     private edit: boolean = false;
     private loading: boolean = false;
-    private boardGrant: BoardGrant = { id: 0, delivered: '', checked: false, checkedAt: '', remarks: '', user: {id: 0, email: '', isSleeping: false, boardTransfer: '', websiteUrl: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
+    private boardGrant: BoardGrant = { id: 0, delivered: '', checked: false, checkedAt: '', remarks: '', user: {id: 0, email: '', nationality: User.NationalityEnum.Dutch, isSleeping: false, boardTransfer: '', websiteUrl: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
     private boardGrantDocument?: Blob = new Blob();
 
     private count: number = 0;
@@ -171,7 +172,7 @@ export default class OverviewBoardGrants extends Vue {
 
     private openAddDialog() {
       this.boardGrantDocument = undefined;
-      this.boardGrant = { id: 0, delivered: '', checked: false, checkedAt: '', remarks: '', user: {id: 0, email: '', isSleeping: false, websiteUrl: '', boardTransfer: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
+      this.boardGrant = { id: 0, delivered: '', checked: false, checkedAt: '', remarks: '', user: {id: 0, email: '', nationality: User.NationalityEnum.Dutch, isSleeping: false, websiteUrl: '', boardTransfer: '', fullName: '', memberSince: '', academy: '', roleId: 0, establishment: '', kvk: 0, recieveEmailUpdatesEvents: false} };
 
       this.edit = false;
       this.dialogActivityVisible = true;

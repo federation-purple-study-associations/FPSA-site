@@ -21,8 +21,16 @@ export interface User {
     boardTransfer: string;
     websiteUrl: string;
     isSleeping: boolean;
+    nationality: User.NationalityEnum;
     lastLogin?: string;
     memberSince?: string;
     recieveEmailUpdatesEvents: boolean;
     roleId: number;
+}
+export namespace User {
+    export type NationalityEnum = 'DUTCH' | 'INTERNATIONAL';
+    export const NationalityEnum = {
+        Dutch: 'DUTCH' as NationalityEnum,
+        International: 'INTERNATIONAL' as NationalityEnum
+    }
 }
