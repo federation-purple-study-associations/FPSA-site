@@ -38,7 +38,7 @@ jobs:
 
 # Deploy container
     - name: Deploy production
-      uses: elseu/sdu-helm-deploy-action@0.0.5
+      uses: elseu/sdu-helm-deploy-action@0.0.9
       if: endsWith(github.ref, '/master')
       with:
         release: 'fpsa-site'
@@ -53,7 +53,7 @@ jobs:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
 
     - name: Deploy beta
-      uses: elseu/sdu-helm-deploy-action@0.0.5
+      uses: elseu/sdu-helm-deploy-action@0.0.9
       if: endsWith(github.ref, '/beta')
       with:
         release: 'beta-fpsa-site'
